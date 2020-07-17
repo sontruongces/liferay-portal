@@ -38,13 +38,11 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -89,93 +87,144 @@ public class ProductBundleProductsPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathFetchByProductBundleId;
+	private FinderPath _finderPathWithPaginationFindByProductBundleId;
+	private FinderPath _finderPathWithoutPaginationFindByProductBundleId;
 	private FinderPath _finderPathCountByProductBundleId;
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or throws a <code>NoSuchProductBundleProductsException</code> if it could not be found.
+	 * Returns all the product bundle productses where productBundleId = &#63;.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle products
-	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 * @return the matching product bundle productses
 	 */
 	@Override
-	public ProductBundleProducts findByProductBundleId(long productBundleId)
-		throws NoSuchProductBundleProductsException {
+	public List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId) {
 
-		ProductBundleProducts productBundleProducts = fetchByProductBundleId(
-			productBundleId);
-
-		if (productBundleProducts == null) {
-			StringBundler sb = new StringBundler(4);
-
-			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			sb.append("productBundleId=");
-			sb.append(productBundleId);
-
-			sb.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(sb.toString());
-			}
-
-			throw new NoSuchProductBundleProductsException(sb.toString());
-		}
-
-		return productBundleProducts;
+		return findByProductBundleId(
+			productBundleId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @return the range of matching product bundle productses
 	 */
 	@Override
-	public ProductBundleProducts fetchByProductBundleId(long productBundleId) {
-		return fetchByProductBundleId(productBundleId, true);
+	public List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end) {
+
+		return findByProductBundleId(productBundleId, start, end, null);
 	}
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
 	 *
 	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product bundle productses
+	 */
+	@Override
+	public List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return findByProductBundleId(
+			productBundleId, start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 * @return the ordered range of matching product bundle productses
 	 */
 	@Override
-	public ProductBundleProducts fetchByProductBundleId(
-		long productBundleId, boolean useFinderCache) {
+	public List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator,
+		boolean useFinderCache) {
 
+		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		if (useFinderCache) {
-			finderArgs = new Object[] {productBundleId};
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindByProductBundleId;
+				finderArgs = new Object[] {productBundleId};
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindByProductBundleId;
+			finderArgs = new Object[] {
+				productBundleId, start, end, orderByComparator
+			};
 		}
 
-		Object result = null;
+		List<ProductBundleProducts> list = null;
 
 		if (useFinderCache) {
-			result = finderCache.getResult(
-				_finderPathFetchByProductBundleId, finderArgs, this);
-		}
+			list = (List<ProductBundleProducts>)finderCache.getResult(
+				finderPath, finderArgs, this);
 
-		if (result instanceof ProductBundleProducts) {
-			ProductBundleProducts productBundleProducts =
-				(ProductBundleProducts)result;
+			if ((list != null) && !list.isEmpty()) {
+				for (ProductBundleProducts productBundleProducts : list) {
+					if (productBundleId !=
+							productBundleProducts.getProductBundleId()) {
 
-			if (productBundleId != productBundleProducts.getProductBundleId()) {
-				result = null;
+						list = null;
+
+						break;
+					}
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler sb = new StringBundler(3);
+		if (list == null) {
+			StringBundler sb = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					3 + (orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				sb = new StringBundler(3);
+			}
 
 			sb.append(_SQL_SELECT_PRODUCTBUNDLEPRODUCTS_WHERE);
 
 			sb.append(_FINDER_COLUMN_PRODUCTBUNDLEID_PRODUCTBUNDLEID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+			}
+			else {
+				sb.append(ProductBundleProductsModelImpl.ORDER_BY_JPQL);
+			}
 
 			String sql = sb.toString();
 
@@ -190,42 +239,18 @@ public class ProductBundleProductsPersistenceImpl
 
 				queryPos.add(productBundleId);
 
-				List<ProductBundleProducts> list = query.list();
+				list = (List<ProductBundleProducts>)QueryUtil.list(
+					query, getDialect(), start, end);
 
-				if (list.isEmpty()) {
-					if (useFinderCache) {
-						finderCache.putResult(
-							_finderPathFetchByProductBundleId, finderArgs,
-							list);
-					}
-				}
-				else {
-					if (list.size() > 1) {
-						Collections.sort(list, Collections.reverseOrder());
+				cacheResult(list);
 
-						if (_log.isWarnEnabled()) {
-							if (!useFinderCache) {
-								finderArgs = new Object[] {productBundleId};
-							}
-
-							_log.warn(
-								"ProductBundleProductsPersistenceImpl.fetchByProductBundleId(long, boolean) with parameters (" +
-									StringUtil.merge(finderArgs) +
-										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-						}
-					}
-
-					ProductBundleProducts productBundleProducts = list.get(0);
-
-					result = productBundleProducts;
-
-					cacheResult(productBundleProducts);
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
 				}
 			}
 			catch (Exception exception) {
 				if (useFinderCache) {
-					finderCache.removeResult(
-						_finderPathFetchByProductBundleId, finderArgs);
+					finderCache.removeResult(finderPath, finderArgs);
 				}
 
 				throw processException(exception);
@@ -235,28 +260,296 @@ public class ProductBundleProductsPersistenceImpl
 			}
 		}
 
-		if (result instanceof List<?>) {
+		return list;
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts findByProductBundleId_First(
+			long productBundleId,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException {
+
+		ProductBundleProducts productBundleProducts =
+			fetchByProductBundleId_First(productBundleId, orderByComparator);
+
+		if (productBundleProducts != null) {
+			return productBundleProducts;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("productBundleId=");
+		sb.append(productBundleId);
+
+		sb.append("}");
+
+		throw new NoSuchProductBundleProductsException(sb.toString());
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts fetchByProductBundleId_First(
+		long productBundleId,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		List<ProductBundleProducts> list = findByProductBundleId(
+			productBundleId, 0, 1, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts findByProductBundleId_Last(
+			long productBundleId,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException {
+
+		ProductBundleProducts productBundleProducts =
+			fetchByProductBundleId_Last(productBundleId, orderByComparator);
+
+		if (productBundleProducts != null) {
+			return productBundleProducts;
+		}
+
+		StringBundler sb = new StringBundler(4);
+
+		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		sb.append("productBundleId=");
+		sb.append(productBundleId);
+
+		sb.append("}");
+
+		throw new NoSuchProductBundleProductsException(sb.toString());
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	@Override
+	public ProductBundleProducts fetchByProductBundleId_Last(
+		long productBundleId,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		int count = countByProductBundleId(productBundleId);
+
+		if (count == 0) {
 			return null;
 		}
+
+		List<ProductBundleProducts> list = findByProductBundleId(
+			productBundleId, count - 1, count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the product bundle productses before and after the current product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleProductsPK the primary key of the current product bundle products
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product bundle products
+	 * @throws NoSuchProductBundleProductsException if a product bundle products with the primary key could not be found
+	 */
+	@Override
+	public ProductBundleProducts[] findByProductBundleId_PrevAndNext(
+			ProductBundleProductsPK productBundleProductsPK,
+			long productBundleId,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException {
+
+		ProductBundleProducts productBundleProducts = findByPrimaryKey(
+			productBundleProductsPK);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			ProductBundleProducts[] array = new ProductBundleProductsImpl[3];
+
+			array[0] = getByProductBundleId_PrevAndNext(
+				session, productBundleProducts, productBundleId,
+				orderByComparator, true);
+
+			array[1] = productBundleProducts;
+
+			array[2] = getByProductBundleId_PrevAndNext(
+				session, productBundleProducts, productBundleId,
+				orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected ProductBundleProducts getByProductBundleId_PrevAndNext(
+		Session session, ProductBundleProducts productBundleProducts,
+		long productBundleId,
+		OrderByComparator<ProductBundleProducts> orderByComparator,
+		boolean previous) {
+
+		StringBundler sb = null;
+
+		if (orderByComparator != null) {
+			sb = new StringBundler(
+				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
 		else {
-			return (ProductBundleProducts)result;
+			sb = new StringBundler(3);
+		}
+
+		sb.append(_SQL_SELECT_PRODUCTBUNDLEPRODUCTS_WHERE);
+
+		sb.append(_FINDER_COLUMN_PRODUCTBUNDLEID_PRODUCTBUNDLEID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields =
+				orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				sb.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(WHERE_GREATER_THAN);
+					}
+					else {
+						sb.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			sb.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				sb.append(_ORDER_BY_ENTITY_ALIAS);
+				sb.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						sb.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						sb.append(ORDER_BY_ASC);
+					}
+					else {
+						sb.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			sb.append(ProductBundleProductsModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = sb.toString();
+
+		Query query = session.createQuery(sql);
+
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+
+		QueryPos queryPos = QueryPos.getInstance(query);
+
+		queryPos.add(productBundleId);
+
+		if (orderByComparator != null) {
+			for (Object orderByConditionValue :
+					orderByComparator.getOrderByConditionValues(
+						productBundleProducts)) {
+
+				queryPos.add(orderByConditionValue);
+			}
+		}
+
+		List<ProductBundleProducts> list = query.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
 		}
 	}
 
 	/**
-	 * Removes the product bundle products where productBundleId = &#63; from the database.
+	 * Removes all the product bundle productses where productBundleId = &#63; from the database.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the product bundle products that was removed
 	 */
 	@Override
-	public ProductBundleProducts removeByProductBundleId(long productBundleId)
-		throws NoSuchProductBundleProductsException {
+	public void removeByProductBundleId(long productBundleId) {
+		for (ProductBundleProducts productBundleProducts :
+				findByProductBundleId(
+					productBundleId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null)) {
 
-		ProductBundleProducts productBundleProducts = findByProductBundleId(
-			productBundleId);
-
-		return remove(productBundleProducts);
+			remove(productBundleProducts);
+		}
 	}
 
 	/**
@@ -889,11 +1182,6 @@ public class ProductBundleProductsPersistenceImpl
 			entityCacheEnabled, ProductBundleProductsImpl.class,
 			productBundleProducts.getPrimaryKey(), productBundleProducts);
 
-		finderCache.putResult(
-			_finderPathFetchByProductBundleId,
-			new Object[] {productBundleProducts.getProductBundleId()},
-			productBundleProducts);
-
 		productBundleProducts.resetOriginalValues();
 	}
 
@@ -952,9 +1240,6 @@ public class ProductBundleProductsPersistenceImpl
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache(
-			(ProductBundleProductsModelImpl)productBundleProducts, true);
 	}
 
 	@Override
@@ -970,9 +1255,6 @@ public class ProductBundleProductsPersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, ProductBundleProductsImpl.class,
 				productBundleProducts.getPrimaryKey());
-
-			clearUniqueFindersCache(
-				(ProductBundleProductsModelImpl)productBundleProducts, true);
 		}
 	}
 
@@ -985,45 +1267,6 @@ public class ProductBundleProductsPersistenceImpl
 			entityCache.removeResult(
 				entityCacheEnabled, ProductBundleProductsImpl.class,
 				primaryKey);
-		}
-	}
-
-	protected void cacheUniqueFindersCache(
-		ProductBundleProductsModelImpl productBundleProductsModelImpl) {
-
-		Object[] args = new Object[] {
-			productBundleProductsModelImpl.getProductBundleId()
-		};
-
-		finderCache.putResult(
-			_finderPathCountByProductBundleId, args, Long.valueOf(1), false);
-		finderCache.putResult(
-			_finderPathFetchByProductBundleId, args,
-			productBundleProductsModelImpl, false);
-	}
-
-	protected void clearUniqueFindersCache(
-		ProductBundleProductsModelImpl productBundleProductsModelImpl,
-		boolean clearCurrent) {
-
-		if (clearCurrent) {
-			Object[] args = new Object[] {
-				productBundleProductsModelImpl.getProductBundleId()
-			};
-
-			finderCache.removeResult(_finderPathCountByProductBundleId, args);
-			finderCache.removeResult(_finderPathFetchByProductBundleId, args);
-		}
-
-		if ((productBundleProductsModelImpl.getColumnBitmask() &
-			 _finderPathFetchByProductBundleId.getColumnBitmask()) != 0) {
-
-			Object[] args = new Object[] {
-				productBundleProductsModelImpl.getOriginalProductBundleId()
-			};
-
-			finderCache.removeResult(_finderPathCountByProductBundleId, args);
-			finderCache.removeResult(_finderPathFetchByProductBundleId, args);
 		}
 	}
 
@@ -1193,6 +1436,14 @@ public class ProductBundleProductsPersistenceImpl
 		}
 		else if (isNew) {
 			Object[] args = new Object[] {
+				productBundleProductsModelImpl.getProductBundleId()
+			};
+
+			finderCache.removeResult(_finderPathCountByProductBundleId, args);
+			finderCache.removeResult(
+				_finderPathWithoutPaginationFindByProductBundleId, args);
+
+			args = new Object[] {
 				productBundleProductsModelImpl.getProductKey()
 			};
 
@@ -1205,6 +1456,29 @@ public class ProductBundleProductsPersistenceImpl
 				_finderPathWithoutPaginationFindAll, FINDER_ARGS_EMPTY);
 		}
 		else {
+			if ((productBundleProductsModelImpl.getColumnBitmask() &
+				 _finderPathWithoutPaginationFindByProductBundleId.
+					 getColumnBitmask()) != 0) {
+
+				Object[] args = new Object[] {
+					productBundleProductsModelImpl.getOriginalProductBundleId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByProductBundleId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByProductBundleId, args);
+
+				args = new Object[] {
+					productBundleProductsModelImpl.getProductBundleId()
+				};
+
+				finderCache.removeResult(
+					_finderPathCountByProductBundleId, args);
+				finderCache.removeResult(
+					_finderPathWithoutPaginationFindByProductBundleId, args);
+			}
+
 			if ((productBundleProductsModelImpl.getColumnBitmask() &
 				 _finderPathWithoutPaginationFindByProductKey.
 					 getColumnBitmask()) != 0) {
@@ -1231,9 +1505,6 @@ public class ProductBundleProductsPersistenceImpl
 			entityCacheEnabled, ProductBundleProductsImpl.class,
 			productBundleProducts.getPrimaryKey(), productBundleProducts,
 			false);
-
-		clearUniqueFindersCache(productBundleProductsModelImpl, false);
-		cacheUniqueFindersCache(productBundleProductsModelImpl);
 
 		productBundleProducts.resetOriginalValues();
 
@@ -1534,10 +1805,20 @@ public class ProductBundleProductsPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
-		_finderPathFetchByProductBundleId = new FinderPath(
+		_finderPathWithPaginationFindByProductBundleId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled,
-			ProductBundleProductsImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByProductBundleId", new String[] {Long.class.getName()},
+			ProductBundleProductsImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByProductBundleId",
+			new String[] {
+				Long.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), OrderByComparator.class.getName()
+			});
+
+		_finderPathWithoutPaginationFindByProductBundleId = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled,
+			ProductBundleProductsImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByProductBundleId",
+			new String[] {Long.class.getName()},
 			ProductBundleProductsModelImpl.PRODUCTBUNDLEID_COLUMN_BITMASK);
 
 		_finderPathCountByProductBundleId = new FinderPath(

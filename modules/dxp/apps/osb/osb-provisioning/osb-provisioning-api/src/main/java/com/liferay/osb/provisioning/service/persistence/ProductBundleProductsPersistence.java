@@ -44,41 +44,141 @@ public interface ProductBundleProductsPersistence
 	 */
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or throws a <code>NoSuchProductBundleProductsException</code> if it could not be found.
+	 * Returns all the product bundle productses where productBundleId = &#63;.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle products
+	 * @return the matching product bundle productses
+	 */
+	public java.util.List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId);
+
+	/**
+	 * Returns a range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @return the range of matching product bundle productses
+	 */
+	public java.util.List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product bundle productses
+	 */
+	public java.util.List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductBundleProducts>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching product bundle productses
+	 */
+	public java.util.List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductBundleProducts>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products
 	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
 	 */
-	public ProductBundleProducts findByProductBundleId(long productBundleId)
+	public ProductBundleProducts findByProductBundleId_First(
+			long productBundleId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<ProductBundleProducts> orderByComparator)
 		throws NoSuchProductBundleProductsException;
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the first product bundle products in the ordered set where productBundleId = &#63;.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
 	 */
-	public ProductBundleProducts fetchByProductBundleId(long productBundleId);
+	public ProductBundleProducts fetchByProductBundleId_First(
+		long productBundleId,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductBundleProducts>
+			orderByComparator);
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the last product bundle products in the ordered set where productBundleId = &#63;.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
 	 */
-	public ProductBundleProducts fetchByProductBundleId(
-		long productBundleId, boolean useFinderCache);
-
-	/**
-	 * Removes the product bundle products where productBundleId = &#63; from the database.
-	 *
-	 * @param productBundleId the product bundle ID
-	 * @return the product bundle products that was removed
-	 */
-	public ProductBundleProducts removeByProductBundleId(long productBundleId)
+	public ProductBundleProducts findByProductBundleId_Last(
+			long productBundleId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<ProductBundleProducts> orderByComparator)
 		throws NoSuchProductBundleProductsException;
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	public ProductBundleProducts fetchByProductBundleId_Last(
+		long productBundleId,
+		com.liferay.portal.kernel.util.OrderByComparator<ProductBundleProducts>
+			orderByComparator);
+
+	/**
+	 * Returns the product bundle productses before and after the current product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleProductsPK the primary key of the current product bundle products
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product bundle products
+	 * @throws NoSuchProductBundleProductsException if a product bundle products with the primary key could not be found
+	 */
+	public ProductBundleProducts[] findByProductBundleId_PrevAndNext(
+			ProductBundleProductsPK productBundleProductsPK,
+			long productBundleId,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<ProductBundleProducts> orderByComparator)
+		throws NoSuchProductBundleProductsException;
+
+	/**
+	 * Removes all the product bundle productses where productBundleId = &#63; from the database.
+	 *
+	 * @param productBundleId the product bundle ID
+	 */
+	public void removeByProductBundleId(long productBundleId);
 
 	/**
 	 * Returns the number of product bundle productses where productBundleId = &#63;.

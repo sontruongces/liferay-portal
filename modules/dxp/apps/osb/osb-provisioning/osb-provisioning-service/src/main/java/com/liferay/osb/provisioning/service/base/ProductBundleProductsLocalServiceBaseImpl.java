@@ -76,10 +76,6 @@ public abstract class ProductBundleProductsLocalServiceBaseImpl
 	/**
 	 * Adds the product bundle products to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param productBundleProducts the product bundle products
 	 * @return the product bundle products that was added
 	 */
@@ -110,10 +106,6 @@ public abstract class ProductBundleProductsLocalServiceBaseImpl
 	/**
 	 * Deletes the product bundle products with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param productBundleProductsPK the primary key of the product bundle products
 	 * @return the product bundle products that was removed
 	 * @throws PortalException if a product bundle products with the primary key could not be found
@@ -129,10 +121,6 @@ public abstract class ProductBundleProductsLocalServiceBaseImpl
 
 	/**
 	 * Deletes the product bundle products from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param productBundleProducts the product bundle products
 	 * @return the product bundle products that was removed
@@ -360,10 +348,6 @@ public abstract class ProductBundleProductsLocalServiceBaseImpl
 
 	/**
 	 * Updates the product bundle products in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param productBundleProducts the product bundle products
 	 * @return the product bundle products that was updated

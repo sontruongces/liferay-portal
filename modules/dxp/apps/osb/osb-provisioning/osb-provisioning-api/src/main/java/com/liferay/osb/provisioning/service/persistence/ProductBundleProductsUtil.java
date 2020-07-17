@@ -127,58 +127,173 @@ public class ProductBundleProductsUtil {
 	}
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or throws a <code>NoSuchProductBundleProductsException</code> if it could not be found.
+	 * Returns all the product bundle productses where productBundleId = &#63;.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle products
-	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 * @return the matching product bundle productses
 	 */
-	public static ProductBundleProducts findByProductBundleId(
-			long productBundleId)
-		throws com.liferay.osb.provisioning.exception.
-			NoSuchProductBundleProductsException {
+	public static List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId) {
 
 		return getPersistence().findByProductBundleId(productBundleId);
 	}
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns a range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @return the range of matching product bundle productses
 	 */
-	public static ProductBundleProducts fetchByProductBundleId(
-		long productBundleId) {
+	public static List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end) {
 
-		return getPersistence().fetchByProductBundleId(productBundleId);
+		return getPersistence().findByProductBundleId(
+			productBundleId, start, end);
 	}
 
 	/**
-	 * Returns the product bundle products where productBundleId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns an ordered range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
 	 *
 	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching product bundle productses
+	 */
+	public static List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return getPersistence().findByProductBundleId(
+			productBundleId, start, end, orderByComparator);
+	}
+
+	/**
+	 * Returns an ordered range of all the product bundle productses where productBundleId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ProductBundleProductsModelImpl</code>.
+	 * </p>
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param start the lower bound of the range of product bundle productses
+	 * @param end the upper bound of the range of product bundle productses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 * @return the ordered range of matching product bundle productses
 	 */
-	public static ProductBundleProducts fetchByProductBundleId(
-		long productBundleId, boolean useFinderCache) {
+	public static List<ProductBundleProducts> findByProductBundleId(
+		long productBundleId, int start, int end,
+		OrderByComparator<ProductBundleProducts> orderByComparator,
+		boolean useFinderCache) {
 
-		return getPersistence().fetchByProductBundleId(
-			productBundleId, useFinderCache);
+		return getPersistence().findByProductBundleId(
+			productBundleId, start, end, orderByComparator, useFinderCache);
 	}
 
 	/**
-	 * Removes the product bundle products where productBundleId = &#63; from the database.
+	 * Returns the first product bundle products in the ordered set where productBundleId = &#63;.
 	 *
 	 * @param productBundleId the product bundle ID
-	 * @return the product bundle products that was removed
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
 	 */
-	public static ProductBundleProducts removeByProductBundleId(
-			long productBundleId)
+	public static ProductBundleProducts findByProductBundleId_First(
+			long productBundleId,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
 		throws com.liferay.osb.provisioning.exception.
 			NoSuchProductBundleProductsException {
 
-		return getPersistence().removeByProductBundleId(productBundleId);
+		return getPersistence().findByProductBundleId_First(
+			productBundleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the first product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts fetchByProductBundleId_First(
+		long productBundleId,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return getPersistence().fetchByProductBundleId_First(
+			productBundleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products
+	 * @throws NoSuchProductBundleProductsException if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts findByProductBundleId_Last(
+			long productBundleId,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws com.liferay.osb.provisioning.exception.
+			NoSuchProductBundleProductsException {
+
+		return getPersistence().findByProductBundleId_Last(
+			productBundleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the last product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching product bundle products, or <code>null</code> if a matching product bundle products could not be found
+	 */
+	public static ProductBundleProducts fetchByProductBundleId_Last(
+		long productBundleId,
+		OrderByComparator<ProductBundleProducts> orderByComparator) {
+
+		return getPersistence().fetchByProductBundleId_Last(
+			productBundleId, orderByComparator);
+	}
+
+	/**
+	 * Returns the product bundle productses before and after the current product bundle products in the ordered set where productBundleId = &#63;.
+	 *
+	 * @param productBundleProductsPK the primary key of the current product bundle products
+	 * @param productBundleId the product bundle ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next product bundle products
+	 * @throws NoSuchProductBundleProductsException if a product bundle products with the primary key could not be found
+	 */
+	public static ProductBundleProducts[] findByProductBundleId_PrevAndNext(
+			ProductBundleProductsPK productBundleProductsPK,
+			long productBundleId,
+			OrderByComparator<ProductBundleProducts> orderByComparator)
+		throws com.liferay.osb.provisioning.exception.
+			NoSuchProductBundleProductsException {
+
+		return getPersistence().findByProductBundleId_PrevAndNext(
+			productBundleProductsPK, productBundleId, orderByComparator);
+	}
+
+	/**
+	 * Removes all the product bundle productses where productBundleId = &#63; from the database.
+	 *
+	 * @param productBundleId the product bundle ID
+	 */
+	public static void removeByProductBundleId(long productBundleId) {
+		getPersistence().removeByProductBundleId(productBundleId);
 	}
 
 	/**
