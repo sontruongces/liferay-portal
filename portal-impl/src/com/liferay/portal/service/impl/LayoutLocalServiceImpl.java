@@ -3055,7 +3055,7 @@ public class LayoutLocalServiceImpl extends LayoutLocalServiceBaseImpl {
 			updateParentLayoutId(draftLayout.getPlid(), parentPlid);
 		}
 
-		return layoutLocalService.updateLayout(layout);
+		return layoutPersistence.update(layout);
 	}
 
 	/**
