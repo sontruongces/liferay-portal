@@ -247,12 +247,10 @@ public class StructuredContentDTOConverter
 							}
 
 							return RenderedContentValueUtil.renderTemplate(
-								_classNameLocalService,
-								_ddmTemplateLocalService, _groupLocalService,
-								httpServletRequest, _journalArticleService,
-								_journalContent, locale,
+								_ddmTemplateLocalService, httpServletRequest,
+								_journalArticleService, _journalContent, locale,
 								journalArticle.getResourcePrimKey(),
-								ddmTemplate.getTemplateKey(), uriInfo);
+								ddmTemplate.getTemplateId(), uriInfo);
 						});
 				}
 			},

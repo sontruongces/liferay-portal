@@ -25,7 +25,6 @@ import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.service.DDMStructureService;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
-import com.liferay.dynamic.data.mapping.service.DDMTemplateService;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.storage.Field;
 import com.liferay.dynamic.data.mapping.storage.Fields;
@@ -70,8 +69,6 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.service.ClassNameLocalService;
-import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -306,8 +303,7 @@ public class StructuredContentResourceImpl
 		throws Exception {
 
 		return RenderedContentValueUtil.renderTemplate(
-			_classNameLocalService, _ddmTemplateLocalService,
-			_groupLocalService, contextHttpServletRequest,
+			_ddmTemplateLocalService, contextHttpServletRequest,
 			_journalArticleService, _journalContent,
 			contextAcceptLanguage.getPreferredLocale(), structuredContentId,
 			templateId, contextUriInfo);
@@ -982,9 +978,6 @@ public class StructuredContentResourceImpl
 	}
 
 	@Reference
-	private ClassNameLocalService _classNameLocalService;
-
-	@Reference
 	private DDM _ddm;
 
 	@Reference
@@ -995,9 +988,6 @@ public class StructuredContentResourceImpl
 
 	@Reference
 	private DDMTemplateLocalService _ddmTemplateLocalService;
-
-	@Reference
-	private DDMTemplateService _ddmTemplateService;
 
 	@Reference
 	private DLAppService _dlAppService;
@@ -1013,9 +1003,6 @@ public class StructuredContentResourceImpl
 
 	@Reference
 	private ExpandoTableLocalService _expandoTableLocalService;
-
-	@Reference
-	private GroupLocalService _groupLocalService;
 
 	@Reference
 	private JournalArticleLocalService _journalArticleLocalService;
