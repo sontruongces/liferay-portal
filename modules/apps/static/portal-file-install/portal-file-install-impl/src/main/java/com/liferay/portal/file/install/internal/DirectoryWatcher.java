@@ -164,7 +164,8 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 		if (!_watchedDirectory.exists()) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					_watchedDirectory + " does not exist, please create it.");
+					_watchedDirectory +
+						" does not exist and needs to be created");
 			}
 		}
 		else if (!_watchedDirectory.isDirectory()) {
