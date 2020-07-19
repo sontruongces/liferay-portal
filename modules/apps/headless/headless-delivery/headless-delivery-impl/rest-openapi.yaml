@@ -125,6 +125,9 @@ components:
                             format: uri
                             readOnly: true
                             type: string
+                        contentValue:
+                            readOnly: true
+                            type: string
                         imageId:
                             description:
                                 The image's ID. This can be used to retrieve more information in the `Document` API.
@@ -185,6 +188,9 @@ components:
                 contentUrl:
                     description:
                         The image's relative URL.
+                    readOnly: true
+                    type: string
+                contentValue:
                     readOnly: true
                     type: string
                 encodingFormat:
@@ -284,6 +290,9 @@ components:
                     description:
                         The document's relative URL.
                     format: uri
+                    readOnly: true
+                    type: string
+                contentValue:
                     readOnly: true
                     type: string
                 description:
@@ -752,6 +761,9 @@ components:
                                     The image's relative URL.
                                 format: uri
                                 type: string
+                            contentValue:
+                                readOnly: true
+                                type: string
                             height:
                                 description:
                                     The image's height in pixels.
@@ -782,6 +794,9 @@ components:
                     description:
                         The document's relative URL.
                     format: binary
+                    readOnly: true
+                    type: string
+                contentValue:
                     readOnly: true
                     type: string
                 creator:
@@ -1131,6 +1146,9 @@ components:
                         The file's relative URL.
                     readOnly: true
                     type: string
+                contentValue:
+                    readOnly: true
+                    type: string
                 encodingFormat:
                     description:
                         The file's media type (e.g., application/pdf, etc.).
@@ -1258,6 +1276,9 @@ components:
                 contentUrl:
                     description:
                         The file's relative URL.
+                    readOnly: true
+                    type: string
+                contentValue:
                     readOnly: true
                     type: string
                 encodingFormat:
@@ -2132,6 +2153,9 @@ components:
                 contentUrl:
                     description:
                         The file's relative URL.
+                    readOnly: true
+                    type: string
+                contentValue:
                     readOnly: true
                     type: string
                 encodingFormat:
