@@ -14,7 +14,9 @@ import React from 'react';
 
 import InlineEdit from '../../src/main/resources/META-INF/resources/js/components/InlineEdit';
 import {
+	FIELD_TYPE_EXTERNAL,
 	FIELD_TYPE_SELECT,
+	FIELD_TYPE_TEXTAREA,
 	FIELD_TYPE_TOGGLE
 } from '../../src/main/resources/META-INF/resources/js/utilities/constants';
 
@@ -142,13 +144,15 @@ describe('InlineEdit', () => {
 		expect(mockSubmitFn).toHaveBeenCalled();
 	});
 
-	it('displays an editable text input correctly', () => {
-		const {container} = renderInlineEdit();
+	it('displays an external field type as a disabled input and a Select button', () => {
+		const {container} = renderInlineEdit({type: FIELD_TYPE_EXTERNAL});
 		const {getByText} = within(container);
 
 		fireEvent.click(getByText('test'));
 
-		expect(container.querySelector('input')['type']).toBe('text');
+		expect(container.querySelector('input').disabled).toBeTruthy();
+		getByText('select');
+		expect(getByText('select').type).toBe('button');
 	});
 
 	it('displays an editable select input correctly', () => {
@@ -171,6 +175,26 @@ describe('InlineEdit', () => {
 		getByText('1');
 		getByText('2');
 		getByText('3');
+	});
+
+	it('displays an editable text input correctly', () => {
+		const {container} = renderInlineEdit();
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+
+		expect(container.querySelector('input')['type']).toBe('text');
+	});
+
+	it('displays an editable textarea input correctly', () => {
+		const {container} = renderInlineEdit({
+			type: FIELD_TYPE_TEXTAREA
+		});
+		const {getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+
+		expect(container.querySelector('textarea')).toBeTruthy();
 	});
 
 	it('displays an editable toggle correctly', () => {

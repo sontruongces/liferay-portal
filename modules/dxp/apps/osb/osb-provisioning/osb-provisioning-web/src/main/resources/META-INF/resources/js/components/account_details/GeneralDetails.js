@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {
+	FIELD_TYPE_EXTERNAL,
 	FIELD_TYPE_NONEDITABLE,
 	FIELD_TYPE_SELECT
 } from '../../utilities/constants';
@@ -97,7 +98,8 @@ function GeneralDetails({details, parentAccountName, statuses, tiers}) {
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('parent')}
-				type={FIELD_TYPE_NONEDITABLE}
+				fieldName="editAccountHierarchy"
+				type={FIELD_TYPE_EXTERNAL}
 				value={parentAccountName}
 			/>
 		</ClayList>

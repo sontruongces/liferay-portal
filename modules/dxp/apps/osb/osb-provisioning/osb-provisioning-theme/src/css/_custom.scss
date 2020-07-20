@@ -83,6 +83,14 @@ table {
 			padding: $spacing-xxs $spacing-xs;
 		}
 	}
+
+	.external {
+		display: flex;
+		
+		.btn {
+			margin-left: $spacing-md;
+		}
+	}
 }
 
 .label {

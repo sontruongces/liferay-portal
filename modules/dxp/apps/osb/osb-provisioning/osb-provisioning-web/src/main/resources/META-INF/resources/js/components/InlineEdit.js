@@ -47,6 +47,12 @@ function InlineEdit({
 		setValue(event.currentTarget.value);
 	}
 
+	function handleClick() {
+		save();
+		setFieldEditable(false);
+		setShowEditor(false);
+	}
+
 	function handleToggle() {
 		setValue(!convertDashToEmptyString(value));
 	}
@@ -89,6 +95,32 @@ function InlineEdit({
 
 			{showEditor && (
 				<>
+					{type === FIELD_TYPE_EXTERNAL && (
+						<div className="external">
+							<label
+								className="form-control-label"
+								htmlFor={namespacedFieldName}
+							>
+								<input
+									className="form-control"
+									disabled
+									id={namespacedFieldName}
+									type="text"
+									value={value}
+								/>
+							</label>
+
+							<button
+								className="btn btn-secondary btn-sm"
+								onClick={handleClick}
+								role="button"
+								type="button"
+							>
+								{Liferay.Language.get('select')}
+							</button>
+						</div>
+					)}
+
 					{type === FIELD_TYPE_SELECT && (
 						<label
 							className="form-control-label"

@@ -32,6 +32,7 @@ function DetailField({
 	formAction,
 	formData,
 	inputStyle,
+	openExternalFn,
 	options = [],
 	type = FIELD_TYPE_TEXT,
 	value
@@ -55,6 +56,12 @@ function DetailField({
 		}
 	}, [data, fieldName, formData, type]);
 
+	function handleOpenExternal() {
+		if (openExternalFn) {
+			openExternalFn();
+		}
+	}
+
 	function handleSubmit(value) {
 		setData({...formData, [fieldName]: value});
 	}
@@ -69,26 +76,40 @@ function DetailField({
 				<div className="list-group-text">
 					{type === FIELD_TYPE_NONEDITABLE && <>{value}</>}
 
-					{type !== FIELD_TYPE_NONEDITABLE && (
-						<>
-							<HiddenForm
-								fields={data}
-								formAction={formAction}
-								ref={formRef}
-							/>
-
-							<InlineEdit
-								displayAs={displayAs}
-								displayValue={displayValue}
-								fieldName={fieldName}
-								fieldValue={value}
-								inputStyle={inputStyle}
-								options={options}
-								save={handleSubmit}
-								type={type}
-							/>
-						</>
+					{type === FIELD_TYPE_EXTERNAL && (
+						<InlineEdit
+							displayAs={displayAs}
+							displayValue={displayValue}
+							fieldName={fieldName}
+							fieldValue={value}
+							inputStyle={inputStyle}
+							options={options}
+							save={handleOpenExternal}
+							type={type}
+						/>
 					)}
+
+					{type !== FIELD_TYPE_EXTERNAL &&
+						type !== FIELD_TYPE_NONEDITABLE && (
+							<>
+								<HiddenForm
+									fields={data}
+									formAction={formAction}
+									ref={formRef}
+								/>
+
+								<InlineEdit
+									displayAs={displayAs}
+									displayValue={displayValue}
+									fieldName={fieldName}
+									fieldValue={value}
+									inputStyle={inputStyle}
+									options={options}
+									save={handleSubmit}
+									type={type}
+								/>
+							</>
+						)}
 				</div>
 			</div>
 		</ClayList.Item>
@@ -103,6 +124,7 @@ DetailField.propTypes = {
 	formAction: PropTypes.string,
 	formData: PropTypes.object,
 	inputStyle: PropTypes.string,
+	openExternalFn: PropTypes.func,
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,
