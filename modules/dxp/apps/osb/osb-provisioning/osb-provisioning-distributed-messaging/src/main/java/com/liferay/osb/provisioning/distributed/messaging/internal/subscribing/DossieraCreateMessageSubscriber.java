@@ -43,7 +43,9 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -56,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -147,7 +150,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		zendeskTicket.setCustomFields(customFields);
 
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(16);
 
 		sb.append("Account Name: ");
 		sb.append(account.getName());
@@ -159,16 +162,25 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		sb.append(account.getDateCreated());
 		sb.append("<br />Provisioning Account Link: ");
 		sb.append("<a href='");
+
+		Group group = _groupLocalService.getFriendlyURLGroup(
+			_portal.getDefaultCompanyId(), "/control_panel");
+
+		String ppid =
+			"com_liferay_osb_provisioning_web_portlet_AccountsPortlet";
+
+		Map<String, String[]> params = new LinkedHashMap<>();
+
+		params.put(
+			StringPool.UNDERLINE + ppid + "_mvcRenderCommandName",
+			new String[] {"/accounts/view_account"});
+		params.put(
+			StringPool.UNDERLINE + ppid + "_accountKey",
+			new String[] {account.getKey()});
+
 		sb.append(
-			ProvisioningDistributedMessagingConfigurationValues.
-				PROVISIONING_URL);
-		sb.append("/group/guest/~/control_panel/manage?p_p_id=com_liferay_osb");
-		sb.append("_provisioning_web_portlet_AccountsPortlet&_com_liferay_osb");
-		sb.append("_provisioning_web_portlet_AccountsPortlet_");
-		sb.append("mvcRenderCommandName=%2Faccounts%2Fview_account&_com_");
-		sb.append("liferay_osb_provisioning_web_portlet_AccountsPortlet_");
-		sb.append("accountKey=");
-		sb.append(account.getKey());
+			_portal.getControlPanelFullURL(group.getGroupId(), ppid, params));
+
 		sb.append("'>Provisioning Account</a>");
 		sb.append("<br />Salesforce Opportunity Link: ");
 		sb.append("<a href='https://login.salesforce.com/");
@@ -958,6 +970,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 	@Reference
 	private ContactWebService _contactWebService;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
 
 	@Reference
 	private Portal _portal;
