@@ -70,7 +70,7 @@ public class ConfigurationHandler {
 
 			int c2 = pushbackReader.read();
 
-			if ((c2 == CharPool.RETURN) || (c2 == CharPool.NEW_LINE)) {
+			if ((c2 == CharPool.NEW_LINE) || (c2 == CharPool.RETURN)) {
 				c1 = _ignorableWhiteSpace(pushbackReader);
 			}
 			else {
