@@ -133,12 +133,10 @@ public class ContentFieldUtil {
 	}
 
 	private static ContentFieldValue _getContentFieldValue(
-			DDMFormField ddmFormField, DLAppService dlAppService,
-			DLURLHelper dlURLHelper,
-			JournalArticleService journalArticleService,
-			LayoutLocalService layoutLocalService, Locale locale,
-			String valueString)
-		throws Exception {
+		DDMFormField ddmFormField, DLAppService dlAppService,
+		DLURLHelper dlURLHelper, JournalArticleService journalArticleService,
+		LayoutLocalService layoutLocalService, Locale locale,
+		String valueString) {
 
 		try {
 			if (Objects.equals(DDMFormFieldType.DATE, ddmFormField.getType())) {
@@ -298,11 +296,9 @@ public class ContentFieldUtil {
 	}
 
 	private static ContentFieldValue _toContentFieldValue(
-			DDMFormField ddmFormField, DLAppService dlAppService,
-			DLURLHelper dlURLHelper,
-			JournalArticleService journalArticleService,
-			LayoutLocalService layoutLocalService, Locale locale, Value value)
-		throws Exception {
+		DDMFormField ddmFormField, DLAppService dlAppService,
+		DLURLHelper dlURLHelper, JournalArticleService journalArticleService,
+		LayoutLocalService layoutLocalService, Locale locale, Value value) {
 
 		if (value == null) {
 			return new ContentFieldValue();
