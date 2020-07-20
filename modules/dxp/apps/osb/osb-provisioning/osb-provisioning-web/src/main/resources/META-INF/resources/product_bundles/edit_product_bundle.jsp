@@ -86,8 +86,12 @@ if (products != null) {
 									<td>
 										<%= product.getName() %>
 									</td>
-									<td class=" text-right" id="<%= product.getKey() %>">
-										<button class="btn" onclick="removeName(this)" type="button">remove</button>
+									<td class="text-right" id="<%= product.getKey() %>">
+										<button class="btn" onclick="removeName(this)" type="button">
+											<svg class="lexicon-icon lexicon-icon-times-circle">
+												<use xlink:href="#delete-icon" />
+											</svg>
+										</button>
 									</td>
 								</tr>
 
@@ -153,7 +157,7 @@ if (products != null) {
 							selectItem[1] +
 							'</td><td class=" text-right" id="' +
 							selectItem[0] +
-							'"><button type="button" class="btn" onclick="removeName(this)">remove</button></td></tr>';
+							'"><button type="button" class="btn" onclick="removeName(this)"><svg class="lexicon-icon lexicon-icon-times-circle"><use xlink:href="#delete-icon" /></svg></button></td></tr>';
 					}
 
 					display += '</tbody></table><br />';

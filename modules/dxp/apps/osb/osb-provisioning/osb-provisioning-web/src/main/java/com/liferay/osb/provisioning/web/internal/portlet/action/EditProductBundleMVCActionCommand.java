@@ -53,26 +53,31 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 
+	protected void deleteProductBundle(ActionRequest actionRequest)
+		throws Exception {
+
+		long productBundleId = ParamUtil.getLong(
+			actionRequest, "productBundleId");
+
+		_productBundleLocalService.deleteProductBundle(productBundleId);
+	}
+
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		try {
-			long productBundleId = ParamUtil.getLong(
-				actionRequest, "productBundleId");
-
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
 			String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 			if (cmd.equals(Constants.DELETE)) {
-				_productBundleLocalService.deleteProductBundle(productBundleId);
+				deleteProductBundle(actionRequest);
 			}
 			else {
-				updateProductBundle(
-					actionRequest, productBundleId, themeDisplay.getUser());
+				updateProductBundle(actionRequest, themeDisplay.getUser());
 			}
 
 			sendRedirect(actionRequest, actionResponse);
@@ -92,8 +97,7 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	protected void updateProductBundle(
-			ActionRequest actionRequest, long productBundleId, User user)
+	protected void updateProductBundle(ActionRequest actionRequest, User user)
 		throws Exception {
 
 		String[] productKeys = ParamUtil.getStringValues(
@@ -102,6 +106,9 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 		if (ArrayUtil.isEmpty(productKeys)) {
 			throw new RequiredProductException();
 		}
+
+		long productBundleId = ParamUtil.getLong(
+			actionRequest, "productBundleId");
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
