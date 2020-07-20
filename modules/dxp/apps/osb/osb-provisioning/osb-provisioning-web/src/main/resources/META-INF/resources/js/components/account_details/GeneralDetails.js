@@ -16,7 +16,8 @@ import React from 'react';
 import {
 	FIELD_TYPE_EXTERNAL,
 	FIELD_TYPE_NONEDITABLE,
-	FIELD_TYPE_SELECT
+	FIELD_TYPE_SELECT,
+	NAMESPACE
 } from '../../utilities/constants';
 import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
@@ -98,7 +99,7 @@ function GeneralDetails({details, parentAccountName, statuses, tiers}) {
 
 			<DetailField
 				fieldLabel={Liferay.Language.get('parent')}
-				fieldName="editAccountHierarchy"
+				openExternalFn={window[`${NAMESPACE}editAccountHierarchy`]}
 				type={FIELD_TYPE_EXTERNAL}
 				value={parentAccountName}
 			/>
