@@ -13,10 +13,7 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {
-	FIELD_TYPE_EXTERNAL,
-	FIELD_TYPE_TOGGLE
-} from '../../utilities/constants';
+import {FIELD_TYPE_EXTERNAL} from '../../utilities/constants';
 import DetailField from '../DetailField';
 
 function PartnerInfo({details}) {
@@ -52,7 +49,7 @@ function PartnerInfo({details}) {
 				fieldName="firstLineSupportTeamKey"
 				formAction={details.editAccountURL}
 				formData={firstLineSupportFormData}
-				type={FIELD_TYPE_TOGGLE}
+				type={FIELD_TYPE_EXTERNAL}
 				value={details.firstLineSupportTeamKey}
 			/>
 		</ClayList>
