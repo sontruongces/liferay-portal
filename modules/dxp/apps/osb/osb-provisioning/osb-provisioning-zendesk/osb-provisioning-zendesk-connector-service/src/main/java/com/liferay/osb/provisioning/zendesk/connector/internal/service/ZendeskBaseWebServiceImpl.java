@@ -94,25 +94,29 @@ public class ZendeskBaseWebServiceImpl
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (JSONWebServiceTransportException jsonwste) {
-			if (jsonwste.getStatus() == 429) {
+		catch (JSONWebServiceTransportException
+					jsonWebServiceTransportException) {
+
+			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
 					Thread.sleep(
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return delete(url, parameters);
 			}
 
 			throw processedException(
-				jsonwste, url, parameters.toString(), response);
+				jsonWebServiceTransportException, url, parameters.toString(),
+				response);
 		}
-		catch (Exception e) {
-			throw processedException(e, url, parameters.toString(), response);
+		catch (Exception exception) {
+			throw processedException(
+				exception, url, parameters.toString(), response);
 		}
 	}
 
@@ -126,32 +130,33 @@ public class ZendeskBaseWebServiceImpl
 
 			addHeaders(httpDelete, _headers);
 
-			StringEntity stringEntity = getStringEntity(endpoint, json);
-
-			httpDelete.setEntity(stringEntity);
+			httpDelete.setEntity(getStringEntity(endpoint, json));
 
 			response = execute(httpDelete);
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (JSONWebServiceTransportException jsonwste) {
-			if (jsonwste.getStatus() == 429) {
+		catch (JSONWebServiceTransportException
+					jsonWebServiceTransportException) {
+
+			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
 					Thread.sleep(
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return delete(endpoint, json);
 			}
 
-			throw processedException(jsonwste, endpoint, json, response);
+			throw processedException(
+				jsonWebServiceTransportException, endpoint, json, response);
 		}
-		catch (Exception e) {
-			throw processedException(e, endpoint, json, response);
+		catch (Exception exception) {
+			throw processedException(exception, endpoint, json, response);
 		}
 	}
 
@@ -165,25 +170,29 @@ public class ZendeskBaseWebServiceImpl
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (JSONWebServiceTransportException jsonwste) {
-			if (jsonwste.getStatus() == 429) {
+		catch (JSONWebServiceTransportException
+					jsonWebServiceTransportException) {
+
+			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
 					Thread.sleep(
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return get(url, parameters);
 			}
 
 			throw processedException(
-				jsonwste, url, parameters.toString(), response);
+				jsonWebServiceTransportException, url, parameters.toString(),
+				response);
 		}
-		catch (Exception e) {
-			throw processedException(e, url, parameters.toString(), response);
+		catch (Exception exception) {
+			throw processedException(
+				exception, url, parameters.toString(), response);
 		}
 	}
 
@@ -195,39 +204,45 @@ public class ZendeskBaseWebServiceImpl
 		try {
 			addHeaders(httpGet, _headers);
 
-			StringEntity stringEntity = getStringEntity(endpoint, json);
-
-			httpGet.setEntity(stringEntity);
+			httpGet.setEntity(getStringEntity(endpoint, json));
 
 			response = execute(httpGet);
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (JSONWebServiceInvocationException jsonwsie) {
-			if (jsonwsie.getStatus() == HttpServletResponse.SC_NOT_FOUND) {
-				throw new NoSuchModelException(jsonwsie);
+		catch (JSONWebServiceInvocationException
+					jsonWebServiceInvocationException) {
+
+			if (jsonWebServiceInvocationException.getStatus() ==
+					HttpServletResponse.SC_NOT_FOUND) {
+
+				throw new NoSuchModelException(
+					jsonWebServiceInvocationException);
 			}
 
-			throw new PortalException(jsonwsie);
+			throw new PortalException(jsonWebServiceInvocationException);
 		}
-		catch (JSONWebServiceTransportException jsonwste) {
-			if (jsonwste.getStatus() == 429) {
+		catch (JSONWebServiceTransportException
+					jsonWebServiceTransportException) {
+
+			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
 					Thread.sleep(
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return get(endpoint, json);
 			}
 
-			throw processedException(jsonwste, endpoint, json, response);
+			throw processedException(
+				jsonWebServiceTransportException, endpoint, json, response);
 		}
-		catch (Exception e) {
-			throw processedException(e, endpoint, json, response);
+		catch (Exception exception) {
+			throw processedException(exception, endpoint, json, response);
 		}
 	}
 
@@ -272,8 +287,8 @@ public class ZendeskBaseWebServiceImpl
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return post(endpoint, parameters, fileName, bytes);
@@ -283,9 +298,9 @@ public class ZendeskBaseWebServiceImpl
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			throw processedException(
-				e, endpoint, parameters.toString(), response);
+				exception, endpoint, parameters.toString(), response);
 		}
 	}
 
@@ -299,32 +314,33 @@ public class ZendeskBaseWebServiceImpl
 
 			addHeaders(httpPost, _headers);
 
-			StringEntity stringEntity = getStringEntity(endpoint, json);
-
-			httpPost.setEntity(stringEntity);
+			httpPost.setEntity(getStringEntity(endpoint, json));
 
 			response = execute(httpPost);
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (JSONWebServiceTransportException jsonwste) {
-			if (jsonwste.getStatus() == 429) {
+		catch (JSONWebServiceTransportException
+					jsonWebServiceTransportException) {
+
+			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
 					Thread.sleep(
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return post(endpoint, json);
 			}
 
-			throw processedException(jsonwste, endpoint, json, response);
+			throw processedException(
+				jsonWebServiceTransportException, endpoint, json, response);
 		}
-		catch (Exception e) {
-			throw processedException(e, endpoint, json, response);
+		catch (Exception exception) {
+			throw processedException(exception, endpoint, json, response);
 		}
 	}
 
@@ -336,32 +352,33 @@ public class ZendeskBaseWebServiceImpl
 
 			addHeaders(httpPut, _headers);
 
-			StringEntity stringEntity = getStringEntity(endpoint, json);
-
-			httpPut.setEntity(stringEntity);
+			httpPut.setEntity(getStringEntity(endpoint, json));
 
 			response = execute(httpPut);
 
 			return JSONFactoryUtil.createJSONObject(response);
 		}
-		catch (JSONWebServiceTransportException jsonwste) {
-			if (jsonwste.getStatus() == 429) {
+		catch (JSONWebServiceTransportException
+					jsonWebServiceTransportException) {
+
+			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
 					Thread.sleep(
 						ZendeskConnectorConfigurationValues.
 							ZENDESK_API_RETRY_WAIT_TIME);
 				}
-				catch (InterruptedException ie) {
-					_log.error(ie, ie);
+				catch (InterruptedException interruptedException) {
+					_log.error(interruptedException, interruptedException);
 				}
 
 				return put(endpoint, json);
 			}
 
-			throw processedException(jsonwste, endpoint, json, response);
+			throw processedException(
+				jsonWebServiceTransportException, endpoint, json, response);
 		}
-		catch (Exception e) {
-			throw processedException(e, endpoint, json, response);
+		catch (Exception exception) {
+			throw processedException(exception, endpoint, json, response);
 		}
 	}
 
@@ -423,17 +440,21 @@ public class ZendeskBaseWebServiceImpl
 	}
 
 	protected PortalException processedException(
-			Exception e, String url, String data, String response)
+			Exception exception, String url, String data, String response)
 		throws PortalException {
 
-		if (e instanceof
+		if (exception instanceof
 				JSONWebServiceTransportException.CommunicationFailure) {
 
-			JSONWebServiceTransportException.CommunicationFailure cf =
-				(JSONWebServiceTransportException.CommunicationFailure)e;
+			JSONWebServiceTransportException.CommunicationFailure
+				communicationFailure =
+					(JSONWebServiceTransportException.CommunicationFailure)
+						exception;
 
-			if ((cf.getStatus() == 422) && url.contains("/identities/")) {
-				sendEmail(e, url, data);
+			if ((communicationFailure.getStatus() == 422) &&
+				url.contains("/identities/")) {
+
+				sendEmail(exception, url, data);
 			}
 		}
 
@@ -444,10 +465,10 @@ public class ZendeskBaseWebServiceImpl
 			_log.error("Error parsing response: " + response);
 		}
 
-		return new PortalException(e);
+		return new PortalException(exception);
 	}
 
-	protected void sendEmail(Exception e, String url, String data) {
+	protected void sendEmail(Exception exception, String url, String data) {
 		StringBundler sb = new StringBundler(6);
 
 		sb.append("<strong>URL</strong><br />");
@@ -458,7 +479,8 @@ public class ZendeskBaseWebServiceImpl
 
 		sb.append(
 			StringUtil.replace(
-				StackTraceUtil.getStackTrace(e), CharPool.NEW_LINE, "<br />"));
+				StackTraceUtil.getStackTrace(exception), CharPool.NEW_LINE,
+				"<br />"));
 
 		try {
 			InternetAddress from = new InternetAddress("noreply@liferay.com");
@@ -473,8 +495,8 @@ public class ZendeskBaseWebServiceImpl
 
 			_mailService.sendEmail(mailMessage);
 		}
-		catch (AddressException ae) {
-			_log.error(ae, ae);
+		catch (AddressException addressException) {
+			_log.error(addressException, addressException);
 		}
 	}
 
