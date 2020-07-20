@@ -17,6 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
+String randomNamespace = PortalUtil.generateRandomKey(request, "portlet_dynamic_data_lists_view_records") + StringPool.UNDERLINE;
+
 long formDDMTemplateId = ParamUtil.getLong(request, "formDDMTemplateId");
 
 DDLViewRecordsDisplayContext ddlViewRecordsDisplayContext = new DDLViewRecordsDisplayContext(liferayPortletRequest, liferayPortletResponse, formDDMTemplateId);
@@ -28,8 +30,6 @@ if (!ddlDisplayContext.isAdminPortlet()) {
 
 	renderResponse.setTitle(recordSet.getName(locale));
 }
-
-String randomNamespace = PortalUtil.generateRandomKey(request, "portlet_dynamic_data_lists_view_records") + StringPool.UNDERLINE;
 %>
 
 <c:if test="<%= ddlViewRecordsDisplayContext.isAdminPortlet() %>">
