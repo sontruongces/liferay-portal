@@ -46,7 +46,7 @@ public abstract class BaseMessageSubscriber implements MessageSubscriber {
 		}
 		catch (Exception exception) {
 			try {
-				sendErrorNotification(
+				createZendeskTicket(
 					message.getDestinationName(), (String)message.getPayload(),
 					exception);
 			}
@@ -58,9 +58,7 @@ public abstract class BaseMessageSubscriber implements MessageSubscriber {
 		}
 	}
 
-	protected abstract void doParse(JSONObject jsonObject) throws Exception;
-
-	protected void sendErrorNotification(
+	protected void createZendeskTicket(
 			String routingKey, String message, Exception exception)
 		throws PortalException {
 
@@ -75,10 +73,9 @@ public abstract class BaseMessageSubscriber implements MessageSubscriber {
 
 		zendeskTicket.setCustomFields(customFields);
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler(7);
 
-		sb.append("An unexpected error occurred.");
-		sb.append("<br />Routing Key: ");
+		sb.append("An unexpected error occurred.<br />Routing Key: ");
 		sb.append(routingKey);
 		sb.append("<br />Message:<br /><pre>");
 		sb.append(message);
@@ -86,23 +83,25 @@ public abstract class BaseMessageSubscriber implements MessageSubscriber {
 		sb.append(StackTraceUtil.getStackTrace(exception));
 		sb.append("</pre>");
 
-		_log.error("Sending error notification: " + sb.toString());
+		_log.error("Creating error Zendesk ticket: " + sb.toString());
 
 		zendeskTicket.setDescription(sb.toString());
 
-		zendeskTicket.setSubject("Auto-Provisioning Error");
-		zendeskTicket.setZendeskOrganizationId(
-			ProvisioningDistributedMessagingConfigurationValues.
-				PROVISIONING_ZENDESK_ORGANIZATION_ID);
 		zendeskTicket.setGroupId(
 			ProvisioningDistributedMessagingConfigurationValues.
 				PROVISIONING_ZENDESK_GROUP_ID);
 		zendeskTicket.setRequesterId(
 			ProvisioningDistributedMessagingConfigurationValues.
 				PROVISIONING_ZENDESK_REQUESTER_ID);
+		zendeskTicket.setSubject("Auto-Provisioning Error");
+		zendeskTicket.setZendeskOrganizationId(
+			ProvisioningDistributedMessagingConfigurationValues.
+				PROVISIONING_ZENDESK_ORGANIZATION_ID);
 
 		zendeskTicketWebService.createZendeskTicket(zendeskTicket);
 	}
+
+	protected abstract void doParse(JSONObject jsonObject) throws Exception;
 
 	@Reference
 	protected JSONFactory jsonFactory;

@@ -23,6 +23,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.distributed.messaging.internal.configuration.ProvisioningDistributedMessagingConfigurationUtil;
 import com.liferay.osb.provisioning.distributed.messaging.internal.configuration.ProvisioningDistributedMessagingConfigurationValues;
 import com.liferay.osb.provisioning.distributed.messaging.internal.constants.SalesforceConstants;
@@ -150,7 +151,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		zendeskTicket.setCustomFields(customFields);
 
-		StringBundler sb = new StringBundler(16);
+		StringBundler sb = new StringBundler(14);
 
 		sb.append("Account Name: ");
 		sb.append(account.getName());
@@ -160,42 +161,40 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		sb.append(salesforceOpportunityTypeName);
 		sb.append("<br />Date Created: ");
 		sb.append(account.getDateCreated());
-		sb.append("<br />Provisioning Account Link: ");
-		sb.append("<a href='");
+		sb.append("<br />Provisioning Account Link: <a href='");
 
 		Group group = _groupLocalService.getFriendlyURLGroup(
 			_portal.getDefaultCompanyId(), "/control_panel");
 
-		String ppid =
-			"com_liferay_osb_provisioning_web_portlet_AccountsPortlet";
-
 		Map<String, String[]> params = new LinkedHashMap<>();
 
 		params.put(
-			StringPool.UNDERLINE + ppid + "_mvcRenderCommandName",
+			StringPool.UNDERLINE + ProvisioningPortletKeys.ACCOUNTS +
+				"_mvcRenderCommandName",
 			new String[] {"/accounts/view_account"});
 		params.put(
-			StringPool.UNDERLINE + ppid + "_accountKey",
+			StringPool.UNDERLINE + ProvisioningPortletKeys.ACCOUNTS +
+				"_accountKey",
 			new String[] {account.getKey()});
 
 		sb.append(
-			_portal.getControlPanelFullURL(group.getGroupId(), ppid, params));
+			_portal.getControlPanelFullURL(
+				group.getGroupId(), ProvisioningPortletKeys.ACCOUNTS, params));
 
-		sb.append("'>Provisioning Account</a>");
-		sb.append("<br />Salesforce Opportunity Link: ");
-		sb.append("<a href='https://login.salesforce.com/");
+		sb.append("'>Provisioning Account</a><br />Salesforce Opportunity ");
+		sb.append("Link: <a href='https://login.salesforce.com/");
 		sb.append(salesforceOpportunityKey);
 		sb.append("'>Salesforce Opportunity</a>");
 
 		zendeskTicket.setDescription(sb.toString());
 
+		zendeskTicket.setRequesterId(
+			ProvisioningDistributedMessagingConfigurationValues.
+				PROVISIONING_ZENDESK_REQUESTER_ID);
 		zendeskTicket.setSubject("New Subscription for " + account.getName());
 		zendeskTicket.setZendeskOrganizationId(
 			ProvisioningDistributedMessagingConfigurationValues.
 				PROVISIONING_ZENDESK_ORGANIZATION_ID);
-		zendeskTicket.setRequesterId(
-			ProvisioningDistributedMessagingConfigurationValues.
-				PROVISIONING_ZENDESK_REQUESTER_ID);
 
 		_zendeskTicketWebService.createZendeskTicket(zendeskTicket);
 	}
