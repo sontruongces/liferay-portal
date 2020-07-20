@@ -30,6 +30,7 @@ import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.model.JournalFolderConstants;
 import com.liferay.journal.service.JournalArticleLocalService;
 import com.liferay.journal.service.JournalFolderLocalService;
+import com.liferay.journal.util.JournalContent;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -42,6 +43,7 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FileUtil;
@@ -57,7 +59,6 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portlet.dynamicdatamapping.util.test.DDMStructureTestUtil;
 import com.liferay.portlet.dynamicdatamapping.util.test.DDMTemplateTestUtil;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -127,9 +128,7 @@ public class AMJournalArticleStagedModelDataHandlerTest
 		JournalArticle importedJournalArticle = (JournalArticle)getStagedModel(
 			journalArticle.getUuid(), liveGroup);
 
-		_assertXMLEquals(
-			_getExpectedDynamicContent(fileEntry1, fileEntry2),
-			importedJournalArticle.getContent());
+		_assertContentEquals(journalArticle, importedJournalArticle);
 	}
 
 	@Test
@@ -151,9 +150,7 @@ public class AMJournalArticleStagedModelDataHandlerTest
 		JournalArticle importedJournalArticle = (JournalArticle)getStagedModel(
 			journalArticle.getUuid(), liveGroup);
 
-		_assertXMLEquals(
-			_getExpectedStaticContent(fileEntry1, fileEntry2),
-			importedJournalArticle.getContent());
+		_assertContentEquals(journalArticle, importedJournalArticle);
 	}
 
 	@Test
@@ -289,15 +286,21 @@ public class AMJournalArticleStagedModelDataHandlerTest
 			serviceContext);
 	}
 
-	private void _assertXMLEquals(String expectedXML, String actualXML)
-		throws Exception {
+	private void _assertContentEquals(
+		JournalArticle expectedJournalArticle,
+		JournalArticle actualJournalArticle) {
 
-		Document actualDocument = SAXReaderUtil.read(actualXML);
-		Document expectedDocument = SAXReaderUtil.read(expectedXML);
+		String expectedContent = _journalContent.getContent(
+			expectedJournalArticle.getGroupId(),
+			expectedJournalArticle.getArticleId(), Constants.VIEW,
+			expectedJournalArticle.getDefaultLanguageId());
 
-		AssertUtils.assertEqualsIgnoreCase(
-			expectedDocument.formattedString(),
-			actualDocument.formattedString());
+		String actualContent = _journalContent.getContent(
+			actualJournalArticle.getGroupId(),
+			actualJournalArticle.getArticleId(), Constants.VIEW,
+			actualJournalArticle.getDefaultLanguageId());
+
+		AssertUtils.assertEqualsIgnoreCase(expectedContent, actualContent);
 	}
 
 	private String _getContent(String html) throws Exception {
@@ -325,41 +328,6 @@ public class AMJournalArticleStagedModelDataHandlerTest
 
 		for (FileEntry fileEntry : fileEntries) {
 			sb.append(_getImgTag(fileEntry));
-			sb.append(StringPool.NEW_LINE);
-		}
-
-		return _getContent(sb.toString());
-	}
-
-	private String _getExpectedDynamicContent(FileEntry... fileEntries)
-		throws Exception {
-
-		List<FileEntry> importedFileEntries = new ArrayList<>();
-
-		for (FileEntry fileEntry : fileEntries) {
-			importedFileEntries.add(
-				_dlAppLocalService.getFileEntryByUuidAndGroupId(
-					fileEntry.getUuid(), liveGroup.getGroupId()));
-		}
-
-		return _getDynamicContent(
-			importedFileEntries.toArray(new FileEntry[0]));
-	}
-
-	private String _getExpectedStaticContent(FileEntry... fileEntries)
-		throws Exception {
-
-		StringBundler sb = new StringBundler(fileEntries.length * 2);
-
-		for (FileEntry fileEntry : fileEntries) {
-			FileEntry importedFileEntry =
-				_dlAppLocalService.getFileEntryByUuidAndGroupId(
-					fileEntry.getUuid(), liveGroup.getGroupId());
-
-			sb.append(
-				_amImageHTMLTagFactory.create(
-					_getImgTag(importedFileEntry), importedFileEntry));
-
 			sb.append(StringPool.NEW_LINE);
 		}
 
@@ -421,6 +389,9 @@ public class AMJournalArticleStagedModelDataHandlerTest
 
 	@Inject
 	private JournalArticleLocalService _journalArticleLocalService;
+
+	@Inject
+	private JournalContent _journalContent;
 
 	@Inject
 	private JournalFolderLocalService _journalFolderLocalService;
