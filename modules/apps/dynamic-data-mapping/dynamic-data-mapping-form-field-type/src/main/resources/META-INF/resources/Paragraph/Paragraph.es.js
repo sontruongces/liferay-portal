@@ -119,10 +119,10 @@ Paragraph.STATE = {
 	 * @default undefined
 	 * @instance
 	 * @memberof Paragraph
-	 * @type {?(object|undefined)}
+	 * @type {?(string|undefined)}
 	 */
 
-	text: Config.object(),
+	text: Config.string(),
 
 	/**
 	 * @default undefined
