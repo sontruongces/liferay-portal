@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
@@ -117,6 +118,16 @@ public class ViewAccountDisplayContext {
 		Map<String, Object> data = new HashMap<>();
 
 		data.put("details", getAccountDisplay());
+
+		PortletURL editAccountHierarchyURL = renderResponse.createActionURL();
+
+		editAccountHierarchyURL.setParameter(
+			"mvcRenderCommandName", "/accounts/edit_account_hierarchy");
+		editAccountHierarchyURL.setParameter("accountKey", account.getKey());
+		editAccountHierarchyURL.setWindowState(LiferayWindowState.POP_UP);
+
+		data.put("editAccountHierarchyURL", editAccountHierarchyURL.toString());
+
 		data.put("parentAccountName", getParentAccountName());
 
 		List<String> statusNames = new ArrayList<>();

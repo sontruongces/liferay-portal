@@ -17,11 +17,18 @@ import ExternalAccountKeys from './ExternalAccountKeys';
 import GeneralDetails from './GeneralDetails';
 import PartnerInfo from './PartnerInfo';
 
-function AccountDetails({details, parentAccountName, statusNames, tierNames}) {
+function AccountDetails({
+	details,
+	editAccountHierarchyURL,
+	parentAccountName,
+	statusNames,
+	tierNames
+}) {
 	return (
 		<>
 			<GeneralDetails
 				details={details}
+				editAccountHierarchyURL={editAccountHierarchyURL}
 				parentAccountName={parentAccountName}
 				statuses={statusNames}
 				tiers={tierNames}
@@ -79,6 +86,7 @@ AccountDetails.propTypes = {
 		updateDossieraProjectURL: PropTypes.string,
 		updateSalesforceProjectURL: PropTypes.string
 	}),
+	editAccountHierarchyURL: PropTypes.string,
 	parentAccountName: PropTypes.string,
 	statusNames: PropTypes.arrayOf(PropTypes.string),
 	tierNames: PropTypes.arrayOf(PropTypes.string)

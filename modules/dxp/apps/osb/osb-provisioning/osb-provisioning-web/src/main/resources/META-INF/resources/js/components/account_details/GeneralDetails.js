@@ -22,7 +22,13 @@ import {
 import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
 
-function GeneralDetails({details, parentAccountName, statuses, tiers}) {
+function GeneralDetails({
+	details,
+	editAccountHierarchyURL,
+	parentAccountName,
+	statuses,
+	tiers
+}) {
 	const formData = {
 		code: convertDashToEmptyString(details.code),
 		name: convertDashToEmptyString(details.name),
@@ -98,8 +104,13 @@ function GeneralDetails({details, parentAccountName, statuses, tiers}) {
 			/>
 
 			<DetailField
+				externalData={{
+					formField: 'parentAccountKey',
+					formName: `${NAMESPACE}editAccountHierarchyFm`,
+					title: Liferay.Language.get('select-parent-account'),
+					url: editAccountHierarchyURL
+				}}
 				fieldLabel={Liferay.Language.get('parent')}
-				openExternalFn={window[`${NAMESPACE}editAccountHierarchy`]}
 				type={FIELD_TYPE_EXTERNAL}
 				value={parentAccountName}
 			/>
@@ -122,6 +133,7 @@ GeneralDetails.propTypes = {
 		statusStyle: PropTypes.string,
 		tier: PropTypes.string
 	}),
+	editAccountHierarchyURL: PropTypes.string,
 	parentAccountName: PropTypes.string,
 	statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
 	tiers: PropTypes.arrayOf(PropTypes.string).isRequired

@@ -21,18 +21,19 @@ import {
 	FIELD_TYPE_TEXTAREA,
 	FIELD_TYPE_TOGGLE
 } from '../utilities/constants';
+import pageDialog from '../utilities/pageDialog';
 import HiddenForm from './HiddenForm';
 import InlineEdit from './InlineEdit';
 
 function DetailField({
 	displayAs,
 	displayValue,
+	externalData,
 	fieldLabel,
 	fieldName = fieldLabel,
 	formAction,
 	formData,
 	inputStyle,
-	openExternalFn,
 	options = [],
 	type = FIELD_TYPE_TEXT,
 	value
@@ -57,9 +58,7 @@ function DetailField({
 	}, [data, fieldName, formData, type]);
 
 	function handleOpenExternal() {
-		if (openExternalFn) {
-			openExternalFn();
-		}
+		pageDialog(externalData);
 	}
 
 	function handleSubmit(value) {
@@ -119,12 +118,17 @@ function DetailField({
 DetailField.propTypes = {
 	displayAs: PropTypes.oneOf(['label', 'text']),
 	displayValue: PropTypes.string,
+	externalData: PropTypes.shape({
+		formField: PropTypes.string,
+		formName: PropTypes.string,
+		title: PropTypes.string,
+		url: PropTypes.string
+	}),
 	fieldLabel: PropTypes.string,
 	fieldName: PropTypes.string,
 	formAction: PropTypes.string,
 	formData: PropTypes.object,
 	inputStyle: PropTypes.string,
-	openExternalFn: PropTypes.func,
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,

@@ -18,8 +18,6 @@
 
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
-
-AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 %>
 
 <div class="account-details details-table" id="accountDetails">
@@ -28,42 +26,3 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		module="js/AccountDetailsApp"
 	/>
 </div>
-
-<aui:script>
-	Liferay.provide(
-		window,
-		'<portlet:namespace />editAccountHierarchy',
-		function() {
-			<portlet:renderURL var="editAccountHierarchyURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="mvcRenderCommandName" value="/accounts/edit_account_hierarchy" />
-				<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-			</portlet:renderURL>
-
-			var A = AUI();
-
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-				eventName: '<portlet:namespace />editAccountHierarchy',
-				title: '<liferay-ui:message key="select-parent-account" />',
-				url: '<%= editAccountHierarchyURL %>'
-			});
-
-			itemSelectorDialog.on('selectedItemChange', function(event) {
-				var parentAccountKey = event.newVal;
-
-				if (selectedItems) {
-					Liferay.Util.postForm(
-						document.<portlet:namespace />editAccountHierarchyFm,
-						{
-							data: {
-								parentAccountKey: parentAccountKey
-							}
-						}
-					);
-				}
-			});
-
-			itemSelectorDialog.open();
-		},
-		['aui-base', 'liferay-item-selector-dialog']
-	);
-</aui:script>
