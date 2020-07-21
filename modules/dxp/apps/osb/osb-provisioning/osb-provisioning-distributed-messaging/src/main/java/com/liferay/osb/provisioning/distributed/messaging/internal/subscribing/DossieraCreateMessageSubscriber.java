@@ -28,6 +28,7 @@ import com.liferay.osb.provisioning.distributed.messaging.internal.configuration
 import com.liferay.osb.provisioning.distributed.messaging.internal.configuration.ProvisioningDistributedMessagingConfigurationValues;
 import com.liferay.osb.provisioning.distributed.messaging.internal.constants.SalesforceConstants;
 import com.liferay.osb.provisioning.koroneiki.constants.ContactRoleConstants;
+import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
@@ -36,6 +37,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
 import com.liferay.osb.provisioning.zendesk.web.service.ZendeskTicketWebService;
 import com.liferay.petra.content.ContentUtil;
+import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -75,6 +77,40 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
+	protected void checkWarnings(
+		String accountKey, Account account, int contactCount,
+		String salesforceOpportunityTypeName, int salesforceOpportunityType) {
+
+		if (Validator.isNull(accountKey) &&
+			(salesforceOpportunityType ==
+				SalesforceConstants.OPPORTUNITY_TYPE_EXISTING_BUSINESS)) {
+
+			_logWarning(
+				"The opportunity type is " + salesforceOpportunityTypeName +
+					" and the project does not exists");
+		}
+
+		if (Validator.isNotNull(accountKey) &&
+			((salesforceOpportunityType ==
+				SalesforceConstants.OPPORTUNITY_TYPE_NEW_BUSINESS) ||
+			 (salesforceOpportunityType ==
+				 SalesforceConstants.
+					 OPPORTUNITY_TYPE_NEW_PROJECT_EXISTING_BUSINESS))) {
+
+			_logWarning(
+				"The opportunity type is " + salesforceOpportunityTypeName +
+					" and the project already exists");
+		}
+
+		int maxDeveloperCount = _accountReader.getMaxDeveloperCount(account);
+
+		if (contactCount > maxDeveloperCount) {
+			_logWarning(
+				"Maximum contacts is " + maxDeveloperCount + " but there are " +
+					contactCount + " contacts");
+		}
+	}
+
 	protected Account createAccount(
 			PostalAddress postalAddress, Contact[] contacts,
 			ExternalLink[] externalLinks, ProductPurchase[] productPurchases,
@@ -88,6 +124,17 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		String accountName = accountJSONObject.getString("_name");
 
 		account.setName(accountName);
+
+		List<Account> duplicateAccounts = _accountWebService.search(
+			StringPool.BLANK, "name eq '" + accountName + "'", 0, 1, null);
+
+		if (!duplicateAccounts.isEmpty()) {
+			_logWarning("Account name must be unique");
+		}
+
+		if (accountName.contains(StringPool.PIPE)) {
+			_logWarning("Account name must not contain the | character");
+		}
 
 		JSONObject projectJSONObject = jsonObject.getJSONObject("_project");
 
@@ -186,12 +233,27 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		sb.append(salesforceOpportunityKey);
 		sb.append("'>Salesforce Opportunity</a>");
 
+		String subject = "New Subscription for " + account.getName();
+
+		List<String> warningMessages = _warningMessagesThreadLocal.get();
+
+		if (!warningMessages.isEmpty()) {
+			sb.append("<br /><br />Warnings: ");
+
+			for (String warningMessage : warningMessages) {
+				sb.append("<br />");
+				sb.append(warningMessage);
+			}
+
+			subject = StringUtil.insert(subject, "[Warning] ", 0);
+		}
+
 		zendeskTicket.setDescription(sb.toString());
 
 		zendeskTicket.setRequesterId(
 			ProvisioningDistributedMessagingConfigurationValues.
 				PROVISIONING_ZENDESK_REQUESTER_ID);
-		zendeskTicket.setSubject("New Subscription for " + account.getName());
+		zendeskTicket.setSubject(subject);
 		zendeskTicket.setZendeskOrganizationId(
 			ProvisioningDistributedMessagingConfigurationValues.
 				PROVISIONING_ZENDESK_ORGANIZATION_ID);
@@ -204,6 +266,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		if (!hasOpportunityProductFamily(jsonObject)) {
 			return;
 		}
+
+		_warningMessagesThreadLocal.set(new ArrayList<String>());
 
 		String salesforceOpportunityStageName = jsonObject.getString(
 			"_salesforceOpportunityStageName");
@@ -253,6 +317,10 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 				sendAnalyticsCloudWelcomeEmail(contacts);
 			}
 		}
+
+		checkWarnings(
+			accountKey, account, contacts.size(), salesforceOpportunityTypeName,
+			salesforceOpportunityType);
 
 		String salesforceOpportunityKey = jsonObject.getString(
 			"_salesforceOpportunityKey");
@@ -405,7 +473,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		String soldBy, String countryName) {
 
 		if (Validator.isNull(soldBy)) {
-			_log.error(
+			_logWarning(
 				"Sold by field is empty. Defaulting support region to global.");
 
 			return Account.Region.GLOBAL;
@@ -455,7 +523,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			return Account.Region.SPAIN;
 		}
 
-		_log.error(
+		_logWarning(
 			"Unable to find matching support region for " + soldBy + " and " +
 				countryName + ". Defaulting support region to global.");
 
@@ -956,10 +1024,24 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return false;
 	}
 
+	private void _logWarning(String s) {
+		List<String> warningMessages = _warningMessagesThreadLocal.get();
+
+		warningMessages.add(s);
+	}
+
 	private static final String[] _PRODUCT_FAMILY_TOKENS = {"E", "P", "S"};
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DossieraCreateMessageSubscriber.class);
+
+	private static final ThreadLocal<ArrayList<String>>
+		_warningMessagesThreadLocal = new CentralizedThreadLocal<>(
+			DossieraCreateMessageSubscriber.class +
+				"._warningMessagesThreadLocal");
+
+	@Reference
+	private AccountReader _accountReader;
 
 	@Reference
 	private AccountWebService _accountWebService;
