@@ -22,23 +22,21 @@ String redirect = ParamUtil.getString(request, "redirect");
 ProductBundle productBundle = (ProductBundle)renderRequest.getAttribute(ProvisioningWebKeys.PRODUCT_BUNDLE);
 List<Product> products = (List<Product>)renderRequest.getAttribute(ProvisioningWebKeys.PRODUCT_BUNDLE_PRODUCTS);
 
-String productKeys = null;
+List<String> productKeys = new ArrayList<>();
 
 if (products != null) {
-	List<String> allProductKeys = TransformUtil.transform(products, product -> product.getKey());
-
-	productKeys = StringUtil.merge(allProductKeys, ",");
+	productKeys = TransformUtil.transform(products, product -> product.getKey());
 }
 %>
 
 <portlet:actionURL name="/product_bundles/edit_product_bundle" var="editProductBundleURL">
 	<portlet:param name="mvcRenderCommandName" value="/product_bundles/edit_product_bundle" />
 	<portlet:param name="redirect" value="<%= redirect %>" />
-	<portlet:param name="productBundleId" value="<%= (productBundle != null) ? String.valueOf(productBundle.getProductBundleId()) : null %>" />
+	<portlet:param name="productBundleId" value='<%= (productBundle != null) ? String.valueOf(productBundle.getProductBundleId()) : "" %>' />
 </portlet:actionURL>
 
 <aui:form action="<%= editProductBundleURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="productKeys" type="hidden" value="<%= productKeys %>" />
+	<aui:input name="productKeys" type="hidden" value="<%= StringUtil.merge(productKeys) %>" />
 
 	<liferay-ui:error exception="<%= ProductBundleNameException.MustNotBeDuplicate.class %>">
 
@@ -60,11 +58,7 @@ if (products != null) {
 			<h5><liferay-ui:message key="products" /></h5>
 
 			<div id="<portlet:namespace />productName">
-
-				<%
-				if (products != null) {
-				%>
-
+				<c:if test="<%= products != null %>">
 					<table class="table table-list">
 						<thead>
 							<tr>
@@ -87,7 +81,7 @@ if (products != null) {
 										<%= product.getName() %>
 									</td>
 									<td class="text-right" id="<%= product.getKey() %>">
-										<button class="btn" onclick="removeName(this)" type="button">
+										<button class="btn" onclick="<portlet:namespace />removeName(this);" type="button">
 											<svg class="lexicon-icon lexicon-icon-times-circle">
 												<use xlink:href="#delete-icon" />
 											</svg>
@@ -103,11 +97,7 @@ if (products != null) {
 					</table>
 
 					<br />
-
-				<%
-				}
-				%>
-
+				</c:if>
 			</div>
 
 			<aui:button onClick='<%= renderResponse.getNamespace() + "assignProducts();" %>' value="select" />
@@ -157,7 +147,7 @@ if (products != null) {
 							selectItem[1] +
 							'</td><td class=" text-right" id="' +
 							selectItem[0] +
-							'"><button type="button" class="btn" onclick="removeName(this)"><svg class="lexicon-icon lexicon-icon-times-circle"><use xlink:href="#delete-icon" /></svg></button></td></tr>';
+							'"><button type="button" class="btn" onclick="<portlet:namespace />removeName(this);"><svg class="lexicon-icon lexicon-icon-times-circle"><use xlink:href="#delete-icon" /></svg></button></td></tr>';
 					}
 
 					display += '</tbody></table><br />';
@@ -173,14 +163,12 @@ if (products != null) {
 		},
 		['aui-base', 'liferay-item-selector-dialog']
 	);
-</aui:script>
 
-<aui:script>
-	function removeKey(key, value) {
+	function <portlet:namespace />removeKey(key, value) {
 		return key !== value;
 	}
 
-	function removeName(object) {
+	function <portlet:namespace />removeName(object) {
 		var productKeys = document.getElementById(
 			'<portlet:namespace />productKeys'
 		);
@@ -188,7 +176,12 @@ if (products != null) {
 		if (productKeys) {
 			productKeys.value = productKeys.value
 				.split(',')
-				.filter(removeKey.bind(this, object.parentElement.id))
+				.filter(
+					<portlet:namespace />removeKey.bind(
+						this,
+						object.parentElement.id
+					)
+				)
 				.join(',');
 		}
 

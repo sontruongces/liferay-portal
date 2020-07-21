@@ -47,8 +47,7 @@ public class ProductEntryEntityModel implements EntityModel {
 					"externalLinkEntityNames",
 					locale -> "externalLinkEntityNames")),
 			new StringEntityField("name", locale -> "name"),
-			new StringEntityField(
-				"productEntryKey", locale -> "productEntryKey")
+			new StringEntityField("productKey", locale -> "productEntryKey")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);

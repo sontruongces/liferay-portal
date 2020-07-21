@@ -52,7 +52,7 @@ public class EditProductBundleMVCRenderCommand implements MVCRenderCommand {
 			long productBundleId = ParamUtil.getLong(
 				renderRequest, "productBundleId");
 
-			if (productBundleId != 0) {
+			if (productBundleId > 0) {
 				renderRequest.setAttribute(
 					ProvisioningWebKeys.PRODUCT_BUNDLE,
 					_productBundleLocalService.getProductBundle(

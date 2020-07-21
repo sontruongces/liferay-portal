@@ -63,7 +63,7 @@
 
 			<liferay-ui:search-container-column-jsp
 				align="right"
-				path="/product_bundles/product_bundles_action.jsp"
+				path="/product_bundles/product_bundle_action.jsp"
 			/>
 		</liferay-ui:search-container-row>
 

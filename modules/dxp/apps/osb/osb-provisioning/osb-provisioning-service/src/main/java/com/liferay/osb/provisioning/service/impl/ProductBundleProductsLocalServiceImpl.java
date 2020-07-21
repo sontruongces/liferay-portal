@@ -89,7 +89,7 @@ public class ProductBundleProductsLocalServiceImpl
 			ProductBundleProducts productBundleProduct =
 				productBundleProducts.get(i);
 
-			sb.append("(productEntryKey eq '");
+			sb.append("(productKey eq '");
 			sb.append(productBundleProduct.getProductKey());
 			sb.append("')");
 
@@ -99,7 +99,7 @@ public class ProductBundleProductsLocalServiceImpl
 		}
 
 		return _productWebService.getProducts(
-			StringPool.BLANK, sb.toString(), 0, 1000, null);
+			StringPool.BLANK, sb.toString(), 1, 1000, null);
 	}
 
 	public List<ProductBundleProducts> getProductBundleProducts(

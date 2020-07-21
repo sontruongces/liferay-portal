@@ -31,7 +31,7 @@ ProductBundle productBundle = (ProductBundle)row.getObject();
 	<portlet:actionURL name="/product_bundles/edit_product_bundle" var="deleteURL">
 		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
-		<portlet:param name="productBundleId" value="<%= (productBundle != null) ? String.valueOf(productBundle.getProductBundleId()) : null %>" />
+		<portlet:param name="productBundleId" value="<%= String.valueOf(productBundle.getProductBundleId()) %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete

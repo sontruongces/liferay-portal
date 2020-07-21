@@ -112,16 +112,16 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 
-		if (productBundleId == 0) {
+		if (productBundleId > 0) {
+			_productBundleLocalService.updateProductBundle(
+				productBundleId, name);
+		}
+		else {
 			ProductBundle productBundle =
 				_productBundleLocalService.addProductBundle(
 					user.getUserId(), name);
 
 			productBundleId = productBundle.getProductBundleId();
-		}
-		else {
-			_productBundleLocalService.updateProductBundle(
-				productBundleId, name);
 		}
 
 		_updateProductBundleProducts(productBundleId, productKeys);
@@ -138,11 +138,11 @@ public class EditProductBundleMVCActionCommand extends BaseMVCActionCommand {
 		for (ProductBundleProducts productBundleProduct :
 				oldProductBundleProducts) {
 
-			String productKey = productBundleProduct.getProductKey();
+			if (!ArrayUtil.contains(
+					productKeys, productBundleProduct.getProductKey())) {
 
-			if (!ArrayUtil.contains(productKeys, productKey)) {
 				_productBundleProductsLocalService.deleteProductBundleProducts(
-					productBundleId, productKey);
+					productBundleId, productBundleProduct.getProductKey());
 			}
 		}
 
