@@ -16,7 +16,7 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
+import com.liferay.osb.provisioning.web.internal.dao.search.AssignProductBundleProductsRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -64,7 +64,9 @@ public class AssignProductBundleProductsDisplayContext {
 		return currentURLObj.toString();
 	}
 
-	public SearchContainer getSearchContainer() throws Exception {
+	public SearchContainer getSearchContainer(List<String> productKeys)
+		throws Exception {
+
 		SearchContainer searchContainer = new SearchContainer(
 			_renderRequest, _renderResponse.createRenderURL(),
 			Collections.emptyList(), "no-products-were-found");
@@ -83,7 +85,8 @@ public class AssignProductBundleProductsDisplayContext {
 					_renderRequest, _renderResponse, product)));
 
 		searchContainer.setRowChecker(
-			new EmptyOnClickRowChecker(_renderResponse));
+			new AssignProductBundleProductsRowChecker(
+				_renderResponse, productKeys));
 
 		int count = (int)_productWebService.getProductsCount(
 			keywords, StringPool.BLANK);

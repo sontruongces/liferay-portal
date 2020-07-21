@@ -120,12 +120,21 @@ if (products != null) {
 				<portlet:param name="mvcRenderCommandName" value="/product_bundles/assign_products" />
 			</portlet:renderURL>
 
+			var url = Liferay.Util.PortletURL.createPortletURL(
+				'<%= assignProductsURL.toString() %>',
+				{
+					productKeys: document.getElementById(
+						'<portlet:namespace />productKeys'
+					).value
+				}
+			);
+
 			var A = AUI();
 
 			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
 				eventName: '<portlet:namespace />assignProducts',
 				title: '<liferay-ui:message key="select-products" />',
-				url: '<%= assignProductsURL %>'
+				url: url.toString()
 			});
 
 			itemSelectorDialog.on('selectedItemChange', function(event) {

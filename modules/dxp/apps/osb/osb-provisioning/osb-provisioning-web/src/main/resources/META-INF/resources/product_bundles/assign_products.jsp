@@ -19,7 +19,9 @@
 <%
 AssignProductBundleProductsDisplayContext assignProductBundleProductsDisplayContext = ProvisioningWebComponentProvider.getAssignProductBundleProductsDisplayContext(renderRequest, renderResponse, request);
 
-SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getSearchContainer();
+List<String> productKeys = (List<String>)renderRequest.getAttribute("productKeys");
+
+SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getSearchContainer(productKeys);
 %>
 
 <clay:management-toolbar

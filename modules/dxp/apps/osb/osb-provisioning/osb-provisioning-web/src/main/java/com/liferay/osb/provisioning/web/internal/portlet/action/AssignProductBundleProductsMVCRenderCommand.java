@@ -17,6 +17,10 @@ package com.liferay.osb.provisioning.web.internal.portlet.action;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.util.Arrays;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -43,6 +47,14 @@ public class AssignProductBundleProductsMVCRenderCommand
 		throws PortletException {
 
 		try {
+			String[] productKeys = ParamUtil.getStringValues(
+				renderRequest, "productKeys");
+
+			if (Validator.isNotNull(productKeys)) {
+				renderRequest.setAttribute(
+					"productKeys", Arrays.asList(productKeys));
+			}
+
 			return "/product_bundles/assign_products.jsp";
 		}
 		catch (Exception exception) {
