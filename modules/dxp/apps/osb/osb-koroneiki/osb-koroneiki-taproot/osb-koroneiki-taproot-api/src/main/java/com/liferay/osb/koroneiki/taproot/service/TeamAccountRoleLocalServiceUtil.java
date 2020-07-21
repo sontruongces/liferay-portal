@@ -303,6 +303,13 @@ public class TeamAccountRoleLocalServiceUtil {
 		return getService().getTeamAccountRoles(teamId);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.TeamAccountRole>
+			getTeamAccountRolesByAccountId(long accountId) {
+
+		return getService().getTeamAccountRolesByAccountId(accountId);
+	}
+
 	/**
 	 * Returns the number of team account roles.
 	 *

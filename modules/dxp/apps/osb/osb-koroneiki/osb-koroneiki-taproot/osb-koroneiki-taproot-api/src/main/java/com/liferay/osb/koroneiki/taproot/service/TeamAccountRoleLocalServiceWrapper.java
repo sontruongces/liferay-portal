@@ -327,6 +327,15 @@ public class TeamAccountRoleLocalServiceWrapper
 		return _teamAccountRoleLocalService.getTeamAccountRoles(teamId);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.osb.koroneiki.taproot.model.TeamAccountRole>
+			getTeamAccountRolesByAccountId(long accountId) {
+
+		return _teamAccountRoleLocalService.getTeamAccountRolesByAccountId(
+			accountId);
+	}
+
 	/**
 	 * Returns the number of team account roles.
 	 *

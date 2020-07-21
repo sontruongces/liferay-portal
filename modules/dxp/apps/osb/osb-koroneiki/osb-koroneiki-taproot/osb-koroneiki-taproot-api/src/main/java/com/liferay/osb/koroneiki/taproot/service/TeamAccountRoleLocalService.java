@@ -251,6 +251,9 @@ public interface TeamAccountRoleLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<TeamAccountRole> getTeamAccountRoles(long teamId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<TeamAccountRole> getTeamAccountRolesByAccountId(long accountId);
+
 	/**
 	 * Returns the number of team account roles.
 	 *
