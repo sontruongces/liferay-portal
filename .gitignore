@@ -11,9 +11,9 @@
 *.iws
 *.swp
 *~
+.DS_Store
 .ant-targets-build.xml
 .ant_targets
-.DS_Store
 .gh.json
 .sass-cache
 .sass_cache_*.css
