@@ -23,9 +23,13 @@ import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.model.ContactAccountRole;
 import com.liferay.osb.koroneiki.taproot.model.ContactRole;
+import com.liferay.osb.koroneiki.taproot.model.Team;
+import com.liferay.osb.koroneiki.taproot.model.TeamAccountRole;
+import com.liferay.osb.koroneiki.taproot.model.TeamRole;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductPurchase;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -111,6 +115,7 @@ public class AccountModelDocumentContributor
 		_contributeEntitlements(document, account.getAccountId());
 		_contributeExternalLinks(document, account.getAccountId());
 		_contributeProductEntries(document, account.getAccountId());
+		_contributeTeams(document, account.getAccountId());
 	}
 
 	private void _contributeContacts(Document document, long accountId)
@@ -273,6 +278,29 @@ public class AccountModelDocumentContributor
 			ArrayUtil.toStringArray(productEntryKeys.toArray()));
 	}
 
+	private void _contributeTeams(Document document, long accountId)
+		throws PortalException {
+
+		Set<String> assignedTeamKeyTeamRoleKeys = new HashSet<>();
+
+		List<TeamAccountRole> teamAccountRoles =
+			_teamAccountRoleLocalService.getTeamAccountRolesByAccountId(
+				accountId);
+
+		for (TeamAccountRole teamAccountRole : teamAccountRoles) {
+			Team team = teamAccountRole.getTeam();
+			TeamRole teamRole = teamAccountRole.getTeamRole();
+
+			assignedTeamKeyTeamRoleKeys.add(
+				team.getTeamKey() + StringPool.UNDERLINE +
+					teamRole.getTeamRoleKey());
+		}
+
+		document.addKeyword(
+			"assignedTeamKeyTeamRoleKeys",
+			ArrayUtil.toStringArray(assignedTeamKeyTeamRoleKeys.toArray()));
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		AccountModelDocumentContributor.class);
 
@@ -293,5 +321,8 @@ public class AccountModelDocumentContributor
 
 	@Reference
 	private ProductPurchaseLocalService _productPurchaseLocalService;
+
+	@Reference
+	private TeamAccountRoleLocalService _teamAccountRoleLocalService;
 
 }

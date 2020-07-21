@@ -35,6 +35,10 @@ public class AccountEntityModel implements EntityModel {
 	public AccountEntityModel() {
 		_entityFieldsMap = Stream.of(
 			new StringEntityField("accountKey", locale -> "accountKey"),
+			new CollectionEntityField(
+				new StringEntityField(
+					"assignedTeamKeyTeamRoleKeys",
+					locale -> "assignedTeamKeyTeamRoleKeys")),
 			new EntityField(
 				"code", EntityField.Type.STRING,
 				locale -> Field.getSortableFieldName("code_String"),

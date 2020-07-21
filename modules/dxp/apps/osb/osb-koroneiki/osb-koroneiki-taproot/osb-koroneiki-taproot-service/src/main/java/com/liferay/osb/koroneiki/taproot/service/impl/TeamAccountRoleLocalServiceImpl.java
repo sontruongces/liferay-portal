@@ -90,6 +90,12 @@ public class TeamAccountRoleLocalServiceImpl
 		return teamAccountRolePersistence.findByTeamId(teamId);
 	}
 
+	public List<TeamAccountRole> getTeamAccountRolesByAccountId(
+		long accountId) {
+
+		return teamAccountRolePersistence.findByAccountId(accountId);
+	}
+
 	protected void validate(long teamId, long accountId, long teamRoleId)
 		throws PortalException {
 
