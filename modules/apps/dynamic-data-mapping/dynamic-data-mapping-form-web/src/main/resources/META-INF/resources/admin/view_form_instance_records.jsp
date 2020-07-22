@@ -90,7 +90,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "form-entries"));
 
 				<liferay-ui:search-container-column-status
 					name="status"
-					status="<%= ddmFormViewFormInstanceRecordsDisplayContext.getStatus(formInstanceRecord) %>"
+					property="status"
 				/>
 
 				<liferay-ui:search-container-column-date
