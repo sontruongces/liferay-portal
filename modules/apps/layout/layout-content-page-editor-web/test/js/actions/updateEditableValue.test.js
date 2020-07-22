@@ -34,7 +34,7 @@ jest.mock(
 	})
 );
 
-describe('updateEditableValuesAction', () => {
+describe.skip('updateEditableValuesAction', () => {
 	let editableValues;
 	const fragmentId = 'sampleFragmentId';
 	let state = {};
