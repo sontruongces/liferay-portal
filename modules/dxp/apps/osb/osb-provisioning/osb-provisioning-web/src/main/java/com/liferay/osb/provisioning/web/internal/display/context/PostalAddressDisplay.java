@@ -72,14 +72,6 @@ public class PostalAddressDisplay {
 		return StringPool.DASH;
 	}
 
-	public String getAddressType() {
-		if (Validator.isNotNull(_postalAddress.getAddressType())) {
-			return _postalAddress.getAddressType();
-		}
-
-		return StringPool.DASH;
-	}
-
 	public String getDeletePostalAddressURL() {
 		PortletURL deletePostalAddressURL =
 			_liferayPortletResponse.createActionURL();
@@ -119,16 +111,6 @@ public class PostalAddressDisplay {
 
 	public long getId() {
 		return _postalAddress.getId();
-	}
-
-	public Boolean getMailing() {
-		if ((_postalAddress.getMailing() != null) &&
-			_postalAddress.getMailing()) {
-
-			return true;
-		}
-
-		return false;
 	}
 
 	public String getPostalCode() {

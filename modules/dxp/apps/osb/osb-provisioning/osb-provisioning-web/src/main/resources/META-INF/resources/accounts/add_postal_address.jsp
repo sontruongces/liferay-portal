@@ -52,10 +52,6 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 				<input class="field" id="<portlet:namespace />addressPrimary" name="<portlet:namespace />addressPrimary" type="checkbox" />
 			</div>
 
-			<liferay-ui:error key="<%= NoSuchListTypeException.class.getName() + Account.class.getName() + ListTypeConstants.ADDRESS %>" message="please-select-a-type" />
-
-			<aui:select inlineLabel="left" label="type" listType='<%= "com.liferay.portal.kernel.model.Contact" + ListTypeConstants.ADDRESS %>' name="addressType" />
-
 			<aui:input fieldParam="streetAddressLine1" id="streetAddressLine1" inlineLabel="left" name="street1" required="<%= true %>" />
 
 			<aui:input fieldParam="streetAddressLine2" id="streetAddressLine2" inlineLabel="left" name="street2" />
@@ -84,14 +80,6 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 				</label>
 
 				<input class="field form-control lfr-input-text" id="<portlet:namespace />addressZip" name="<portlet:namespace />addressZip" type="text" />
-			</div>
-
-			<div class="form-group form-inline">
-				<label class="control-label" for="<portlet:namespace />mailing">
-					<liferay-ui:message key="mailing" />
-				</label>
-
-				<input class="field" id="<portlet:namespace />mailing" name="<portlet:namespace />mailing" type="checkbox" />
 			</div>
 
 			<aui:button-row>

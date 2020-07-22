@@ -24,7 +24,6 @@ import com.liferay.portal.kernel.exception.NoSuchRegionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
-import com.liferay.portal.kernel.model.ListType;
 import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -132,8 +131,7 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "addressCountryId");
 		long addressRegionId = ParamUtil.getLong(
 			actionRequest, "addressRegionId");
-		long addressType = ParamUtil.getLong(actionRequest, "addressType");
-		boolean mailing = ParamUtil.getBoolean(actionRequest, "mailing");
+
 		boolean primary = ParamUtil.getBoolean(actionRequest, "addressPrimary");
 
 		PostalAddress postalAddress = new PostalAddress();
@@ -170,13 +168,6 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			postalAddress.setAddressCountry(country.getName(LocaleUtil.US));
 		}
 
-		if (addressType > 0) {
-			ListType listType = _listTypeService.getListType(addressType);
-
-			postalAddress.setAddressType(listType.getName());
-		}
-
-		postalAddress.setMailing(mailing);
 		postalAddress.setPrimary(primary);
 
 		if (postalAddressId > 0) {

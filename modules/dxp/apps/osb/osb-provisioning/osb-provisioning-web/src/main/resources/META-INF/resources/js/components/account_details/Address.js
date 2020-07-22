@@ -121,16 +121,6 @@ function Address({accountKey, addURL, address, count, countryOptions}) {
 				type="hidden"
 				value={accountKey}
 			/>
-			<input
-				name={`${NAMESPACE}addressType`}
-				type="hidden"
-				value={convertDashToEmptyString(address.addressType)}
-			/>
-			<input
-				name={`${NAMESPACE}mailing`}
-				type="hidden"
-				value={convertDashToEmptyString(address.mailing)}
-			/>
 
 			<ClayList>
 				<ClayList.Header>
