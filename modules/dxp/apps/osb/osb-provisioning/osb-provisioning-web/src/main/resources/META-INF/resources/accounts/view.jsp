@@ -23,6 +23,14 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 %>
 
 <div class="container-fluid-1280">
+	<div class="alert alert-info" role="alert">
+		<div class="alert-autofit-row autofit-row">
+			<div>
+				<liferay-ui:message arguments='<%= new String[] {"<a href='https://reports.liferay.com/#/site/support/workbooks/810/views' target='_blank'>", "</a>"} %>' key="advanced-search-is-temporarily-provided-by-the-cas-monitoring-report" translateArguments="<%= false %>" />
+			</div>
+		</div>
+	</div>
+
 	<portlet:actionURL name="/search" var="searchURL" />
 
 	<clay:management-toolbar
