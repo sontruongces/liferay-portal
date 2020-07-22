@@ -18,7 +18,6 @@ import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Arrays;
 
@@ -50,7 +49,7 @@ public class AssignProductBundleProductsMVCRenderCommand
 			String[] productKeys = ParamUtil.getStringValues(
 				renderRequest, "productKeys");
 
-			if (Validator.isNotNull(productKeys)) {
+			if (productKeys.length > 0) {
 				renderRequest.setAttribute(
 					"productKeys", Arrays.asList(productKeys));
 			}
