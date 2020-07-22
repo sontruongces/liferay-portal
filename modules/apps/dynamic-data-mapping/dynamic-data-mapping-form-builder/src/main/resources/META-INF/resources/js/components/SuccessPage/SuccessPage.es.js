@@ -19,7 +19,7 @@ import {Config} from 'metal-state';
 import {setValue} from '../../util/i18n.es';
 import templates from './SuccessPage.soy';
 
-class SucessPage extends Component {
+class SuccessPage extends Component {
 	prepareStateForRender(state) {
 		const {editingLanguageId, successPageSettings} = this;
 		const {body, title} = successPageSettings;
@@ -57,12 +57,12 @@ class SucessPage extends Component {
 	}
 }
 
-SucessPage.STATE = {
+SuccessPage.STATE = {
 	editingLanguageId: Config.string(),
 
 	/**
 	 * @instance
-	 * @memberof SucessPage
+	 * @memberof SuccessPage
 	 * @type {?object}
 	 */
 
@@ -72,6 +72,6 @@ SucessPage.STATE = {
 	})
 };
 
-Soy.register(SucessPage, templates);
+Soy.register(SuccessPage, templates);
 
-export default SucessPage;
+export default SuccessPage;
