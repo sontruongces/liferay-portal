@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class AssignProductBundleProductsDisplayContext {
 		return currentURLObj.toString();
 	}
 
-	public SearchContainer getSearchContainer(List<String> productKeys)
+	public SearchContainer getSearchContainer(String[] productKeys)
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
@@ -86,7 +87,7 @@ public class AssignProductBundleProductsDisplayContext {
 
 		searchContainer.setRowChecker(
 			new AssignProductBundleProductsRowChecker(
-				_renderResponse, productKeys));
+				_renderResponse, Arrays.asList(productKeys)));
 
 		int count = (int)_productWebService.getProductsCount(
 			keywords, StringPool.BLANK);

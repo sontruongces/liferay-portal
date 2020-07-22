@@ -19,7 +19,7 @@
 <%
 AssignProductBundleProductsDisplayContext assignProductBundleProductsDisplayContext = ProvisioningWebComponentProvider.getAssignProductBundleProductsDisplayContext(renderRequest, renderResponse, request);
 
-List<String> productKeys = (List<String>)renderRequest.getAttribute("productKeys");
+String[] productKeys = ParamUtil.getStringValues(renderRequest, "productKeys");
 
 SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getSearchContainer(productKeys);
 %>
