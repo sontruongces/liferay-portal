@@ -120,23 +120,24 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 
 			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
 				eventName: '<portlet:namespace />assignContacts',
+				on: {
+					selectedItemChange: function(event) {
+						var selectedItems = event.newVal;
+
+						if (selectedItems) {
+							Liferay.Util.postForm(
+								document.<portlet:namespace />assignContactsFm,
+								{
+									data: {
+										addEmailAddresses: selectedItems
+									}
+								}
+							);
+						}
+					}
+				},
 				title: '<liferay-ui:message key="select-team-members" />',
 				url: '<%= assignTeamContactsURL %>'
-			});
-
-			itemSelectorDialog.on('selectedItemChange', function(event) {
-				var selectedItems = event.newVal;
-
-				if (selectedItems) {
-					Liferay.Util.postForm(
-						document.<portlet:namespace />assignContactsFm,
-						{
-							data: {
-								addEmailAddresses: selectedItems
-							}
-						}
-					);
-				}
 			});
 
 			itemSelectorDialog.open();
