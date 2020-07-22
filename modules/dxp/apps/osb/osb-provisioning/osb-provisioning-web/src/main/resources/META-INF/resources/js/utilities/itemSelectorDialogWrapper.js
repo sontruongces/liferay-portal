@@ -11,7 +11,7 @@
 
 // Blackbox the AUI dependency Liferay Item Selector Dialog
 
-function pageDialog({formField, formName, title, url}) {
+function itemSelectorDialogWrapper({formField, formName, title, url}) {
 	const A = AUI();
 
 	if (A) {
@@ -38,4 +38,4 @@ function pageDialog({formField, formName, title, url}) {
 	}
 }
 
-export default pageDialog;
+export default itemSelectorDialogWrapper;

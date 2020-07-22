@@ -21,7 +21,7 @@ import {
 	FIELD_TYPE_TEXTAREA,
 	FIELD_TYPE_TOGGLE
 } from '../utilities/constants';
-import pageDialog from '../utilities/pageDialog';
+import itemSelectorDialogWrapper from '../utilities/itemSelectorDialogWrapper';
 import HiddenForm from './HiddenForm';
 import InlineEdit from './InlineEdit';
 
@@ -58,7 +58,7 @@ function DetailField({
 	}, [data, fieldName, formData, type]);
 
 	function handleOpenExternal() {
-		pageDialog(externalData);
+		itemSelectorDialogWrapper(externalData);
 	}
 
 	function handleSubmit(value) {
