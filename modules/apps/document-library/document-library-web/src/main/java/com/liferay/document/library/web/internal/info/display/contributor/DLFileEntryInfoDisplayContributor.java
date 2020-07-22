@@ -104,10 +104,6 @@ public class DLFileEntryInfoDisplayContributor
 		infoDisplayFieldValues.putAll(
 			_infoDisplayFieldProvider.getContributorInfoDisplayFieldsValues(
 				getClassName(), fileEntry, locale));
-		infoDisplayFieldValues.putAll(
-			_expandoInfoDisplayFieldProvider.
-				getContributorExpandoInfoDisplayFieldsValues(
-					getClassName(), fileEntry, locale));
 
 		if (fileEntry.getModel() instanceof DLFileEntry) {
 			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
@@ -122,6 +118,11 @@ public class DLFileEntryInfoDisplayContributor
 						dlFileEntry,
 						dlFileEntryDDMFormValuesReader.getDDMFormValues(),
 						locale));
+
+			infoDisplayFieldValues.putAll(
+				_expandoInfoDisplayFieldProvider.
+					getContributorExpandoInfoDisplayFieldsValues(
+						getClassName(), fileEntry, locale));
 		}
 
 		return infoDisplayFieldValues;
