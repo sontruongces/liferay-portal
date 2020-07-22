@@ -24,6 +24,7 @@ import com.liferay.osb.koroneiki.taproot.service.AddressService;
 import com.liferay.portal.kernel.exception.NoSuchListTypeException;
 import com.liferay.portal.kernel.exception.NoSuchRegionException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.ListType;
@@ -98,21 +99,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		long regionId = _getRegionId(
 			countryId, postalAddress.getAddressRegion());
 
-		long listTypeId = 0;
-
-		if (Validator.isNotNull(postalAddress.getAddressType())) {
-			ListType listType = _listTypeService.getListType(
-				postalAddress.getAddressType(),
-				Contact.class.getName() + ".address");
-
-			if (listType == null) {
-				throw new NoSuchListTypeException(
-					"Address type " + postalAddress.getAddressType() +
-						" is not valid");
-			}
-
-			listTypeId = listType.getListTypeId();
-		}
+		long listTypeId = _getListTypeId(postalAddress.getAddressType());
 
 		return PostalAddressUtil.toPostalAddress(
 			_addressService.addAddress(
@@ -135,36 +122,47 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
+		Address curAddress = _addressService.getAddress(postalAddressId);
+
+		String streetAddressLine1 = GetterUtil.getString(
+			postalAddress.getStreetAddressLine1(), curAddress.getStreet1());
+		String streetAddressLine2 = GetterUtil.getString(
+			postalAddress.getStreetAddressLine2(), curAddress.getStreet2());
+		String streetAddressLine3 = GetterUtil.getString(
+			postalAddress.getStreetAddressLine3(), curAddress.getStreet3());
+		String addressLocality = GetterUtil.getString(
+			postalAddress.getAddressLocality(), curAddress.getCity());
+		String postalCode = GetterUtil.getString(
+			postalAddress.getPostalCode(), curAddress.getZip());
+		boolean mailing = GetterUtil.getBoolean(
+			postalAddress.getMailing(), curAddress.getMailing());
+		boolean primary = GetterUtil.getBoolean(
+			postalAddress.getPrimary(), curAddress.getPrimary());
+
 		long countryId = _getCountryId(postalAddress.getAddressCountry());
+
+		if (countryId == 0) {
+			countryId = curAddress.getCountryId();
+		}
 
 		long regionId = _getRegionId(
 			countryId, postalAddress.getAddressRegion());
 
-		long listTypeId = 0;
+		if (regionId == 0) {
+			regionId = curAddress.getRegionId();
+		}
 
-		if (Validator.isNotNull(postalAddress.getAddressType())) {
-			ListType listType = _listTypeService.getListType(
-				postalAddress.getAddressType(),
-				Contact.class.getName() + ".address");
+		long listTypeId = _getListTypeId(postalAddress.getAddressType());
 
-			if (listType == null) {
-				throw new NoSuchListTypeException(
-					"Address type " + postalAddress.getAddressType() +
-						" is not valid");
-			}
-
-			listTypeId = listType.getListTypeId();
+		if (listTypeId == 0) {
+			listTypeId = curAddress.getTypeId();
 		}
 
 		return PostalAddressUtil.toPostalAddress(
 			_addressService.updateAddress(
-				postalAddressId, postalAddress.getStreetAddressLine1(),
-				postalAddress.getStreetAddressLine2(),
-				postalAddress.getStreetAddressLine3(),
-				postalAddress.getAddressLocality(),
-				postalAddress.getPostalCode(), regionId, countryId, listTypeId,
-				GetterUtil.getBoolean(postalAddress.getMailing()),
-				GetterUtil.getBoolean(postalAddress.getPrimary())));
+				postalAddressId, streetAddressLine1, streetAddressLine2,
+				streetAddressLine3, addressLocality, postalCode, regionId,
+				countryId, listTypeId, mailing, primary));
 	}
 
 	private long _getCountryId(String addressCountry) throws PortalException {
@@ -175,6 +173,22 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		Country country = _countryService.getCountryByName(addressCountry);
 
 		return country.getCountryId();
+	}
+
+	private long _getListTypeId(String addressType) throws PortalException {
+		if (Validator.isNull(addressType)) {
+			return 0;
+		}
+
+		ListType listType = _listTypeService.getListType(
+			addressType, Contact.class.getName() + ".address");
+
+		if (listType == null) {
+			throw new NoSuchListTypeException(
+				"Address type " + addressType + " is not valid");
+		}
+
+		return listType.getListTypeId();
 	}
 
 	private long _getRegionId(long countryId, String addressRegion)
