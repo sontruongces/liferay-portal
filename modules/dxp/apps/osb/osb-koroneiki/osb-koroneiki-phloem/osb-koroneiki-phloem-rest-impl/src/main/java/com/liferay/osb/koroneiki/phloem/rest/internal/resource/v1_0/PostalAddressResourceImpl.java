@@ -94,12 +94,12 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 
 		Account account = _accountService.getAccount(accountKey);
 
-		long countryId = _getCountryId(postalAddress.getAddressCountry());
+		long countryId = _getCountryId(postalAddress.getAddressCountry(), 0);
 
 		long regionId = _getRegionId(
-			countryId, postalAddress.getAddressRegion());
+			countryId, postalAddress.getAddressRegion(), 0);
 
-		long listTypeId = _getListTypeId(postalAddress.getAddressType());
+		long listTypeId = _getListTypeId(postalAddress.getAddressType(), 0);
 
 		return PostalAddressUtil.toPostalAddress(
 			_addressService.addAddress(
@@ -139,24 +139,15 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		boolean primary = GetterUtil.getBoolean(
 			postalAddress.getPrimary(), curAddress.getPrimary());
 
-		long countryId = _getCountryId(postalAddress.getAddressCountry());
-
-		if (countryId == 0) {
-			countryId = curAddress.getCountryId();
-		}
+		long countryId = _getCountryId(
+			postalAddress.getAddressCountry(), curAddress.getCountryId());
 
 		long regionId = _getRegionId(
-			countryId, postalAddress.getAddressRegion());
+			countryId, postalAddress.getAddressRegion(),
+			curAddress.getRegionId());
 
-		if (regionId == 0) {
-			regionId = curAddress.getRegionId();
-		}
-
-		long listTypeId = _getListTypeId(postalAddress.getAddressType());
-
-		if (listTypeId == 0) {
-			listTypeId = curAddress.getTypeId();
-		}
+		long listTypeId = _getListTypeId(
+			postalAddress.getAddressType(), curAddress.getTypeId());
 
 		return PostalAddressUtil.toPostalAddress(
 			_addressService.updateAddress(
@@ -165,9 +156,11 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 				countryId, listTypeId, mailing, primary));
 	}
 
-	private long _getCountryId(String addressCountry) throws PortalException {
+	private long _getCountryId(String addressCountry, long countryId)
+		throws PortalException {
+
 		if (Validator.isNull(addressCountry)) {
-			return 0;
+			return countryId;
 		}
 
 		Country country = _countryService.getCountryByName(addressCountry);
@@ -175,9 +168,11 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		return country.getCountryId();
 	}
 
-	private long _getListTypeId(String addressType) throws PortalException {
+	private long _getListTypeId(String addressType, long typeId)
+		throws PortalException {
+
 		if (Validator.isNull(addressType)) {
-			return 0;
+			return typeId;
 		}
 
 		ListType listType = _listTypeService.getListType(
@@ -191,7 +186,8 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		return listType.getListTypeId();
 	}
 
-	private long _getRegionId(long countryId, String addressRegion)
+	private long _getRegionId(
+			long countryId, String addressRegion, long regionId)
 		throws PortalException {
 
 		if ((countryId <= 0) && Validator.isNotNull(addressRegion)) {
@@ -200,7 +196,7 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		}
 
 		if (Validator.isNull(addressRegion)) {
-			return 0;
+			return regionId;
 		}
 
 		List<Region> regions = _regionService.getRegions(countryId);
