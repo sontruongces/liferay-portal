@@ -34,7 +34,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "edit-account-hierarchy"));
 	<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 </portlet:actionURL>
 
-<aui:form action="<%= editAccountHierarchyURL.toString() %>" cssClass="container-fluid-1280" method="post" name="editAccountHierarchyFm">
+<aui:form action="<%= editAccountHierarchyURL.toString() %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="editAccountHierarchyFm">
 
 	<%
 	AccountDisplay parentAccountDisplay = viewAccountRelatedAccountsDisplayContext.getParentAccountDisplay();

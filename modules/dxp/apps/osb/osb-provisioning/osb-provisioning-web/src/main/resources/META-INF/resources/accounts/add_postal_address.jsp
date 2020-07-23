@@ -35,7 +35,7 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		<portlet:param name="mvcRenderCommandName" value="/accounts/add_postal_address" />
 	</portlet:actionURL>
 
-	<aui:form action="<%= editPostalAddressURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+	<aui:form action="<%= editPostalAddressURL %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="fm">
 		<div class="add-items-sheet sheet sheet-lg">
 			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 			<aui:input name="accountKey" type="hidden" value="<%= accountDisplay.getKey() %>" />

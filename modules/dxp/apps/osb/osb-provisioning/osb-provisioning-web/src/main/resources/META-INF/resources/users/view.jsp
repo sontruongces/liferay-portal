@@ -22,7 +22,7 @@ ContactSearchDisplayContext contactSearchDisplayContext = ProvisioningWebCompone
 ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplayContext = new ViewContactsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, contactSearchDisplayContext.getSearchContainer());
 %>
 
-<div class="container-fluid-1280">
+<div class="container-fluid container-fluid-max-xl">
 	<portlet:actionURL name="/search" var="searchURL" />
 
 	<clay:management-toolbar

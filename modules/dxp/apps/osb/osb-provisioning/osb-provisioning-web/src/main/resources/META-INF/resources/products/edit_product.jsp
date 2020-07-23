@@ -43,7 +43,7 @@ if (product != null) {
 	<%= httpException.getMessage() %>
 </liferay-ui:error>
 
-<aui:form action="<%= editProductURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editProductURL.toString() %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="fm">
 	<aui:fieldset-group>
 		<aui:fieldset>
 			<aui:input name="name" value='<%= (product != null) ? product.getName() : "" %>' />

@@ -37,7 +37,7 @@ AccountDisplay accountDisplay = viewAccountContactsDisplayContext.getAccountDisp
 		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 	</portlet:actionURL>
 
-	<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid-1280" method="post" name="assignContactFm">
+	<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="assignContactFm">
 		<div class="assign-contacts-sheet sheet">
 			<liferay-ui:error exception="<%= HttpException.class %>">
 

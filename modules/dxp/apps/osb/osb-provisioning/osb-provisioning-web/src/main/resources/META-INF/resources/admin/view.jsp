@@ -40,7 +40,7 @@ String tabs = ParamUtil.getString(request, "tabs", "rabbitmq");
 	<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:actionURL>
 
-<aui:form action="<%= debugRabbitMQURL %>" cssClass="container-fluid-1280" method="post">
+<aui:form action="<%= debugRabbitMQURL %>" cssClass="container-fluid container-fluid-max-xl" method="post">
 	<aui:fieldset-group>
 		<aui:fieldset>
 			<aui:input name="routingKey" type="text" />

@@ -22,7 +22,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 <portlet:actionURL name="/accounts/edit_account" var="addAccountURL" />
 
-<aui:form action="<%= addAccountURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= addAccountURL %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
 	<aui:fieldset-group>

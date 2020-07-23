@@ -35,7 +35,7 @@ if (products != null) {
 	<portlet:param name="productBundleId" value='<%= (productBundle != null) ? String.valueOf(productBundle.getProductBundleId()) : "" %>' />
 </portlet:actionURL>
 
-<aui:form action="<%= editProductBundleURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+<aui:form action="<%= editProductBundleURL %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="fm">
 	<aui:input name="productKeys" type="hidden" value="<%= StringUtil.merge(productKeys) %>" />
 
 	<liferay-ui:error exception="<%= ProductBundleNameException.MustNotBeDuplicate.class %>">
