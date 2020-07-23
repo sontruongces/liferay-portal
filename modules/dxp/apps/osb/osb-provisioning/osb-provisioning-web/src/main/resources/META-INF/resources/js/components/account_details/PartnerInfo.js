@@ -18,8 +18,8 @@ import DetailField from '../DetailField';
 
 function PartnerInfo({
 	details,
-	editFristLineSupportTeamURL,
-	editPartnerTeamURL
+	editFristLineSupportTeamURL = '',
+	editPartnerTeamURL = ''
 }) {
 	return (
 		<ClayList>

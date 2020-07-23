@@ -24,7 +24,7 @@ import DetailField from '../DetailField';
 
 function GeneralDetails({
 	details,
-	editAccountHierarchyURL,
+	editAccountHierarchyURL = '',
 	parentAccountName,
 	statuses,
 	tiers
