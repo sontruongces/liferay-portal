@@ -67,3 +67,17 @@ app.artifacts-1.0.4=\
 app.change.log-1.0.4=LPS-100448 LPS-103302 LPS-105380 LPS-77699 LPS-84119 LPS-87047 LPS-92859 LPS-97311 LPS-97586, LPS-97985 LPS-98006 LPS-98007 LPS-98008 LPS-98067 LPS-98068 LPS-98300 LPS-98334 LPS-98579 LPS-98617 LPS-98622 LPS-98877 LPS-98879 LPS-99802 LPS-99805
 
 app.git.id-1.0.4=061c4ae034281e34c4f92f19c1ee886d15b3b7a3
+
+#
+# Liferay App Version 1.0.5
+#
+
+app.artifacts-1.0.5=\
+	com.liferay.portal.search.tuning.rankings.web-1.0.26.jar,\
+	com.liferay.portal.search.tuning.synonyms.web-1.0.16.jar,\
+	com.liferay.portal.search.tuning.web-1.0.4.jar,\
+	com.liferay.portal.search.tuning.web.api-1.0.4.jar
+
+app.change.log-1.0.5=LPS-100448 LPS-103302 LPS-105380 LPS-116990 LPS-77699 LPS-84119 LPS-87047 LPS-92859 LPS-97311 LPS-97586, LPS-97985 LPS-98006 LPS-98007 LPS-98008 LPS-98067 LPS-98068 LPS-98300 LPS-98334 LPS-98579 LPS-98617 LPS-98622 LPS-98877 LPS-98879 LPS-99802 LPS-99805
+
+app.git.id-1.0.5=549078ccddf895b09d40ac38767524b1144c8b76
