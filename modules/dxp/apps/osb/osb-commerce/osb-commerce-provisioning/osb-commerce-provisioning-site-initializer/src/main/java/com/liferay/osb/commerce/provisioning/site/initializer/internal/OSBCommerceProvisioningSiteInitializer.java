@@ -256,7 +256,10 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			ServiceContext serviceContext)
 		throws Exception {
 
-		fragmentPath = _PATH + "fragments/layouts/" + fragmentPath;
+		String isPrivatePath = privateLayout ? "private" : "public";
+
+		fragmentPath =
+			_PATH + "fragments/layouts/" + isPrivatePath + "/" + fragmentPath;
 
 		List<FragmentEntry> fragmentEntry = _addFragmentEntries(
 			fragmentCollection.getFragmentCollectionId(), fragmentPath,
@@ -543,6 +546,10 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			_addLayoutPageTemplateCollection(serviceContext);
 
 		_addLayout(
+			fragmentCollection, layoutPageTemplateCollection, "Home",
+			"home", false, serviceContext);
+
+		_addLayout(
 			fragmentCollection, layoutPageTemplateCollection, "Start Trial",
 			"start_trial", false, serviceContext);
 
@@ -553,6 +560,10 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 		_addLayout(
 			fragmentCollection, layoutPageTemplateCollection, "Plan Management",
 			"plan_management", true, serviceContext);
+
+		_addLayout(
+			fragmentCollection, layoutPageTemplateCollection, "OSB Commerce Checkout",
+			"checkout", true, serviceContext);
 	}
 
 	private void _updateLogo(ServiceContext serviceContext) throws Exception {
