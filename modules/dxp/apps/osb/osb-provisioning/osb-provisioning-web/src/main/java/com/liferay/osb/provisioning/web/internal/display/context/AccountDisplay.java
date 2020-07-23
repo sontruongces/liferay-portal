@@ -155,14 +155,6 @@ public class AccountDisplay {
 		return LanguageUtil.get(_httpServletRequest, "no");
 	}
 
-	public String getFirstLineSupportTeamKey() throws Exception {
-		if (_firstLineSupportTeam != null) {
-			return _firstLineSupportTeam.getKey();
-		}
-
-		return StringPool.BLANK;
-	}
-
 	public String getFirstLineSupportTeamName() throws Exception {
 		if (_firstLineSupportTeam != null) {
 			return _firstLineSupportTeam.getName();
@@ -181,14 +173,6 @@ public class AccountDisplay {
 
 	public String getParentAccountKey() {
 		return _account.getParentAccountKey();
-	}
-
-	public String getPartnerTeamKey() throws Exception {
-		if (_partnerTeam != null) {
-			return _partnerTeam.getKey();
-		}
-
-		return StringPool.BLANK;
 	}
 
 	public String getPartnerTeamName() throws Exception {

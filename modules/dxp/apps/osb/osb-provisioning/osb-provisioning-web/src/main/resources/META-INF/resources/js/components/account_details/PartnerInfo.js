@@ -28,7 +28,6 @@ function PartnerInfo({
 			</ClayList.Header>
 
 			<DetailField
-				displayValue={details.partnerTeamName}
 				externalData={{
 					formField: 'partnerTeamKey',
 					formName: `${NAMESPACE}updatePartnerFm`,
@@ -37,11 +36,10 @@ function PartnerInfo({
 				}}
 				fieldLabel={Liferay.Language.get('partner-reseller-si')}
 				type={FIELD_TYPE_EXTERNAL}
-				value={details.partnerTeamKey}
+				value={details.partnerTeamName}
 			/>
 
 			<DetailField
-				displayValue={details.firstLineSupportTeamName}
 				externalData={{
 					formField: 'firstLineSupportTeamKey',
 					formName: `${NAMESPACE}updateFirstLineSupportFm`,
@@ -52,7 +50,7 @@ function PartnerInfo({
 				}}
 				fieldLabel={Liferay.Language.get('first-line-support')}
 				type={FIELD_TYPE_EXTERNAL}
-				value={details.firstLineSupportTeamKey}
+				value={details.firstLineSupportTeamName}
 			/>
 		</ClayList>
 	);
@@ -60,10 +58,8 @@ function PartnerInfo({
 
 PartnerInfo.propTypes = {
 	details: PropTypes.shape({
-		firstLineSupportTeamKey: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
-		partnerTeamKey: PropTypes.string,
 		partnerTeamName: PropTypes.string
 	}),
 	editFristLineSupportTeamURL: PropTypes.string,

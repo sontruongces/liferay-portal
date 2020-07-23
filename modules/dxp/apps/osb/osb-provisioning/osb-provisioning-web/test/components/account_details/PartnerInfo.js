@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, render} from '@testing-library/react';
+import {cleanup, fireEvent, render} from '@testing-library/react';
 import React from 'react';
 
 import PartnerInfo from '../../../src/main/resources/META-INF/resources/js/components/account_details/PartnerInfo';
@@ -18,10 +18,8 @@ function renderPartnerInfo(props) {
 	return render(
 		<PartnerInfo
 			details={{
-				firstLineSupportTeamKey: 'first-line-123',
 				firstLineSupportTeamName: 'Test First Line Support Team',
 				key: '123',
-				partnerTeamKey: 'partner-123',
 				partnerTeamName: 'Test Partner Team'
 			}}
 			editFristLineSupportTeamURL="/edit/first/line/support/team/url"

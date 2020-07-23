@@ -62,11 +62,9 @@ AccountDetails.propTypes = {
 		dossieraAccountKey: PropTypes.string,
 		dossieraProjectKey: PropTypes.string,
 		editAccountURL: PropTypes.string,
-		firstLineSupportTeamKey: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
 		name: PropTypes.string,
-		parterTeamKey: PropTypes.string,
 		parterTeamName: PropTypes.string,
 		postalAddressDisplays: PropTypes.arrayOf(
 			PropTypes.shape({
