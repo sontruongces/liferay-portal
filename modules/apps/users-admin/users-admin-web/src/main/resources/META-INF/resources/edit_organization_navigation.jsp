@@ -21,6 +21,8 @@ OrganizationScreenNavigationDisplayContext organizationScreenNavigationDisplayCo
 %>
 
 <aui:form action="<%= organizationScreenNavigationDisplayContext.getEditOrganizationActionURL() %>" cssClass="portlet-users-admin-edit-organization" method="post" name="fm">
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+
 	<div class="sheet sheet-lg">
 		<c:if test="<%= organizationScreenNavigationDisplayContext.isShowTitle() %>">
 			<div class="sheet-header">
