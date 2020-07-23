@@ -22,7 +22,7 @@ TrialRegistrationDisplayContext trialRegistrationDisplayContext = (TrialRegistra
 List<CommerceCountry> commerceCountries = trialRegistrationDisplayContext.getCommerceCountries(company.getCompanyId());
 %>
 
-<div class="container-fluid" id="trial-registration">
+<div class="container py-5" id="trial-registration">
 	<div class="row">
 		<div class="col-md-6 col-xs-12">
 			<div class="punch-line">
@@ -35,7 +35,7 @@ List<CommerceCountry> commerceCountries = trialRegistrationDisplayContext.getCom
 		<div class="col-md-6 col-xs-12">
 			<div class="form-container">
 				<div class="form-title">
-					<h4><%= LanguageUtil.get(request, "start-your-private-demo") %></h4>
+					<h3><%= LanguageUtil.get(request, "start-your-private-demo") %></h3>
 				</div>
 
 				<div class="form-wrapper">

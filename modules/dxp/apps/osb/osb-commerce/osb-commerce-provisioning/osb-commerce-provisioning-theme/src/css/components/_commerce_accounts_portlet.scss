@@ -15,7 +15,7 @@
 			flex: 0.9;
 			font-weight: bold;
 
-			@media screen and (max-width: $bp-small) {
+			@media screen and (max-width: $bp-sm) {
 				transform: translateX(0);
 			}
 		}
