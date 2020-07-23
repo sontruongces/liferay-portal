@@ -30,11 +30,30 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 		<liferay-util:param name="values" value="active,inactive,all" />
 	</liferay-util:include>
 
-	<aui:form action="<%= portletURL.toString() %>" method="get" name="searchFm">
-		<liferay-portlet:renderURLParams portletURL="<%= portletURL %>" />
+	<div class="management-bar management-bar-light navbar navbar-expand-md">
+		<div class="container-fluid">
+			<div class="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down">
+				<div class="container-fluid">
+					<aui:form action="<%= portletURL.toString() %>" method="get" name="searchFm">
+						<liferay-portlet:renderURLParams portletURL="<%= portletURL %>" />
 
-		<aui:input label="" name="keywords" placeholder="search" />
-	</aui:form>
+						<div class="input-group search-input">
+							<aui:input cssClass="input-group-inset-after" label="" name="keywords" placeholder="search" wrapperCssClass="input-group-item" />
+
+							<span class="input-group-inset-item input-group-inset-item-after">
+								<button aria-label="search" class="btn btn-unstyled" type="submit">
+									<liferay-ui:icon
+										icon="search"
+										markupView="lexicon"
+									/>
+								</button>
+							</span>
+						</div>
+					</aui:form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<liferay-ui:search-container
 		searchContainer="<%= viewAccountDisplayContext.getProductPurchaseViewsSearchContainer() %>"
