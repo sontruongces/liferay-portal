@@ -10,10 +10,17 @@
  */
 
 AUI().ready(() => {
-	const IS_OPEN = 'is-open',
+	const ALWAYS_SOLID = 'always-solid',
+		BANNER = 'banner',
+		IS_OPEN = 'is-open',
+		IS_SOLID = 'is-solid',
 		MAX_LEVEL = 5,
 		SIGN_IN_BTN = 'sign-in-btn',
-		SIGN_IN_WRAPPER = 'sign-in-wrapper';
+		SIGN_IN_WRAPPER = 'sign-in-wrapper',
+		SOLID_AFTER_PIXELS = 56;
+
+	const banner = window.document.querySelector('#' + BANNER),
+		signInBtn = window.document.querySelector('.' + SIGN_IN_BTN);
 
 	function isButton(target) {
 		if (target.classList.contains(SIGN_IN_BTN)) {
@@ -47,7 +54,16 @@ AUI().ready(() => {
 		}
 	}
 
-	const signInBtn = window.document.querySelector('.' + SIGN_IN_BTN);
+	function solidifyBanner(e) {
+		const scrollTop = e.target.scrollingElement.scrollTop,
+			isSolid = scrollTop > SOLID_AFTER_PIXELS;
+
+		banner.classList.toggle(IS_SOLID, isSolid);
+	}
+
+	if (banner && !banner.classList.contains(ALWAYS_SOLID)) {
+		window.addEventListener('scroll', solidifyBanner);
+	}
 
 	if (signInBtn) {
 		signInBtn.addEventListener('click', toggleSignIn);

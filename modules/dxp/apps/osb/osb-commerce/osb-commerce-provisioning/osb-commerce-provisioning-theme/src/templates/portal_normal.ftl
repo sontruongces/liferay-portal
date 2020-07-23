@@ -16,7 +16,7 @@
 		<@liferay_util["include"] page=body_top_include />
 		<@liferay.control_menu />
 
-		<div class="container" id="wrapper">
+		<div class="container-fluid" id="wrapper">
 			<#if show_header>
 				<#include "${full_templates_path}/header.ftl" />
 			</#if>

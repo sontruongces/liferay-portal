@@ -11,6 +11,8 @@
 	</button>
 
 	<div aria-expanded="false" class="collapse navbar-collapse" id="navigationCollapse">
-		<@liferay.navigation_menu default_preferences="${trial_navigation_preferences}" />
+		<a class="btn btn-primary" href="${site_default_url}/start-trial" target="_blank">
+			<@liferay.language key="start-trial" />
+		</a>
 	</div>
 </#if>
