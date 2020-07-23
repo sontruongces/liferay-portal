@@ -20,6 +20,8 @@ import PartnerInfo from './PartnerInfo';
 function AccountDetails({
 	details,
 	editAccountHierarchyURL,
+	editFristLineSupportTeamURL,
+	editPartnerTeamURL,
 	parentAccountName,
 	statusNames,
 	tierNames
@@ -34,7 +36,11 @@ function AccountDetails({
 				tiers={tierNames}
 			/>
 
-			<PartnerInfo details={details} />
+			<PartnerInfo
+				details={details}
+				editFristLineSupportTeamURL={editFristLineSupportTeamURL}
+				editPartnerTeamURL={editPartnerTeamURL}
+			/>
 
 			<AccountAddresses
 				accountKey={details.key}
@@ -87,6 +93,8 @@ AccountDetails.propTypes = {
 		updateSalesforceProjectURL: PropTypes.string
 	}),
 	editAccountHierarchyURL: PropTypes.string,
+	editFristLineSupportTeamURL: PropTypes.string,
+	editPartnerTeamURL: PropTypes.string,
 	parentAccountName: PropTypes.string,
 	statusNames: PropTypes.arrayOf(PropTypes.string),
 	tierNames: PropTypes.arrayOf(PropTypes.string)

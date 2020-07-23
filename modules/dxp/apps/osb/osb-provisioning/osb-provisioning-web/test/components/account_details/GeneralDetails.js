@@ -30,7 +30,7 @@ function renderGeneralDetails(props) {
 				statusStyle: 'label-success',
 				tier: 'Regular'
 			}}
-			parentAccountName="parent"
+			parentAccountName="Parent Account Name"
 			statuses={['Approved', 'Expired', 'Pending']}
 			tiers={['1', '2', '3']}
 			{...props}
@@ -46,4 +46,10 @@ describe('GeneralDetails', () => {
 
 		expect(container).toBeTruthy();
 	});
+
+	it('shows Parent Account field', () => {
+		const {getByText} = renderGeneralDetails();
+
+		getByText('Parent Account Name');
+	})
 });

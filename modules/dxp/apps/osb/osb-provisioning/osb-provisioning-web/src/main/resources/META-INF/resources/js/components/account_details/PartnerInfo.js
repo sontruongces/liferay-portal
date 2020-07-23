@@ -13,20 +13,14 @@ import ClayList from '@clayui/list';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {FIELD_TYPE_EXTERNAL} from '../../utilities/constants';
+import {FIELD_TYPE_EXTERNAL, NAMESPACE} from '../../utilities/constants';
 import DetailField from '../DetailField';
 
-function PartnerInfo({details}) {
-	const partnerFormData = {
-		partnerTeamKey: details.partnerTeamKey,
-		updatePartner: true
-	};
-
-	const firstLineSupportFormData = {
-		firstLineSupportTeamKey: details.firstLineSupportTeamKey,
-		updateFirstLineSupport: true
-	};
-
+function PartnerInfo({
+	details,
+	editFristLineSupportTeamURL,
+	editPartnerTeamURL
+}) {
 	return (
 		<ClayList>
 			<ClayList.Header>
@@ -35,20 +29,28 @@ function PartnerInfo({details}) {
 
 			<DetailField
 				displayValue={details.partnerTeamName}
+				externalData={{
+					formField: 'partnerTeamKey',
+					formName: `${NAMESPACE}updatePartnerFm`,
+					title: Liferay.Language.get('select-partner-team'),
+					url: editPartnerTeamURL
+				}}
 				fieldLabel={Liferay.Language.get('partner-reseller-si')}
-				fieldName="partnerTeamKey"
-				formAction={details.editAccountURL}
-				formData={partnerFormData}
 				type={FIELD_TYPE_EXTERNAL}
 				value={details.partnerTeamKey}
 			/>
 
 			<DetailField
 				displayValue={details.firstLineSupportTeamName}
+				externalData={{
+					formField: 'firstLineSupportTeamKey',
+					formName: `${NAMESPACE}updateFirstLineSupportFm`,
+					title: Liferay.Language.get(
+						'select-first-line-support-team'
+					),
+					url: editFristLineSupportTeamURL
+				}}
 				fieldLabel={Liferay.Language.get('first-line-support')}
-				fieldName="firstLineSupportTeamKey"
-				formAction={details.editAccountURL}
-				formData={firstLineSupportFormData}
 				type={FIELD_TYPE_EXTERNAL}
 				value={details.firstLineSupportTeamKey}
 			/>
@@ -58,13 +60,14 @@ function PartnerInfo({details}) {
 
 PartnerInfo.propTypes = {
 	details: PropTypes.shape({
-		editAccountURL: PropTypes.string,
 		firstLineSupportTeamKey: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
 		partnerTeamKey: PropTypes.string,
 		partnerTeamName: PropTypes.string
-	})
+	}),
+	editFristLineSupportTeamURL: PropTypes.string,
+	editPartnerTeamURL: PropTypes.string
 };
 
 export default PartnerInfo;

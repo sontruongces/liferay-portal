@@ -18,13 +18,14 @@ function renderPartnerInfo(props) {
 	return render(
 		<PartnerInfo
 			details={{
-				editAccountURL: 'edit/account/url',
 				firstLineSupportTeamKey: 'first-line-123',
-				firstLineSupportTeamName: 'Test Support Team',
+				firstLineSupportTeamName: 'Test First Line Support Team',
 				key: '123',
 				partnerTeamKey: 'partner-123',
 				partnerTeamName: 'Test Partner Team'
 			}}
+			editFristLineSupportTeamURL="/edit/first/line/support/team/url"
+			editPartnerTeamURL="/edit/partner/team/url"
 			{...props}
 		/>
 	);
@@ -37,5 +38,17 @@ describe('PartnerInfo', () => {
 		const {container} = renderPartnerInfo();
 
 		expect(container).toBeTruthy();
+	});
+
+	it('shows Partner Team name', () => {
+		const {getByText} = renderPartnerInfo();
+
+		getByText('Test Partner Team');
+	});
+
+	it('shows First Line Support Team name', () => {
+		const {getByText} = renderPartnerInfo();
+
+		getByText('Test First Line Support Team');
 	});
 });
