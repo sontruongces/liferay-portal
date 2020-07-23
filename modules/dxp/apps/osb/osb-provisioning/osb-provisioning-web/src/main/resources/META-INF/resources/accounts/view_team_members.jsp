@@ -24,9 +24,9 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 %>
 
 <div class="management-bar management-bar-light navbar navbar-expand-md">
-	<div class="container-fluid container-fluid-max-xl">
+	<div class="container-fluid">
 		<div class="navbar-form navbar-form-autofit navbar-overlay navbar-overlay-sm-down">
-			<div class="container-fluid container-fluid-max-xl">
+			<div class="container-fluid">
 				<aui:form action="<%= searchURL.toString() %>" method="get" name="fm">
 					<liferay-portlet:renderURLParams portletURL="<%= searchURL %>" />
 
