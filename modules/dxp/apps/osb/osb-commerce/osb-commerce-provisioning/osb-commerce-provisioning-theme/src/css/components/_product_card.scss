@@ -1,0 +1,95 @@
+.osb-commerce-product-card {
+	box-shadow: $box-shadow;
+	cursor: default;
+	height: 32em;
+	max-width: 25em;
+	padding: 3em 0 .8em;
+	position: relative;
+	transform: scale3d(.95, .95, 1);
+	transition: transform 400ms ease-out;
+
+	&::before {
+		box-shadow: $box-shadow-hover;
+		content: '';
+		height: 100%;
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		transition: opacity 400ms ease-out;
+		width: 100%;
+	}
+
+	@media screen and (max-width: $bp-md) {
+		font-size: 13px;
+	}
+
+	&:hover::before,
+	&.is-highlighted::before {
+		opacity: 1;
+	}
+
+	&:hover,
+	&.is-highlighted {
+		transform: scale3d(1, 1, 1);
+
+		.btn {
+			border-color: transparent !important;
+			transition: background-color 300ms ease-out,
+						border 0ms !important;
+		}
+	}
+
+	.btn {
+		height: 3.5em;
+		width: 12em;
+	}
+
+	.product {
+		&-image img {
+			height: 4em;
+		}
+
+		&-description {
+			line-height: 1.8em;
+
+			p {
+				font-size: 1.2em;
+			}
+
+			big {
+				font-size: 1.8em;
+				font-weight: 600;
+			}
+		}
+
+		&-features {
+			box-sizing: border-box;
+			padding: 0 3.5em;
+
+			ul {
+				list-style-type: none;
+				padding: 0;
+				text-align: left;
+
+				li {
+					align-items: center;
+					display: flex;
+					margin-bottom: .5em;
+
+					.list-icon {
+						color: $success;
+						width: 10%;
+					}
+
+					.feature {
+						width: 90%;
+					}
+				}
+			}
+		}
+
+		&-name h1 {
+			font-size: 2em;
+		}
+	}
+}
