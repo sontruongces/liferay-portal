@@ -16,7 +16,7 @@ package com.liferay.osb.provisioning.zendesk.connector.internal.service;
 
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
-import com.liferay.osb.provisioning.zendesk.connector.configuration.ZendeskConnectorConfigurationValues;
+import com.liferay.osb.provisioning.zendesk.connector.configuration.ZendeskConfiguration;
 import com.liferay.osb.provisioning.zendesk.connector.internal.http.ZendeskHttpDelete;
 import com.liferay.osb.provisioning.zendesk.connector.internal.http.ZendeskHttpGet;
 import com.liferay.osb.provisioning.zendesk.connector.service.ZendeskBaseWebService;
@@ -24,6 +24,7 @@ import com.liferay.osb.provisioning.zendesk.connector.service.ZendeskRequest;
 import com.liferay.petra.json.web.service.client.BaseJSONWebServiceClientImpl;
 import com.liferay.petra.json.web.service.client.JSONWebServiceInvocationException;
 import com.liferay.petra.json.web.service.client.JSONWebServiceTransportException;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.NoSuchModelException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -67,13 +68,17 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.nio.reactor.IOReactorException;
 import org.apache.http.util.EntityUtils;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Kyle Bischof
  */
-@Component(immediate = true, service = ZendeskBaseWebService.class)
+@Component(
+	configurationPid = "com.liferay.osb.provisioning.zendesk.connector.configuration.ZendeskConfiguration",
+	immediate = true, service = ZendeskBaseWebService.class
+)
 public class ZendeskBaseWebServiceImpl
 	extends BaseJSONWebServiceClientImpl implements ZendeskBaseWebService {
 
@@ -99,9 +104,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -141,9 +144,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -175,9 +176,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -227,9 +226,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -255,11 +252,9 @@ public class ZendeskBaseWebServiceImpl
 
 		try {
 			HttpPost httpPost = new HttpPost(
-				Http.HTTPS_WITH_SLASH +
-					ZendeskConnectorConfigurationValues.ZENDESK_DOMAIN_NAME +
-						endpoint);
+				Http.HTTPS_WITH_SLASH + _domainName + endpoint);
 
-			httpPost.addHeader("Authorization", _CREDENTIALS);
+			httpPost.addHeader("Authorization", _credentials);
 
 			MultipartEntity multipartEntity = new MultipartEntity();
 
@@ -283,9 +278,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (statusLine.getStatusCode() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -325,9 +318,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -363,9 +354,7 @@ public class ZendeskBaseWebServiceImpl
 
 			if (jsonWebServiceTransportException.getStatus() == 429) {
 				try {
-					Thread.sleep(
-						ZendeskConnectorConfigurationValues.
-							ZENDESK_API_RETRY_WAIT_TIME);
+					Thread.sleep(_retryWaitTime);
 				}
 				catch (InterruptedException interruptedException) {
 					_log.error(interruptedException, interruptedException);
@@ -418,12 +407,40 @@ public class ZendeskBaseWebServiceImpl
 		}
 	}
 
+	@Activate
+	protected void activate(Map<String, Object> properties) throws Exception {
+		ZendeskConfiguration zendeskConfiguration =
+			ConfigurableUtil.createConfigurable(
+				ZendeskConfiguration.class, properties);
+
+		_apiToken = zendeskConfiguration.apiToken();
+		_domainName = zendeskConfiguration.domainName();
+		_emailAddress = zendeskConfiguration.emailAddress();
+		_errorEmailAddress = zendeskConfiguration.errorEmailAddress();
+		_retryWaitTime = Long.valueOf(zendeskConfiguration.retryWaitTime());
+
+		_credentials = _getCredentials();
+
+		_authHeader = new HashMap<String, String>() {
+			{
+				put("Authorization", _credentials);
+			}
+		};
+
+		_headers = new ArrayList<NameValuePair>() {
+			{
+				add(new BasicNameValuePair("Authorization", _credentials));
+				add(new BasicNameValuePair("Content-Type", "application/json"));
+			}
+		};
+	}
+
 	@Override
 	protected String execute(HttpRequestBase httpRequestBase)
 		throws JSONWebServiceInvocationException,
 			   JSONWebServiceTransportException {
 
-		setHostName(ZendeskConnectorConfigurationValues.ZENDESK_DOMAIN_NAME);
+		setHostName(_domainName);
 		setHostPort(Http.HTTPS_PORT);
 		setProtocol(Http.HTTPS);
 
@@ -484,9 +501,7 @@ public class ZendeskBaseWebServiceImpl
 
 		try {
 			InternetAddress from = new InternetAddress("noreply@liferay.com");
-			InternetAddress to = new InternetAddress(
-				ZendeskConnectorConfigurationValues.
-					ZENDESK_API_ERROR_EMAIL_ADDRESS);
+			InternetAddress to = new InternetAddress(_errorEmailAddress);
 
 			String mailSubject = "Auto Generated Zendesk API Error Message";
 
@@ -504,35 +519,28 @@ public class ZendeskBaseWebServiceImpl
 	protected void signRequest(HttpRequestBase httpRequestBase) {
 	}
 
-	private static String _getCredentials() {
+	private String _getCredentials() {
 		String zendeskCredentials =
-			ZendeskConnectorConfigurationValues.ZENDESK_EMAIL_ADDRESS +
-				StringPool.SLASH + "token" + StringPool.COLON +
-					ZendeskConnectorConfigurationValues.ZENDESK_API_TOKEN;
+			_emailAddress + StringPool.SLASH + "token" + StringPool.COLON +
+				_apiToken;
 
 		return "Basic " + Base64.encode(zendeskCredentials.getBytes());
 	}
 
-	private static final String _CREDENTIALS = _getCredentials();
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		ZendeskBaseWebServiceImpl.class);
 
-	private static final Map<String, String> _authHeader =
-		new HashMap<String, String>() {
-			{
-				put("Authorization", _CREDENTIALS);
-			}
-		};
-	private static final List<NameValuePair> _headers =
-		new ArrayList<NameValuePair>() {
-			{
-				add(new BasicNameValuePair("Authorization", _CREDENTIALS));
-				add(new BasicNameValuePair("Content-Type", "application/json"));
-			}
-		};
+	private String _apiToken;
+	private Map<String, String> _authHeader;
+	private String _credentials;
+	private String _domainName;
+	private String _emailAddress;
+	private String _errorEmailAddress;
+	private List<NameValuePair> _headers;
 
 	@Reference
 	private MailService _mailService;
+
+	private long _retryWaitTime;
 
 }
