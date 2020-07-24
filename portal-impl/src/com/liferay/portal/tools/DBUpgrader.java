@@ -15,6 +15,7 @@
 package com.liferay.portal.tools;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.dao.init.DBInitUtil;
 import com.liferay.portal.dao.orm.common.SQLTransformer;
 import com.liferay.portal.events.StartupHelperUtil;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
@@ -63,7 +64,10 @@ public class DBUpgrader {
 	public static void checkRequiredBuildNumber(int requiredBuildNumber)
 		throws PortalException {
 
-		int buildNumber = ReleaseLocalServiceUtil.getBuildNumberOrCreate();
+		Release release = ReleaseLocalServiceUtil.getRelease(
+			ReleaseConstants.DEFAULT_ID);
+
+		int buildNumber = release.getBuildNumber();
 
 		if (buildNumber > ReleaseInfo.getParentBuildNumber()) {
 			StringBundler sb = new StringBundler(6);
@@ -141,6 +145,8 @@ public class DBUpgrader {
 
 		CacheRegistryUtil.setActive(false);
 
+		DBInitUtil.init();
+
 		// Check required build number
 
 		checkRequiredBuildNumber(ReleaseInfo.RELEASE_6_2_0_BUILD_NUMBER);
@@ -153,7 +159,10 @@ public class DBUpgrader {
 
 		// Upgrade
 
-		int buildNumber = ReleaseLocalServiceUtil.getBuildNumberOrCreate();
+		Release release = ReleaseLocalServiceUtil.getRelease(
+			ReleaseConstants.DEFAULT_ID);
+
+		int buildNumber = release.getBuildNumber();
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Update build " + buildNumber);
