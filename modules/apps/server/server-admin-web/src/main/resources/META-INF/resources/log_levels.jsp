@@ -40,7 +40,7 @@ Enumeration enu = LogManager.getCurrentLoggers();
 while (enu.hasMoreElements()) {
 	Logger logger = (Logger)enu.nextElement();
 
-	if (Validator.isNull(keywords) || logger.getName().contains(keywords)) {
+	if (Validator.isNull(keywords) || StringUtil.contains(logger.getName(), keywords)) {
 		currentLoggerNames.put(logger.getName(), logger);
 	}
 }
