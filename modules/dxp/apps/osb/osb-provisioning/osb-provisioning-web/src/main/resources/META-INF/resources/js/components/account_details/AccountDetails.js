@@ -20,7 +20,7 @@ import PartnerInfo from './PartnerInfo';
 function AccountDetails({
 	details,
 	editAccountHierarchyURL,
-	editFristLineSupportTeamURL,
+	editFirstLineSupportTeamURL,
 	editPartnerTeamURL,
 	parentAccountName,
 	statusNames,
@@ -38,7 +38,7 @@ function AccountDetails({
 
 			<PartnerInfo
 				details={details}
-				editFristLineSupportTeamURL={editFristLineSupportTeamURL}
+				editFirstLineSupportTeamURL={editFirstLineSupportTeamURL}
 				editPartnerTeamURL={editPartnerTeamURL}
 			/>
 
@@ -91,7 +91,7 @@ AccountDetails.propTypes = {
 		updateSalesforceProjectURL: PropTypes.string
 	}),
 	editAccountHierarchyURL: PropTypes.string,
-	editFristLineSupportTeamURL: PropTypes.string,
+	editFirstLineSupportTeamURL: PropTypes.string,
 	editPartnerTeamURL: PropTypes.string,
 	parentAccountName: PropTypes.string,
 	statusNames: PropTypes.arrayOf(PropTypes.string),

@@ -18,7 +18,7 @@ import DetailField from '../DetailField';
 
 function PartnerInfo({
 	details,
-	editFristLineSupportTeamURL = '',
+	editFirstLineSupportTeamURL = '',
 	editPartnerTeamURL = ''
 }) {
 	return (
@@ -46,7 +46,7 @@ function PartnerInfo({
 					title: Liferay.Language.get(
 						'select-first-line-support-team'
 					),
-					url: editFristLineSupportTeamURL
+					url: editFirstLineSupportTeamURL
 				}}
 				fieldLabel={Liferay.Language.get('first-line-support')}
 				type={FIELD_TYPE_EXTERNAL}
@@ -62,7 +62,7 @@ PartnerInfo.propTypes = {
 		key: PropTypes.string,
 		partnerTeamName: PropTypes.string
 	}),
-	editFristLineSupportTeamURL: PropTypes.string,
+	editFirstLineSupportTeamURL: PropTypes.string,
 	editPartnerTeamURL: PropTypes.string
 };
 

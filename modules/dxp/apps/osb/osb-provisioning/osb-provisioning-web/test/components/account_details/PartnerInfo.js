@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {cleanup, render} from '@testing-library/react';
 import React from 'react';
 
 import PartnerInfo from '../../../src/main/resources/META-INF/resources/js/components/account_details/PartnerInfo';
@@ -22,7 +22,7 @@ function renderPartnerInfo(props) {
 				key: '123',
 				partnerTeamName: 'Test Partner Team'
 			}}
-			editFristLineSupportTeamURL="/edit/first/line/support/team/url"
+			editFirstLineSupportTeamURL="/edit/first/line/support/team/url"
 			editPartnerTeamURL="/edit/partner/team/url"
 			{...props}
 		/>
