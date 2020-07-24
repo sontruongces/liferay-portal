@@ -5191,9 +5191,14 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 			<get-testcase-property property.name="remote.elasticsearch.enabled" />
 			<get-testcase-property property.name="remote.elasticsearch7.enabled" />
 			<get-testcase-property property.name="test.name.skip.portal.instance" />
+			<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
+
 
 			<if>
-				<equals arg1="${remote.elasticsearch.enabled}" arg2="true" />
+				<or>
+					<equals arg1="${remote.elasticsearch.enabled}" arg2="true" />
+					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
+				</or>
 				<then>
 					<ant antfile="build-test-elasticsearch6.xml" target="stop-elasticsearch" />
 
@@ -5212,7 +5217,10 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 			</if>
 
 			<if>
-				<equals arg1="${remote.elasticsearch7.enabled}" arg2="true" />
+				<or>
+					<equals arg1="${remote.elasticsearch7.enabled}" arg2="true" />
+					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
+				</or>
 				<then>
 					<ant antfile="build-test-elasticsearch7.xml" target="stop-elasticsearch" />
 
