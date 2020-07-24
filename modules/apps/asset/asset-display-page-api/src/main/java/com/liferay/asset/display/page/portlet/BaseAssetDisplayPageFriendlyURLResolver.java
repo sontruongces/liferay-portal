@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
@@ -54,6 +55,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Reference;
 
@@ -145,6 +147,22 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 
 		Layout layout = _getInfoDisplayObjectProviderLayout(
 			infoDisplayObjectProvider);
+
+		HttpServletRequest httpServletRequest =
+			(HttpServletRequest)requestContext.get("request");
+
+		HttpSession session = httpServletRequest.getSession();
+
+		Locale locale = (Locale)session.getAttribute(WebKeys.LOCALE);
+
+		if (locale != null) {
+			String localeFriendlyURL = infoDisplayObjectProvider.getURLTitle(
+				locale);
+
+			if (Validator.isNotNull(localeFriendlyURL)) {
+				friendlyURL = getURLSeparator() + localeFriendlyURL;
+			}
+		}
 
 		return new LayoutFriendlyURLComposite(layout, friendlyURL);
 	}
