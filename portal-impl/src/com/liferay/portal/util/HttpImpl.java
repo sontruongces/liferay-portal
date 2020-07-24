@@ -659,7 +659,7 @@ public class HttpImpl implements Http {
 		try {
 			URI uri = _getURI(url);
 
-			String queryString = uri.getQuery();
+			String queryString = uri.getRawQuery();
 
 			if (queryString == null) {
 				return StringPool.BLANK;
