@@ -26,6 +26,7 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 
 <clay:management-toolbar
 	clearResultsURL="<%= assignProductBundleProductsDisplayContext.getClearResultsURL() %>"
+	elementClasses="full-width"
 	itemsTotal="<%= searchContainer.getTotal() %>"
 	searchActionURL="<%= assignProductBundleProductsDisplayContext.getCurrentURL() %>"
 	searchContainerId="assignProducts"

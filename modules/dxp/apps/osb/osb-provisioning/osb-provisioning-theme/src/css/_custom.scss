@@ -52,6 +52,12 @@ table {
 	text-align: center;
 }
 
+.full-width {
+	.management-bar .container-fluid-max-xl {
+		max-width: unset;
+	}
+}
+
 .inline-edit {
 	display: inline-block;
 

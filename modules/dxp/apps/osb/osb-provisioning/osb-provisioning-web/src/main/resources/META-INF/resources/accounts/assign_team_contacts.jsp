@@ -24,6 +24,7 @@ SearchContainer searchContainer = assignTeamContactsDisplayContext.getSearchCont
 
 <clay:management-toolbar
 	clearResultsURL="<%= assignTeamContactsDisplayContext.getClearResultsURL() %>"
+	elementClasses="full-width"
 	filterDropdownItems="<%= assignTeamContactsDisplayContext.getFilterCustomerRoleDropdownItems() %>"
 	filterLabelItems="<%= assignTeamContactsDisplayContext.getFilterCustomerRoleLabelItems() %>"
 	itemsTotal="<%= searchContainer.getTotal() %>"

@@ -36,6 +36,7 @@ PortletURL portletURL = viewAccountRelatedAccountsDisplayContext.getPortletURL()
 	>
 		<clay:management-toolbar
 			clearResultsURL="<%= viewAccountRelatedAccountsDisplayContext.getClearResultsURL() %>"
+			elementClasses="full-width"
 			itemsTotal="<%= searchContainer.getTotal() %>"
 			searchActionURL="<%= viewAccountRelatedAccountsDisplayContext.getCurrentURL() %>"
 			searchContainerId="related-accounts"

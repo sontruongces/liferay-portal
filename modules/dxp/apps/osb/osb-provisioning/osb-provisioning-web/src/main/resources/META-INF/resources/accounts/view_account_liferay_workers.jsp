@@ -28,6 +28,7 @@ ViewAccountLiferayWorkersDisplayContext viewAccountLiferayWorkersDisplayContext 
 		<clay:management-toolbar
 			clearResultsURL="<%= viewAccountLiferayWorkersDisplayContext.getClearResultsURL() %>"
 			creationMenu="<%= viewAccountLiferayWorkersDisplayContext.getCreationMenu() %>"
+			elementClasses="full-width"
 			filterDropdownItems="<%= viewAccountLiferayWorkersDisplayContext.getFilterDropdownItems() %>"
 			filterLabelItems="<%= viewAccountLiferayWorkersDisplayContext.getFilterLabelItems() %>"
 			itemsTotal="<%= searchContainer.getTotal() %>"

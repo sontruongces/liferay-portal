@@ -28,6 +28,7 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 		<clay:management-toolbar
 			clearResultsURL="<%= viewAccountContactsDisplayContext.getClearResultsURL() %>"
 			creationMenu="<%= viewAccountContactsDisplayContext.getCreationMenu() %>"
+			elementClasses="full-width"
 			filterDropdownItems="<%= viewAccountContactsDisplayContext.getFilterCustomerRoleDropdownItems() %>"
 			filterLabelItems="<%= viewAccountContactsDisplayContext.getFilterCustomerRoleLabelItems() %>"
 			itemsTotal="<%= searchContainer.getTotal() %>"

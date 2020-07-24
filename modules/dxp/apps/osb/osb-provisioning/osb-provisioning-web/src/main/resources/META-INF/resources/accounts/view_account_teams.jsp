@@ -28,6 +28,7 @@ ViewAccountTeamsDisplayContext viewAccountTeamsDisplayContext = ProvisioningWebC
 		<clay:management-toolbar
 			clearResultsURL="<%= viewAccountTeamsDisplayContext.getClearResultsURL() %>"
 			creationMenu="<%= viewAccountTeamsDisplayContext.getCreationMenu() %>"
+			elementClasses="full-width"
 			itemsTotal="<%= searchContainer.getTotal() %>"
 			searchActionURL="<%= viewAccountTeamsDisplayContext.getCurrentURL() %>"
 			searchContainerId="teams"
