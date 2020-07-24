@@ -47,6 +47,10 @@ public class ProductBundleLocalServiceUtil {
 	/**
 	 * Adds the product bundle to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productBundle the product bundle
 	 * @return the product bundle that was added
 	 */
@@ -83,6 +87,10 @@ public class ProductBundleLocalServiceUtil {
 	/**
 	 * Deletes the product bundle with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productBundleId the primary key of the product bundle
 	 * @return the product bundle that was removed
 	 * @throws PortalException if a product bundle with the primary key could not be found
@@ -96,6 +104,10 @@ public class ProductBundleLocalServiceUtil {
 
 	/**
 	 * Deletes the product bundle from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundle the product bundle
 	 * @return the product bundle that was removed
@@ -317,6 +329,10 @@ public class ProductBundleLocalServiceUtil {
 
 	/**
 	 * Updates the product bundle in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundle the product bundle
 	 * @return the product bundle that was updated
