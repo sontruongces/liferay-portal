@@ -227,7 +227,8 @@ public class FileInstallConfigTest {
 			String configurationPid, String content)
 		throws Exception {
 
-		return _createConfiguration(configurationPid, content, null);
+		return _createConfiguration(
+			configurationPid, content, Charset.defaultCharset());
 	}
 
 	private Configuration _createConfiguration(
@@ -243,10 +244,6 @@ public class FileInstallConfigTest {
 					Constants.SERVICE_PID, configurationPid));
 
 		try {
-			if (charset == null) {
-				charset = Charset.defaultCharset();
-			}
-
 			Files.write(_configurationPath, content.getBytes(charset));
 
 			countDownLatch.await();
