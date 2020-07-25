@@ -28,6 +28,7 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -80,12 +81,39 @@ public class DDMFormValuesJSONDeserializer
 
 			ddmFormValues = new DDMFormValues(ddmForm);
 
+			JSONArray availableLanguageIds = jsonObject.getJSONArray(
+				"availableLanguageIds");
+			String defaultLanguageId = jsonObject.getString(
+				"defaultLanguageId");
+			JSONArray fieldValues = jsonObject.getJSONArray("fieldValues");
+
+			if (fieldValues == null) {
+				availableLanguageIds = _jsonFactory.createJSONArray(
+					LocaleUtil.toLanguageIds(ddmForm.getAvailableLocales()));
+
+				defaultLanguageId = LocaleUtil.toLanguageId(
+					ddmForm.getDefaultLocale());
+
+				fieldValues = _jsonFactory.createJSONArray();
+
+				for (String name : jsonObject.keySet()) {
+					JSONObject fieldValue = JSONUtil.put(
+						"name", name
+					).put(
+						"value",
+						JSONUtil.put(
+							defaultLanguageId, jsonObject.getString(name))
+					);
+
+					fieldValues.put(fieldValue);
+				}
+			}
+
 			setDDMFormValuesAvailableLocales(
-				jsonObject.getJSONArray("availableLanguageIds"), ddmFormValues);
-			setDDMFormValuesDefaultLocale(
-				jsonObject.getString("defaultLanguageId"), ddmFormValues);
-			setDDMFormFieldValues(
-				jsonObject.getJSONArray("fieldValues"), ddmForm, ddmFormValues);
+				availableLanguageIds, ddmFormValues);
+			setDDMFormValuesDefaultLocale(defaultLanguageId, ddmFormValues);
+			setDDMFormFieldValues(fieldValues, ddmForm, ddmFormValues);
+
 			setDDMFormLocalizedValuesDefaultLocale(ddmFormValues);
 		}
 		catch (Exception exception) {
