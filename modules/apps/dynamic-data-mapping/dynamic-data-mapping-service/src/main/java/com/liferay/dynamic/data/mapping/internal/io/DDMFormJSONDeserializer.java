@@ -30,6 +30,7 @@ import com.liferay.dynamic.data.mapping.model.DDMFormRule;
 import com.liferay.dynamic.data.mapping.model.DDMFormSuccessPageSettings;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.util.DDMFormFactory;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -121,7 +122,10 @@ public class DDMFormJSONDeserializer implements DDMFormDeserializer {
 			String serializedDDMFormFieldProperty)
 		throws PortalException {
 
-		if (Validator.isNull(serializedDDMFormFieldProperty)) {
+		if (Validator.isNull(serializedDDMFormFieldProperty) ||
+			!serializedDDMFormFieldProperty.startsWith(
+				StringPool.OPEN_BRACKET)) {
+
 			return new DDMFormFieldOptions();
 		}
 
