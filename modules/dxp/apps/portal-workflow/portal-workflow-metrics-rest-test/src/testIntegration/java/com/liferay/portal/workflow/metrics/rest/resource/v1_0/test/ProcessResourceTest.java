@@ -19,8 +19,6 @@ import com.liferay.petra.function.UnsafeBiConsumer;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.odata.entity.EntityField;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.Process;
 import com.liferay.portal.workflow.metrics.rest.client.pagination.Page;
@@ -48,9 +46,6 @@ public class ProcessResourceTest extends BaseProcessResourceTestCase {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		BaseProcessResourceTestCase.setUpClass();
-
-		_workflowMetricsRESTTestHelper = new WorkflowMetricsRESTTestHelper(
-			_queries, _searchEngineAdapter);
 	}
 
 	@Before
@@ -242,14 +237,9 @@ public class ProcessResourceTest extends BaseProcessResourceTestCase {
 
 	private static Document[] _documents;
 
-	@Inject
-	private static Queries _queries;
-
-	@Inject(blocking = false, filter = "search.engine.impl=Elasticsearch")
-	private static SearchEngineAdapter _searchEngineAdapter;
-
-	private static WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
-
 	private final List<Process> _processes = new ArrayList<>();
+
+	@Inject
+	private WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
 
 }

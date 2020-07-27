@@ -21,6 +21,7 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.kaleo.model.KaleoInstance;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 import com.liferay.portal.workflow.metrics.service.internal.search.index.test.base.BaseWorkflowMetricsIndexerTestCase;
 
 import java.time.Duration;
@@ -51,12 +52,14 @@ public class InstanceWorkflowMetricsIndexerTest
 		KaleoDefinition kaleoDefinition = getKaleoDefinition();
 
 		retryAssertCount(
-			"workflow-metrics-instances", "WorkflowMetricsInstanceType",
-			"className", kaleoInstance.getClassName(), "classPK",
-			kaleoInstance.getClassPK(), "companyId",
-			kaleoInstance.getCompanyId(), "completed", false, "deleted", false,
-			"instanceId", kaleoInstance.getKaleoInstanceId(), "processId",
-			kaleoDefinition.getKaleoDefinitionId(), "version", "1.0");
+			_instanceWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoInstance.getCompanyId()),
+			"WorkflowMetricsInstanceType", "className",
+			kaleoInstance.getClassName(), "classPK", kaleoInstance.getClassPK(),
+			"companyId", kaleoInstance.getCompanyId(), "completed", false,
+			"deleted", false, "instanceId", kaleoInstance.getKaleoInstanceId(),
+			"processId", kaleoDefinition.getKaleoDefinitionId(), "version",
+			"1.0");
 	}
 
 	@Test
@@ -66,12 +69,14 @@ public class InstanceWorkflowMetricsIndexerTest
 		KaleoDefinition kaleoDefinition = getKaleoDefinition();
 
 		retryAssertCount(
-			"workflow-metrics-instances", "WorkflowMetricsInstanceType",
-			"className", kaleoInstance.getClassName(), "classPK",
-			kaleoInstance.getClassPK(), "companyId",
-			kaleoInstance.getCompanyId(), "completed", false, "deleted", false,
-			"instanceId", kaleoInstance.getKaleoInstanceId(), "processId",
-			kaleoDefinition.getKaleoDefinitionId(), "version", "1.0");
+			_instanceWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoInstance.getCompanyId()),
+			"WorkflowMetricsInstanceType", "className",
+			kaleoInstance.getClassName(), "classPK", kaleoInstance.getClassPK(),
+			"companyId", kaleoInstance.getCompanyId(), "completed", false,
+			"deleted", false, "instanceId", kaleoInstance.getKaleoInstanceId(),
+			"processId", kaleoDefinition.getKaleoDefinitionId(), "version",
+			"1.0");
 
 		kaleoInstance = completeKaleoInstance(kaleoInstance);
 
@@ -83,11 +88,12 @@ public class InstanceWorkflowMetricsIndexerTest
 			createDate.toInstant(), completionDate.toInstant());
 
 		retryAssertCount(
-			"workflow-metrics-instances", "WorkflowMetricsInstanceType",
-			"className", kaleoInstance.getClassName(), "classPK",
-			kaleoInstance.getClassPK(), "companyId",
-			kaleoInstance.getCompanyId(), "completed", true, "deleted", false,
-			"duration", duration.toMillis(), "instanceId",
+			_instanceWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoInstance.getCompanyId()),
+			"WorkflowMetricsInstanceType", "className",
+			kaleoInstance.getClassName(), "classPK", kaleoInstance.getClassPK(),
+			"companyId", kaleoInstance.getCompanyId(), "completed", true,
+			"deleted", false, "duration", duration.toMillis(), "instanceId",
 			kaleoInstance.getKaleoInstanceId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "version", "1.0");
 	}
@@ -101,12 +107,14 @@ public class InstanceWorkflowMetricsIndexerTest
 		deleteKaleoInstance(kaleoInstance);
 
 		retryAssertCount(
-			"workflow-metrics-instances", "WorkflowMetricsInstanceType",
-			"className", kaleoInstance.getClassName(), "classPK",
-			kaleoInstance.getClassPK(), "companyId",
-			kaleoInstance.getCompanyId(), "completed", false, "deleted", true,
-			"instanceId", kaleoInstance.getKaleoInstanceId(), "processId",
-			kaleoDefinition.getKaleoDefinitionId(), "version", "1.0");
+			_instanceWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoInstance.getCompanyId()),
+			"WorkflowMetricsInstanceType", "className",
+			kaleoInstance.getClassName(), "classPK", kaleoInstance.getClassPK(),
+			"companyId", kaleoInstance.getCompanyId(), "completed", false,
+			"deleted", true, "instanceId", kaleoInstance.getKaleoInstanceId(),
+			"processId", kaleoDefinition.getKaleoDefinitionId(), "version",
+			"1.0");
 	}
 
 	@Test
@@ -116,12 +124,19 @@ public class InstanceWorkflowMetricsIndexerTest
 
 		assertReindex(
 			_instanceWorkflowMetricsIndexer,
-			new String[] {"workflow-metrics-instances"},
+			new String[] {
+				_instanceWorkflowMetricsIndexNameBuilder.getIndexName(
+					kaleoInstance.getCompanyId())
+			},
 			new String[] {"WorkflowMetricsInstanceType"}, "companyId",
 			kaleoInstance.getCompanyId(), "instanceId",
 			kaleoInstance.getKaleoInstanceId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId());
 	}
+
+	@Inject(filter = "workflow.metrics.index.entity.name=instance")
+	private static WorkflowMetricsIndexNameBuilder
+		_instanceWorkflowMetricsIndexNameBuilder;
 
 	@Inject(
 		filter = "(&(objectClass=com.liferay.portal.workflow.metrics.internal.search.index.InstanceWorkflowMetricsIndexer))"

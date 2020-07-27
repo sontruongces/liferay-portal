@@ -15,8 +15,6 @@
 package com.liferay.portal.workflow.metrics.rest.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.Histogram;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.Instance;
@@ -58,9 +56,6 @@ public class MetricResourceTest extends BaseMetricResourceTestCase {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		BaseMetricResourceTestCase.setUpClass();
-
-		_workflowMetricsRESTTestHelper = new WorkflowMetricsRESTTestHelper(
-			_queries, _searchEngineAdapter);
 	}
 
 	@Before
@@ -318,15 +313,10 @@ public class MetricResourceTest extends BaseMetricResourceTestCase {
 		return Date.from(zonedDateTime.toInstant());
 	}
 
-	@Inject
-	private static Queries _queries;
-
-	@Inject(blocking = false, filter = "search.engine.impl=Elasticsearch")
-	private static SearchEngineAdapter _searchEngineAdapter;
-
-	private static WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
-
 	private final List<Instance> _instances = new ArrayList<>();
 	private Process _process;
+
+	@Inject
+	private WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
 
 }

@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.AssigneeUser;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.CreatorUser;
@@ -53,9 +51,6 @@ public class InstanceResourceTest extends BaseInstanceResourceTestCase {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		BaseInstanceResourceTestCase.setUpClass();
-
-		_workflowMetricsRESTTestHelper = new WorkflowMetricsRESTTestHelper(
-			_queries, _searchEngineAdapter);
 	}
 
 	@Before
@@ -217,18 +212,13 @@ public class InstanceResourceTest extends BaseInstanceResourceTestCase {
 		unsafeTriConsumer.accept(instance1, instance2, page);
 	}
 
-	@Inject
-	private static Queries _queries;
-
-	@Inject(blocking = false, filter = "search.engine.impl=Elasticsearch")
-	private static SearchEngineAdapter _searchEngineAdapter;
-
-	private static WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
-
 	private final List<Instance> _instances = new ArrayList<>();
 	private Process _process;
 
 	@DeleteAfterTestRun
 	private User _user;
+
+	@Inject
+	private WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
 
 }

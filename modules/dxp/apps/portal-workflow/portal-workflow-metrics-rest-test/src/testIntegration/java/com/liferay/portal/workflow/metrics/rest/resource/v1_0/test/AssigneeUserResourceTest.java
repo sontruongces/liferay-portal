@@ -19,8 +19,6 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.AssigneeUser;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.Process;
@@ -40,9 +38,6 @@ public class AssigneeUserResourceTest extends BaseAssigneeUserResourceTestCase {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 		BaseProcessResourceTestCase.setUpClass();
-
-		_workflowMetricsRESTTestHelper = new WorkflowMetricsRESTTestHelper(
-			_queries, _searchEngineAdapter);
 	}
 
 	@Before
@@ -102,16 +97,11 @@ public class AssigneeUserResourceTest extends BaseAssigneeUserResourceTestCase {
 	}
 
 	@Inject
-	private static Queries _queries;
-
-	@Inject(blocking = false, filter = "search.engine.impl=Elasticsearch")
-	private static SearchEngineAdapter _searchEngineAdapter;
-
-	private static WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
-
-	@Inject
 	private Portal _portal;
 
 	private Process _process;
+
+	@Inject
+	private WorkflowMetricsRESTTestHelper _workflowMetricsRESTTestHelper;
 
 }

@@ -27,6 +27,7 @@ import com.liferay.portal.workflow.kaleo.definition.Transition;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.kaleo.model.KaleoNode;
 import com.liferay.portal.workflow.kaleo.model.KaleoTask;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 import com.liferay.portal.workflow.metrics.service.internal.search.index.test.base.BaseWorkflowMetricsIndexerTestCase;
 
 import java.util.Collections;
@@ -63,7 +64,9 @@ public class NodeWorkflowMetricsIndexerTest
 		KaleoDefinition kaleoDefinition = getKaleoDefinition();
 
 		retryAssertCount(
-			"workflow-metrics-nodes", "WorkflowMetricsNodeType", "companyId",
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsNodeType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", false, "initial", true,
 			"name", "start", "nodeId", kaleoNode.getKaleoNodeId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "terminal", false, "type",
@@ -73,7 +76,9 @@ public class NodeWorkflowMetricsIndexerTest
 			kaleoDefinition, new State("end", StringPool.BLANK, false));
 
 		retryAssertCount(
-			"workflow-metrics-nodes", "WorkflowMetricsNodeType", "companyId",
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsNodeType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", false, "initial", false,
 			"name", "end", "nodeId", kaleoNode.getKaleoNodeId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "terminal", true, "type",
@@ -91,20 +96,25 @@ public class NodeWorkflowMetricsIndexerTest
 		KaleoDefinition kaleoDefinition = getKaleoDefinition();
 
 		retryAssertCount(
-			"workflow-metrics-nodes", "WorkflowMetricsNodeType", "companyId",
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsNodeType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", false, "initial", false,
 			"name", "review", "nodeId", kaleoTask.getKaleoTaskId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "terminal", false, "type",
 			NodeType.TASK.toString(), "version", "1.0");
 		retryAssertCount(
-			"workflow-metrics-sla-task-results",
+			_slaTaskResultWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
 			"WorkflowMetricsSLATaskResultType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", false, "instanceId", 0,
 			"processId", kaleoDefinition.getKaleoDefinitionId(),
 			"slaDefinitionId", 0, "taskId", kaleoTask.getKaleoTaskId(),
 			"taskName", "review");
 		retryAssertCount(
-			"workflow-metrics-tokens", "WorkflowMetricsTokenType", "companyId",
+			_tokenWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsTokenType", "companyId",
 			kaleoDefinition.getCompanyId(), "completed", false, "deleted",
 			false, "instanceId", 0, "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "taskId",
@@ -120,7 +130,9 @@ public class NodeWorkflowMetricsIndexerTest
 		KaleoDefinition kaleoDefinition = getKaleoDefinition();
 
 		retryAssertCount(
-			"workflow-metrics-nodes", "WorkflowMetricsNodeType", "companyId",
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsNodeType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", false, "initial", false,
 			"name", "end", "nodeId", kaleoNode.getKaleoNodeId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "terminal", true, "type",
@@ -129,7 +141,9 @@ public class NodeWorkflowMetricsIndexerTest
 		deleteKaleoNode(kaleoNode);
 
 		retryAssertCount(
-			"workflow-metrics-nodes", "WorkflowMetricsNodeType", "companyId",
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsNodeType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", true, "initial", false,
 			"name", "end", "nodeId", kaleoNode.getKaleoNodeId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "terminal", true, "type",
@@ -149,7 +163,9 @@ public class NodeWorkflowMetricsIndexerTest
 		KaleoDefinition kaleoDefinition = getKaleoDefinition();
 
 		retryAssertCount(
-			"workflow-metrics-nodes", "WorkflowMetricsNodeType", "companyId",
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+				kaleoDefinition.getCompanyId()),
+			"WorkflowMetricsNodeType", "companyId",
 			kaleoDefinition.getCompanyId(), "deleted", true, "initial", false,
 			"name", "review", "nodeId", kaleoTask.getKaleoTaskId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId(), "terminal", false, "type",
@@ -164,9 +180,18 @@ public class NodeWorkflowMetricsIndexerTest
 			_nodeWorkflowMetricsIndexer,
 			new LinkedHashMap<String, Integer>() {
 				{
-					put("workflow-metrics-nodes", 4);
-					put("workflow-metrics-sla-task-results", 2);
-					put("workflow-metrics-tokens", 2);
+					put(
+						_nodeWorkflowMetricsIndexNameBuilder.getIndexName(
+							kaleoDefinition.getCompanyId()),
+						4);
+					put(
+						_slaTaskResultWorkflowMetricsIndexNameBuilder.
+							getIndexName(kaleoDefinition.getCompanyId()),
+						2);
+					put(
+						_tokenWorkflowMetricsIndexNameBuilder.getIndexName(
+							kaleoDefinition.getCompanyId()),
+						2);
 				}
 			},
 			new String[] {
@@ -176,6 +201,18 @@ public class NodeWorkflowMetricsIndexerTest
 			"companyId", kaleoDefinition.getCompanyId(), "processId",
 			kaleoDefinition.getKaleoDefinitionId());
 	}
+
+	@Inject(filter = "workflow.metrics.index.entity.name=node")
+	private static WorkflowMetricsIndexNameBuilder
+		_nodeWorkflowMetricsIndexNameBuilder;
+
+	@Inject(filter = "workflow.metrics.index.entity.name=sla-task-result")
+	private static WorkflowMetricsIndexNameBuilder
+		_slaTaskResultWorkflowMetricsIndexNameBuilder;
+
+	@Inject(filter = "workflow.metrics.index.entity.name=token")
+	private static WorkflowMetricsIndexNameBuilder
+		_tokenWorkflowMetricsIndexNameBuilder;
 
 	@Inject(
 		filter = "(&(objectClass=com.liferay.portal.workflow.metrics.internal.search.index.NodeWorkflowMetricsIndexer))"
