@@ -75,9 +75,6 @@ public class ThemeContributorExtender
 			return null;
 		}
 
-		int themeContributorWeight = GetterUtil.getInteger(
-			headers.get("Liferay-Theme-Contributor-Weight"));
-
 		Collection<ServiceRegistration<?>> serviceRegistrations =
 			new ArrayList<>();
 
@@ -85,7 +82,9 @@ public class ThemeContributorExtender
 			serviceReference);
 
 		Dictionary<String, Integer> properties = MapUtil.singletonDictionary(
-			"service.ranking", themeContributorWeight);
+			"service.ranking",
+			GetterUtil.getInteger(
+				headers.get("Liferay-Theme-Contributor-Weight")));
 
 		serviceRegistrations.add(
 			_bundleContext.registerService(
