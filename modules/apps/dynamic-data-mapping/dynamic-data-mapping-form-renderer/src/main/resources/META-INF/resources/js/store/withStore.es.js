@@ -12,6 +12,7 @@
  * details.
  */
 
+import {debounce} from 'frontend-js-web';
 import dom from 'metal-dom';
 
 import {evaluate} from '../util/evaluation.es';
@@ -27,35 +28,65 @@ import handlePaginationItemClicked from './actions/handlePaginationItemClicked.e
 import handlePaginationNextClicked from './actions/handlePaginationNextClicked.es';
 import handlePaginationPreviousClicked from './actions/handlePaginationPreviousClicked.es';
 
-const _handleFieldEdited = function(properties) {
-	const {fieldInstance} = properties;
-	const {evaluable} = fieldInstance;
-	const evaluatorContext = this.getEvaluatorContext();
+let REVALIDATE_UPDATES = [];
 
-	const updateState = editedPages => {
+const UPDATE_DELAY_MS = 50;
+
+const debounceFn = debounce(fn => fn(), UPDATE_DELAY_MS);
+
+const _handleFieldEdited = function(properties) {
+	debounceFn(() => {
+		const {fieldInstance} = properties;
+		const {evaluable} = fieldInstance;
+		const evaluatorContext = this.getEvaluatorContext();
+
+		const editedPages = handleFieldEdited(evaluatorContext, properties);
+
 		this.setState({
 			pages: editedPages
 		});
-	};
 
-	handleFieldEdited(evaluatorContext, properties, updateState)
-		.then(evaluatedPages => {
-			if (fieldInstance.isDisposed()) {
-				return;
-			}
+		if (evaluable) {
+			evaluate(fieldInstance.fieldName, {
+				...evaluatorContext,
+				pages: editedPages
+			})
+				.then(evaluatedPages => {
+					if (REVALIDATE_UPDATES.length > 0) {
+						REVALIDATE_UPDATES.forEach(item => {
+							evaluatedPages = handleFieldEdited(
+								item.evaluatorContext,
+								item.properties
+							);
+						});
 
-			this.setState(
-				{
-					pages: evaluatedPages
-				},
-				() => {
-					if (evaluable) {
-						this.emit('evaluated', evaluatedPages);
+						REVALIDATE_UPDATES = [];
 					}
-				}
-			);
-		})
-		.catch(error => this.emit('evaluationError', error));
+
+					if (fieldInstance.isDisposed()) {
+						return;
+					}
+
+					this.setState(
+						{
+							pages: evaluatedPages
+						},
+						() => {
+							if (evaluable) {
+								this.emit('evaluated', evaluatedPages);
+							}
+						}
+					);
+				})
+				.catch(error => this.emit('evaluationError', error));
+		}
+		else {
+			REVALIDATE_UPDATES.push({
+				evaluatorContext,
+				properties
+			});
+		}
+	});
 };
 
 const _handleFieldBlurred = function(properties) {

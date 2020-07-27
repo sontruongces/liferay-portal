@@ -12,39 +12,37 @@
  * details.
  */
 
-import {evaluate} from '../../util/evaluation.es';
 import {PagesVisitor} from '../../util/visitors.es';
 
-export default (evaluatorContext, properties, updateState) => {
-	const {fieldInstance, value} = properties;
-	const {evaluable, fieldName} = fieldInstance;
-	const {editingLanguageId, pages} = evaluatorContext;
+const getEditedField = (field, editingLanguageId, name, value) => {
+	return {
+		...field,
+		localizedValue: {
+			...field.localizedValue,
+			[editingLanguageId]: value
+		},
+		value
+	};
+};
+
+const getEditedPages = (pages, editingLanguageId, name, value) => {
 	const pageVisitor = new PagesVisitor(pages);
 
-	const editedPages = pageVisitor.mapFields(field => {
-		if (field.name === fieldInstance.name) {
-			field = {
-				...field,
-				localizedValue: {
-					...field.localizedValue,
-					[editingLanguageId]: value
-				},
-				value
-			};
+	return pageVisitor.mapFields(field => {
+		if (field.name === name) {
+			field = getEditedField(field, editingLanguageId, name, value);
 		}
 		else if (field.nestedFields) {
 			field = {
 				...field,
 				nestedFields: field.nestedFields.map(nestedField => {
-					if (nestedField.name === fieldInstance.name) {
-						nestedField = {
-							...nestedField,
-							localizedValue: {
-								...field.localizedValue,
-								[editingLanguageId]: value
-							},
+					if (field.name === name) {
+						nestedField = getEditedField(
+							nestedField,
+							editingLanguageId,
+							name,
 							value
-						};
+						);
 					}
 
 					return nestedField;
@@ -54,17 +52,11 @@ export default (evaluatorContext, properties, updateState) => {
 
 		return field;
 	});
+};
 
-	updateState(editedPages);
+export default (evaluatorContext, properties) => {
+	const {fieldInstance, value} = properties;
+	const {editingLanguageId, pages} = evaluatorContext;
 
-	let promise = Promise.resolve(editedPages);
-
-	if (evaluable) {
-		promise = evaluate(fieldName, {
-			...evaluatorContext,
-			pages: editedPages
-		});
-	}
-
-	return promise;
+	return getEditedPages(pages, editingLanguageId, fieldInstance.name, value);
 };
