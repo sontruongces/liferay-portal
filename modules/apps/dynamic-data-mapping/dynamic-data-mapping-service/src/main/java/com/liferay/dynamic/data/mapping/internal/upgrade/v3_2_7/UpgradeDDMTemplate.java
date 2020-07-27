@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 /**
  * @author Jorge Díaz
  */
-public class UpgradeNullDDMTemplateKeys extends UpgradeProcess {
+public class UpgradeDDMTemplate extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
