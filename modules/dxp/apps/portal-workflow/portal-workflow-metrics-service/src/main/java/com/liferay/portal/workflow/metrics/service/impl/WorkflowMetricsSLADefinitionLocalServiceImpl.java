@@ -52,6 +52,7 @@ import com.liferay.portal.workflow.metrics.internal.search.index.SLAProcessResul
 import com.liferay.portal.workflow.metrics.internal.search.index.SLATaskResultWorkflowMetricsIndexer;
 import com.liferay.portal.workflow.metrics.model.WorkflowMetricsSLADefinition;
 import com.liferay.portal.workflow.metrics.model.WorkflowMetricsSLADefinitionVersion;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 import com.liferay.portal.workflow.metrics.service.base.WorkflowMetricsSLADefinitionLocalServiceBaseImpl;
 
 import java.util.ArrayList;
@@ -427,7 +428,8 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 		searchSearchRequest.addAggregation(
 			_createNodeIdAggregation("stop", stopNodeIds));
 
-		searchSearchRequest.setIndexNames("workflow-metrics-nodes");
+		searchSearchRequest.setIndexNames(
+			_nodeWorkflowMetricsIndexNameBuilder.getIndexName(companyId));
 
 		BooleanQuery booleanQuery = _queries.booleanQuery();
 
@@ -491,7 +493,8 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 	private String _getLatestProcessVersion(long companyId, long processId) {
 		SearchSearchRequest searchSearchRequest = new SearchSearchRequest();
 
-		searchSearchRequest.setIndexNames("workflow-metrics-processes");
+		searchSearchRequest.setIndexNames(
+			_processWorkflowMetricsIndexNameBuilder.getIndexName(companyId));
 
 		BooleanQuery booleanQuery = _queries.booleanQuery();
 
@@ -553,6 +556,20 @@ public class WorkflowMetricsSLADefinitionLocalServiceImpl
 
 	@ServiceReference(type = Aggregations.class)
 	private Aggregations _aggregations;
+
+	@ServiceReference(
+		filterString = "(workflow.metrics.index.entity.name=node)",
+		type = WorkflowMetricsIndexNameBuilder.class
+	)
+	private WorkflowMetricsIndexNameBuilder
+		_nodeWorkflowMetricsIndexNameBuilder;
+
+	@ServiceReference(
+		filterString = "(workflow.metrics.index.entity.name=process)",
+		type = WorkflowMetricsIndexNameBuilder.class
+	)
+	private WorkflowMetricsIndexNameBuilder
+		_processWorkflowMetricsIndexNameBuilder;
 
 	@ServiceReference(type = Queries.class)
 	private Queries _queries;

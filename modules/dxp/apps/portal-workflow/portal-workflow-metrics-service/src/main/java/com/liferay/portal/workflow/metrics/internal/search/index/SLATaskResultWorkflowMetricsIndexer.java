@@ -16,10 +16,12 @@ package com.liferay.portal.workflow.metrics.internal.search.index;
 
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.workflow.metrics.internal.sla.processor.WorkflowMetricsSLATaskResult;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 import com.liferay.portal.workflow.metrics.sla.processor.WorkfowMetricsSLAStatus;
 
 import java.sql.Timestamp;
@@ -27,6 +29,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Inácio Nery
@@ -53,7 +56,9 @@ public class SLATaskResultWorkflowMetricsIndexer
 
 				bulkDocumentRequest.addBulkableDocumentRequest(
 					new IndexDocumentRequest(
-						getIndexName(), document.getUID(), document) {
+						getIndexName(
+							GetterUtil.getLong(document.get("companyId"))),
+						document.getUID(), document) {
 
 						{
 							setType(getIndexType());
@@ -120,13 +125,18 @@ public class SLATaskResultWorkflowMetricsIndexer
 	}
 
 	@Override
-	protected String getIndexName() {
-		return "workflow-metrics-sla-task-results";
+	protected String getIndexName(long companyId) {
+		return _slaTaskResultWorkflowMetricsIndexNameBuilder.getIndexName(
+			companyId);
 	}
 
 	@Override
 	protected String getIndexType() {
 		return "WorkflowMetricsSLATaskResultType";
 	}
+
+	@Reference(target = "(workflow.metrics.index.entity.name=sla-task-result)")
+	private WorkflowMetricsIndexNameBuilder
+		_slaTaskResultWorkflowMetricsIndexNameBuilder;
 
 }

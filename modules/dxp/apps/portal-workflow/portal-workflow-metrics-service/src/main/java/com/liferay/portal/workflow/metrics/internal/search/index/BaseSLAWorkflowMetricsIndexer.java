@@ -45,6 +45,7 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 		BooleanQuery booleanQuery = queries.booleanQuery();
 
 		_deleteDocuments(
+			companyId,
 			booleanQuery.addMustQueryClauses(
 				queries.term("companyId", companyId),
 				queries.term("instanceId", instanceId)));
@@ -60,6 +61,7 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 			queries.term("status", WorkfowMetricsSLAStatus.STOPPED.name()));
 
 		_deleteDocuments(
+			companyId,
 			booleanQuery.addMustQueryClauses(
 				queries.term("companyId", companyId),
 				queries.term("processId", processId),
@@ -70,6 +72,7 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 		BooleanQuery booleanQuery = queries.booleanQuery();
 
 		_updateDocuments(
+			companyId,
 			document -> new DocumentImpl() {
 				{
 					addKeyword(
@@ -85,8 +88,9 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 	@Reference
 	protected Queries queries;
 
-	private void _deleteDocuments(BooleanQuery booleanQuery) {
+	private void _deleteDocuments(long companyId, BooleanQuery booleanQuery) {
 		_updateDocuments(
+			companyId,
 			document -> new DocumentImpl() {
 				{
 					addKeyword("deleted", true);
@@ -97,6 +101,7 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 	}
 
 	private void _updateDocuments(
+		long companyId,
 		Function<com.liferay.portal.search.document.Document, Document>
 			transformDocumentFunction,
 		Query query) {
@@ -107,7 +112,7 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 
 		SearchSearchRequest searchSearchRequest = new SearchSearchRequest();
 
-		searchSearchRequest.setIndexNames(getIndexName());
+		searchSearchRequest.setIndexNames(getIndexName(companyId));
 		searchSearchRequest.setQuery(query);
 		searchSearchRequest.setSelectedFieldNames(Field.UID);
 
@@ -130,7 +135,7 @@ public abstract class BaseSLAWorkflowMetricsIndexer
 			SearchHit::getDocument
 		).map(
 			document -> new UpdateDocumentRequest(
-				getIndexName(), document.getString(Field.UID),
+				getIndexName(companyId), document.getString(Field.UID),
 				transformDocumentFunction.apply(document)) {
 
 				{

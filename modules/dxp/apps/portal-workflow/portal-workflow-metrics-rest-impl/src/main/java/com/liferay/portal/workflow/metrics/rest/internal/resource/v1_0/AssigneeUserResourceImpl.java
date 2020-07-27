@@ -34,6 +34,7 @@ import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.workflow.metrics.rest.dto.v1_0.AssigneeUser;
 import com.liferay.portal.workflow.metrics.rest.resource.v1_0.AssigneeUserResource;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -74,12 +75,13 @@ public class AssigneeUserResourceImpl extends BaseAssigneeUserResourceImpl {
 
 		searchSearchRequest.addAggregation(termsAggregation);
 
-		searchSearchRequest.setIndexNames("workflow-metrics-tokens");
-
 		BooleanQuery booleanQuery = _queries.booleanQuery();
 
 		booleanQuery.addMustNotQueryClauses(_queries.term("tokenId", 0));
 
+		searchSearchRequest.setIndexNames(
+			_tokenWorkflowMetricsIndexNameBuilder.getIndexName(
+				contextCompany.getCompanyId()));
 		searchSearchRequest.setQuery(
 			booleanQuery.addMustQueryClauses(
 				_queries.term("companyId", contextCompany.getCompanyId()),
@@ -163,6 +165,10 @@ public class AssigneeUserResourceImpl extends BaseAssigneeUserResourceImpl {
 
 	@Reference
 	private SearchRequestExecutor _searchRequestExecutor;
+
+	@Reference(target = "(workflow.metrics.index.entity.name=token)")
+	private WorkflowMetricsIndexNameBuilder
+		_tokenWorkflowMetricsIndexNameBuilder;
 
 	@Reference
 	private UserService _userService;

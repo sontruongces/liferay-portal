@@ -42,6 +42,7 @@ import com.liferay.portal.workflow.metrics.internal.sla.processor.WorkflowMetric
 import com.liferay.portal.workflow.metrics.internal.sla.processor.WorkflowMetricsSLAProcessor;
 import com.liferay.portal.workflow.metrics.model.WorkflowMetricsSLADefinition;
 import com.liferay.portal.workflow.metrics.model.WorkflowMetricsSLADefinitionVersion;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 import com.liferay.portal.workflow.metrics.service.WorkflowMetricsSLADefinitionLocalService;
 import com.liferay.portal.workflow.metrics.service.WorkflowMetricsSLADefinitionVersionLocalService;
 import com.liferay.portal.workflow.metrics.sla.processor.WorkfowMetricsSLAStatus;
@@ -121,8 +122,9 @@ public class SLAProcessResultWorkflowMetricsIndexer
 	}
 
 	@Override
-	protected String getIndexName() {
-		return "workflow-metrics-sla-process-results";
+	protected String getIndexName(long companyId) {
+		return _slaProcessResultWorkflowMetricsIndexNameBuilder.getIndexName(
+			companyId);
 	}
 
 	@Override
@@ -236,7 +238,8 @@ public class SLAProcessResultWorkflowMetricsIndexer
 
 		SearchSearchRequest searchSearchRequest = new SearchSearchRequest();
 
-		searchSearchRequest.setIndexNames("workflow-metrics-instances");
+		searchSearchRequest.setIndexNames(
+			_instanceWorkflowMetricsIndexNameBuilder.getIndexName(companyId));
 		searchSearchRequest.setQuery(
 			_createInstancesBooleanQuery(
 				companyId, lastInstanceId, processIds));
@@ -353,7 +356,7 @@ public class SLAProcessResultWorkflowMetricsIndexer
 
 								bulkDocumentRequest.addBulkableDocumentRequest(
 									new IndexDocumentRequest(
-										getIndexName(),
+										getIndexName(companyId),
 										createDocument(
 											workflowMetricsSLAProcessResult)) {
 
@@ -385,5 +388,15 @@ public class SLAProcessResultWorkflowMetricsIndexer
 	private final DateTimeFormatter _dateTimeFormatter =
 		DateTimeFormatter.ofPattern(
 			PropsUtil.get(PropsKeys.INDEX_DATE_FORMAT_PATTERN));
+
+	@Reference(target = "(workflow.metrics.index.entity.name=instance)")
+	private WorkflowMetricsIndexNameBuilder
+		_instanceWorkflowMetricsIndexNameBuilder;
+
+	@Reference(
+		target = "(workflow.metrics.index.entity.name=sla-process-result)"
+	)
+	private WorkflowMetricsIndexNameBuilder
+		_slaProcessResultWorkflowMetricsIndexNameBuilder;
 
 }

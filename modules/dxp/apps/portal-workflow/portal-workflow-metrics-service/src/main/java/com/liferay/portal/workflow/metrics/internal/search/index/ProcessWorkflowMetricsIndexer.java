@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Indexer;
@@ -28,6 +29,7 @@ import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -52,7 +54,8 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 
 		bulkDocumentRequest.addBulkableDocumentRequest(
 			new IndexDocumentRequest(
-				_instanceWorkflowMetricsIndexer.getIndexName(),
+				_instanceWorkflowMetricsIndexer.getIndexName(
+					GetterUtil.getLong(document.get("companyId"))),
 				_createWorkflowMetricsInstanceDocument(
 					GetterUtil.getLong(document.get("companyId")),
 					GetterUtil.getLong(document.get("processId")))) {
@@ -63,7 +66,8 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 			});
 		bulkDocumentRequest.addBulkableDocumentRequest(
 			new IndexDocumentRequest(
-				_slaProcessResultWorkflowMetricsIndexer.getIndexName(),
+				_slaProcessResultWorkflowMetricsIndexer.getIndexName(
+					GetterUtil.getLong(document.get("companyId"))),
 				_creatWorkflowMetricsSLAProcessResultDocument(
 					GetterUtil.getLong(document.get("companyId")),
 					GetterUtil.getLong(document.get("processId")))) {
@@ -74,7 +78,10 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 				}
 			});
 		bulkDocumentRequest.addBulkableDocumentRequest(
-			new IndexDocumentRequest(getIndexName(), document) {
+			new IndexDocumentRequest(
+				getIndexName(GetterUtil.getLong(document.get("companyId"))),
+				document) {
+
 				{
 					setType(getIndexType());
 				}
@@ -122,12 +129,14 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 	protected void activate() throws Exception {
 		super.activate();
 
-		_instanceWorkflowMetricsIndexer.createIndex();
+		for (Company company : companyLocalService.getCompanies()) {
+			_instanceWorkflowMetricsIndexer.createIndex(company.getCompanyId());
+		}
 	}
 
 	@Override
-	protected String getIndexName() {
-		return "workflow-metrics-processes";
+	protected String getIndexName(long companyId) {
+		return _processWorkflowMetricsIndexNameBuilder.getIndexName(companyId);
 	}
 
 	@Override
@@ -190,6 +199,10 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 
 	@Reference
 	private InstanceWorkflowMetricsIndexer _instanceWorkflowMetricsIndexer;
+
+	@Reference(target = "(workflow.metrics.index.entity.name=process)")
+	private WorkflowMetricsIndexNameBuilder
+		_processWorkflowMetricsIndexNameBuilder;
 
 	@Reference
 	private SLAProcessResultWorkflowMetricsIndexer

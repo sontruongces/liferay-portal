@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.kaleo.model.KaleoInstance;
 import com.liferay.portal.workflow.kaleo.service.KaleoInstanceLocalService;
+import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 
 import java.time.Duration;
 
@@ -150,8 +151,8 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 	}
 
 	@Override
-	protected String getIndexName() {
-		return "workflow-metrics-instances";
+	protected String getIndexName(long companyId) {
+		return _instanceWorkflowMetricsIndexNameBuilder.getIndexName(companyId);
 	}
 
 	@Override
@@ -259,6 +260,10 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 
 	@Reference
 	private AssetEntryLocalService _assetEntryLocalService;
+
+	@Reference(target = "(workflow.metrics.index.entity.name=instance)")
+	private WorkflowMetricsIndexNameBuilder
+		_instanceWorkflowMetricsIndexNameBuilder;
 
 	@Reference
 	private KaleoInstanceLocalService _kaleoInstanceLocalService;

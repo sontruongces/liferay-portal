@@ -67,7 +67,8 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		}
 
 		IndexDocumentRequest indexDocumentRequest = new IndexDocumentRequest(
-			getIndexName(), document);
+			getIndexName(GetterUtil.getLong(document.get("companyId"))),
+			document);
 
 		indexDocumentRequest.setRefresh(true);
 		indexDocumentRequest.setType(getIndexType());
@@ -94,16 +95,18 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 
 	@Activate
 	protected void activate() throws Exception {
-		createIndex();
+		for (Company company : companyLocalService.getCompanies()) {
+			createIndex(company.getCompanyId());
+		}
 	}
 
-	protected void createIndex() throws PortalException {
+	protected void createIndex(long companyId) throws PortalException {
 		if (searchEngineAdapter == null) {
 			return;
 		}
 
 		IndicesExistsIndexRequest indicesExistsIndexRequest =
-			new IndicesExistsIndexRequest(getIndexName());
+			new IndicesExistsIndexRequest(getIndexName(companyId));
 
 		IndicesExistsIndexResponse indicesExistsIndexResponse =
 			searchEngineAdapter.execute(indicesExistsIndexRequest);
@@ -113,7 +116,7 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		}
 
 		CreateIndexRequest createIndexRequest = new CreateIndexRequest(
-			getIndexName());
+			getIndexName(companyId));
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
 			StringUtil.read(getClass(), "/META-INF/search/mappings.json"));
@@ -132,9 +135,7 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		searchEngineAdapter.execute(createIndexRequest);
 
 		if (!_INDEX_ON_STARTUP) {
-			for (Company company : companyLocalService.getCompanies()) {
-				reindex(company.getCompanyId());
-			}
+			reindex(companyId);
 		}
 	}
 
@@ -184,7 +185,7 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		reindex(GetterUtil.getLong(ids[0]));
 	}
 
-	protected abstract String getIndexName();
+	protected abstract String getIndexName(long companyId);
 
 	protected abstract String getIndexType();
 
@@ -247,7 +248,8 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		}
 
 		UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(
-			getIndexName(), document.getUID(), document);
+			getIndexName(GetterUtil.getLong(document.get("companyId"))),
+			document.getUID(), document);
 
 		updateDocumentRequest.setType(getIndexType());
 
