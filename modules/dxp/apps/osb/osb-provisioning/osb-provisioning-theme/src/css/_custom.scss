@@ -1,7 +1,7 @@
 @import 'views/account_add_items.scss';
 @import 'views/account_history.scss';
 @import 'views/details.scss';
-@import 'views/provisioning';
+@import 'views/shared';
 @import 'views/side_panel';
 
 @font-face {
@@ -58,49 +58,12 @@ table {
 	}
 }
 
-.inline-edit {
-	display: inline-block;
-
-	&.block {
-		display: block;
-	}
-
-	.editable-field {
-		border: 1px solid $primary-l2;
-		border-radius: $border-radius;
-		display: flex;
-
-		.edit-icon,
-		.field {
-			padding: $spacing-xs;
-		}
-
-		.edit-icon {
-			background: $primary-l3;
-			border-left: 1px solid $primary-l2;
-		}
-
-		.lexicon-icon-pencil {
-			height: $spacing-md;
-			width: $spacing-md;
-		}
-
-		.form-control {
-			padding: $spacing-xxs $spacing-xs;
-		}
-	}
-
-	.external {
-		display: flex;
-
-		.btn {
-			margin-left: $spacing-md;
-		}
-	}
-}
-
 .label {
 	letter-spacing: 0.04rem;
+}
+
+.modal-footer {
+	justify-content: flex-end;
 }
 
 .nav-underline {
@@ -121,3 +84,10 @@ table {
 .semi-bold {
 	font-weight: $font-weight-semi-bold;
 }
+
+.table {
+	.highlight-row td {
+		background-color: $primary-l3;
+	}
+}
+

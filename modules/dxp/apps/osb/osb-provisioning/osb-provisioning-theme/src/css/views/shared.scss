@@ -167,12 +167,43 @@
 	}
 }
 
-.modal-footer {
-	justify-content: flex-end;
-}
+.inline-edit {
+	display: inline-block;
 
-.table {
-	.highlight-row td {
-		background-color: $primary-l3;
+	&.block {
+		display: block;
+	}
+
+	.editable-field {
+		border: 1px solid $primary-l2;
+		border-radius: $border-radius;
+		display: flex;
+
+		.edit-icon,
+		.field {
+			padding: $spacing-xs;
+		}
+
+		.edit-icon {
+			background: $primary-l3;
+			border-left: 1px solid $primary-l2;
+		}
+
+		.lexicon-icon-pencil {
+			height: $spacing-md;
+			width: $spacing-md;
+		}
+
+		.form-control {
+			padding: $spacing-xxs $spacing-xs;
+		}
+	}
+
+	.external {
+		display: flex;
+
+		.btn {
+			margin-left: $spacing-md;
+		}
 	}
 }
