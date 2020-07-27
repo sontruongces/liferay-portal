@@ -234,19 +234,6 @@ definition {
 		GogoShell.viewOutput(outputContent = "com.liferay.portal.kernel.model.Release (&(release.bundle.symbolic.name=com.liferay.revert.schema.version.service)(&(release.schema.version>=1.0.0)(!(release.schema.version>=2.0.0)))(|(!(release.state=*))(release.state=0))) for bundle com.liferay.revert.schema.version.service");
 	}
 
-	@priority = "5"
-	test UpgradeWithoutExecutingUpgradeToolFromArchive72101 {
-		property data.archive.type = "data-archive-portal";
-		property database.types = "db2,mariadb,mysql,oracle,postgresql";
-		property portal.version = "7.2.10.1";
-		property skip.upgrade-legacy-database = "true";
-		property test.assert.warning.exceptions = "true";
-
-		AssertConsoleTextNotPresent(value1 = "You must first upgrade the portal to the required schema version");
-
-		Portlet.assertServerStartup();
-	}
-
 	@priority = "4"
 	test UpgradeCoreSchemaVersion {
 		property test.name.skip.portal.instance = "UpgradeEnhancement#UpgradeCoreSchemaVersion";
@@ -371,6 +358,19 @@ definition {
 		AssertTextEquals.assertPartialText(
 			locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
 			value1 = "Schema Version is ${originalSchemaVersion}");
+	}
+
+	@priority = "5"
+	test UpgradeWithoutExecutingUpgradeToolFromArchive72101 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql";
+		property portal.version = "7.2.10.1";
+		property skip.upgrade-legacy-database = "true";
+		property test.assert.warning.exceptions = "true";
+
+		AssertConsoleTextNotPresent(value1 = "You must first upgrade the portal to the required schema version");
+
+		Portlet.assertServerStartup();
 	}
 
 }
