@@ -111,7 +111,9 @@ public abstract class BaseDataRecordResourceTestCase {
 
 		DataRecordResource.Builder builder = DataRecordResource.builder();
 
-		dataRecordResource = builder.locale(
+		dataRecordResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

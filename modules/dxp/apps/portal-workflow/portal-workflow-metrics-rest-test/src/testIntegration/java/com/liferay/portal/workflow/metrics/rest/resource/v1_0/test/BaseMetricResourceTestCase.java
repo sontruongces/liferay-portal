@@ -106,7 +106,9 @@ public abstract class BaseMetricResourceTestCase {
 
 		MetricResource.Builder builder = MetricResource.builder();
 
-		metricResource = builder.locale(
+		metricResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
