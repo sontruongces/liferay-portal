@@ -43,6 +43,7 @@ import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsInde
 
 import java.time.Duration;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -183,22 +184,17 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 	private Map<Locale, String> _createAssetTitleLocalizationMap(
 		KaleoInstance kaleoInstance) {
 
-		try {
-			AssetRenderer<?> assetRenderer = _getAssetRenderer(
-				kaleoInstance.getClassName(), kaleoInstance.getClassPK());
+		AssetRenderer<?> assetRenderer = _getAssetRenderer(
+			kaleoInstance.getClassName(), kaleoInstance.getClassPK());
 
-			if (assetRenderer != null) {
-				AssetEntry assetEntry = _assetEntryLocalService.getEntry(
-					assetRenderer.getClassName(), assetRenderer.getClassPK());
+		if (assetRenderer != null) {
+			AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
+				assetRenderer.getClassName(), assetRenderer.getClassPK());
 
+			if (assetEntry != null) {
 				return LocalizationUtil.populateLocalizationMap(
 					assetEntry.getTitleMap(), assetEntry.getDefaultLanguageId(),
 					assetEntry.getGroupId());
-			}
-		}
-		catch (PortalException portalException) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(portalException, portalException);
 			}
 		}
 
@@ -206,18 +202,23 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 			WorkflowHandlerRegistryUtil.getWorkflowHandler(
 				kaleoInstance.getClassName());
 
-		Map<Locale, String> localizationMap = new HashMap<>();
+		if (workflowHandler != null) {
+			Map<Locale, String> localizationMap = new HashMap<>();
 
-		for (Locale availableLocale :
-				LanguageUtil.getAvailableLocales(kaleoInstance.getGroupId())) {
+			for (Locale availableLocale :
+					LanguageUtil.getAvailableLocales(
+						kaleoInstance.getGroupId())) {
 
-			localizationMap.put(
-				availableLocale,
-				workflowHandler.getTitle(
-					kaleoInstance.getClassPK(), availableLocale));
+				localizationMap.put(
+					availableLocale,
+					workflowHandler.getTitle(
+						kaleoInstance.getClassPK(), availableLocale));
+			}
+
+			return localizationMap;
 		}
 
-		return localizationMap;
+		return Collections.emptyMap();
 	}
 
 	private Map<Locale, String> _createAssetTypeLocalizationMap(
@@ -237,14 +238,19 @@ public class InstanceWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 		return localizationMap;
 	}
 
-	private AssetRenderer<?> _getAssetRenderer(String className, long classPK)
-		throws PortalException {
-
+	private AssetRenderer<?> _getAssetRenderer(String className, long classPK) {
 		AssetRendererFactory<?> assetRendererFactory = _getAssetRendererFactory(
 			className);
 
 		if (assetRendererFactory != null) {
-			return assetRendererFactory.getAssetRenderer(classPK);
+			try {
+				return assetRendererFactory.getAssetRenderer(classPK);
+			}
+			catch (PortalException portalException) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(portalException, portalException);
+				}
+			}
 		}
 
 		return null;
