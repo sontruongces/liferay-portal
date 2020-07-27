@@ -22,8 +22,16 @@ import com.liferay.portal.kernel.util.StringUtil;
  */
 public class ProvisioningWebConfigurationValues {
 
+	public static final String GENERATE_LICENSE_URL = GetterUtil.getString(
+		ProvisioningWebConfigurationUtil.get("generate.license.url"));
+
 	public static final String LICENSE_MANAGER_URL = GetterUtil.getString(
 		ProvisioningWebConfigurationUtil.get("license.manager.url"));
+
+	public static String getGenerateLicenseURL(String accountKey) {
+		return StringUtil.replace(
+			GENERATE_LICENSE_URL, "[$ACCOUNT_KEY$]", accountKey);
+	}
 
 	public static String getLicenseManagerURL(
 		String accountKey, String productKey) {
