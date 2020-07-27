@@ -259,7 +259,9 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 
 	protected abstract void reindex(long companyId) throws PortalException;
 
-	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
+	@Reference(
+		target = ModuleServiceLifecycle.PORTLETS_INITIALIZED, unbind = "-"
+	)
 	protected void setModuleServiceLifecycle(
 		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
