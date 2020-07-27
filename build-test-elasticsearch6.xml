@@ -785,7 +785,15 @@ xpack.monitoring.collection.enabled: true</echo>
 							input="${index.mapping}"
 							override="true"
 							property="index.mapping"
-							regexp="(\A.*)|(.*\s*$)"
+							regexp="\A.*(?:\R.*){1}\R?([\s\S]*)"
+							replace="\1"
+						/>
+
+						<propertyregex
+							input="${index.mapping}"
+							override="true"
+							property="index.mapping"
+							regexp=".*(?:\R.*){1}\z"
 							replace=""
 						/>
 
