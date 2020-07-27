@@ -80,7 +80,6 @@ public class ThemeContributorExtender
 
 		ServletContext servletContext = _bundleContext.getService(
 			serviceReference);
-
 		Dictionary<String, Integer> properties = MapUtil.singletonDictionary(
 			"service.ranking",
 			GetterUtil.getInteger(
