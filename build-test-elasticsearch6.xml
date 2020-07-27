@@ -799,16 +799,40 @@ xpack.monitoring.collection.enabled: true</echo>
 
 						<local name="index.with.soft.deletes" />
 
-						<property name="index.with.soft.deletes">
-							<![CDATA[
-								{
-									"settings" : {
-										"index.soft_deletes.enabled" : true
-									},
-									${index.mapping}
-								}
-							]]>
-						</property>
+						<if>
+							<contains string="@{index.name}" substring="workflow-metrics-processes" />
+							<then>
+								<property name="index.with.soft.deletes">
+									<![CDATA[
+										{
+											"settings" : {
+												"analysis": {
+													"normalizer": {
+														"keyword_lowercase": {
+															"filter": "lowercase"
+														}
+													}
+												},
+												"index.soft_deletes.enabled" : true
+											},
+											${index.mapping}
+										}
+									]]>
+								</property>
+							</then>
+							<else>
+								<property name="index.with.soft.deletes">
+									<![CDATA[
+										{
+											"settings" : {
+												"index.soft_deletes.enabled" : true
+											},
+											${index.mapping}
+										}
+									]]>
+								</property>
+							</else>
+						</if>
 
 						<local name="curl.output.create.temporary.index" />
 
