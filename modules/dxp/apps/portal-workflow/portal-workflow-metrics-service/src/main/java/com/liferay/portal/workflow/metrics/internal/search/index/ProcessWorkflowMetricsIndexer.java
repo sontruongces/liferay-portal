@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Indexer;
@@ -31,7 +30,6 @@ import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.metrics.search.index.name.WorkflowMetricsIndexNameBuilder;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -122,16 +120,6 @@ public class ProcessWorkflowMetricsIndexer extends BaseWorkflowMetricsIndexer {
 				kaleoDefinition.getVersion(), CharPool.PERIOD, 0));
 
 		return document;
-	}
-
-	@Activate
-	@Override
-	protected void activate() throws Exception {
-		super.activate();
-
-		for (Company company : companyLocalService.getCompanies()) {
-			_instanceWorkflowMetricsIndexer.createIndex(company.getCompanyId());
-		}
 	}
 
 	@Override

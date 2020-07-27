@@ -21,15 +21,23 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Summary;
+import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.kernel.search.filter.TermFilter;
+import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
+import com.liferay.portal.kernel.search.generic.MatchAllQuery;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PortalRunMode;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
+import com.liferay.portal.search.engine.adapter.document.DeleteByQueryDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.UpdateDocumentRequest;
 import com.liferay.portal.search.engine.adapter.index.CreateIndexRequest;
@@ -76,42 +84,36 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		searchEngineAdapter.execute(indexDocumentRequest);
 	}
 
-	public void deleteDocument(Document document) {
-		document.addKeyword("deleted", true);
-
-		_updateDocument(document);
-	}
-
-	@Override
-	public String getClassName() {
-		Class<? extends BaseWorkflowMetricsIndexer> clazz = getClass();
-
-		return clazz.getName();
-	}
-
-	public void updateDocument(Document document) {
-		_updateDocument(document);
-	}
-
-	@Activate
-	protected void activate() throws Exception {
-		for (Company company : companyLocalService.getCompanies()) {
-			createIndex(company.getCompanyId());
-		}
-	}
-
-	protected void createIndex(long companyId) throws PortalException {
-		if (searchEngineAdapter == null) {
+	public void clearIndex(long companyId) throws PortalException {
+		if ((searchEngineAdapter == null) || !_hasIndex(companyId)) {
 			return;
 		}
 
-		IndicesExistsIndexRequest indicesExistsIndexRequest =
-			new IndicesExistsIndexRequest(getIndexName(companyId));
+		BooleanQuery booleanQuery = new BooleanQueryImpl();
 
-		IndicesExistsIndexResponse indicesExistsIndexResponse =
-			searchEngineAdapter.execute(indicesExistsIndexRequest);
+		booleanQuery.add(new MatchAllQuery(), BooleanClauseOccur.MUST);
 
-		if (indicesExistsIndexResponse.isExists()) {
+		BooleanFilter booleanFilter = new BooleanFilter();
+
+		booleanFilter.add(
+			new TermFilter("companyId", String.valueOf(companyId)),
+			BooleanClauseOccur.MUST);
+
+		booleanQuery.setPreBooleanFilter(booleanFilter);
+
+		DeleteByQueryDocumentRequest deleteByQueryDocumentRequest =
+			new DeleteByQueryDocumentRequest(
+				booleanQuery, getIndexName(companyId));
+
+		if (PortalRunMode.isTestMode()) {
+			deleteByQueryDocumentRequest.setRefresh(true);
+		}
+
+		searchEngineAdapter.execute(deleteByQueryDocumentRequest);
+	}
+
+	public void createIndex(long companyId) throws PortalException {
+		if ((searchEngineAdapter == null) || _hasIndex(companyId)) {
 			return;
 		}
 
@@ -137,6 +139,34 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 		if (!_INDEX_ON_STARTUP) {
 			reindex(companyId);
 		}
+	}
+
+	public void deleteDocument(Document document) {
+		document.addKeyword("deleted", true);
+
+		_updateDocument(document);
+	}
+
+	@Override
+	public String getClassName() {
+		Class<? extends BaseWorkflowMetricsIndexer> clazz = getClass();
+
+		return clazz.getName();
+	}
+
+	public void updateDocument(Document document) {
+		_updateDocument(document);
+	}
+
+	@Activate
+	protected void activate() throws Exception {
+		ActionableDynamicQuery actionableDynamicQuery =
+			companyLocalService.getActionableDynamicQuery();
+
+		actionableDynamicQuery.setPerformActionMethod(
+			(Company company) -> createIndex(company.getCompanyId()));
+
+		actionableDynamicQuery.performActions();
 	}
 
 	protected String digest(Serializable... parts) {
@@ -182,6 +212,8 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 
 	@Override
 	protected void doReindex(String[] ids) throws Exception {
+		clearIndex(GetterUtil.getLong(ids[0]));
+		createIndex(GetterUtil.getLong(ids[0]));
 		reindex(GetterUtil.getLong(ids[0]));
 	}
 
@@ -241,6 +273,20 @@ public abstract class BaseWorkflowMetricsIndexer extends BaseIndexer<Object> {
 
 	@Reference
 	protected WorkflowMetricsPortalExecutor workflowMetricsPortalExecutor;
+
+	private boolean _hasIndex(long companyId) {
+		if (searchEngineAdapter == null) {
+			return false;
+		}
+
+		IndicesExistsIndexRequest indicesExistsIndexRequest =
+			new IndicesExistsIndexRequest(getIndexName(companyId));
+
+		IndicesExistsIndexResponse indicesExistsIndexResponse =
+			searchEngineAdapter.execute(indicesExistsIndexRequest);
+
+		return indicesExistsIndexResponse.isExists();
+	}
 
 	private void _updateDocument(Document document) {
 		if (searchEngineAdapter == null) {
