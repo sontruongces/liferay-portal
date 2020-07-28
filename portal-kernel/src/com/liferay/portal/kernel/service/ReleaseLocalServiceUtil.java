@@ -76,6 +76,10 @@ public class ReleaseLocalServiceUtil {
 		return getService().createRelease(releaseId);
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	public static void createTablesAndPopulate() {
 		getService().createTablesAndPopulate();
 	}
@@ -228,6 +232,10 @@ public class ReleaseLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	public static int getBuildNumberOrCreate()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
