@@ -155,7 +155,6 @@ public class DummyFolderPortletDataHandler extends BasePortletDataHandler {
 		_dummyFolderStagedModelRepository = dummyFolderStagedModelRepository;
 	}
 
-	@Reference(target = ModuleServiceLifecycle.DATABASE_INITIALIZED)
 	protected ModuleServiceLifecycle moduleServiceLifecycle;
 
 	private StagedModelRepository<DummyFolder>

@@ -185,7 +185,6 @@ public class DummyFolderWithMissingLayoutPortletDataHandler
 		_dummyStagedModelRepository = dummyStagedModelRepository;
 	}
 
-	@Reference(target = ModuleServiceLifecycle.DATABASE_INITIALIZED)
 	protected ModuleServiceLifecycle moduleServiceLifecycle;
 
 	private StagedModelRepository<DummyFolder>
