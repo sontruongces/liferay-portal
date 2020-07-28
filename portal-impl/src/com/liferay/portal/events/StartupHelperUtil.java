@@ -27,6 +27,10 @@ import java.sql.Connection;
  */
 public class StartupHelperUtil {
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	public static StartupHelper getStartupHelper() {
 		return _startupHelper;
 	}
@@ -104,10 +108,18 @@ public class StartupHelperUtil {
 		_startupHelper.verifyRequiredSchemaVersion();
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	public void setStartupHelper(StartupHelper startupHelper) {
 		_startupHelper = startupHelper;
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), with no direct replacement
+	 */
+	@Deprecated
 	private static StartupHelper _startupHelper = new StartupHelper();
 
 }

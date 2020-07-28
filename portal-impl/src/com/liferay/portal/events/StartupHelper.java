@@ -42,7 +42,9 @@ import java.util.List;
  * @author Brian Wing Shun Chan
  * @author Alexander Chow
  * @author Raymond Augé
+ * @deprecated As of Mueller (7.2.x), with no direct replacement
  */
+@Deprecated
 public class StartupHelper {
 
 	public boolean isDBNew() {
