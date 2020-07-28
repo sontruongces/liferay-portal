@@ -83,7 +83,7 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 			</div>
 
 			<aui:button-row>
-				<aui:button primary="<%= true %>" type="submit" />
+				<aui:button type="submit" />
 
 				<aui:button href="<%= redirect %>" type="cancel" />
 			</aui:button-row>

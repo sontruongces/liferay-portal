@@ -20,18 +20,22 @@
 String redirect = ParamUtil.getString(request, "redirect");
 %>
 
-<portlet:actionURL name="/accounts/edit_account" var="addAccountURL" />
+<div class="account-add-items">
+	<liferay-ui:header
+		backURL="<%= redirect %>"
+		cssClass="add-items-header"
+		title="new-account"
+	/>
 
-<aui:form action="<%= addAccountURL %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="fm">
-	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+	<portlet:actionURL name="/accounts/edit_account" var="addAccountURL" />
 
-	<aui:fieldset-group>
-		<aui:fieldset>
-			<aui:input name="name" />
+	<aui:form action="<%= addAccountURL %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="fm">
+		<div class="add-items-sheet sheet sheet-lg">
+			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+			<aui:input inlineLabel="left" name="name" required="<%= true %>" />
+			<aui:input inlineLabel="left" name="code" required="<%= true %>" />
 
-			<aui:input name="code" />
-
-			<aui:select name="tier">
+			<aui:select inlineLabel="left" name="tier" required="<%= true %>">
 				<aui:option value="" />
 
 				<%
@@ -46,7 +50,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 			</aui:select>
 
-			<aui:select name="region">
+			<aui:select inlineLabel="left" label="support-region" name="region" required="<%= true %>">
 				<aui:option value="" />
 
 				<%
@@ -61,7 +65,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 			</aui:select>
 
-			<aui:select name="status">
+			<aui:select inlineLabel="left" name="status" required="<%= true %>">
 				<aui:option value="" />
 
 				<%
@@ -75,12 +79,12 @@ String redirect = ParamUtil.getString(request, "redirect");
 				%>
 
 			</aui:select>
-		</aui:fieldset>
-	</aui:fieldset-group>
 
-	<aui:button-row>
-		<aui:button type="submit" />
+			<aui:button-row>
+				<aui:button type="submit" />
 
-		<aui:button href="<%= redirect %>" type="cancel" />
-	</aui:button-row>
-</aui:form>
+				<aui:button href="<%= redirect %>" type="cancel" />
+			</aui:button-row>
+		</div>
+	</aui:form>
+</div>
