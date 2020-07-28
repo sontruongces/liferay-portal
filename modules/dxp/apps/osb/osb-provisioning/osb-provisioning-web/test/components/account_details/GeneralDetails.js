@@ -51,5 +51,5 @@ describe('GeneralDetails', () => {
 		const {getByText} = renderGeneralDetails();
 
 		getByText('Parent Account Name');
-	})
+	});
 });
