@@ -108,6 +108,6 @@ public class StartupHelperUtil {
 		_startupHelper = startupHelper;
 	}
 
-	private static StartupHelper _startupHelper;
+	private static StartupHelper _startupHelper = new StartupHelper();
 
 }
