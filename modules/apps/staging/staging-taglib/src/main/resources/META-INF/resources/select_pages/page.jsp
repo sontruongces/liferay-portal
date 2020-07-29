@@ -217,4 +217,8 @@
 			</ul>
 		</c:if>
 	</div>
+
+	<h5>
+		<liferay-ui:message key="child-page-publication-warning" />
+	</h5>
 </aui:fieldset>
