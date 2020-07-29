@@ -18,16 +18,13 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchaseView;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
-import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.portlet.PortletURL;
@@ -85,8 +82,7 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 			renderRequest, currentURLObj, Collections.emptyList(),
 			"no-purchases-were-found");
 
-		Map<String, List<ProductConsumption>> productConsumptionsMap =
-			new HashMap<>();
+		Map<String, Integer> productConsumptionsCount = new HashMap<>();
 
 		ProductConsumption[] productConsumptions =
 			_productPurchaseView.getProductConsumptions();
@@ -97,17 +93,12 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 					productConsumption.getProductPurchaseKey();
 
 				if (Validator.isNotNull(productPurchaseKey)) {
-					List<ProductConsumption> curProductConsumptions =
-						productConsumptionsMap.get(productPurchaseKey);
+					int curProductConsumptions =
+						productConsumptionsCount.getOrDefault(
+							productPurchaseKey, 0);
 
-					if (curProductConsumptions == null) {
-						curProductConsumptions = new ArrayList<>();
-
-						productConsumptionsMap.put(
-							productPurchaseKey, curProductConsumptions);
-					}
-
-					curProductConsumptions.add(productConsumption);
+					productConsumptionsCount.put(
+						productPurchaseKey, curProductConsumptions + 1);
 				}
 			}
 		}
@@ -121,13 +112,11 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 					productPurchases,
 					productPurchase -> new ProductPurchaseDisplay(
 						httpServletRequest, productPurchase,
-						productConsumptionsMap.get(productPurchase.getKey()))));
+						productConsumptionsCount.getOrDefault(
+							productPurchase.getKey(), 0))));
 
 			searchContainer.setTotal(productPurchases.length);
 		}
-
-		searchContainer.setRowChecker(
-			new EmptyOnClickRowChecker(renderResponse));
 
 		return searchContainer;
 	}

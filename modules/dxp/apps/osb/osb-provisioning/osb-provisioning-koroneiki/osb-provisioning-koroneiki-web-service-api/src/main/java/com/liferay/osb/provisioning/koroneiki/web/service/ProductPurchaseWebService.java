@@ -28,6 +28,9 @@ public interface ProductPurchaseWebService {
 			ProductPurchase productPurchase)
 		throws Exception;
 
+	public ProductPurchase getProductPurchase(String productPurchaseKey)
+		throws Exception;
+
 	public List<ProductPurchase> getProductPurchases(
 			String filterString, int page, int pageSize, String sortString)
 		throws Exception;

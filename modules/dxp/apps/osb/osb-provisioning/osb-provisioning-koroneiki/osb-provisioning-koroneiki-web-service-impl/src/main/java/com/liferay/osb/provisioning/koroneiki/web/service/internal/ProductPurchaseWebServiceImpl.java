@@ -15,9 +15,11 @@
 package com.liferay.osb.provisioning.koroneiki.web.service.internal;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
+import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ProductPurchaseResource;
+import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductPurchaseSerDes;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration;
 import com.liferay.petra.string.StringPool;
@@ -39,7 +41,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true, service = ProductPurchaseWebService.class
 )
 public class ProductPurchaseWebServiceImpl
-	implements ProductPurchaseWebService {
+	extends BaseWebService implements ProductPurchaseWebService {
 
 	public ProductPurchase addProductPurchase(
 			String agentName, String agentUID, String accountKey,
@@ -48,6 +50,12 @@ public class ProductPurchaseWebServiceImpl
 
 		return _productPurchaseResource.postAccountAccountKeyProductPurchase(
 			agentName, agentUID, accountKey, productPurchase);
+	}
+
+	public ProductPurchase getProductPurchase(String productPurchaseKey)
+		throws Exception {
+
+		return _productPurchaseResource.getProductPurchase(productPurchaseKey);
 	}
 
 	public List<ProductPurchase> getProductPurchases(
@@ -73,8 +81,11 @@ public class ProductPurchaseWebServiceImpl
 			ProductPurchase productPurchase)
 		throws Exception {
 
-		return _productPurchaseResource.putProductPurchase(
-			agentName, agentUID, productPurchaseKey, productPurchase);
+		HttpInvoker.HttpResponse httpResponse =
+			_productPurchaseResource.putProductPurchaseHttpResponse(
+				agentName, agentUID, productPurchaseKey, productPurchase);
+
+		return processDTO(httpResponse, ProductPurchaseSerDes::toDTO);
 	}
 
 	@Activate

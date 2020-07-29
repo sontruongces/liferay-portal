@@ -17,7 +17,7 @@ package com.liferay.osb.provisioning.web.internal.display.context;
 import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
 import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductConsumption;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
@@ -27,7 +27,7 @@ import com.liferay.portal.kernel.util.StringPool;
 
 import java.text.Format;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +39,7 @@ public class ProductPurchaseDisplay {
 
 	public ProductPurchaseDisplay(
 		HttpServletRequest httpServletRequest, ProductPurchase productPurchase,
-		List<ProductConsumption> productConsumptions) {
+		int productConsumptionsCount) {
 
 		_httpServletRequest = httpServletRequest;
 		_productPurchase = productPurchase;
@@ -47,12 +47,7 @@ public class ProductPurchaseDisplay {
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy");
 
-		if (productConsumptions != null) {
-			_provisionedCount = productConsumptions.size();
-		}
-		else {
-			_provisionedCount = 0;
-		}
+		_provisionedCount = productConsumptionsCount;
 
 		ExternalLink externalLink = _getSalesforceopportunityExternalLink(
 			productPurchase);
@@ -74,6 +69,10 @@ public class ProductPurchaseDisplay {
 		else {
 			_sizing = 0;
 		}
+	}
+
+	public Date getEndDate() {
+		return _productPurchase.getEndDate();
 	}
 
 	public String getGracePeriod() {
@@ -102,6 +101,16 @@ public class ProductPurchaseDisplay {
 		return _productPurchase.getKey();
 	}
 
+	public Date getOriginalEndDate() {
+		return _productPurchase.getOriginalEndDate();
+	}
+
+	public String getProductName() {
+		Product product = _productPurchase.getProduct();
+
+		return product.getName();
+	}
+
 	public String getProvisionedCount() {
 		return String.valueOf(_provisionedCount);
 	}
@@ -124,6 +133,10 @@ public class ProductPurchaseDisplay {
 		}
 
 		return StringPool.DASH;
+	}
+
+	public Date getStartDate() {
+		return _productPurchase.getStartDate();
 	}
 
 	public String getStatus() {
@@ -160,6 +173,14 @@ public class ProductPurchaseDisplay {
 		}
 
 		return sb.toString();
+	}
+
+	public boolean isPerpetual() {
+		if (_productPurchase.getStartDate() == null) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private ExternalLink _getSalesforceopportunityExternalLink(

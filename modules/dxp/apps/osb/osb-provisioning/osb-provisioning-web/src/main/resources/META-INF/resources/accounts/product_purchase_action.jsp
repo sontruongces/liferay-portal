@@ -16,6 +16,12 @@
 
 <%@ include file="/init.jsp" %>
 
+<%
+ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
+
+ProductPurchaseDisplay productPurchaseDisplay = (ProductPurchaseDisplay)row.getObject();
+%>
+
 <liferay-ui:icon-menu
 	direction="left-side"
 	icon="<%= StringPool.BLANK %>"
@@ -23,4 +29,15 @@
 	message="<%= StringPool.BLANK %>"
 	showWhenSingleIcon="<%= true %>"
 >
+	<portlet:renderURL var="editURL">
+		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="productPurchaseKey" value="<%= productPurchaseDisplay.getKey() %>" />
+		<portlet:param name="provisionedCount" value="<%= productPurchaseDisplay.getProvisionedCount() %>" />
+	</portlet:renderURL>
+
+	<liferay-ui:icon
+		message="edit"
+		url="<%= editURL %>"
+	/>
 </liferay-ui:icon-menu>
