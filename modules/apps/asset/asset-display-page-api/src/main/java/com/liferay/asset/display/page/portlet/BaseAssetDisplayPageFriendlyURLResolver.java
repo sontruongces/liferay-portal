@@ -151,9 +151,9 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 		HttpServletRequest httpServletRequest =
 			(HttpServletRequest)requestContext.get("request");
 
-		HttpSession session = httpServletRequest.getSession();
+		HttpSession httpSession = httpServletRequest.getSession();
 
-		Locale locale = (Locale)session.getAttribute(WebKeys.LOCALE);
+		Locale locale = (Locale)httpSession.getAttribute(WebKeys.LOCALE);
 
 		if (locale != null) {
 			String localeFriendlyURL = infoDisplayObjectProvider.getURLTitle(
