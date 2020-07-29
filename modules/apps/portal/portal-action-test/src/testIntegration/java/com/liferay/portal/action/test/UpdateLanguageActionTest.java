@@ -121,9 +121,9 @@ public class UpdateLanguageActionTest {
 		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		HttpSession session = mockHttpServletRequest.getSession();
+		HttpSession httpSession = mockHttpServletRequest.getSession();
 
-		session.setAttribute(WebKeys.LOCALE, _targetLocale);
+		httpSession.setAttribute(WebKeys.LOCALE, _targetLocale);
 
 		mockHttpServletRequest.setParameter("redirect", url);
 
