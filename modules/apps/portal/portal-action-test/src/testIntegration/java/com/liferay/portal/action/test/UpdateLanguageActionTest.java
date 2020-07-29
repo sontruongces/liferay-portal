@@ -84,10 +84,6 @@ public class UpdateLanguageActionTest {
 				_targetLocale, "/page-in-target-locale"
 			).build());
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				_group.getGroupId(), TestPropsValues.getUserId());
-
 		_journalArticle = JournalTestUtil.addArticle(
 			_group.getGroupId(), 0,
 			PortalUtil.getClassNameId(JournalArticle.class),
@@ -103,7 +99,8 @@ public class UpdateLanguageActionTest {
 				_defaultLocale, "c1"
 			).build(),
 			_layout.getUuid(), LocaleUtil.getSiteDefault(), null, false, true,
-			serviceContext);
+			ServiceContextTestUtil.getServiceContext(
+				_group.getGroupId(), TestPropsValues.getUserId()));
 	}
 
 	@Test
