@@ -113,14 +113,14 @@ public class UpdateLanguageAction implements Action {
 		String friendlyURLSeparatorPart = StringPool.BLANK;
 		String queryString = StringPool.BLANK;
 
-		int posQuestion = redirect.indexOf(StringPool.QUESTION);
+		int questionIndex = redirect.indexOf(StringPool.QUESTION);
 
-		if (posQuestion != -1) {
-			queryString = redirect.substring(posQuestion);
-			layoutURL = redirect.substring(0, posQuestion);
+		if (questionIndex != -1) {
+			queryString = redirect.substring(questionIndex);
+			layoutURL = redirect.substring(0, questionIndex);
 		}
 
-		int posFriendlyURLSeparator = -1;
+		int friendlyURLSeparatorIndex = -1;
 
 		for (String urlSeparator :
 				FriendlyURLResolverRegistryUtil.getURLSeparators()) {
@@ -131,18 +131,18 @@ public class UpdateLanguageAction implements Action {
 				continue;
 			}
 
-			posFriendlyURLSeparator = layoutURL.indexOf(urlSeparator);
+			friendlyURLSeparatorIndex = layoutURL.indexOf(urlSeparator);
 
-			if (posFriendlyURLSeparator != -1) {
+			if (friendlyURLSeparatorIndex != -1) {
 				break;
 			}
 		}
 
 		Layout layout = themeDisplay.getLayout();
 
-		if (posFriendlyURLSeparator != -1) {
+		if (friendlyURLSeparatorIndex != -1) {
 			friendlyURLSeparatorPart = layoutURL.substring(
-				posFriendlyURLSeparator);
+				friendlyURLSeparatorIndex);
 
 			LayoutFriendlyURLSeparatorComposite
 				layoutFriendlyURLSeparatorComposite =
@@ -157,7 +157,7 @@ public class UpdateLanguageAction implements Action {
 			friendlyURLSeparatorPart =
 				layoutFriendlyURLSeparatorComposite.getFriendlyURL();
 
-			layoutURL = layoutURL.substring(0, posFriendlyURLSeparator);
+			layoutURL = layoutURL.substring(0, friendlyURLSeparatorIndex);
 		}
 
 		if (themeDisplay.isI18n()) {
