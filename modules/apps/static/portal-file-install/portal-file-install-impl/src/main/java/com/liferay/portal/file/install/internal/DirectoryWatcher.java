@@ -1067,8 +1067,8 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 				throw frameworkEvent.getThrowable();
 			}
 		}
-		catch (Throwable t) {
-			ReflectionUtil.throwException(t);
+		catch (Throwable throwable) {
+			ReflectionUtil.throwException(throwable);
 		}
 	}
 
