@@ -156,11 +156,10 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 		Locale locale = (Locale)httpSession.getAttribute(WebKeys.LOCALE);
 
 		if (locale != null) {
-			String localeFriendlyURL = infoDisplayObjectProvider.getURLTitle(
-				locale);
+			String urlTitle = infoDisplayObjectProvider.getURLTitle(locale);
 
-			if (Validator.isNotNull(localeFriendlyURL)) {
-				friendlyURL = getURLSeparator() + localeFriendlyURL;
+			if (Validator.isNotNull(urlTitle)) {
+				friendlyURL = getURLSeparator() + urlTitle;
 			}
 		}
 
