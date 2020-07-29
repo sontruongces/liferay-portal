@@ -84,13 +84,16 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 
 					_bundleContext.ungetService(serviceReference);
 
-					List<DirectoryWatcher> directoryWatchers = new ArrayList<>();
+					List<DirectoryWatcher> directoryWatchers =
+						new ArrayList<>();
 
 					synchronized (_directoryWatchers) {
 						directoryWatchers.addAll(_directoryWatchers.values());
 					}
 
-					for (DirectoryWatcher directoryWatcher : directoryWatchers) {
+					for (DirectoryWatcher directoryWatcher :
+							directoryWatchers) {
+
 						directoryWatcher.removeFileInstaller(fileInstaller);
 					}
 				}
@@ -241,13 +244,14 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 	}
 
 	private BundleContext _bundleContext;
+	private final Map<String, DirectoryWatcher> _directoryWatchers =
+		new HashMap<>();
 	private ServiceTrackerList<FileInstaller, FileInstaller> _fileInstallers;
 	private ServiceRegistration<FileInstaller>
 		_jarFileInstallerServiceRegistration;
 	private final ReadWriteLock _lock = new ReentrantReadWriteLock();
 	private final Lock _readLock = _lock.readLock();
 	private Tracker _tracker;
-	private final Map<String, DirectoryWatcher> _directoryWatchers = new HashMap<>();
 	private final Lock _writeLock = _lock.writeLock();
 
 	private class Tracker
