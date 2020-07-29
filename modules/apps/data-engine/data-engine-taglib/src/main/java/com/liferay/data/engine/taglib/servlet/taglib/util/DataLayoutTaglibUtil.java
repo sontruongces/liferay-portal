@@ -213,7 +213,7 @@ public class DataLayoutTaglibUtil {
 		if (dataLayoutId == 0) {
 			return new HashSet() {
 				{
-					add(LocaleThreadLocal.getDefaultLocale());
+					add(LocaleThreadLocal.getSiteDefaultLocale());
 				}
 			};
 		}
@@ -236,7 +236,7 @@ public class DataLayoutTaglibUtil {
 		catch (Exception exception) {
 			return new HashSet() {
 				{
-					add(LocaleThreadLocal.getDefaultLocale());
+					add(LocaleThreadLocal.getSiteDefaultLocale());
 				}
 			};
 		}
