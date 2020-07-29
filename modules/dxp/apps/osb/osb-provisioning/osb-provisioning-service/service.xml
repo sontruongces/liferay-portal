@@ -43,6 +43,7 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>ContactRequired</exception>
 		<exception>ProductBundleName</exception>
 		<exception>RequiredProduct</exception>
 	</exceptions>

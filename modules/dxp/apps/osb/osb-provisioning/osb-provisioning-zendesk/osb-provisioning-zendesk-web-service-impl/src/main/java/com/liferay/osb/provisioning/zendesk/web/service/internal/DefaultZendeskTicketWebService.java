@@ -18,13 +18,24 @@ import com.liferay.osb.provisioning.zendesk.connector.constants.ZendeskRESTEndpo
 import com.liferay.osb.provisioning.zendesk.connector.service.ZendeskBaseWebService;
 import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
 import com.liferay.osb.provisioning.zendesk.web.service.ZendeskTicketWebService;
+import com.liferay.osb.provisioning.zendesk.web.service.internal.search.SearchHitsImpl;
+import com.liferay.osb.provisioning.zendesk.web.service.internal.util.ZendeskConverter;
+import com.liferay.osb.provisioning.zendesk.web.service.search.QueryFactory;
+import com.liferay.osb.provisioning.zendesk.web.service.search.SearchHits;
+import com.liferay.osb.provisioning.zendesk.web.service.search.ZendeskTicketQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Http;
+import com.liferay.portal.kernel.util.Validator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -32,7 +43,10 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Kyle Bischof
  */
-@Component(immediate = true, service = ZendeskTicketWebService.class)
+@Component(
+	immediate = true, property = "service.ranking:Integer=100",
+	service = ZendeskTicketWebService.class
+)
 public class DefaultZendeskTicketWebService implements ZendeskTicketWebService {
 
 	public void createZendeskTicket(ZendeskTicket zendeskTicket)
@@ -75,7 +89,83 @@ public class DefaultZendeskTicketWebService implements ZendeskTicketWebService {
 		zendeskBaseWebService.post(endpoint, jsonObject.toString());
 	}
 
+	public List<ZendeskTicket> getZendeskTickets(Set<String> criteria)
+		throws PortalException {
+
+		ZendeskTicketQuery zendeskTicketQuery =
+			queryFactory.createZendeskTicketQuery();
+
+		for (String criterion : criteria) {
+			zendeskTicketQuery.addCriterion(criterion);
+		}
+
+		List<ZendeskTicket> zendeskTickets = new ArrayList<>();
+
+		int page = 1;
+
+		while (page > 0) {
+			zendeskTicketQuery.setPage(page);
+
+			SearchHits<ZendeskTicket> searchHits = search(zendeskTicketQuery);
+
+			zendeskTickets.addAll(searchHits.getResults());
+
+			page = searchHits.getNextPage();
+		}
+
+		return zendeskTickets;
+	}
+
+	public SearchHits<ZendeskTicket> search(
+			ZendeskTicketQuery zendeskTicketQuery)
+		throws PortalException {
+
+		JSONObject responseJSONObject = zendeskBaseWebService.get(
+			ZendeskRESTEndpoints.URL_API_V2 + "search.json",
+			zendeskTicketQuery.getParameters());
+
+		return toSearchHits(responseJSONObject);
+	}
+
+	protected SearchHits<ZendeskTicket> toSearchHits(
+		JSONObject responseJSONObject) {
+
+		SearchHits<ZendeskTicket> searchHits = new SearchHitsImpl<>();
+
+		searchHits.setCount(responseJSONObject.getInt("count"));
+
+		String nextPageURL = responseJSONObject.getString("next_page");
+
+		if (Validator.isNotNull(nextPageURL)) {
+			String page = http.getParameter(nextPageURL, "page", false);
+
+			searchHits.setNextPage(GetterUtil.getInteger(page));
+		}
+
+		List<ZendeskTicket> zendeskTickets = new ArrayList<>();
+
+		JSONArray jsonArray = responseJSONObject.getJSONArray("results");
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			zendeskTickets.add(
+				zendeskConverter.toZendeskTicket(jsonArray.getJSONObject(i)));
+		}
+
+		searchHits.setResults(zendeskTickets);
+
+		return searchHits;
+	}
+
+	@Reference
+	protected Http http;
+
+	@Reference
+	protected QueryFactory queryFactory;
+
 	@Reference
 	protected ZendeskBaseWebService zendeskBaseWebService;
+
+	@Reference
+	protected ZendeskConverter zendeskConverter;
 
 }

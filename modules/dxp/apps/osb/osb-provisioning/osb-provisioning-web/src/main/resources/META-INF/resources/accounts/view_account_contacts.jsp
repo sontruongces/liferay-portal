@@ -21,6 +21,8 @@ ViewAccountContactsDisplayContext viewAccountContactsDisplayContext = Provisioni
 %>
 
 <div class="details-table table-striped">
+	<liferay-ui:error exception="<%= ContactRequiredException.class %>" message="please-reassign-all-of-the-contacts-zendesk-tickets-before-unassigning" />
+
 	<liferay-ui:search-container
 		id="contacts"
 		searchContainer="<%= viewAccountContactsDisplayContext.getSearchContainer() %>"

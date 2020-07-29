@@ -16,28 +16,16 @@ package com.liferay.osb.provisioning.zendesk.web.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
-import com.liferay.osb.provisioning.zendesk.web.service.search.SearchHits;
-import com.liferay.osb.provisioning.zendesk.web.service.search.ZendeskTicketQuery;
+import com.liferay.osb.provisioning.zendesk.model.ZendeskUser;
 import com.liferay.portal.kernel.exception.PortalException;
 
-import java.util.List;
-import java.util.Set;
-
 /**
- * @author Kyle Bischof
+ * @author Amos Fong
  */
 @ProviderType
-public interface ZendeskTicketWebService {
+public interface ZendeskUserWebService {
 
-	public void createZendeskTicket(ZendeskTicket zendeskTicket)
-		throws PortalException;
-
-	public List<ZendeskTicket> getZendeskTickets(Set<String> criteria)
-		throws PortalException;
-
-	public SearchHits<ZendeskTicket> search(
-			ZendeskTicketQuery zendeskTicketQuery)
+	public ZendeskUser getZendeskUserByEmailAddress(String emailAddress)
 		throws PortalException;
 
 }

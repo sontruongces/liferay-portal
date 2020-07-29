@@ -15,16 +15,28 @@
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
+import com.liferay.osb.provisioning.exception.ContactRequiredException;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
+import com.liferay.osb.provisioning.zendesk.model.ZendeskOrganization;
+import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
+import com.liferay.osb.provisioning.zendesk.model.ZendeskUser;
+import com.liferay.osb.provisioning.zendesk.web.service.ZendeskOrganizationWebService;
+import com.liferay.osb.provisioning.zendesk.web.service.ZendeskTicketWebService;
+import com.liferay.osb.provisioning.zendesk.web.service.ZendeskUserWebService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -62,8 +74,18 @@ public class UnassignAccountCustomerContactMVCActionCommand
 			String emailAddress = ParamUtil.getString(
 				actionRequest, "emailAddress");
 
-			_accountWebService.unassignCustomerContact(
-				user.getFullName(), StringPool.BLANK, accountKey, emailAddress);
+			List<ZendeskTicket> zendeskTickets = _getZendeskTickets(
+				accountKey, emailAddress);
+
+			if ((zendeskTickets == null) || zendeskTickets.isEmpty()) {
+				_accountWebService.unassignCustomerContact(
+					user.getFullName(), StringPool.BLANK, accountKey,
+					emailAddress);
+			}
+			else {
+				SessionErrors.add(
+					actionRequest, ContactRequiredException.class);
+			}
 
 			sendRedirect(actionRequest, actionResponse);
 		}
@@ -74,10 +96,44 @@ public class UnassignAccountCustomerContactMVCActionCommand
 		}
 	}
 
+	private List<ZendeskTicket> _getZendeskTickets(
+			String accountKey, String emailAddress)
+		throws Exception {
+
+		ZendeskOrganization zendeskOrganization =
+			_zendeskOrganizationWebService.getZendeskOrganization(
+				accountKey.substring(4));
+
+		ZendeskUser zendeskUser =
+			_zendeskUserWebService.getZendeskUserByEmailAddress(emailAddress);
+
+		if ((zendeskOrganization == null) || (zendeskUser == null)) {
+			return null;
+		}
+
+		Set<String> criteria = new HashSet<>();
+
+		criteria.add(
+			"organization:" + zendeskOrganization.getZendeskOrganizationId());
+		criteria.add("requester:" + zendeskUser.getZendeskUserId());
+		criteria.add("status<closed");
+
+		return _zendeskTicketWebService.getZendeskTickets(criteria);
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		UnassignAccountCustomerContactMVCActionCommand.class);
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private ZendeskOrganizationWebService _zendeskOrganizationWebService;
+
+	@Reference
+	private ZendeskTicketWebService _zendeskTicketWebService;
+
+	@Reference
+	private ZendeskUserWebService _zendeskUserWebService;
 
 }
