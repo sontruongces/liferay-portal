@@ -84,13 +84,13 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 
 					_bundleContext.ungetService(serviceReference);
 
-					List<DirectoryWatcher> toNotify = new ArrayList<>();
+					List<DirectoryWatcher> directoryWatchers = new ArrayList<>();
 
-					synchronized (_watchers) {
-						toNotify.addAll(_watchers.values());
+					synchronized (_directoryWatchers) {
+						directoryWatchers.addAll(_directoryWatchers.values());
 					}
 
-					for (DirectoryWatcher directoryWatcher : toNotify) {
+					for (DirectoryWatcher directoryWatcher : directoryWatchers) {
 						directoryWatcher.removeFileInstaller(fileInstaller);
 					}
 				}
@@ -160,10 +160,10 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 		try {
 			List<DirectoryWatcher> watchers = new ArrayList<>();
 
-			synchronized (_watchers) {
-				watchers.addAll(_watchers.values());
+			synchronized (_directoryWatchers) {
+				watchers.addAll(_directoryWatchers.values());
 
-				_watchers.clear();
+				_directoryWatchers.clear();
 			}
 
 			for (DirectoryWatcher directoryWatcher : watchers) {
@@ -188,8 +188,8 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 	public void updateChecksum(File file) {
 		List<DirectoryWatcher> toUpdate = new ArrayList<>();
 
-		synchronized (_watchers) {
-			toUpdate.addAll(_watchers.values());
+		synchronized (_directoryWatchers) {
+			toUpdate.addAll(_directoryWatchers.values());
 		}
 
 		for (DirectoryWatcher directoryWatcher : toUpdate) {
@@ -214,8 +214,8 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 
 		DirectoryWatcher directoryWatcher = null;
 
-		synchronized (_watchers) {
-			directoryWatcher = _watchers.get(pid);
+		synchronized (_directoryWatchers) {
+			directoryWatcher = _directoryWatchers.get(pid);
 
 			if ((directoryWatcher != null) &&
 				Objects.equals(directoryWatcher.getProperties(), properties)) {
@@ -233,8 +233,8 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 
 		directoryWatcher.setDaemon(true);
 
-		synchronized (_watchers) {
-			_watchers.put(pid, directoryWatcher);
+		synchronized (_directoryWatchers) {
+			_directoryWatchers.put(pid, directoryWatcher);
 		}
 
 		directoryWatcher.start();
@@ -247,7 +247,7 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 	private final ReadWriteLock _lock = new ReentrantReadWriteLock();
 	private final Lock _readLock = _lock.readLock();
 	private Tracker _tracker;
-	private final Map<String, DirectoryWatcher> _watchers = new HashMap<>();
+	private final Map<String, DirectoryWatcher> _directoryWatchers = new HashMap<>();
 	private final Lock _writeLock = _lock.writeLock();
 
 	private class Tracker
