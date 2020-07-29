@@ -46,7 +46,7 @@ for (WikiPage curChildPage : wikiPage.getViewableChildPages()) {
 }
 
 boolean preview = false;
-boolean print = StringUtil.equals(ParamUtil.getString(request, "viewMode"), Constants.PRINT);
+boolean print = Objects.equals(ParamUtil.getString(request, "viewMode"), Constants.PRINT);
 
 PortletURL viewPageURL = renderResponse.createRenderURL();
 
@@ -398,13 +398,13 @@ if (portletTitleBasedNavigation) {
 				</liferay-ddm:template-renderer>
 
 				<%
-				if (!StringUtil.equals(wikiPage.getTitle(), wikiGroupServiceConfiguration.frontPageName())) {
+				if (!Objects.equals(wikiPage.getTitle(), wikiGroupServiceConfiguration.frontPageName())) {
 					if (!portletName.equals(WikiPortletKeys.WIKI_DISPLAY)) {
 						PortalUtil.setPageSubtitle(wikiPage.getTitle(), request);
 
 						String description = wikiPage.getContent();
 
-						if (StringUtil.equals(wikiPage.getFormat(), "html")) {
+						if (Objects.equals(wikiPage.getFormat(), "html")) {
 							description = HtmlUtil.stripHtml(description);
 						}
 
