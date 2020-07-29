@@ -198,9 +198,9 @@ public class UpdateLanguageActionTest {
 		_testGetRedirectWithFriendlyURL(
 			i18n,
 			_getFriendlyURLSeparatorPart(
-				_sourceLocale, _JOURNAL_ARTICLE_FRIENDLY_URL_SEPARATOR),
+				_sourceLocale, _FRIENDLY_URL_SEPARATOR_JOURNAL_ARTICLE),
 			_getFriendlyURLSeparatorPart(
-				_targetLocale, _JOURNAL_ARTICLE_FRIENDLY_URL_SEPARATOR));
+				_targetLocale, _FRIENDLY_URL_SEPARATOR_JOURNAL_ARTICLE));
 	}
 
 	private void _testGetRedirectWithFriendlyURL(
@@ -237,7 +237,7 @@ public class UpdateLanguageActionTest {
 			"/" + _sourceLocale.getLanguage() + sourceURL);
 	}
 
-	private static final String _JOURNAL_ARTICLE_FRIENDLY_URL_SEPARATOR = "/w/";
+	private static final String _FRIENDLY_URL_SEPARATOR_JOURNAL_ARTICLE = "/w/";
 
 	private final Locale _defaultLocale = LocaleUtil.US;
 	private Group _group;
