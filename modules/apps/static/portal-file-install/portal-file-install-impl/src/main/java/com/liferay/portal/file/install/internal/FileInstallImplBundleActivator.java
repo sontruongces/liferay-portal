@@ -45,6 +45,13 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
  */
 public class FileInstallImplBundleActivator implements BundleActivator {
 
+	public FileInstallImplBundleActivator() {
+		ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
+		_readLock = readWriteLock.readLock();
+		_writeLock = readWriteLock.writeLock();
+	}
+
 	public Iterable<FileInstaller> getFileInstallers() {
 		return _fileInstallers;
 	}
@@ -249,10 +256,9 @@ public class FileInstallImplBundleActivator implements BundleActivator {
 	private ServiceTrackerList<FileInstaller, FileInstaller> _fileInstallers;
 	private ServiceRegistration<FileInstaller>
 		_jarFileInstallerServiceRegistration;
-	private final ReadWriteLock _lock = new ReentrantReadWriteLock();
-	private final Lock _readLock = _lock.readLock();
+	private final Lock _readLock;
 	private Tracker _tracker;
-	private final Lock _writeLock = _lock.writeLock();
+	private final Lock _writeLock;
 
 	private class Tracker
 		extends ServiceTracker<ConfigurationAdmin, ConfigInstaller> {
