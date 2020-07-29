@@ -26,11 +26,13 @@ import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpExceptio
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -39,6 +41,7 @@ import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -55,7 +58,9 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
-	protected void addAccount(ActionRequest actionRequest, User user)
+	protected void addAccount(
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			User user)
 		throws Exception {
 
 		String name = ParamUtil.getString(actionRequest, "name");
@@ -84,8 +89,12 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 			account.setStatus(Account.Status.create(status));
 		}
 
-		_accountWebService.addAccount(
+		Account newAccount = _accountWebService.addAccount(
 			user.getFullName(), StringPool.BLANK, account);
+
+		sendRedirect(
+			actionRequest, actionResponse,
+			getRedirect(actionResponse, newAccount.getKey()));
 	}
 
 	@Override
@@ -103,10 +112,10 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "accountKey");
 
 			if (Validator.isNotNull(accountKey)) {
-				updateAccount(actionRequest, user);
+				updateAccount(actionRequest, actionResponse, user);
 			}
 			else {
-				addAccount(actionRequest, user);
+				addAccount(actionRequest, actionResponse, user);
 			}
 		}
 		catch (HttpException httpException) {
@@ -120,11 +129,27 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 			throw exception;
 		}
-
-		sendRedirect(actionRequest, actionResponse);
 	}
 
-	protected void updateAccount(ActionRequest actionRequest, User user)
+	protected String getRedirect(
+			ActionResponse actionResponse, String accountKey)
+		throws Exception {
+
+		LiferayPortletResponse liferayPortletResponse =
+			_portal.getLiferayPortletResponse(actionResponse);
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/accounts/view_account");
+		portletURL.setParameter("accountKey", accountKey);
+
+		return portletURL.toString();
+	}
+
+	protected void updateAccount(
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			User user)
 		throws Exception {
 
 		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
@@ -186,6 +211,8 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 				user, accountKey, firstLineSupportTeamKey,
 				TeamRoleConstants.NAME_FIRST_LINE_SUPPORT);
 		}
+
+		sendRedirect(actionRequest, actionResponse);
 	}
 
 	protected void updateAssignedTeam(
@@ -224,6 +251,9 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private AccountWebService _accountWebService;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private TeamRoleWebService _teamRoleWebService;
