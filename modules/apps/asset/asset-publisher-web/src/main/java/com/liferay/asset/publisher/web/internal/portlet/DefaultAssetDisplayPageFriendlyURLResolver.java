@@ -137,8 +137,10 @@ public class DefaultAssetDisplayPageFriendlyURLResolver
 			Map<Locale, String> friendlyURLMap =
 				journalArticle.getFriendlyURLMap();
 
-			if (Validator.isNotNull(friendlyURLMap.get(locale))) {
-				friendlyURL = getURLSeparator() + friendlyURLMap.get(locale);
+			String journalArticleFriendlyURL = friendlyURLMap.get(locale);
+
+			if (Validator.isNotNull(journalArticleFriendlyURL)) {
+				friendlyURL = getURLSeparator() + journalArticleFriendlyURL;
 			}
 		}
 
