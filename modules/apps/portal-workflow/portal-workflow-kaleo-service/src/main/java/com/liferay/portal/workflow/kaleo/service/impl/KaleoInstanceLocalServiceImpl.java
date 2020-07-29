@@ -26,8 +26,6 @@ import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -55,7 +53,6 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -351,35 +348,26 @@ public class KaleoInstanceLocalServiceImpl
 		OrderByComparator<KaleoInstance> orderByComparator,
 		ServiceContext serviceContext) {
 
-		try {
-			List<KaleoInstance> kaleoInstances = new ArrayList<>();
+		List<KaleoInstance> kaleoInstances = new ArrayList<>();
 
-			Hits hits = _kaleoInstanceTokenLocalService.search(
-				userId, assetClassName, assetTitle, assetDescription, nodeName,
-				kaleoDefinitionName, completed, start, end,
-				getSortsFromComparator(orderByComparator), serviceContext);
+		Hits hits = _kaleoInstanceTokenLocalService.search(
+			userId, assetClassName, assetTitle, assetDescription, nodeName,
+			kaleoDefinitionName, completed, start, end,
+			getSortsFromComparator(orderByComparator), serviceContext);
 
-			for (Document document : hits.getDocs()) {
-				long kaleoInstanceId = GetterUtil.getLong(
-					document.get(KaleoInstanceTokenField.KALEO_INSTANCE_ID));
+		for (Document document : hits.getDocs()) {
+			long kaleoInstanceId = GetterUtil.getLong(
+				document.get(KaleoInstanceTokenField.KALEO_INSTANCE_ID));
 
-				KaleoInstance kaleoInstance =
-					kaleoInstancePersistence.fetchByPrimaryKey(kaleoInstanceId);
+			KaleoInstance kaleoInstance =
+				kaleoInstancePersistence.fetchByPrimaryKey(kaleoInstanceId);
 
-				if (kaleoInstance != null) {
-					kaleoInstances.add(kaleoInstance);
-				}
-			}
-
-			return kaleoInstances;
-		}
-		catch (PortalException portalException) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(portalException, portalException);
+			if (kaleoInstance != null) {
+				kaleoInstances.add(kaleoInstance);
 			}
 		}
 
-		return Collections.emptyList();
+		return kaleoInstances;
 	}
 
 	/**
@@ -597,9 +585,6 @@ public class KaleoInstanceLocalServiceImpl
 		return Field.getSortableFieldName(
 			StringBundler.concat(name, StringPool.UNDERLINE, type));
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		KaleoInstanceLocalServiceImpl.class);
 
 	private static final Map<String, String> _fieldNameOrderByCols =
 		new HashMap<String, String>() {
