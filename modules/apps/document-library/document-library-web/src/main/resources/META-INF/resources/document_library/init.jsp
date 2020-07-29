@@ -31,8 +31,6 @@ page import="com.liferay.portal.kernel.module.configuration.ConfigurationProvide
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.util.RepositoryUtil" %>
 
-<%@ page import="java.util.Objects" %>
-
 <%
 DLRequestHelper dlRequestHelper = new DLRequestHelper(request);
 
