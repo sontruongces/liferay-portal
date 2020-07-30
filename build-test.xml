@@ -5332,7 +5332,6 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 			<get-testcase-property property.name="test.name.skip.portal.instance" />
 			<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
 
-
 			<if>
 				<or>
 					<equals arg1="${remote.elasticsearch.enabled}" arg2="true" />
@@ -7723,8 +7722,12 @@ go</echo>
 											<arg value="-Pliferay.home=${liferay.home}/osgi-temp" />
 										</gradle-execute>
 
-										<copy todir="${liferay.home}/osgi-temp/deploy">
-											<fileset dir="${liferay.home}/deploy">
+										<copy
+											todir="${liferay.home}/osgi-temp/deploy"
+										>
+											<fileset
+												dir="${liferay.home}/deploy"
+											>
 												<include name="${osgi.app.name}*hook*.war" />
 											</fileset>
 										</copy>
