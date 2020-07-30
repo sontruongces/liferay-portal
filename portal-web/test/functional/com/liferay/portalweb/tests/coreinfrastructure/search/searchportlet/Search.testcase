@@ -1871,23 +1871,19 @@ definition {
 	@priority = "4"
 	test SearchXSSAsset {
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Content &amp; Data",
 			panel = "Site Administration",
-			portlet = "Pages");
+			portlet = "Message Boards");
 
-		SitePages.addPublicPage(pageName = "Message Boards Page");
-
-		Navigator.gotoPage(pageName = "Message Boards Page");
-
-		Portlet.addPG(portletName = "Message Boards");
-
-		Navigator.gotoPage(pageName = "Message Boards Page");
-
-		MessageboardsThread.addPG(
+		MessageboardsThread.addCP(
 			threadBody = '''<script>alert(123);</script>''',
 			threadSubject = "Thread Subject");
 
-		SearchPortlets.searchEmbedded(searchTerm = "Liferay Alert");
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "Subject");
+
+		AssertAlertNotPresent();
 
 		SearchResultPortlet.viewSearchResults(
 			searchAssetSummary = '''<script>alert(123);</script>''',
@@ -1896,7 +1892,7 @@ definition {
 
 		var actualScript = '''<script>alert(123);</script>''';
 
-		var escapedScript = '''&lt;script&gt;<span class="highlight">alert</span>(123);&lt;/script&gt;''';
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
 
 		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
 
