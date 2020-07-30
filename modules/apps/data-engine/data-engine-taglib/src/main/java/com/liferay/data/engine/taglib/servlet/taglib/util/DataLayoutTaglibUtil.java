@@ -72,12 +72,12 @@ import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -211,11 +211,8 @@ public class DataLayoutTaglibUtil {
 		long dataLayoutId, HttpServletRequest httpServletRequest) {
 
 		if (dataLayoutId == 0) {
-			return new HashSet() {
-				{
-					add(LocaleThreadLocal.getSiteDefaultLocale());
-				}
-			};
+			return SetUtil.fromArray(
+				new Locale[] {LocaleThreadLocal.getSiteDefaultLocale()});
 		}
 
 		try {
@@ -234,12 +231,13 @@ public class DataLayoutTaglibUtil {
 			);
 		}
 		catch (Exception exception) {
-			return new HashSet() {
-				{
-					add(LocaleThreadLocal.getSiteDefaultLocale());
-				}
-			};
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
 		}
+
+		return SetUtil.fromArray(
+			new Locale[] {LocaleThreadLocal.getSiteDefaultLocale()});
 	}
 
 	private DataDefinition _getDataDefinition(
