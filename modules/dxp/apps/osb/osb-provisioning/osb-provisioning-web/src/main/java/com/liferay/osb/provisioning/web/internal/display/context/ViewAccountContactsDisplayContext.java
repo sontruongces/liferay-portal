@@ -163,13 +163,12 @@ public class ViewAccountContactsDisplayContext
 		List<JSONObject> contactRoleJSONObjects = new ArrayList<>();
 
 		for (ContactRole contactRole : _getContactRoles()) {
-			JSONObject jsonObject = JSONUtil.put(
-				"key", contactRole.getKey()
-			).put(
-				"name", contactRole.getName()
-			);
-
-			contactRoleJSONObjects.add(jsonObject);
+			contactRoleJSONObjects.add(
+				JSONUtil.put(
+					"key", contactRole.getKey()
+				).put(
+					"name", contactRole.getName()
+				));
 		}
 
 		return contactRoleJSONObjects;

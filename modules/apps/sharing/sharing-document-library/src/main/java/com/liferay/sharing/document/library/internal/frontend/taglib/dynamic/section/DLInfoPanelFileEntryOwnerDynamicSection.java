@@ -19,7 +19,6 @@ import com.liferay.frontend.taglib.dynamic.section.DynamicSection;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -100,19 +99,17 @@ public class DLInfoPanelFileEntryOwnerDynamicSection implements DynamicSection {
 
 		Stream<SharingEntry> stream = sharingEntries.stream();
 
-		List<User> sharingEntryToUsers = stream.map(
-			SharingEntryModel::getToUserId
-		).map(
-			_userLocalService::fetchUserById
-		).filter(
-			Objects::nonNull
-		).collect(
-			Collectors.toList()
-		);
-
 		httpServletRequest.setAttribute(
 			"info_panel_file_entry.jsp-sharingEntryToUsers",
-			sharingEntryToUsers);
+			stream.map(
+				SharingEntryModel::getToUserId
+			).map(
+				_userLocalService::fetchUserById
+			).filter(
+				Objects::nonNull
+			).collect(
+				Collectors.toList()
+			));
 
 		boolean showManageCollaborators = false;
 

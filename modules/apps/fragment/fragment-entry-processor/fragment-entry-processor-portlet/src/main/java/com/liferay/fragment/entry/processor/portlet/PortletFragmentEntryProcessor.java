@@ -136,13 +136,12 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 			sb.append(alias);
 			sb.append(">");
 
-			JSONObject jsonObject = JSONUtil.put(
-				"content", sb.toString()
-			).put(
-				"name", "lfr-widget-" + alias
-			);
-
-			jsonArray.put(jsonObject);
+			jsonArray.put(
+				JSONUtil.put(
+					"content", sb.toString()
+				).put(
+					"name", "lfr-widget-" + alias
+				));
 		}
 
 		return jsonArray;

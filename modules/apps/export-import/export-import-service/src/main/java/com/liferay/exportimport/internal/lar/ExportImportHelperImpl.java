@@ -776,13 +776,12 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 		}
 
 		if (ArrayUtil.contains(selectedPlids, 0)) {
-			JSONObject layoutJSONObject = JSONUtil.put(
-				"includeChildren", true
-			).put(
-				"plid", 0
-			);
-
-			jsonArray.put(layoutJSONObject);
+			jsonArray.put(
+				JSONUtil.put(
+					"includeChildren", true
+				).put(
+					"plid", 0
+				));
 		}
 
 		return jsonArray.toString();
@@ -1761,13 +1760,12 @@ public class ExportImportHelperImpl implements ExportImportHelper {
 			selectedLayoutIds, layout.getLayoutId());
 
 		if (checked) {
-			JSONObject layoutJSONObject = JSONUtil.put(
-				"includeChildren", includeChildren
-			).put(
-				"plid", layout.getPlid()
-			);
-
-			layoutsJSONArray.put(layoutJSONObject);
+			layoutsJSONArray.put(
+				JSONUtil.put(
+					"includeChildren", includeChildren
+				).put(
+					"plid", layout.getPlid()
+				));
 		}
 
 		if (checked && includeChildren) {

@@ -141,23 +141,23 @@ public class UpgradeLayoutPageTemplateStructure extends UpgradeProcess {
 		for (int i = 0; i < fragmentEntryLinks.size(); i++) {
 			FragmentEntryLink fragmentEntryLink = fragmentEntryLinks.get(i);
 
-			JSONObject columnJSONObject = JSONUtil.put(
-				"columnId", String.valueOf(i)
-			).put(
-				"fragmentEntryLinkIds",
+			structureJSONArray.put(
 				JSONUtil.put(
-					String.valueOf(fragmentEntryLink.getFragmentEntryLinkId()))
-			).put(
-				"size", StringPool.BLANK
-			);
-
-			JSONObject structureJSONObject = JSONUtil.put(
-				"columns", JSONUtil.put(columnJSONObject)
-			).put(
-				"rowId", String.valueOf(i)
-			);
-
-			structureJSONArray.put(structureJSONObject);
+					"columns",
+					JSONUtil.put(
+						JSONUtil.put(
+							"columnId", String.valueOf(i)
+						).put(
+							"fragmentEntryLinkIds",
+							JSONUtil.put(
+								String.valueOf(
+									fragmentEntryLink.getFragmentEntryLinkId()))
+						).put(
+							"size", StringPool.BLANK
+						))
+				).put(
+					"rowId", String.valueOf(i)
+				));
 		}
 
 		JSONObject jsonObject = JSONUtil.put(

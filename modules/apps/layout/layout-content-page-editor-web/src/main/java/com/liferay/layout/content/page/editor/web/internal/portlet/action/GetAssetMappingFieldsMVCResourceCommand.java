@@ -22,7 +22,6 @@ import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
@@ -96,15 +95,14 @@ public class GetAssetMappingFieldsMVCResourceCommand
 				assetEntry.getClassTypeId(), themeDisplay.getLocale());
 
 		for (InfoDisplayField infoDisplayField : infoDisplayFields) {
-			JSONObject jsonObject = JSONUtil.put(
-				"key", infoDisplayField.getKey()
-			).put(
-				"label", infoDisplayField.getLabel()
-			).put(
-				"type", infoDisplayField.getType()
-			);
-
-			jsonArray.put(jsonObject);
+			jsonArray.put(
+				JSONUtil.put(
+					"key", infoDisplayField.getKey()
+				).put(
+					"label", infoDisplayField.getLabel()
+				).put(
+					"type", infoDisplayField.getType()
+				));
 		}
 
 		JSONPortletResponseUtil.writeJSON(

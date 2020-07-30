@@ -25,7 +25,6 @@ import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortlet
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
@@ -100,17 +99,16 @@ public class GetContentMappingFieldsMVCResourceCommand
 						"not-supported"));
 			}
 
-			JSONObject jsonObject = JSONUtil.put(
-				"disabled", disabled
-			).put(
-				"key", infoDisplayField.getKey()
-			).put(
-				"label", label
-			).put(
-				"type", infoDisplayField.getType()
-			);
-
-			jsonArray.put(jsonObject);
+			jsonArray.put(
+				JSONUtil.put(
+					"disabled", disabled
+				).put(
+					"key", infoDisplayField.getKey()
+				).put(
+					"label", label
+				).put(
+					"type", infoDisplayField.getType()
+				));
 		}
 
 		JSONPortletResponseUtil.writeJSON(

@@ -118,13 +118,12 @@ public class FindLayoutsMVCResourceCommand extends BaseMVCResourceCommand {
 
 			sb.append(StringPool.CLOSE_PARENTHESIS);
 
-			JSONObject layoutJSONObject = JSONUtil.put(
-				"name", sb.toString()
-			).put(
-				"url", _portal.getLayoutFullURL(layout, themeDisplay)
-			);
-
-			jsonArray.put(layoutJSONObject);
+			jsonArray.put(
+				JSONUtil.put(
+					"name", sb.toString()
+				).put(
+					"url", _portal.getLayoutFullURL(layout, themeDisplay)
+				));
 		}
 
 		jsonObject.put("layouts", jsonArray);

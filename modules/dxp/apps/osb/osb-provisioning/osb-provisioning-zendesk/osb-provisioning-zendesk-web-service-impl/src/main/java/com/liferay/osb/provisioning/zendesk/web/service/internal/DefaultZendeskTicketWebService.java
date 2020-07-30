@@ -56,13 +56,12 @@ public class DefaultZendeskTicketWebService implements ZendeskTicketWebService {
 		Map<Long, String> customFields = zendeskTicket.getCustomFields();
 
 		for (Map.Entry<Long, String> customField : customFields.entrySet()) {
-			JSONObject fieldJSONObject = JSONUtil.put(
-				"id", customField.getKey()
-			).put(
-				"value", customField.getValue()
-			);
-
-			customFieldsJSONArray.put(fieldJSONObject);
+			customFieldsJSONArray.put(
+				JSONUtil.put(
+					"id", customField.getKey()
+				).put(
+					"value", customField.getValue()
+				));
 		}
 
 		ticketJSONObject.put("custom_fields", customFieldsJSONArray);

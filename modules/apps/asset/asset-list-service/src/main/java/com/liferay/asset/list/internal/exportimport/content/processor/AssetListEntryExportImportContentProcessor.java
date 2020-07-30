@@ -183,13 +183,16 @@ public class AssetListEntryExportImportContentProcessor
 
 		LongStream oldGroupIdsStream = Arrays.stream(oldGroupIds);
 
-		long[] newGroupIds = oldGroupIdsStream.map(
-			oldGroupId -> MapUtil.getLong(groupIds, oldGroupId, oldGroupId)
-		).filter(
-			oldGroupId -> _groupLocalService.fetchGroup(oldGroupId) != null
-		).toArray();
-
-		unicodeProperties.put("groupIds", StringUtil.merge(newGroupIds));
+		unicodeProperties.put(
+			"groupIds",
+			StringUtil.merge(
+				oldGroupIdsStream.map(
+					oldGroupId -> MapUtil.getLong(
+						groupIds, oldGroupId, oldGroupId)
+				).filter(
+					oldGroupId ->
+						_groupLocalService.fetchGroup(oldGroupId) != null
+				).toArray()));
 
 		String[] classNames = StringUtil.split(
 			unicodeProperties.getProperty("classNames"));

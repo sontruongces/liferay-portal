@@ -112,17 +112,18 @@ public class IndividualSegmentsChecker {
 
 		Stream<String> stream = individualSegmentIds.stream();
 
-		long[] segmentsEntryIds = stream.map(
-			segmentsEntryKey -> _segmentsEntryLocalService.fetchSegmentsEntry(
-				serviceContext.getScopeGroupId(), segmentsEntryKey, true)
-		).filter(
-			Objects::nonNull
-		).mapToLong(
-			SegmentsEntryModel::getSegmentsEntryId
-		).toArray();
-
 		_asahSegmentsEntryCache.putSegmentsEntryIds(
-			individualPK, segmentsEntryIds);
+			individualPK,
+			stream.map(
+				segmentsEntryKey ->
+					_segmentsEntryLocalService.fetchSegmentsEntry(
+						serviceContext.getScopeGroupId(), segmentsEntryKey,
+						true)
+			).filter(
+				Objects::nonNull
+			).mapToLong(
+				SegmentsEntryModel::getSegmentsEntryId
+			).toArray());
 	}
 
 	private void _addSegmentsEntry(IndividualSegment individualSegment) {

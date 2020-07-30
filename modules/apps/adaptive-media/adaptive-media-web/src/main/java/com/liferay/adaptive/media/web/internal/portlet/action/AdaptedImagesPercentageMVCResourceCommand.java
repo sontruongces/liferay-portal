@@ -16,7 +16,6 @@ package com.liferay.adaptive.media.web.internal.portlet.action;
 
 import com.liferay.adaptive.media.image.service.AMImageEntryLocalService;
 import com.liferay.adaptive.media.web.internal.constants.AMPortletKeys;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
@@ -63,15 +62,14 @@ public class AdaptedImagesPercentageMVCResourceCommand
 		int expectedEntriesCount =
 			_amImageEntryLocalService.getExpectedAMImageEntriesCount(companyId);
 
-		JSONObject jsonObject = JSONUtil.put(
-			"adaptedImages",
-			String.valueOf(Math.min(entriesCount, expectedEntriesCount))
-		).put(
-			"totalImages", String.valueOf(expectedEntriesCount)
-		);
-
 		JSONPortletResponseUtil.writeJSON(
-			resourceRequest, resourceResponse, jsonObject);
+			resourceRequest, resourceResponse,
+			JSONUtil.put(
+				"adaptedImages",
+				String.valueOf(Math.min(entriesCount, expectedEntriesCount))
+			).put(
+				"totalImages", String.valueOf(expectedEntriesCount)
+			));
 	}
 
 	@Reference

@@ -691,13 +691,12 @@ public class ViewAccountDisplayContext {
 		List<JSONObject> languageList = new ArrayList<>();
 
 		for (Locale locale : LanguageUtil.getAvailableLocales()) {
-			JSONObject jsonObject = JSONUtil.put(
-				"id", locale.toString()
-			).put(
-				"name", locale.getDisplayLanguage()
-			);
-
-			languageList.add(jsonObject);
+			languageList.add(
+				JSONUtil.put(
+					"id", locale.toString()
+				).put(
+					"name", locale.getDisplayLanguage()
+				));
 		}
 
 		return languageList;

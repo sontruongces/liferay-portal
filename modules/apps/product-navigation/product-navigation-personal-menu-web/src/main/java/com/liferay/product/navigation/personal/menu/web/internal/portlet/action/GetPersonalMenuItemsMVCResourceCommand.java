@@ -124,16 +124,15 @@ public class GetPersonalMenuItemsMVCResourceCommand
 					realUser, realUser.getGroup(), true);
 		}
 
-		JSONObject jsonObject1 = JSONUtil.put(
-			"href", realUserURL
-		).put(
-			"icon", "change"
-		).put(
-			"label",
-			LanguageUtil.get(themeDisplay.getLocale(), "be-yourself-again")
-		);
-
-		JSONArray jsonArray = JSONUtil.put(jsonObject1);
+		JSONArray jsonArray = JSONUtil.put(
+			JSONUtil.put(
+				"href", realUserURL
+			).put(
+				"icon", "change"
+			).put(
+				"label",
+				LanguageUtil.get(themeDisplay.getLocale(), "be-yourself-again")
+			));
 
 		Locale realUserLocale = realUser.getLocale();
 		Locale userLocale = user.getLocale();
@@ -170,18 +169,17 @@ public class GetPersonalMenuItemsMVCResourceCommand
 					StringPool.UNDERLINE);
 			}
 
-			JSONObject jsonObject2 = JSONUtil.put(
-				"href",
-				_http.setParameter(
-					ParamUtil.getString(portletRequest, "currentURL"),
-					"doAsUserLanguageId", doAsUserLanguageId)
-			).put(
-				"icon", "globe"
-			).put(
-				"label", changeLanguageLabel
-			);
-
-			jsonArray.put(jsonObject2);
+			jsonArray.put(
+				JSONUtil.put(
+					"href",
+					_http.setParameter(
+						ParamUtil.getString(portletRequest, "currentURL"),
+						"doAsUserLanguageId", doAsUserLanguageId)
+				).put(
+					"icon", "globe"
+				).put(
+					"label", changeLanguageLabel
+				));
 		}
 
 		return jsonArray;

@@ -229,8 +229,7 @@ public class StructuredContentDTOConverter
 
 					setRenderedContentValue(
 						() -> {
-							boolean hasRenderedContentValueField =
-								uriInfoOptional.map(
+							if (!uriInfoOptional.map(
 									UriInfo::getQueryParameters
 								).map(
 									parameters -> parameters.getFirst(
@@ -240,9 +239,8 @@ public class StructuredContentDTOConverter
 										"renderedContentValue")
 								).orElse(
 									false
-								);
+								)) {
 
-							if (!hasRenderedContentValueField) {
 								return null;
 							}
 
