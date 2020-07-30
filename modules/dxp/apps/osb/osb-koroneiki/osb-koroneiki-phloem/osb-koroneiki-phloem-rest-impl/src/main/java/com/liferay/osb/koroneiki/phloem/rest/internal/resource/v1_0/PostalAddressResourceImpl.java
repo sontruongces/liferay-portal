@@ -135,9 +135,9 @@ public class PostalAddressResourceImpl extends BasePostalAddressResourceImpl {
 		String postalCode = GetterUtil.getString(
 			postalAddress.getPostalCode(), curAddress.getZip());
 		boolean mailing = GetterUtil.getBoolean(
-			postalAddress.getMailing(), curAddress.getMailing());
+			postalAddress.getMailing(), curAddress.isMailing());
 		boolean primary = GetterUtil.getBoolean(
-			postalAddress.getPrimary(), curAddress.getPrimary());
+			postalAddress.getPrimary(), curAddress.isPrimary());
 
 		long countryId = _getCountryId(
 			postalAddress.getAddressCountry(), curAddress.getCountryId());
