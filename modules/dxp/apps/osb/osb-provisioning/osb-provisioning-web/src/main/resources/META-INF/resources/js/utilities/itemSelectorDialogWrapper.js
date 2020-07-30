@@ -10,6 +10,7 @@
  */
 
 // Blackbox the AUI dependency Liferay Item Selector Dialog
+import {NAMESPACE} from '../utilities/constants';
 
 function itemSelectorDialogWrapper({formField, formName, title, url}) {
 	const A = AUI();
@@ -24,7 +25,9 @@ function itemSelectorDialogWrapper({formField, formName, title, url}) {
 
 						if (selectedItems) {
 							Liferay.Util.postForm(document[formName], {
-								data: {[formField]: selectedItems}
+								data: {
+									[`${NAMESPACE}${formField}`]: selectedItems
+								}
 							});
 						}
 					}

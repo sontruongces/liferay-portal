@@ -14,11 +14,13 @@ import React from 'react';
 
 import {NAMESPACE} from '../utilities/constants';
 
-const HiddenForm = React.forwardRef(({fields = {}, formAction = ''}, ref) => (
-	<form action={formAction} method="post" ref={ref}>
-		<HiddenFields fields={fields} />
-	</form>
-));
+const HiddenForm = React.forwardRef(
+	({fields = {}, formAction = '', formName = ''}, ref) => (
+		<form action={formAction} method="post" name={formName} ref={ref}>
+			<HiddenFields fields={fields} />
+		</form>
+	)
+);
 
 function HiddenFields({fields}) {
 	return Object.entries(fields).map(([key, value]) => (

@@ -17,66 +17,138 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
+String parentAccountKey = ParamUtil.getString(request, "parentAccountKey");
 
-ViewAccountRelatedAccountsDisplayContext viewAccountRelatedAccountsDisplayContext = ProvisioningWebComponentProvider.getViewAccountRelatedAccountsDisplayContext(renderRequest, renderResponse, request);
+AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
 
-AccountDisplay accountDisplay = viewAccountRelatedAccountsDisplayContext.getAccountDisplay();
-
-portletDisplay.setShowBackIcon(true);
-portletDisplay.setURLBack(redirect);
-
-renderResponse.setTitle(LanguageUtil.get(request, "edit-account-hierarchy"));
+SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchContainer();
 %>
 
-<portlet:actionURL name="/accounts/edit_account_hierarchy" var="editAccountHierarchyURL">
-	<portlet:param name="redirect" value="<%= currentURL %>" />
-	<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
-</portlet:actionURL>
+<div class="container-fluid container-fluid-max-xl">
+	<clay:management-toolbar
+		clearResultsURL="<%= currentURL %>"
+		elementClasses="full-width"
+		itemsTotal="<%= accountSearchContainer.getTotal() %>"
+		searchActionURL="<%= currentURL %>"
+		searchContainerId="assignParentAccount"
+		selectable="<%= false %>"
+		showSearch="<%= true %>"
+	/>
 
-<aui:form action="<%= editAccountHierarchyURL.toString() %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="editAccountHierarchyFm">
+	<liferay-ui:search-container
+		cssClass="parent-account-container"
+		id="assignParentAccount"
+		searchContainer="<%= accountSearchContainer %>"
+	>
+		<liferay-ui:search-container-row
+			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
+			escapedModel="<%= true %>"
+			keyProperty="accountKey"
+			modelVar="accountDisplay"
+		>
 
-	<%
-	AccountDisplay parentAccountDisplay = viewAccountRelatedAccountsDisplayContext.getParentAccountDisplay();
-	%>
+			<%
+			Map<String, Object> productData = new HashMap<String, Object>();
 
-	<aui:row>
-		<aui:col width="<%= 20 %>">
-			<liferay-ui:message key="parent-account" />
-		</aui:col>
+			productData.put("key", accountDisplay.getKey());
 
-		<aui:col width="<%= 80 %>">
-			<aui:row>
-				<aui:col width="<%= 66 %>">
-					<liferay-ui:message key="account-name" />
-				</aui:col>
+			row.setData(productData);
 
-				<aui:col width="<%= 33 %>">
-					<liferay-ui:message key="code" />
-				</aui:col>
-			</aui:row>
+			if (parentAccountKey.equals(accountDisplay.getKey())) {
+				row.setCssClass("active");
+			}
+			%>
 
-			<c:if test="<%= parentAccountDisplay != null %>">
-				<aui:row>
-					<aui:col width="<%= 66 %>">
-						<%= parentAccountDisplay.getName() %>
-					</aui:col>
+			<liferay-ui:search-container-column-text
+				name="name-code"
+			>
+				<%= accountDisplay.getName() %>
 
-					<aui:col width="<%= 33 %>">
-						<%= parentAccountDisplay.getCode() %>
-					</aui:col>
-				</aui:row>
-			</c:if>
+				<div class="secondary-information">
+					<%= accountDisplay.getCode() %>
+				</div>
+			</liferay-ui:search-container-column-text>
 
-			<aui:row>
-				<aui:button value="select" />
-			</aui:row>
-		</aui:col>
-	</aui:row>
+			<liferay-ui:search-container-column-text
+				name="support-end-date"
+				value="<%= accountDisplay.getSupportEndDate() %>"
+			/>
 
-	<aui:button-row>
-		<aui:button type="submit" />
+			<liferay-ui:search-container-column-text
+				name="partner"
+				value="<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>"
+			/>
 
-		<aui:button href="<%= redirect %>" type="cancel" />
-	</aui:button-row>
-</aui:form>
+			<liferay-ui:search-container-column-text
+				name="region"
+				value="<%= accountDisplay.getRegion() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="sla-tier"
+			>
+				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
+
+				<div class="secondary-information">
+					<%= accountDisplay.getTier() %>
+				</div>
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="status"
+			>
+				<span class="label <%= accountDisplay.getStatusStyle() %>">
+					<%= accountDisplay.getStatus() %>
+				</span>
+			</liferay-ui:search-container-column-text>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
+</div>
+
+<aui:script>
+	var searchContainer = document.getElementById(
+		'<portlet:namespace />assignParentAccountSearchContainer'
+	);
+
+	var table = searchContainer.getElementsByTagName('tbody');
+
+	if (table) {
+		var nodeList = table[0].getElementsByTagName('tr');
+
+		if (nodeList) {
+			Array.prototype.slice.call(nodeList).forEach(selectRow);
+		}
+	}
+
+	function selectRow(row) {
+		if (row) {
+			row.addEventListener('click', function() {
+				var activeRow = document.getElementsByClassName('active');
+
+				if (activeRow) {
+					Array.prototype.slice.call(activeRow).forEach(resetRow);
+				}
+
+				this.classList.add('active');
+
+				var rowData = this.dataset;
+
+				if (rowData) {
+					Liferay.Util.getOpener().Liferay.fire('selectedItemChange', {
+						data: rowData.key
+					});
+				}
+			});
+		}
+	}
+
+	function resetRow(row) {
+		if (row) {
+			row.classList.remove('active');
+		}
+	}
+</aui:script>

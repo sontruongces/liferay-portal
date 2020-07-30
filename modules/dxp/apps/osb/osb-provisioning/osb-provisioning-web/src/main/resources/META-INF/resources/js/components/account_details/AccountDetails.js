@@ -18,8 +18,8 @@ import GeneralDetails from './GeneralDetails';
 import PartnerInfo from './PartnerInfo';
 
 function AccountDetails({
+	assignParentAccountURL,
 	details,
-	editAccountHierarchyURL,
 	editFirstLineSupportTeamURL,
 	editPartnerTeamURL,
 	parentAccountName,
@@ -29,8 +29,8 @@ function AccountDetails({
 	return (
 		<>
 			<GeneralDetails
+				assignParentAccountURL={assignParentAccountURL}
 				details={details}
-				editAccountHierarchyURL={editAccountHierarchyURL}
 				parentAccountName={parentAccountName}
 				statuses={statusNames}
 				tiers={tierNames}
@@ -54,6 +54,7 @@ function AccountDetails({
 }
 
 AccountDetails.propTypes = {
+	assignParentAccountURL: PropTypes.string,
 	details: PropTypes.shape({
 		addPostalAddressURL: PropTypes.string,
 		code: PropTypes.string,
@@ -61,6 +62,7 @@ AccountDetails.propTypes = {
 		dateModified: PropTypes.string,
 		dossieraAccountKey: PropTypes.string,
 		dossieraProjectKey: PropTypes.string,
+		editAccountHierarchyURL: PropTypes.string,
 		editAccountURL: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
@@ -90,7 +92,6 @@ AccountDetails.propTypes = {
 		updateDossieraProjectURL: PropTypes.string,
 		updateSalesforceProjectURL: PropTypes.string
 	}),
-	editAccountHierarchyURL: PropTypes.string,
 	editFirstLineSupportTeamURL: PropTypes.string,
 	editPartnerTeamURL: PropTypes.string,
 	parentAccountName: PropTypes.string,

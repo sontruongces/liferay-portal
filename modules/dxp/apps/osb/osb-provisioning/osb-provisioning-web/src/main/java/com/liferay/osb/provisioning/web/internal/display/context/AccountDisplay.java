@@ -131,6 +131,23 @@ public class AccountDisplay {
 			ExternalLinkEntityName.DOSSIERA_PROJECT);
 	}
 
+	public String getEditAccountHierarchyURL() {
+		PortletURL editAccountHierarchyURL =
+			_liferayPortletResponse.createActionURL();
+
+		editAccountHierarchyURL.setParameter(
+			ActionRequest.ACTION_NAME, " /accounts/edit_account_hierarchy");
+
+		PortletURL portletURL = _getPortletURL(
+			"/accounts/view_account", "details");
+
+		editAccountHierarchyURL.setParameter("redirect", portletURL.toString());
+
+		editAccountHierarchyURL.setParameter("accountKey", _account.getKey());
+
+		return editAccountHierarchyURL.toString();
+	}
+
 	public String getEditAccountURL() {
 		PortletURL editAccountURL = _liferayPortletResponse.createActionURL();
 

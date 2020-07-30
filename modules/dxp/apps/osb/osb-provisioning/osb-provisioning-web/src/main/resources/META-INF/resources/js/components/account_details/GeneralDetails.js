@@ -23,12 +23,13 @@ import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
 
 function GeneralDetails({
+	assignParentAccountURL = '',
 	details,
-	editAccountHierarchyURL = '',
 	parentAccountName,
 	statuses,
 	tiers
 }) {
+	const parentAccountFormData = {parentAccountKey: ''};
 	const formData = {
 		code: convertDashToEmptyString(details.code),
 		name: convertDashToEmptyString(details.name),
@@ -108,9 +109,11 @@ function GeneralDetails({
 					formField: 'parentAccountKey',
 					formName: `${NAMESPACE}editAccountHierarchyFm`,
 					title: Liferay.Language.get('select-parent-account'),
-					url: editAccountHierarchyURL
+					url: assignParentAccountURL
 				}}
 				fieldLabel={Liferay.Language.get('parent')}
+				formAction={details.editAccountHierarchyURL}
+				formData={parentAccountFormData}
 				type={FIELD_TYPE_EXTERNAL}
 				value={parentAccountName}
 			/>
@@ -119,10 +122,12 @@ function GeneralDetails({
 }
 
 GeneralDetails.propTypes = {
+	assignParentAccountURL: PropTypes.string,
 	details: PropTypes.shape({
 		code: PropTypes.string,
 		dateCreated: PropTypes.string,
 		dateModified: PropTypes.string,
+		editAccountHierarchyURL: PropTypes.string,
 		editAccountURL: PropTypes.string,
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
@@ -133,7 +138,6 @@ GeneralDetails.propTypes = {
 		statusStyle: PropTypes.string,
 		tier: PropTypes.string
 	}),
-	editAccountHierarchyURL: PropTypes.string,
 	parentAccountName: PropTypes.string,
 	statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
 	tiers: PropTypes.arrayOf(PropTypes.string).isRequired

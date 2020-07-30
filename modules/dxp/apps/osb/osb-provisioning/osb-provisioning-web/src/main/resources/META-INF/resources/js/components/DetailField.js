@@ -76,16 +76,24 @@ function DetailField({
 					{type === FIELD_TYPE_NONEDITABLE && <>{value}</>}
 
 					{type === FIELD_TYPE_EXTERNAL && (
-						<InlineEdit
-							displayAs={displayAs}
-							displayValue={displayValue}
-							fieldName={fieldName}
-							fieldValue={value}
-							inputStyle={inputStyle}
-							options={options}
-							save={handleOpenExternal}
-							type={type}
-						/>
+						<>
+							<HiddenForm
+								fields={formData}
+								formAction={formAction}
+								formName={externalData.formName}
+							/>
+
+							<InlineEdit
+								displayAs={displayAs}
+								displayValue={displayValue}
+								fieldName={fieldName}
+								fieldValue={value}
+								inputStyle={inputStyle}
+								options={options}
+								save={handleOpenExternal}
+								type={type}
+							/>
+						</>
 					)}
 
 					{type !== FIELD_TYPE_EXTERNAL &&

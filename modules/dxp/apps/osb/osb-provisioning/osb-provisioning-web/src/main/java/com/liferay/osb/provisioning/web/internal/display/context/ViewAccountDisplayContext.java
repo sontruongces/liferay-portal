@@ -119,14 +119,16 @@ public class ViewAccountDisplayContext {
 
 		data.put("details", getAccountDisplay());
 
-		PortletURL editAccountHierarchyURL = renderResponse.createActionURL();
+		PortletURL assignParentAccountURL = renderResponse.createRenderURL();
 
-		editAccountHierarchyURL.setParameter(
+		assignParentAccountURL.setParameter(
 			"mvcRenderCommandName", "/accounts/edit_account_hierarchy");
-		editAccountHierarchyURL.setParameter("accountKey", account.getKey());
-		editAccountHierarchyURL.setWindowState(LiferayWindowState.POP_UP);
+		assignParentAccountURL.setParameter("accountKey", account.getKey());
+		assignParentAccountURL.setParameter(
+			"parentAccountKey", account.getParentAccountKey());
+		assignParentAccountURL.setWindowState(LiferayWindowState.POP_UP);
 
-		data.put("editAccountHierarchyURL", editAccountHierarchyURL.toString());
+		data.put("assignParentAccountURL", assignParentAccountURL.toString());
 
 		data.put("parentAccountName", getParentAccountName());
 
