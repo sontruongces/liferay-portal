@@ -51,7 +51,7 @@ definition {
 
 		Navigator.gotoPage(pageName = "Classic Theme Page");
 
-		SearchPortlets.viewSearchHidden();
+		AssertElementNotPresent(locator1 = "Search#EMBEDDED_SEARCH_BAR");
 
 		Portlet.addPG(portletName = "Hello World");
 
