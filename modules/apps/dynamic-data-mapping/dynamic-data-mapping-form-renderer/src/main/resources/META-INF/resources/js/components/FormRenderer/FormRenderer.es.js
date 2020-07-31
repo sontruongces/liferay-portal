@@ -35,6 +35,10 @@ import templates from './FormRenderer.soy';
  */
 
 class FormRenderer extends Component {
+	attached() {
+		Liferay.fire(`${this.portletNamespace}simplecaptcha_attachEvent`);
+	}
+
 	_defaultLanguageIdValueFn() {
 		return themeDisplay.getLanguageId();
 	}
