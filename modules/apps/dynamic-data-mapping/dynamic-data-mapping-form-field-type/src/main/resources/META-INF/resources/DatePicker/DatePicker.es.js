@@ -160,12 +160,18 @@ class DatePicker extends Component {
 	}
 
 	prepareStateForRender(state) {
-		const value = Helpers.formatDate(this._daySelected);
+		let value = '';
+
+		if (!this.isEmptyValue(state.value)) {
+			value = moment(Helpers.formatDate(this._daySelected)).format(
+				'YYYY-MM-DD'
+			);
+		}
 
 		return {
 			...state,
 			formattedValue: state.value,
-			value: moment(value).format('YYYY-MM-DD'),
+			value,
 			years: this.getYears()
 		};
 	}
