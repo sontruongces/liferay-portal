@@ -117,6 +117,8 @@ definition {
 			pageName = "Staging Test Page",
 			siteName = "Site Name");
 
+		CalendarNavigator.gotoView(viewType = "Week");
+
 		CalendarScheduler.selectSpecificEvent(eventTitle = "Calendar Event Title - Staged Edit");
 
 		CalendarEvent.assertEventNotEditable();
