@@ -60,7 +60,7 @@ public interface ProductBundleProductsLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductBundleProductsLocalServiceUtil} to access the product bundle products local service. Add custom service methods to <code>com.liferay.osb.provisioning.service.impl.ProductBundleProductsLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.provisioning.service.impl.ProductBundleProductsLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the product bundle products local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ProductBundleProductsLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public ProductBundleProducts addProductBundleProducts(
 			long productBundleId, String productKey)
@@ -68,6 +68,10 @@ public interface ProductBundleProductsLocalService
 
 	/**
 	 * Adds the product bundle products to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundleProducts the product bundle products
 	 * @return the product bundle products that was added
@@ -100,6 +104,10 @@ public interface ProductBundleProductsLocalService
 	/**
 	 * Deletes the product bundle products from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productBundleProducts the product bundle products
 	 * @return the product bundle products that was removed
 	 */
@@ -109,6 +117,10 @@ public interface ProductBundleProductsLocalService
 
 	/**
 	 * Deletes the product bundle products with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundleProductsPK the primary key of the product bundle products
 	 * @return the product bundle products that was removed
@@ -258,6 +270,10 @@ public interface ProductBundleProductsLocalService
 
 	/**
 	 * Updates the product bundle products in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleProductsLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundleProducts the product bundle products
 	 * @return the product bundle products that was updated

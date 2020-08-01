@@ -49,7 +49,7 @@ public interface TeamRoleService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link TeamRoleServiceUtil} to access the team role remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.TeamRoleServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the team role remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TeamRoleServiceUtil} if injection and service tracking are not available.
 	 */
 	public TeamRole addTeamRole(String name, String description, String type)
 		throws PortalException;

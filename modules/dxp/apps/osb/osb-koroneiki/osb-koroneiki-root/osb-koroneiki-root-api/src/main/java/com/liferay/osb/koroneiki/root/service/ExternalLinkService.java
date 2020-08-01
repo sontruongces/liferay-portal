@@ -49,7 +49,7 @@ public interface ExternalLinkService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ExternalLinkServiceUtil} to access the external link remote service. Add custom service methods to <code>com.liferay.osb.koroneiki.root.service.impl.ExternalLinkServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.koroneiki.root.service.impl.ExternalLinkServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the external link remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ExternalLinkServiceUtil} if injection and service tracking are not available.
 	 */
 	public ExternalLink addExternalLink(
 			long classNameId, long classPK, String domain, String entityName,

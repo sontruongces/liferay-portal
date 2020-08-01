@@ -59,7 +59,7 @@ public interface ContactAccountRoleLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ContactAccountRoleLocalServiceUtil} to access the contact account role local service. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactAccountRoleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactAccountRoleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the contact account role local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ContactAccountRoleLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

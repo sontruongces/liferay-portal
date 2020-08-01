@@ -58,7 +58,7 @@ public interface ServiceProducerLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ServiceProducerLocalServiceUtil} to access the service producer local service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.ServiceProducerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.ServiceProducerLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the service producer local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ServiceProducerLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public ServiceProducer addServiceProducer(
 			long userId, String name, String description)

@@ -60,13 +60,17 @@ public interface ProductBundleLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ProductBundleLocalServiceUtil} to access the product bundle local service. Add custom service methods to <code>com.liferay.osb.provisioning.service.impl.ProductBundleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.provisioning.service.impl.ProductBundleLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the product bundle local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ProductBundleLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public ProductBundle addProductBundle(long userId, String name)
 		throws PortalException;
 
 	/**
 	 * Adds the product bundle to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundle the product bundle
 	 * @return the product bundle that was added
@@ -93,6 +97,10 @@ public interface ProductBundleLocalService
 	/**
 	 * Deletes the product bundle with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param productBundleId the primary key of the product bundle
 	 * @return the product bundle that was removed
 	 * @throws PortalException if a product bundle with the primary key could not be found
@@ -103,6 +111,10 @@ public interface ProductBundleLocalService
 
 	/**
 	 * Deletes the product bundle from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundle the product bundle
 	 * @return the product bundle that was removed
@@ -266,6 +278,10 @@ public interface ProductBundleLocalService
 
 	/**
 	 * Updates the product bundle in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ProductBundleLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param productBundle the product bundle
 	 * @return the product bundle that was updated

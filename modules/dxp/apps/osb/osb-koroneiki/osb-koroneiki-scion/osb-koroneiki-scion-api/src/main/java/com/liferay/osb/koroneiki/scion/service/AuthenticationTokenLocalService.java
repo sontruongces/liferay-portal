@@ -58,7 +58,7 @@ public interface AuthenticationTokenLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link AuthenticationTokenLocalServiceUtil} to access the authentication token local service. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.AuthenticationTokenLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.koroneiki.scion.service.impl.AuthenticationTokenLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the authentication token local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link AuthenticationTokenLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
