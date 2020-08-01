@@ -170,7 +170,7 @@ public class JournalArticleVerticalCard extends BaseVerticalCard {
 
 	@Override
 	public String getStickerCssClass() {
-		User user = _getOriginalAuthor();
+		User user = _getOriginalAuthorUser();
 
 		if (user == null) {
 			return StringPool.BLANK;
@@ -181,7 +181,7 @@ public class JournalArticleVerticalCard extends BaseVerticalCard {
 
 	@Override
 	public String getStickerIcon() {
-		User user = _getOriginalAuthor();
+		User user = _getOriginalAuthorUser();
 
 		if (user == null) {
 			return StringPool.BLANK;
@@ -197,7 +197,7 @@ public class JournalArticleVerticalCard extends BaseVerticalCard {
 	@Override
 	public String getStickerImageSrc() {
 		try {
-			User user = _getOriginalAuthor();
+			User user = _getOriginalAuthorUser();
 
 			if (user == null) {
 				return StringPool.BLANK;
@@ -243,7 +243,7 @@ public class JournalArticleVerticalCard extends BaseVerticalCard {
 		return HtmlUtil.escape(_article.getTitle(defaultLanguage));
 	}
 
-	private User _getOriginalAuthor() {
+	private User _getOriginalAuthorUser() {
 		List<JournalArticle> articles =
 			JournalArticleLocalServiceUtil.getArticles(
 				_article.getGroupId(), _article.getArticleId(), 0, 1,
