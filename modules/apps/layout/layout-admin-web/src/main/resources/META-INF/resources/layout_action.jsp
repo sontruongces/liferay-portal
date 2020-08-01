@@ -98,7 +98,7 @@ Layout curLayout = (Layout)row.getObject();
 </liferay-ui:icon-menu>
 
 <aui:script require="metal-dom/src/all/dom as dom,frontend-js-web/liferay/modal/commands/OpenSimpleInputModal.es as modalCommands">
-	var addLayoutPrototypeActionOptionQueryClickHandler = dom.delegate(
+	var copyLayoutActionOptionQueryClickHandler = dom.delegate(
 		document.body,
 		'click',
 		'.<portlet:namespace />copy-layout-action-option',
@@ -122,7 +122,7 @@ Layout curLayout = (Layout)row.getObject();
 	);
 
 	function handleDestroyPortlet() {
-		addLayoutPrototypeActionOptionQueryClickHandler.removeListener();
+		copyLayoutActionOptionQueryClickHandler.removeListener();
 
 		Liferay.detach('destroyPortlet', handleDestroyPortlet);
 	}
