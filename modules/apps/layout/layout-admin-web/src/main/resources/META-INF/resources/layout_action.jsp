@@ -61,7 +61,7 @@ Layout curLayout = (Layout)row.getObject();
 
 	<c:if test="<%= layoutsAdminDisplayContext.isShowCopyLayoutAction(curLayout) %>">
 		<liferay-ui:icon
-			cssClass="copy-layout-action-option"
+			cssClass='<%= liferayPortletResponse.getNamespace() + "copy-layout-action-option" %>'
 			message="copy-page"
 			url="javascript:;"
 		/>
