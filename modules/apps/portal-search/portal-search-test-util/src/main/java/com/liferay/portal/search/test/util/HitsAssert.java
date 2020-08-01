@@ -45,11 +45,12 @@ public class HitsAssert {
 	public static com.liferay.portal.search.document.Document assertOnlyOne(
 		SearchHits searchHits) {
 
-		List<SearchHit> searchHitList = searchHits.getSearchHits();
+		List<SearchHit> searchHitsList = searchHits.getSearchHits();
 
-		Assert.assertEquals(searchHitList.toString(), 1, searchHitList.size());
+		Assert.assertEquals(
+			searchHitsList.toString(), 1, searchHitsList.size());
 
-		SearchHit searchHit = searchHitList.get(0);
+		SearchHit searchHit = searchHitsList.get(0);
 
 		return searchHit.getDocument();
 	}
