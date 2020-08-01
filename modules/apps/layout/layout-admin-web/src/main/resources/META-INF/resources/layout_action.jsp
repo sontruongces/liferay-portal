@@ -113,7 +113,7 @@ Layout curLayout = (Layout)row.getObject();
 				dialogIframe: {
 					bodyCssClass: 'dialog-with-footer'
 				},
-				id: '<portlet:namespace />copyLayoutDialog',
+				id: '<portlet:namespace />addLayoutDialog',
 				title: '<liferay-ui:message key="copy-page" />',
 				uri:
 					'<%= layoutsAdminDisplayContext.getCopyLayoutRenderURL(curLayout) %>'
