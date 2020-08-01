@@ -48,10 +48,11 @@ public class DeleteArticleTranslationsMVCActionCommand
 		throws Exception {
 
 		long id = ParamUtil.getLong(actionRequest, "id");
-		String[] languageIds = ParamUtil.getStringValues(
-			actionRequest, "rowIds");
 
 		JournalArticle article = _journalArticleService.getArticle(id);
+
+		String[] languageIds = ParamUtil.getStringValues(
+			actionRequest, "rowIds");
 
 		for (String languageId : languageIds) {
 			if (StringUtil.equalsIgnoreCase(
