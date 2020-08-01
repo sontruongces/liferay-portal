@@ -116,7 +116,7 @@ Layout curLayout = (Layout)row.getObject();
 				id: '<portlet:namespace />copyLayoutDialog',
 				title: '<liferay-ui:message key="copy-page" />',
 				uri:
-					'<%= layoutsAdminDisplayContext.getCopyLayoutRenderURL(layout) %>'
+					'<%= layoutsAdminDisplayContext.getCopyLayoutRenderURL(curLayout) %>'
 			});
 		}
 	);
