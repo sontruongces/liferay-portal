@@ -203,7 +203,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	macro configureSearchBarWidget {
+	macro configureSearchBarWidget2 {
 		SearchPortlets.gotoWidgetOptions(portletOption = "Configuration");
 
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
