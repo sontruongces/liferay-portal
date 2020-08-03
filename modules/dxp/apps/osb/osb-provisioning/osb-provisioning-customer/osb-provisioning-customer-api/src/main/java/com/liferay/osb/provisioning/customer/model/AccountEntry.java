@@ -24,6 +24,8 @@ import com.liferay.portal.kernel.util.StringPool;
 public class AccountEntry {
 
 	public AccountEntry(JSONObject jsonObject) {
+		_accountEntryId = jsonObject.getLong("accountEntryId");
+
 		_instructions = jsonObject.getString("instructions");
 
 		JSONArray languageIdsJSONArray = jsonObject.getJSONArray("languageIds");
@@ -51,6 +53,10 @@ public class AccountEntry {
 			_oemInstructionsFileName = StringPool.BLANK;
 			_oemInstructionsAccountAttachmentId = 0;
 		}
+	}
+
+	public long getAccountEntryId() {
+		return _accountEntryId;
 	}
 
 	public String getInstructions() {
@@ -89,6 +95,7 @@ public class AccountEntry {
 		return null;
 	}
 
+	private final long _accountEntryId;
 	private final String _instructions;
 	private final String _languageId;
 	private final long _oemInstructionsAccountAttachmentId;

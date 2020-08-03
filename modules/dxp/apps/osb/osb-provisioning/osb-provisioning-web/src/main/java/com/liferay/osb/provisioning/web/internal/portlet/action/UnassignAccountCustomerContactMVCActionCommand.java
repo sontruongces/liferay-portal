@@ -15,6 +15,8 @@
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
+import com.liferay.osb.provisioning.customer.model.AccountEntry;
+import com.liferay.osb.provisioning.customer.web.service.AccountEntryWebService;
 import com.liferay.osb.provisioning.exception.ContactRequiredException;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.zendesk.model.ZendeskOrganization;
@@ -100,9 +102,12 @@ public class UnassignAccountCustomerContactMVCActionCommand
 			String accountKey, String emailAddress)
 		throws Exception {
 
+		AccountEntry accountEntry = _accountEntryWebService.fetchAccountEntry(
+			accountKey);
+
 		ZendeskOrganization zendeskOrganization =
 			_zendeskOrganizationWebService.getZendeskOrganization(
-				accountKey.substring(4));
+				String.valueOf(accountEntry.getAccountEntryId()));
 
 		ZendeskUser zendeskUser =
 			_zendeskUserWebService.getZendeskUserByEmailAddress(emailAddress);
@@ -123,6 +128,9 @@ public class UnassignAccountCustomerContactMVCActionCommand
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		UnassignAccountCustomerContactMVCActionCommand.class);
+
+	@Reference
+	private AccountEntryWebService _accountEntryWebService;
 
 	@Reference
 	private AccountWebService _accountWebService;
