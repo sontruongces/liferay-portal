@@ -88,6 +88,36 @@
 	}
 }
 
+.control-menu {
+	&.control-menu-level-1 {
+		background-color: transparent;
+	}
+
+	&.search-menu {
+		background-color: $dark-l1;
+		z-index: 988;
+
+		.control-menu-icon {
+			height: $spacing-lg;
+			pointer-events: none;
+			width: $spacing-lg;
+		}
+	}
+
+	.product-menu {
+		background-color: $dark-l1;
+	}
+
+	.toast-animation {
+		opacity: 0;
+	}
+
+	.tools-control-group,
+	.user-control-group {
+		pointer-events: none;
+	}
+}
+
 .details-table {
 	background-color: $body-bg;
 	border: 1px solid $secondary-l3;
@@ -210,4 +240,14 @@
 			margin-left: $spacing-md;
 		}
 	}
+}
+
+// Offset maxwidth of the container to position the personal bar right at the edge of content
+
+.user-personal-bar {
+	padding: $spacing-xs;
+	position: fixed;
+	right: calc((100vw - 1248px) / 2);
+	top: 0;
+	z-index: 990;
 }

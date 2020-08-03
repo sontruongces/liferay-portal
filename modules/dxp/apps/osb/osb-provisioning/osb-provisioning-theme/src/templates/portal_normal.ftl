@@ -23,16 +23,12 @@
 <div class="container-fluid" id="wrapper">
 	<#include "${full_templates_path}/icons.ftl" parse=false />
 
-	<header id="banner">
-		<div class="navbar navbar-classic navbar-top py-3">
-			<div class="container flex-row-reverse user-personal-bar">
-				<@liferay.user_personal_bar />
-			</div>
-		</div>
-	</header>
-
 	<section id="content">
 		<h2 class="sr-only" role="heading" aria-level="1">${the_title}</h2>
+
+		<div class="user-personal-bar">
+			<@liferay.user_personal_bar />
+		</div>
 
 		<#if selectable>
 			<@liferay_util["include"] page=content_include />
