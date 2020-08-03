@@ -40,6 +40,8 @@ import com.liferay.portal.search.tuning.rankings.web.internal.index.DuplicateQue
 import com.liferay.portal.search.tuning.rankings.web.internal.index.Ranking;
 import com.liferay.portal.search.tuning.rankings.web.internal.index.RankingIndexReader;
 import com.liferay.portal.search.tuning.rankings.web.internal.index.RankingIndexWriter;
+import com.liferay.portal.search.tuning.rankings.web.internal.index.name.RankingIndexName;
+import com.liferay.portal.search.tuning.rankings.web.internal.index.name.RankingIndexNameBuilder;
 
 import java.io.IOException;
 
@@ -223,9 +225,12 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 
 		_guardDuplicateQueryStrings(editRankingMVCActionRequest, ranking);
 
-		String id = rankingIndexWriter.create(ranking);
+		RankingIndexName rankingIndexName = getRankingIndexName();
 
-		Optional<Ranking> optional = rankingIndexReader.fetchOptional(id);
+		String id = rankingIndexWriter.create(rankingIndexName, ranking);
+
+		Optional<Ranking> optional = rankingIndexReader.fetchOptional(
+			rankingIndexName, id);
 
 		return optional.get();
 	}
@@ -246,7 +251,8 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 
 			rankingBuilder.inactive(inactive);
 
-			rankingIndexWriter.update(rankingBuilder.build());
+			rankingIndexWriter.update(
+				getRankingIndexName(), rankingBuilder.build());
 		}
 	}
 
@@ -258,7 +264,8 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, editRankingMVCActionRequest);
 
 		for (String deleteResultsRankingUid : deleteResultsRankingUids) {
-			rankingIndexWriter.remove(deleteResultsRankingUid);
+			rankingIndexWriter.remove(
+				getRankingIndexName(), deleteResultsRankingUid);
 		}
 	}
 
@@ -268,7 +275,13 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 
 		String id = editRankingMVCActionRequest.getResultsRankingUid();
 
-		Optional<Ranking> optional = rankingIndexReader.fetchOptional(id);
+		RankingIndexName rankingIndexName =
+			rankingIndexNameBuilder.getRankingIndexName(
+				indexNameBuilder.getIndexName(
+					portal.getCompanyId(actionRequest)));
+
+		Optional<Ranking> optional = rankingIndexReader.fetchOptional(
+			rankingIndexName, id);
 
 		if (!optional.isPresent()) {
 			return;
@@ -293,7 +306,7 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 		).inactive(
 			_isInactive(editRankingMVCActionRequest)
 		).index(
-			_getIndexName()
+			getIndexName(actionRequest)
 		).name(
 			_getNameForUpdate(ranking.getName(), editRankingMVCActionRequest)
 		);
@@ -314,13 +327,18 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 			rankingBuilder.pins(null);
 		}
 
-		rankingIndexWriter.update(rankingBuilder.build());
+		rankingIndexWriter.update(
+			getRankingIndexName(), rankingBuilder.build());
 	}
 
 	protected String getIndexName(ActionRequest actionRequest) {
-		long companyId = portal.getCompanyId(actionRequest);
+		return indexNameBuilder.getIndexName(
+			portal.getCompanyId(actionRequest));
+	}
 
-		return "liferay-" + companyId;
+	protected RankingIndexName getRankingIndexName() {
+		return rankingIndexNameBuilder.getRankingIndexName(
+			_getCompanyIndexName());
 	}
 
 	protected String getSaveAndContinueRedirect(
@@ -387,6 +405,9 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 	protected Portal portal;
 
 	@Reference
+	protected RankingIndexNameBuilder rankingIndexNameBuilder;
+
+	@Reference
 	protected RankingIndexReader rankingIndexReader;
 
 	@Reference
@@ -418,9 +439,11 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 			duplicateQueryStringsDetector.detect(
 				duplicateQueryStringsDetector.builder(
 				).index(
-					_getIndexName()
+					_getCompanyIndexName()
 				).queryStrings(
 					queryStrings
+				).rankingIndexName(
+					getRankingIndexName()
 				).unlessRankingId(
 					ranking.getId()
 				).build());
@@ -445,7 +468,7 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 		);
 	}
 
-	private String _getIndexName() {
+	private String _getCompanyIndexName() {
 		return indexNameBuilder.getIndexName(_companyId);
 	}
 
@@ -476,9 +499,11 @@ public class EditRankingMVCActionCommand extends BaseMVCActionCommand {
 
 		List<Ranking> rankings = new ArrayList<>();
 
+		RankingIndexName rankingIndexName = getRankingIndexName();
+
 		for (String resultRankingsUid : resultRankingsUids) {
 			Optional<Ranking> optional = rankingIndexReader.fetchOptional(
-				resultRankingsUid);
+				rankingIndexName, resultRankingsUid);
 
 			if (optional.isPresent()) {
 				Ranking ranking = optional.get();
