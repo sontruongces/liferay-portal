@@ -65,6 +65,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -381,7 +382,7 @@ public class ViewAccountDisplayContext {
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
+			renderRequest, getSearchContainerPortletURL(),
 			Collections.emptyList(), "no-subscriptions-were-found");
 
 		String tabs2 = ParamUtil.getString(renderRequest, "tabs2", "active");
@@ -455,6 +456,22 @@ public class ViewAccountDisplayContext {
 		searchContainer.setTotal(count);
 
 		return searchContainer;
+	}
+
+	public PortletURL getSearchContainerPortletURL() {
+		PortletURL portletURL = null;
+
+		PortletURL currentURLObj = PortletURLUtil.getCurrent(
+			renderRequest, renderResponse);
+
+		try {
+			portletURL = PortletURLUtil.clone(currentURLObj, renderResponse);
+		}
+		catch (PortletException portletException) {
+			portletURL = renderResponse.createRenderURL();
+		}
+
+		return portletURL;
 	}
 
 	public Map<String, Object> getSupportData() throws Exception {

@@ -73,7 +73,7 @@ public class ViewAccountRelatedAccountsDisplayContext
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
+			renderRequest, getSearchContainerPortletURL(),
 			Collections.emptyList(), "no-accounts-were-found");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");

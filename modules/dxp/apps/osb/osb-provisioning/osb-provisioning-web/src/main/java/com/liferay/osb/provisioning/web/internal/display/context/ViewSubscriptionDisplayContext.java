@@ -82,7 +82,7 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
+			renderRequest, getSearchContainerPortletURL(),
 			Collections.emptyList(), "no-purchases-were-found");
 
 		Map<String, List<ProductConsumption>> productConsumptionsMap =

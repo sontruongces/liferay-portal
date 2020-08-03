@@ -18,6 +18,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.vulcan.util.TransformUtil;
@@ -25,6 +26,8 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 import java.util.Collections;
 import java.util.List;
 
+import javax.portlet.PortletException;
+import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -50,7 +53,7 @@ public class ContactSearchDisplayContext {
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, _renderResponse.createRenderURL(),
+			_renderRequest, getSearchContainerPortletURL(),
 			Collections.emptyList(), "no-contacts-were-found");
 
 		String keywords = ParamUtil.getString(_renderRequest, "keywords");
@@ -75,6 +78,22 @@ public class ContactSearchDisplayContext {
 		searchContainer.setTotal(count);
 
 		return searchContainer;
+	}
+
+	public PortletURL getSearchContainerPortletURL() {
+		PortletURL portletURL = null;
+
+		PortletURL currentURLObj = PortletURLUtil.getCurrent(
+			_renderRequest, _renderResponse);
+
+		try {
+			portletURL = PortletURLUtil.clone(currentURLObj, _renderResponse);
+		}
+		catch (PortletException portletException) {
+			portletURL = _renderResponse.createRenderURL();
+		}
+
+		return portletURL;
 	}
 
 	private final AccountWebService _accountWebService;

@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -73,7 +74,7 @@ public class ViewContactDisplayContext {
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, renderResponse.createRenderURL(),
+			renderRequest, getSearchContainerPortletURL(),
 			Collections.emptyList(),
 			"this-user-is-not-assigned-to-any-" + type + "-roles-yet");
 
@@ -144,6 +145,22 @@ public class ViewContactDisplayContext {
 			"tabs1", ParamUtil.getString(renderRequest, "tabs1"));
 		portletURL.setParameter(
 			"contactEmailAddress", contact.getEmailAddress());
+
+		return portletURL;
+	}
+
+	public PortletURL getSearchContainerPortletURL() {
+		PortletURL portletURL = null;
+
+		PortletURL currentURLObj = PortletURLUtil.getCurrent(
+			renderRequest, renderResponse);
+
+		try {
+			portletURL = PortletURLUtil.clone(currentURLObj, renderResponse);
+		}
+		catch (PortletException portletException) {
+			portletURL = renderResponse.createRenderURL();
+		}
 
 		return portletURL;
 	}
