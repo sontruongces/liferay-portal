@@ -134,7 +134,12 @@ function render(content, value, editableValues) {
 	const image = wrapper.querySelector('img');
 
 	if (image) {
-		image.src = value.url || value;
+		const imageValue =
+			value && typeof value !== 'string' ? value.url : value;
+
+		if (imageValue) {
+			image.src = imageValue;
+		}
 
 		if (config.alt) {
 			image.alt = config.alt;
