@@ -98,15 +98,14 @@ public class DDMFormValuesJSONDeserializer
 				fieldValuesJSONArray = _jsonFactory.createJSONArray();
 
 				for (String name : jsonObject.keySet()) {
-					JSONObject fieldValue = JSONUtil.put(
-						"name", name
-					).put(
-						"value",
+					fieldValuesJSONArray.put(
 						JSONUtil.put(
-							defaultLanguageId, jsonObject.getString(name))
-					);
-
-					fieldValuesJSONArray.put(fieldValue);
+							"name", name
+						).put(
+							"value",
+							JSONUtil.put(
+								defaultLanguageId, jsonObject.getString(name))
+						));
 				}
 			}
 
