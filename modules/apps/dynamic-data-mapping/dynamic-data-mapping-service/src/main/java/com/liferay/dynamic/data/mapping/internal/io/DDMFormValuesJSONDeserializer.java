@@ -71,30 +71,31 @@ public class DDMFormValuesJSONDeserializer
 		DDMFormValues ddmFormValues = null;
 
 		try {
-			String content =
-				ddmFormValuesDeserializerDeserializeRequest.getContent();
+			JSONObject jsonObject = _jsonFactory.createJSONObject(
+				ddmFormValuesDeserializerDeserializeRequest.getContent());
+
+			String defaultLanguageId = jsonObject.getString(
+				"defaultLanguageId");
 
 			DDMForm ddmForm =
 				ddmFormValuesDeserializerDeserializeRequest.getDDMForm();
 
-			JSONObject jsonObject = _jsonFactory.createJSONObject(content);
-
 			ddmFormValues = new DDMFormValues(ddmForm);
 
-			JSONArray availableLanguageIds = jsonObject.getJSONArray(
+			JSONArray jsonArray = jsonObject.getJSONArray(
 				"availableLanguageIds");
-			String defaultLanguageId = jsonObject.getString(
-				"defaultLanguageId");
-			JSONArray fieldValues = jsonObject.getJSONArray("fieldValues");
 
-			if (fieldValues == null) {
-				availableLanguageIds = _jsonFactory.createJSONArray(
+			JSONArray fieldValuesJSONArray = jsonObject.getJSONArray(
+				"fieldValues");
+
+			if (fieldValuesJSONArray == null) {
+				jsonArray = _jsonFactory.createJSONArray(
 					LocaleUtil.toLanguageIds(ddmForm.getAvailableLocales()));
 
 				defaultLanguageId = LocaleUtil.toLanguageId(
 					ddmForm.getDefaultLocale());
 
-				fieldValues = _jsonFactory.createJSONArray();
+				fieldValuesJSONArray = _jsonFactory.createJSONArray();
 
 				for (String name : jsonObject.keySet()) {
 					JSONObject fieldValue = JSONUtil.put(
@@ -105,15 +106,14 @@ public class DDMFormValuesJSONDeserializer
 							defaultLanguageId, jsonObject.getString(name))
 					);
 
-					fieldValues.put(fieldValue);
+					fieldValuesJSONArray.put(fieldValue);
 				}
 			}
 
-			setDDMFormValuesAvailableLocales(
-				availableLanguageIds, ddmFormValues);
+			setDDMFormValuesAvailableLocales(jsonArray, ddmFormValues);
 			setDDMFormValuesDefaultLocale(defaultLanguageId, ddmFormValues);
-			setDDMFormFieldValues(fieldValues, ddmForm, ddmFormValues);
 
+			setDDMFormFieldValues(fieldValuesJSONArray, ddmForm, ddmFormValues);
 			setDDMFormLocalizedValuesDefaultLocale(ddmFormValues);
 		}
 		catch (Exception exception) {
