@@ -1713,6 +1713,7 @@ definition {
 	test SearchXSSAsset {
 		ProductMenu.gotoPortlet(
 			category = "Content &amp; Data",
+			panel = "Site Administration",
 			portlet = "Message Boards");
 
 		MessageboardsThread.addCP(
