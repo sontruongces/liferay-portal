@@ -198,6 +198,15 @@ definition {
 		Portlet.viewCannotAddPG(portletName = "Search Insights");
 	}
 
+	@priority = "3"
+	test AssertSearchTuningDisabled {
+		ProductMenuHelper.expandPanel(panel = "Control Panel");
+
+		AssertElementNotPresent(
+			key_panel = "Search Tuning",
+			locator1 = "ProductMenu#PORTLET");
+	}
+
 	@description = "This is a use case for LPS-89561."
 	@priority = "4"
 	test AssertSearchURLWhenModifyingPagination {
