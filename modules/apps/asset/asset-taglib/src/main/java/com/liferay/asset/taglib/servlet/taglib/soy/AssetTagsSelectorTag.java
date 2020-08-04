@@ -270,10 +270,10 @@ public class AssetTagsSelectorTag extends ComponentRendererTag {
 		}
 
 		if (!_ignoreRequestValue) {
-			String curTagsParam = request.getParameter(_hiddenInput);
+			String[] curTagsParam = request.getParameterValues(_hiddenInput);
 
-			if (Validator.isNotNull(curTagsParam)) {
-				tagNames = curTagsParam;
+			if (curTagsParam != null) {
+				tagNames = StringUtil.merge(curTagsParam, StringPool.COMMA);
 			}
 		}
 
