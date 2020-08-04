@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.data.migration.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.data.migration.internal.constants.DataMigrationPortletKeys;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -58,9 +59,10 @@ public class UpdateCountriesMVCActionCommand extends BaseMVCActionCommand {
 
 			for (Country country : countries) {
 				db.runSQL(
-					"update Country set name = '" +
-						country.getName(LocaleUtil.US) +
-							"' where countryId = " + country.getCountryId());
+					StringBundler.concat(
+						"update Country set name = '",
+						country.getName(LocaleUtil.US), "' where countryId = ",
+						country.getCountryId()));
 			}
 
 			CountryUtil.clearCache();

@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.data.migration.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.data.migration.internal.constants.DataMigrationPortletKeys;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -50,16 +51,19 @@ public class UpdateListTypesMVCActionCommand extends BaseMVCActionCommand {
 			DB db = DBManagerUtil.getDB();
 
 			db.runSQL(
-				"update ListType set name = 'Business' where name = " +
-					"'business' and type_ = '" + Contact.class.getName() +
-						".address'");
+				StringBundler.concat(
+					"update ListType set name = 'Business' where name = ",
+					"'business' and type_ = '", Contact.class.getName(),
+					".address'"));
 			db.runSQL(
-				"update ListType set name = 'Other' where name = 'other' and " +
-					"type_ = '" + Contact.class.getName() + ".address'");
+				StringBundler.concat(
+					"update ListType set name = 'Other' where name = 'other' ",
+					"and type_ = '", Contact.class.getName(), ".address'"));
 			db.runSQL(
-				"update ListType set name = 'Personal' where name = " +
-					"'personal' and type_ = '" + Contact.class.getName() +
-						".address'");
+				StringBundler.concat(
+					"update ListType set name = 'Personal' where name = ",
+					"'personal' and type_ = '", Contact.class.getName(),
+					".address'"));
 
 			ListTypeUtil.clearCache();
 

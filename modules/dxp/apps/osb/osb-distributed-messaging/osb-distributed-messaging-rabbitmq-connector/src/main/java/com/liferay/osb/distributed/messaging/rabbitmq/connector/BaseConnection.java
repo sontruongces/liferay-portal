@@ -14,6 +14,7 @@
 
 package com.liferay.osb.distributed.messaging.rabbitmq.connector;
 
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -50,7 +51,9 @@ public class BaseConnection implements Connection {
 
 		try {
 			if (_log.isInfoEnabled()) {
-				_log.info("Connecting to RabbitMQ at " + _host + ":" + _port);
+				_log.info(
+					StringBundler.concat(
+						"Connecting to RabbitMQ at ", _host, ":", _port));
 			}
 
 			if (_useSSL) {

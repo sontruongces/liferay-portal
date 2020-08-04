@@ -17,6 +17,7 @@ package com.liferay.osb.distributed.messaging.subscribing.router;
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.distributed.messaging.subscribing.MessageSubscriber;
 import com.liferay.osgi.util.StringPlus;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -39,8 +40,9 @@ public class BaseMessageRouter implements MessageRouter {
 				Class<?> messageSubscriberClass = messageSubscriber.getClass();
 
 				_log.debug(
-					"Routing " + topic + " to " +
-						messageSubscriberClass.getName());
+					StringBundler.concat(
+						"Routing ", topic, " to ",
+						messageSubscriberClass.getName()));
 
 				_log.debug("Message: " + message.toString());
 			}

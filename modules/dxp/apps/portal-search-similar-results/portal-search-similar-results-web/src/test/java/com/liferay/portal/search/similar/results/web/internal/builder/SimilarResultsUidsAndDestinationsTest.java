@@ -465,9 +465,9 @@ public class SimilarResultsUidsAndDestinationsTest {
 
 		String expectedUID = "ClassNamePortlet_PORTLET_34567";
 
-		String expectedDestination =
-			"http://localhost:8080/web/guest/blabal?classNameId=" +
-				classNameId2 + "&classPK=" + classPK2;
+		String expectedDestination = StringBundler.concat(
+			"http://localhost:8080/web/guest/blabal?classNameId=", classNameId2,
+			"&classPK=", classPK2);
 
 		AssetEntry assetEntry1 = getAssetEntry(className, classPK1);
 

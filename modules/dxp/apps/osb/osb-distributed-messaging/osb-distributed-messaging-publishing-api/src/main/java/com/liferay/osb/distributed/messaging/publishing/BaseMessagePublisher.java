@@ -17,6 +17,7 @@ package com.liferay.osb.distributed.messaging.publishing;
 import com.liferay.osb.distributed.messaging.Message;
 import com.liferay.osb.distributed.messaging.publishing.broker.MessageBroker;
 import com.liferay.osgi.util.StringPlus;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -39,8 +40,9 @@ public class BaseMessagePublisher implements MessagePublisher {
 				Class<?> messageBrokerClass = messageBroker.getClass();
 
 				_log.debug(
-					"Publishing messages for topic " + topic + " to " +
-						messageBrokerClass.getName());
+					StringBundler.concat(
+						"Publishing messages for topic ", topic, " to ",
+						messageBrokerClass.getName()));
 
 				_log.debug("Messages: " + StringUtil.merge(messages));
 			}
@@ -61,8 +63,9 @@ public class BaseMessagePublisher implements MessagePublisher {
 				Class<?> messageBrokerClass = messageBroker.getClass();
 
 				_log.debug(
-					"Publishing message for topic " + topic + " to " +
-						messageBrokerClass.getName());
+					StringBundler.concat(
+						"Publishing message for topic ", topic, " to ",
+						messageBrokerClass.getName()));
 
 				_log.debug("Message: " + message.toString());
 			}

@@ -19,6 +19,7 @@ import com.liferay.osb.distributed.messaging.rabbitmq.connector.Connection;
 import com.liferay.osb.distributed.messaging.rabbitmq.connector.message.AttributeTranslator;
 import com.liferay.osb.distributed.messaging.subscribing.router.MessageRouter;
 import com.liferay.osgi.util.StringPlus;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -64,8 +65,9 @@ public abstract class BaseConsumer implements Consumer {
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
-				"Received message " + envelope.getDeliveryTag() +
-					" with routing key " + envelope.getRoutingKey());
+				StringBundler.concat(
+					"Received message ", envelope.getDeliveryTag(),
+					" with routing key ", envelope.getRoutingKey()));
 		}
 
 		String payload = null;

@@ -23,6 +23,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -222,9 +223,9 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		TeamRole teamRole = _teamRoleWebService.getTeamRole(
 			teamRoleName, TeamRole.Type.ACCOUNT.toString());
 
-		String filterString =
-			"accountKeysTeamRoleKeys/any(s:s eq '" + accountKey + "_" +
-				teamRole.getKey() + "')";
+		String filterString = StringBundler.concat(
+			"accountKeysTeamRoleKeys/any(s:s eq '", accountKey, "_",
+			teamRole.getKey(), "')");
 
 		List<Team> teams = _teamWebService.search(
 			StringPool.BLANK, filterString, 1, 1000, StringPool.BLANK);

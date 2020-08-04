@@ -114,7 +114,8 @@ public class AutocompleteAccountMVCResourceCommand
 				if (Validator.isNotNull(account.getCode())) {
 					jsonObject = JSONUtil.put(
 						"label",
-						account.getName() + " [" + account.getCode() + "]"
+						StringBundler.concat(
+							account.getName(), " [", account.getCode(), "]")
 					).put(
 						"value", account.getCode()
 					);

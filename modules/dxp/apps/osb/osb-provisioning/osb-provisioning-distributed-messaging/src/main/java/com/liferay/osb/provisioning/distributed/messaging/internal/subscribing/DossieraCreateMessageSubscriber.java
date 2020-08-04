@@ -106,8 +106,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		if (contactCount > maxDeveloperCount) {
 			_logWarning(
-				"Maximum contacts is " + maxDeveloperCount + " but there are " +
-					contactCount + " contacts");
+				StringBundler.concat(
+					"Maximum contacts is ", maxDeveloperCount,
+					" but there are ", contactCount, " contacts"));
 		}
 	}
 
@@ -524,8 +525,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		}
 
 		_logWarning(
-			"Unable to find matching support region for " + soldBy + " and " +
-				countryName + ". Defaulting support region to global.");
+			StringBundler.concat(
+				"Unable to find matching support region for ", soldBy, " and ",
+				countryName, ". Defaulting support region to global."));
 
 		return Account.Region.GLOBAL;
 	}

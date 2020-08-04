@@ -283,10 +283,11 @@ public class ViewAccountDisplayContext {
 							"updateAccount", Boolean.TRUE.toString());
 
 						dropdownItem.setHref(
-							"javascript:" + renderResponse.getNamespace() +
-								"updateStatus('" +
-									HtmlUtil.escapeJS(workflowURL.toString()) +
-										"');");
+							StringBundler.concat(
+								"javascript:", renderResponse.getNamespace(),
+								"updateStatus('",
+								HtmlUtil.escapeJS(workflowURL.toString()),
+								"');"));
 
 						if (account.getStatus() == Account.Status.CLOSED) {
 							dropdownItem.setLabel(

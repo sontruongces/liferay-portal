@@ -132,8 +132,9 @@ public class ViewAccountRelatedAccountsDisplayContext
 	}
 
 	public String getTabsValues() {
-		return "all," + Account.Status.APPROVED.toString() + "," +
-			Account.Status.CLOSED.toString();
+		return StringBundler.concat(
+			"all,", Account.Status.APPROVED.toString(), ",",
+			Account.Status.CLOSED.toString());
 	}
 
 	private String _getFilter(String status) {
