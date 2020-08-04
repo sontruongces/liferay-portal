@@ -20,6 +20,7 @@ import com.liferay.document.library.kernel.model.DLFileEntryMetadata;
 import com.liferay.document.library.kernel.model.DLFileVersion;
 import com.liferay.document.library.test.util.search.FileEntryBlueprint;
 import com.liferay.document.library.test.util.search.FileEntrySearchFixture;
+import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -159,6 +160,31 @@ public class DLFileEntryIndexerIndexedFieldsTest extends BaseDLIndexerTestCase {
 		return ddmStructureId;
 	}
 
+	protected void legacyPopulateHttpHeader(
+		String fieldName, String value, String ddmStructureId,
+		Map<String, String> map) {
+
+		String contentEncodingFieldName = StringBundler.concat(
+			"ddm__text__", ddmStructureId, "__HttpHeaders_", fieldName);
+
+		map.put(contentEncodingFieldName, value);
+		map.put(
+			contentEncodingFieldName + "_String_sortable",
+			StringUtil.toLowerCase(value));
+	}
+
+	protected void legacyPopulateHttpHeaders(
+			FileEntry fileEntry, Map<String, String> map)
+		throws Exception {
+
+		String ddmStructureId = String.valueOf(getDDMStructureId(fileEntry));
+
+		legacyPopulateHttpHeader(
+			"CONTENT_ENCODING", "UTF-8", ddmStructureId, map);
+		legacyPopulateHttpHeader(
+			"CONTENT_TYPE", "text/plain; charset=UTF-8", ddmStructureId, map);
+	}
+
 	protected void populateDates(FileEntry fileEntry, Map<String, String> map) {
 		indexedFieldsFixture.populateDate(
 			Field.CREATE_DATE, fileEntry.getCreateDate(), map);
@@ -218,7 +244,14 @@ public class DLFileEntryIndexerIndexedFieldsTest extends BaseDLIndexerTestCase {
 		map.put("visible", "true");
 
 		populateDates(fileEntry, map);
-		populateHttpHeaders(fileEntry, map);
+
+		if (_ddmIndexer.isLegacyDDMIndexFieldsEnabled()) {
+			legacyPopulateHttpHeaders(fileEntry, map);
+		}
+		else {
+			populateHttpHeaders(fileEntry, map);
+		}
+
 		populateLocalizedTitles(fileEntry, map);
 		populateViewCount(fileEntry, map);
 
@@ -294,5 +327,8 @@ public class DLFileEntryIndexerIndexedFieldsTest extends BaseDLIndexerTestCase {
 	}
 
 	protected FileEntrySearchFixture fileEntrySearchFixture;
+
+	@Inject
+	private static DDMIndexer _ddmIndexer;
 
 }
