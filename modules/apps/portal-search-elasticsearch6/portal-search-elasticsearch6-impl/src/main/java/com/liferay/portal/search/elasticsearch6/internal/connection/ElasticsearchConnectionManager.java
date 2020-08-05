@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.connection;
 
-import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.petra.string.StringUtil;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -95,8 +94,13 @@ public class ElasticsearchConnectionManager
 
 	@Override
 	public Client getClient(boolean preferLocalCluster) {
+		return getClient(null, preferLocalCluster);
+	}
+
+	@Override
+	public Client getClient(String connectionId, boolean preferLocalCluster) {
 		ElasticsearchConnection elasticsearchConnection =
-			getElasticsearchConnection(preferLocalCluster);
+			getElasticsearchConnection(connectionId, preferLocalCluster);
 
 		if (elasticsearchConnection == null) {
 			throw new ElasticsearchConnectionNotInitializedException();
@@ -112,6 +116,12 @@ public class ElasticsearchConnectionManager
 	public ElasticsearchConnection getElasticsearchConnection(
 		boolean preferLocalCluster) {
 
+		return getElasticsearchConnection(null, preferLocalCluster);
+	}
+
+	public ElasticsearchConnection getElasticsearchConnection(
+		String localClusterConnectionId, boolean preferLocalCluster) {
+
 		if (_operationMode == null) {
 			return null;
 		}
@@ -122,7 +132,9 @@ public class ElasticsearchConnectionManager
 		}
 
 		if (preferLocalCluster && isCrossClusterReplicationEnabled()) {
-			String localClusterConnectionId = getLocalClusterConnectionId();
+			if (localClusterConnectionId == null) {
+				localClusterConnectionId = getLocalClusterConnectionId();
+			}
 
 			if (localClusterConnectionId != null) {
 				if (_log.isInfoEnabled()) {
@@ -168,8 +180,7 @@ public class ElasticsearchConnectionManager
 				localClusterConnectionConfigurations) {
 
 			List<String> localClusterConnectionConfigurationParts =
-				StringUtil.split(
-					localClusterConnectionConfiguration, CharPool.EQUAL);
+				StringUtil.split(localClusterConnectionConfiguration);
 
 			String hostName = localClusterConnectionConfigurationParts.get(0);
 
@@ -192,8 +203,7 @@ public class ElasticsearchConnectionManager
 				localClusterConnectionConfigurations) {
 
 			List<String> localClusterConnectionConfigurationParts =
-				StringUtil.split(
-					localClusterConnectionConfiguration, CharPool.EQUAL);
+				StringUtil.split(localClusterConnectionConfiguration);
 
 			connectionIds.add(localClusterConnectionConfigurationParts.get(1));
 		}
