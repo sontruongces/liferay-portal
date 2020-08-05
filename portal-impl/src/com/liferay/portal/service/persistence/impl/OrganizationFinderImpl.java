@@ -1129,10 +1129,10 @@ public class OrganizationFinderImpl
 				List<Organization> organizationsTree =
 					(List<Organization>)value;
 
-				PermissionChecker permissionChecker =
-					PermissionThreadLocal.getPermissionChecker();
-
 				if (!organizationsTree.isEmpty()) {
+					PermissionChecker permissionChecker =
+						PermissionThreadLocal.getPermissionChecker();
+
 					for (Organization organization : organizationsTree) {
 						StringBundler sb = new StringBundler(5);
 

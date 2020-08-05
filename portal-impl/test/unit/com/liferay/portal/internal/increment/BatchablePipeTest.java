@@ -245,8 +245,6 @@ public class BatchablePipeTest {
 
 		final IncreasableEntry<String, Integer> increasableEntry1 =
 			new IntegerIncreasableEntry("test", 1);
-		final IncreasableEntry<String, Integer> increasableEntry2 =
-			new IntegerIncreasableEntry("test", 2);
 		IncreasableEntry<String, Integer> increasableEntry3 =
 			new IntegerIncreasableEntry("test", 3);
 
@@ -265,6 +263,9 @@ public class BatchablePipeTest {
 						newValue) {
 
 					if (oldValue.increasableEntry == increasableEntry1) {
+						IncreasableEntry<String, Integer> increasableEntry2 =
+							new IntegerIncreasableEntry("test", 2);
+
 						put(
 							key,
 							new BatchablePipe.IncreasableEntryWrapper
