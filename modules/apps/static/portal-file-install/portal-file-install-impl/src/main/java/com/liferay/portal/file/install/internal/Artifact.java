@@ -51,7 +51,7 @@ public class Artifact {
 		_fileInstaller = fileInstaller;
 	}
 
-	public void setPath(File file) {
+	public void setFile(File file) {
 		_file = file;
 	}
 

@@ -691,7 +691,7 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 
 				artifact.setBundleId(bundle.getBundleId());
 				artifact.setChecksum(Util.loadChecksum(bundle, _bundleContext));
-				artifact.setPath(new File(path));
+				artifact.setFile(new File(path));
 
 				_setArtifact(new File(path), artifact);
 
@@ -948,8 +948,8 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 				else {
 					artifact = new Artifact();
 
-					artifact.setPath(file);
 					artifact.setChecksum(_scanner.getChecksum(file));
+					artifact.setFile(file);
 
 					createdArtifacts.add(artifact);
 				}
