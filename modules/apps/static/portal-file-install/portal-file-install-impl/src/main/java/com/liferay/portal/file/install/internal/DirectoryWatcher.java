@@ -1001,6 +1001,7 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 				_startBundles(_delayedStart);
 
 				_consistentlyFailingBundles.clear();
+
 				_consistentlyFailingBundles.addAll(_delayedStart);
 
 				_setStateChanged(false);
