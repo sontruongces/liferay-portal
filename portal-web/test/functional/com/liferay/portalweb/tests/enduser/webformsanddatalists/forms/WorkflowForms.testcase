@@ -143,6 +143,8 @@ definition {
 	@description = "This is a use case LPS-61197."
 	@priority = "5"
 	test ViewDateAssetDetails {
+		property test.name.skip.portal.instance = "WorkflowForms#ViewDateAssetDetails";
+
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
