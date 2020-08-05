@@ -922,9 +922,9 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 	}
 
 	private void _process(Set<File> files) throws InterruptedException {
+		List<Artifact> createdArtifacts = new ArrayList<>();
 		List<Artifact> deletedArtifacts = new ArrayList<>();
 		List<Artifact> modifiedArtifacts = new ArrayList<>();
-		List<Artifact> createdArtifacts = new ArrayList<>();
 
 		synchronized (_processingFailures) {
 			files.addAll(_processingFailures);
