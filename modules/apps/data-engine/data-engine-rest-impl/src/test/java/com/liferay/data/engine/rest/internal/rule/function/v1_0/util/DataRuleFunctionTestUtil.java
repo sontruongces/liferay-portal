@@ -44,14 +44,13 @@ public class DataRuleFunctionTestUtil {
 		DataDefinitionField dataDefinitionField = _randomDataDefinitionField(
 			fieldType);
 
+		Map<String, Object> dataRecordValues = getDataRecordValues();
+
 		return dataRuleFunction.validate(
 			dataDefinitionRuleParameters,
 			DataDefinitionFieldUtil.toSPIDataDefinitionField(
 				dataDefinitionField),
-			dataRecord.getDataRecordValues(
-			).get(
-				dataDefinitionField.getName()
-			));
+			dataRecordValues.get(dataDefinitionField.getName()));
 	}
 
 	private static DataDefinitionField _randomDataDefinitionField(

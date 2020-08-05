@@ -39,6 +39,7 @@ import java.util.stream.Stream;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -206,12 +207,15 @@ public class ActionUtil {
 
 		return HashMapBuilder.put(
 			"href",
-			uriInfo.getBaseUriBuilder(
-			).path(
-				_getVersion(uriInfo)
-			).path(
-				clazz.getSuperclass(), methodName
-			).toTemplate()
+			() -> {
+				UriBuilder uriBuilder = uriInfo.getBaseUriBuilder();
+
+				return uriBuilder.path(
+					_getVersion(uriInfo)
+				).path(
+					clazz.getSuperclass(), methodName
+				).toTemplate();
+			}
 		).put(
 			"method", httpMethodName
 		).build();
