@@ -47,12 +47,12 @@ public class Artifact {
 		_checksum = checksum;
 	}
 
-	public void setFileInstaller(FileInstaller fileInstaller) {
-		_fileInstaller = fileInstaller;
-	}
-
 	public void setFile(File file) {
 		_file = file;
+	}
+
+	public void setFileInstaller(FileInstaller fileInstaller) {
+		_fileInstaller = fileInstaller;
 	}
 
 	private long _bundleId = -1;
