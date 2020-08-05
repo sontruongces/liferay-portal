@@ -427,7 +427,7 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 			return;
 		}
 
-		Map<Bundle, List<Clause>> importMap = new HashMap<>();
+		Map<Bundle, List<Clause>> importClausesMap = new HashMap<>();
 
 		Iterator<Bundle> iterator = bundles.iterator();
 
@@ -445,7 +445,7 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 				iterator.remove();
 			}
 			else {
-				importMap.put(bundle, importClauses);
+				importClausesMap.put(bundle, importClauses);
 			}
 		}
 
@@ -474,7 +474,7 @@ public class DirectoryWatcher extends Thread implements BundleListener {
 		while (iterator.hasNext()) {
 			Bundle bundle = iterator.next();
 
-			List<Clause> importClauses = importMap.get(bundle);
+			List<Clause> importClauses = importClausesMap.get(bundle);
 
 			Iterator<Clause> importIterator = importClauses.iterator();
 
