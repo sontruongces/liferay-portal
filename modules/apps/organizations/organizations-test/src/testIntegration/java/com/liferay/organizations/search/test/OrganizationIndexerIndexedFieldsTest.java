@@ -22,6 +22,7 @@ import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Region;
@@ -50,6 +51,7 @@ import com.liferay.users.admin.test.util.search.UserSearchFixture;
 
 import java.io.Serializable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -148,7 +150,7 @@ public class OrganizationIndexerIndexedFieldsTest {
 
 	protected void setUpOrganizationFixture() throws Exception {
 		organizationFixture = new OrganizationFixture(
-			organizationService, countryService, regionService);
+			organizationService, countryService, regionService, language);
 
 		organizationFixture.setUp();
 
@@ -187,6 +189,10 @@ public class OrganizationIndexerIndexedFieldsTest {
 	protected ExpandoTableSearchFixture expandoTableSearchFixture;
 	protected Group group;
 	protected IndexedFieldsFixture indexedFieldsFixture;
+
+	@Inject
+	protected Language language;
+
 	protected OrganizationFixture organizationFixture;
 	protected IndexerFixture<Organization> organizationIndexerFixture;
 
@@ -204,16 +210,25 @@ public class OrganizationIndexerIndexedFieldsTest {
 
 	protected UserSearchFixture userSearchFixture;
 
-	private Map<String, String> _expectedFieldValues(Organization organization)
+	private Map<String, Object> _expectedFieldValues(Organization organization)
 		throws Exception {
-
-		String countryName = organizationFixture.getCountryNames(organization);
 
 		Region region = regionService.getRegion(organization.getRegionId());
 
 		String regionName = StringUtil.toLowerCase(region.getName());
 
-		Map<String, String> map = HashMapBuilder.put(
+		Map<String, String> map = new HashMap<>();
+
+		indexedFieldsFixture.populateUID(
+			Organization.class.getName(), organization.getOrganizationId(),
+			map);
+
+		_populateDates(organization, map);
+		_populateRoles(organization, map);
+
+		return HashMapBuilder.<String, Object>putAll(
+			map
+		).put(
 			Field.COMPANY_ID, String.valueOf(organization.getCompanyId())
 		).put(
 			Field.ENTRY_CLASS_NAME, Organization.class.getName()
@@ -231,11 +246,13 @@ public class OrganizationIndexerIndexedFieldsTest {
 		).put(
 			Field.TREE_PATH, organization.getTreePath()
 		).put(
+			Field.TYPE, organization.getType()
+		).put(
 			Field.USER_ID, String.valueOf(organization.getUserId())
 		).put(
 			Field.USER_NAME, StringUtil.toLowerCase(organization.getUserName())
 		).put(
-			"country", countryName
+			"country", organizationFixture.getCountryNames(organization)
 		).put(
 			"nameTreePath", organization.getName()
 		).put(
@@ -251,24 +268,13 @@ public class OrganizationIndexerIndexedFieldsTest {
 				StringBundler.concat("type", StringPool.UNDERLINE, "String")),
 			organization.getType()
 		).build();
-
-		indexedFieldsFixture.populateUID(
-			Organization.class.getName(), organization.getOrganizationId(),
-			map);
-
-		map.put(Field.TYPE, organization.getType());
-
-		_populateDates(organization, map);
-		_populateRoles(organization, map);
-
-		return map;
 	}
 
-	private Map<String, String> _expectedFieldValuesWithExpando(
+	private Map<String, Object> _expectedFieldValuesWithExpando(
 			Organization organization)
 		throws Exception {
 
-		Map<String, String> expectedFieldValues = _expectedFieldValues(
+		Map<String, Object> expectedFieldValues = _expectedFieldValues(
 			organization);
 
 		expectedFieldValues.put(

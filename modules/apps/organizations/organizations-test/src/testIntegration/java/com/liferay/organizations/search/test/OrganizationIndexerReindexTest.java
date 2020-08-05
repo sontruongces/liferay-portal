@@ -15,6 +15,7 @@
 package com.liferay.organizations.search.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.User;
@@ -86,7 +87,7 @@ public class OrganizationIndexerReindexTest {
 
 	protected void setUpOrganizationFixture() throws Exception {
 		organizationFixture = new OrganizationFixture(
-			organizationService, countryService, regionService);
+			organizationService, countryService, regionService, language);
 
 		organizationFixture.setUp();
 
@@ -114,6 +115,10 @@ public class OrganizationIndexerReindexTest {
 	protected CountryService countryService;
 
 	protected Group group;
+
+	@Inject
+	protected Language language;
+
 	protected OrganizationFixture organizationFixture;
 	protected IndexerFixture<Organization> organizationIndexerFixture;
 
