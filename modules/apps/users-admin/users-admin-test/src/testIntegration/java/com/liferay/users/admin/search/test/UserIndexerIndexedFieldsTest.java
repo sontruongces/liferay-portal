@@ -34,8 +34,8 @@ import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.search.test.util.FieldValuesAssert;
 import com.liferay.portal.search.test.util.IndexedFieldsFixture;
@@ -52,6 +52,7 @@ import com.liferay.users.admin.test.util.search.UserSearchFixture;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -298,7 +299,7 @@ public class UserIndexerIndexedFieldsTest {
 
 		map.put("organizationCount", String.valueOf(organizationIds.length));
 
-		map.put("roleIds", _getValues(user.getRoleIds()));
+		map.put("roleIds", _getStringValue(user.getRoleIds()));
 		map.put("screenName", user.getScreenName());
 		map.put(
 			"screenName_sortable",
@@ -331,16 +332,30 @@ public class UserIndexerIndexedFieldsTest {
 		return countryNames;
 	}
 
-	private String _getValues(List<String> stringValues) {
-		if (stringValues.size() == 1) {
-			return stringValues.get(0);
+	private String _getStringValue(List<String> values) {
+		if (values.isEmpty()) {
+			return "[]";
 		}
 
-		return String.valueOf(stringValues);
+		if (values.size() == 1) {
+			return values.get(0);
+		}
+
+		Collections.sort(values);
+
+		return String.valueOf(values);
 	}
 
-	private String _getValues(long[] longValues) {
-		return _getValues(Arrays.asList(ArrayUtil.toStringArray(longValues)));
+	private String _getStringValue(long[] longValues) {
+		if (longValues.length == 0) {
+			return "[]";
+		}
+
+		if (longValues.length == 1) {
+			return String.valueOf(longValues[0]);
+		}
+
+		return String.valueOf(ListUtil.fromArray(longValues));
 	}
 
 	private void _populateAddressFieldValues(
@@ -368,11 +383,11 @@ public class UserIndexerIndexedFieldsTest {
 			zips.add(StringUtil.toLowerCase(address.getZip()));
 		}
 
-		map.put("city", _getValues(cities));
-		map.put("country", _getValues(countries));
-		map.put("region", _getValues(regions));
-		map.put("street", _getValues(streets));
-		map.put("zip", _getValues(zips));
+		map.put("city", _getStringValue(cities));
+		map.put("country", _getStringValue(countries));
+		map.put("region", _getStringValue(regions));
+		map.put("street", _getStringValue(streets));
+		map.put("zip", _getStringValue(zips));
 	}
 
 	@DeleteAfterTestRun
