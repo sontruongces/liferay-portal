@@ -140,6 +140,7 @@ public class GetIndexIndexRequestExecutorImpl
 		GetIndexRequestBuilder getIndexRequestBuilder =
 			new GetIndexRequestBuilder(
 				_elasticsearchClientResolver.getClient(
+					getIndexIndexRequest.getConnectionId(),
 					getIndexIndexRequest.isPreferLocalCluster()),
 				GetIndexAction.INSTANCE);
 

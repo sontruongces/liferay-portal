@@ -25,4 +25,6 @@ public interface ElasticsearchClientResolver {
 
 	public Client getClient(boolean preferLocalCluster);
 
+	public Client getClient(String connectionId, boolean preferLocalCluster);
+
 }
