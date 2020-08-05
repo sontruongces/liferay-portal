@@ -284,17 +284,17 @@ public class EntityModelFieldMapper {
 						String.valueOf(value), String.valueOf(value)));
 			}
 		}
-		else if (expandoColumn.getType() == ExpandoColumnConstants.LONG_ARRAY) {
-			for (long value : (long[])expandoColumn.getDefaultValue()) {
+		else if (expandoColumn.getType() ==
+					ExpandoColumnConstants.INTEGER_ARRAY) {
+
+			for (int value : (int[])expandoColumn.getDefaultValue()) {
 				fieldOptions.add(
 					new Field.Option(
 						String.valueOf(value), String.valueOf(value)));
 			}
 		}
-		else if (expandoColumn.getType() ==
-					ExpandoColumnConstants.INTEGER_ARRAY) {
-
-			for (int value : (int[])expandoColumn.getDefaultValue()) {
+		else if (expandoColumn.getType() == ExpandoColumnConstants.LONG_ARRAY) {
+			for (long value : (long[])expandoColumn.getDefaultValue()) {
 				fieldOptions.add(
 					new Field.Option(
 						String.valueOf(value), String.valueOf(value)));
