@@ -25,6 +25,7 @@ import com.liferay.osb.provisioning.constants.ProvisioningActionKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.customer.model.AccountEntry;
 import com.liferay.osb.provisioning.customer.web.service.AccountEntryWebService;
+import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
@@ -128,6 +129,36 @@ public class ViewAccountDisplayContext {
 		assignParentAccountURL.setWindowState(LiferayWindowState.POP_UP);
 
 		data.put("assignParentAccountURL", assignParentAccountURL.toString());
+
+		PortletURL assignPartnerTeamURL = renderResponse.createActionURL();
+
+		assignPartnerTeamURL.setParameter(
+			"mvcRenderCommandName", "/accounts/assign_account_team");
+		assignPartnerTeamURL.setParameter("accountKey", account.getKey());
+		assignPartnerTeamURL.setParameter(
+			"teamKey", accountDisplay.getPartnerTeamKey());
+		assignPartnerTeamURL.setParameter(
+			"teamRoleName", TeamRoleConstants.NAME_PARTNER);
+		assignPartnerTeamURL.setWindowState(LiferayWindowState.POP_UP);
+
+		data.put("assignPartnerTeamURL", assignPartnerTeamURL.toString());
+
+		PortletURL assignFirstLineSupportTeamURL =
+			renderResponse.createRenderURL();
+
+		assignFirstLineSupportTeamURL.setParameter(
+			"mvcRenderCommandName", "/accounts/assign_account_team");
+		assignFirstLineSupportTeamURL.setParameter(
+			"accountKey", account.getKey());
+		assignFirstLineSupportTeamURL.setParameter(
+			"teamKey", accountDisplay.getFirstLineSupportTeamKey());
+		assignFirstLineSupportTeamURL.setParameter(
+			"teamRoleName", TeamRoleConstants.NAME_FIRST_LINE_SUPPORT);
+		assignFirstLineSupportTeamURL.setWindowState(LiferayWindowState.POP_UP);
+
+		data.put(
+			"assignFirstLineSupportTeamURL",
+			assignFirstLineSupportTeamURL.toString());
 
 		data.put("details", getAccountDisplay());
 

@@ -17,10 +17,19 @@ import {FIELD_TYPE_EXTERNAL, NAMESPACE} from '../../utilities/constants';
 import DetailField from '../DetailField';
 
 function PartnerInfo({
-	details,
-	editFirstLineSupportTeamURL = '',
-	editPartnerTeamURL = ''
+	assignFirstLineSupportTeamURL,
+	assignPartnerTeamURL,
+	details
 }) {
+	const firstLineSupportFormData = {
+		firstLineSupportTeamKey: '',
+		updateFirstLineSupport: true
+	};
+	const partnerFormData = {
+		partnerTeamKey: '',
+		updatePartner: true
+	};
+
 	return (
 		<ClayList>
 			<ClayList.Header>
@@ -32,9 +41,11 @@ function PartnerInfo({
 					formField: 'partnerTeamKey',
 					formName: `${NAMESPACE}updatePartnerFm`,
 					title: Liferay.Language.get('select-partner-team'),
-					url: editPartnerTeamURL
+					url: assignPartnerTeamURL
 				}}
 				fieldLabel={Liferay.Language.get('partner-reseller-si')}
+				formAction={details.editAccountURL}
+				formData={partnerFormData}
 				type={FIELD_TYPE_EXTERNAL}
 				value={details.partnerTeamName}
 			/>
@@ -46,9 +57,11 @@ function PartnerInfo({
 					title: Liferay.Language.get(
 						'select-first-line-support-team'
 					),
-					url: editFirstLineSupportTeamURL
+					url: assignFirstLineSupportTeamURL
 				}}
 				fieldLabel={Liferay.Language.get('first-line-support')}
+				formAction={details.editAccountURL}
+				formData={firstLineSupportFormData}
 				type={FIELD_TYPE_EXTERNAL}
 				value={details.firstLineSupportTeamName}
 			/>
@@ -57,13 +70,13 @@ function PartnerInfo({
 }
 
 PartnerInfo.propTypes = {
+	assignFirstLineSupportTeamURL: PropTypes.string,
+	assignPartnerTeamURL: PropTypes.string,
 	details: PropTypes.shape({
 		firstLineSupportTeamName: PropTypes.string,
 		key: PropTypes.string,
 		partnerTeamName: PropTypes.string
-	}),
-	editFirstLineSupportTeamURL: PropTypes.string,
-	editPartnerTeamURL: PropTypes.string
+	})
 };
 
 export default PartnerInfo;

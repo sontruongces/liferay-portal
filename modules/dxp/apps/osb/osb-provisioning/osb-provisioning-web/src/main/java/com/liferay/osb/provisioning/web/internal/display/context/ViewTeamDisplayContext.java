@@ -56,7 +56,8 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 
 		team = (Team)renderRequest.getAttribute(ProvisioningWebKeys.TEAM);
 
-		teamDisplay = new TeamDisplay(renderRequest, renderResponse, team);
+		teamDisplay = new TeamDisplay(
+			renderRequest, renderResponse, team, null);
 	}
 
 	public SearchContainer getContactsSearchContainer() throws Exception {

@@ -14,6 +14,7 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -42,17 +43,22 @@ public class TeamDisplay {
 
 	public TeamDisplay(
 		PortletRequest portletRequest, PortletResponse portletResponse,
-		Team team) {
+		Team team, Account account) {
 
 		_portletRequest = portletRequest;
 		_portletResponse = portletResponse;
 		_team = team;
+		_account = account;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a");
 		_httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 		_liferayPortletResponse = PortalUtil.getLiferayPortletResponse(
 			portletResponse);
+	}
+
+	public Account getAccount() {
+		return _account;
 	}
 
 	public String getContactNames() {
@@ -113,6 +119,7 @@ public class TeamDisplay {
 		return _team.getSystem();
 	}
 
+	private final Account _account;
 	private final Format _dateFormat;
 	private final HttpServletRequest _httpServletRequest;
 	private final LiferayPortletResponse _liferayPortletResponse;

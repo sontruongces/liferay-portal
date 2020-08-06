@@ -17,89 +17,72 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String parentAccountKey = ParamUtil.getString(request, "parentAccountKey");
+String teamKey = ParamUtil.getString(request, "teamKey");
 
-AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
+AssignAccountTeamDisplayContext assignAccountTeamDisplayContext = ProvisioningWebComponentProvider.getAssignAccountTeamDisplayContext(renderRequest, renderResponse, request);
 
-SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchContainer();
+String teamRoleName = ParamUtil.getString(request, "teamRoleName");
+
+SearchContainer searchContainer = assignAccountTeamDisplayContext.getSearchContainer(teamRoleName);
 %>
 
-<div class="container-fluid container-fluid-max-xl">
-	<clay:management-toolbar
-		clearResultsURL="<%= currentURL %>"
-		elementClasses="full-width"
-		itemsTotal="<%= accountSearchContainer.getTotal() %>"
-		searchActionURL="<%= currentURL %>"
-		searchContainerId="parentAccountContainer"
-		selectable="<%= false %>"
-		showSearch="<%= true %>"
-	/>
+<clay:management-toolbar
+	clearResultsURL="<%= assignAccountTeamDisplayContext.getClearResultsURL() %>"
+	elementClasses="full-width"
+	itemsTotal="<%= searchContainer.getTotal() %>"
+	searchActionURL="<%= assignAccountTeamDisplayContext.getCurrentURL() %>"
+	searchContainerId="teamContainer"
+	searchFormName="searchFm"
+	selectable="<%= true %>"
+	showSearch="<%= true %>"
+/>
 
+<div class="container-fluid container-fluid-max-xl">
 	<liferay-ui:search-container
 		cssClass="details-search-container"
-		id="parentAccountContainer"
-		searchContainer="<%= accountSearchContainer %>"
+		id="teamContainer"
+		searchContainer="<%= searchContainer %>"
+		var="teamsSearchContainer"
 	>
 		<liferay-ui:search-container-row
-			className="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay"
+			className="com.liferay.osb.provisioning.web.internal.display.context.TeamDisplay"
 			escapedModel="<%= true %>"
-			keyProperty="accountKey"
-			modelVar="accountDisplay"
+			keyProperty="teamKey"
+			modelVar="teamDisplay"
 		>
 
 			<%
 			Map<String, Object> accountData = new HashMap<String, Object>();
 
-			accountData.put("key", accountDisplay.getKey());
+			accountData.put("key", teamDisplay.getKey());
 
 			row.setData(accountData);
 
-			if (parentAccountKey.equals(accountDisplay.getKey())) {
+			if (teamKey.equals(teamDisplay.getKey())) {
 				row.setCssClass("active");
 			}
 			%>
 
 			<liferay-ui:search-container-column-text
-				name="name-code"
+				name="team-name"
 			>
-				<%= accountDisplay.getName() %>
+				<%= teamDisplay.getName() %>
+			</liferay-ui:search-container-column-text>
 
-				<div class="secondary-information">
-					<%= accountDisplay.getCode() %>
-				</div>
+			<%
+			Account teamAccount = teamDisplay.getAccount();
+			%>
+
+			<liferay-ui:search-container-column-text
+				name="account-name"
+			>
+				<%= teamAccount.getName() %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
-				name="support-end-date"
-				value="<%= accountDisplay.getSupportEndDate() %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="partner"
-				value="<%= HtmlUtil.escape(accountDisplay.getPartnerTeamName()) %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="region"
-				value="<%= accountDisplay.getRegion() %>"
-			/>
-
-			<liferay-ui:search-container-column-text
-				name="sla-tier"
+				name="account-code"
 			>
-				<%= HtmlUtil.escape(accountDisplay.getSLAName()) %>
-
-				<div class="secondary-information">
-					<%= accountDisplay.getTier() %>
-				</div>
-			</liferay-ui:search-container-column-text>
-
-			<liferay-ui:search-container-column-text
-				name="status"
-			>
-				<span class="label <%= accountDisplay.getStatusStyle() %>">
-					<%= accountDisplay.getStatus() %>
-				</span>
+				<%= teamAccount.getCode() %>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
@@ -111,7 +94,7 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 
 <aui:script>
 	var searchContainer = document.getElementById(
-		'<portlet:namespace />parentAccountContainerSearchContainer'
+		'<portlet:namespace />teamContainerSearchContainer'
 	);
 
 	var table = searchContainer.querySelector('tbody');

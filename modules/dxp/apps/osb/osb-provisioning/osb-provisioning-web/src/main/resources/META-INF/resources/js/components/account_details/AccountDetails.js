@@ -18,10 +18,10 @@ import GeneralDetails from './GeneralDetails';
 import PartnerInfo from './PartnerInfo';
 
 function AccountDetails({
+	assignFirstLineSupportTeamURL,
 	assignParentAccountURL,
+	assignPartnerTeamURL,
 	details,
-	editFirstLineSupportTeamURL,
-	editPartnerTeamURL,
 	parentAccountName,
 	statusNames,
 	tierNames
@@ -37,9 +37,9 @@ function AccountDetails({
 			/>
 
 			<PartnerInfo
+				assignFirstLineSupportTeamURL={assignFirstLineSupportTeamURL}
+				assignPartnerTeamURL={assignPartnerTeamURL}
 				details={details}
-				editFirstLineSupportTeamURL={editFirstLineSupportTeamURL}
-				editPartnerTeamURL={editPartnerTeamURL}
 			/>
 
 			<AccountAddresses
@@ -54,7 +54,9 @@ function AccountDetails({
 }
 
 AccountDetails.propTypes = {
+	assignFirstLineSupportTeamURL: PropTypes.string,
 	assignParentAccountURL: PropTypes.string,
+	assignPartnerTeamURL: PropTypes.string,
 	details: PropTypes.shape({
 		addPostalAddressURL: PropTypes.string,
 		code: PropTypes.string,
@@ -92,8 +94,6 @@ AccountDetails.propTypes = {
 		updateDossieraProjectURL: PropTypes.string,
 		updateSalesforceProjectURL: PropTypes.string
 	}),
-	editFirstLineSupportTeamURL: PropTypes.string,
-	editPartnerTeamURL: PropTypes.string,
 	parentAccountName: PropTypes.string,
 	statusNames: PropTypes.arrayOf(PropTypes.string),
 	tierNames: PropTypes.arrayOf(PropTypes.string)

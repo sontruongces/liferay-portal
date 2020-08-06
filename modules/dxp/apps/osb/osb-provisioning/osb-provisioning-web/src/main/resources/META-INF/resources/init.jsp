@@ -48,6 +48,7 @@ page import="com.liferay.osb.provisioning.service.ProductBundleLocalServiceUtil"
 page import="com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfiguration" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
+page import="com.liferay.osb.provisioning.web.internal.display.context.AssignAccountTeamDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AssignProductBundleProductsDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AssignTeamContactsDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AuditEntryDisplay" %><%@
