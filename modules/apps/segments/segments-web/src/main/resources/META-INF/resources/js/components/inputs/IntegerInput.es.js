@@ -25,7 +25,7 @@ class IntegerInput extends React.Component {
 	};
 
 	static defaultProps = {
-		options: [],
+		options: []
 	};
 
 	_handleIntegerChange = event => {
@@ -54,10 +54,10 @@ class IntegerInput extends React.Component {
 				data-testid="options-integer"
 				disabled={disabled}
 				onChange={this._handleIntegerChange}
-				options={options.map((o) => ({
+				options={options.map(o => ({
 					disabled: o.disabled,
 					label: o.label,
-					value: o.value,
+					value: o.value
 				}))}
 				value={value}
 			/>

@@ -71,12 +71,12 @@ describe('DecimalInput', () => {
 		const options = [
 			{
 				label: '1.00',
-				value: '1.00',
+				value: '1.00'
 			},
 			{
 				label: '2.00',
-				value: '2.00',
-			},
+				value: '2.00'
+			}
 		];
 
 		const {asFragment, getByTestId} = render(
@@ -95,7 +95,7 @@ describe('DecimalInput', () => {
 			element,
 			mockFunc: mockOnChange,
 			newValue: '2.00',
-			value: defaultNumberValue,
+			value: defaultNumberValue
 		});
 	});
 
@@ -106,12 +106,12 @@ describe('DecimalInput', () => {
 			{
 				disabled: true,
 				label: '1.00',
-				value: '1.00',
+				value: '1.00'
 			},
 			{
 				label: '2.00',
-				value: '2.00',
-			},
+				value: '2.00'
+			}
 		];
 
 		const {asFragment, getByTestId} = render(
@@ -130,7 +130,7 @@ describe('DecimalInput', () => {
 			element,
 			mockFunc: mockOnChange,
 			newValue: '2.00',
-			value: defaultNumberValue,
+			value: defaultNumberValue
 		});
 	});
 });

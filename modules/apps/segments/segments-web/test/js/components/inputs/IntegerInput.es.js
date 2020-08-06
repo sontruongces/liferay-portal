@@ -52,12 +52,12 @@ describe('IntegerInput', () => {
 		const options = [
 			{
 				label: '1',
-				value: '1',
+				value: '1'
 			},
 			{
 				label: '2',
-				value: '2',
-			},
+				value: '2'
+			}
 		];
 
 		const {asFragment, getByTestId} = render(
@@ -76,7 +76,7 @@ describe('IntegerInput', () => {
 			element,
 			mockFunc: mockOnChange,
 			newValue: '2',
-			value: defaultNumberValue,
+			value: defaultNumberValue
 		});
 	});
 
@@ -87,12 +87,12 @@ describe('IntegerInput', () => {
 			{
 				disabled: true,
 				label: '1',
-				value: '1',
+				value: '1'
 			},
 			{
 				label: '2',
-				value: '2',
-			},
+				value: '2'
+			}
 		];
 
 		const {asFragment, getByTestId} = render(
@@ -111,7 +111,7 @@ describe('IntegerInput', () => {
 			element,
 			mockFunc: mockOnChange,
 			newValue: '2',
-			value: defaultNumberValue,
+			value: defaultNumberValue
 		});
 	});
 });

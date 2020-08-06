@@ -25,7 +25,7 @@ class DecimalInput extends React.Component {
 	};
 
 	static defaultProps = {
-		options: [],
+		options: []
 	};
 
 	_handleDecimalBlur = event => {
@@ -58,10 +58,10 @@ class DecimalInput extends React.Component {
 				data-testid="options-decimal"
 				disabled={disabled}
 				onChange={this._handleDecimalChange}
-				options={options.map((o) => ({
+				options={options.map(o => ({
 					disabled: o.disabled,
 					label: o.label,
-					value: o.value,
+					value: o.value
 				}))}
 				value={value}
 			/>
