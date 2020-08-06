@@ -22,6 +22,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductConsumptionWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
@@ -29,6 +30,7 @@ import com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDi
 import com.liferay.osb.provisioning.web.internal.display.context.AssignProductBundleProductsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.AssignTeamContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ContactSearchDisplayContext;
+import com.liferay.osb.provisioning.web.internal.display.context.EditProductPurchaseDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ProductSearchDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountContactsDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountDisplayContext;
@@ -93,6 +95,17 @@ public class ProvisioningWebComponentProvider {
 		return _provisioningWebComponentProvider.
 			_getContactSearchDisplayContext(
 				renderRequest, renderResponse, httpServletRequest);
+	}
+
+	public static EditProductPurchaseDisplayContext
+			getEditProductPurchaseDisplayContext(
+				RenderRequest renderRequest, RenderResponse renderResponse,
+				HttpServletRequest httpServletRequest)
+		throws Exception {
+
+		return _provisioningWebComponentProvider._getViewAccountDisplayContext(
+			EditProductPurchaseDisplayContext.class, renderRequest,
+			renderResponse, httpServletRequest);
 	}
 
 	public static ProductSearchDisplayContext getProductSearchDisplayContext(
@@ -262,7 +275,8 @@ public class ProvisioningWebComponentProvider {
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_accountEntryWebService, _accountWebService, _auditEntryWebService,
 			_contactRoleWebService, _contactWebService, _externalLinkWebService,
-			_noteWebService, _productPurchaseViewWebService, _teamWebService);
+			_noteWebService, _productConsumptionWebService,
+			_productPurchaseViewWebService, _teamWebService);
 
 		httpServletRequest.setAttribute(
 			clazz.getName(), viewAccountDisplayContext);
@@ -322,6 +336,9 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private NoteWebService _noteWebService;
+
+	@Reference
+	private ProductConsumptionWebService _productConsumptionWebService;
 
 	@Reference
 	private ProductPurchaseViewWebService _productPurchaseViewWebService;

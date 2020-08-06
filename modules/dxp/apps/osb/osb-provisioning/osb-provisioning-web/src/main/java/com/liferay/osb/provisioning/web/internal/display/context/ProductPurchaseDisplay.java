@@ -39,7 +39,7 @@ public class ProductPurchaseDisplay {
 
 	public ProductPurchaseDisplay(
 		HttpServletRequest httpServletRequest, ProductPurchase productPurchase,
-		int productConsumptionsCount) {
+		long productConsumptionsCount) {
 
 		_httpServletRequest = httpServletRequest;
 		_productPurchase = productPurchase;
@@ -208,7 +208,7 @@ public class ProductPurchaseDisplay {
 	private final Format _dateFormat;
 	private final HttpServletRequest _httpServletRequest;
 	private final ProductPurchase _productPurchase;
-	private final int _provisionedCount;
+	private final long _provisionedCount;
 	private final String _salesforceOpportunityKey;
 	private final String _salesforceOpportunityURL;
 	private final int _sizing;

@@ -19,11 +19,10 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ProductPurchaseDisplayContext productPurchaseDisplayContext = new ProductPurchaseDisplayContext(renderRequest, renderResponse, request);
+EditProductPurchaseDisplayContext editProductPurchaseDisplayContext = ProvisioningWebComponentProvider.getEditProductPurchaseDisplayContext(renderRequest, renderResponse, request);
 
-ProductPurchaseDisplay productPurchaseDisplay = productPurchaseDisplayContext.getProductPurchaseDisplay();
-
-Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+ProductPurchase productPurchase = editProductPurchaseDisplayContext.getProductPurchase();
+ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContext.getProductPurchaseDisplay();
 %>
 
 <div class="account-add-items nav">
@@ -33,7 +32,7 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 		title="edit-subscription"
 	/>
 
-	<portlet:actionURL name="/accounts/edit_product_purchase" var="editSubscriptionURL">
+	<portlet:actionURL name="/accounts/edit_product_purchase" var="editProductPurchaseURL">
 		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
 		<portlet:param name="redirect" value="<%= redirect %>" />
 		<portlet:param name="productPurchaseKey" value="<%= productPurchaseDisplay.getKey() %>" />
@@ -48,7 +47,7 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 		<%= httpException.getMessage() %>
 	</liferay-ui:error>
 
-	<aui:form action="<%= editSubscriptionURL.toString() %>" method="post" name="fm">
+	<aui:form action="<%= editProductPurchaseURL.toString() %>" method="post" name="fm">
 		<div>
 			<table class="table table-autofit table-list table-nowrap">
 				<thead>
@@ -95,7 +94,7 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 							<%= productPurchaseDisplay.getProductName() %>
 						</td>
 						<td class="table-cell-expand">
-							<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= productPurchaseDisplay.getQuantity() %>" />
+							<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= productPurchase.getQuantity() %>" />
 						</td>
 
 						<%
@@ -103,85 +102,95 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 						%>
 
 						<td class="table-cell-expand">
-							<aui:input checked="<%= productPurchaseDisplay.isPerpetual() ? true : false %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
+							<aui:input checked="<%= productPurchase.getPerpetual() %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
 						</td>
 
 						<%
-						if (productPurchaseDisplay.getStartDate() != null) {
-							cal.setTime(productPurchaseDisplay.getStartDate());
+						Calendar startCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+						if (productPurchase.getStartDate() != null) {
+							startCal.setTime(productPurchase.getStartDate());
 						}
 						%>
 
 						<td class="table-cell-expand">
 							<liferay-ui:input-date
 								dayParam="startDateDay"
-								dayValue="<%= cal.get(Calendar.DATE) %>"
-								disabled="<%= productPurchaseDisplay.isPerpetual() %>"
+								dayValue="<%= startCal.get(Calendar.DATE) %>"
+								disabled="<%= productPurchase.getPerpetual() %>"
 								monthParam="startDateMonth"
-								monthValue="<%= cal.get(Calendar.MONTH) %>"
+								monthValue="<%= startCal.get(Calendar.MONTH) %>"
 								name="startDate"
 								yearParam="startDateYear"
-								yearValue="<%= cal.get(Calendar.YEAR) %>"
+								yearValue="<%= startCal.get(Calendar.YEAR) %>"
 							/>
 						</td>
 
 						<%
-						cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+						Calendar endCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
-						if (productPurchaseDisplay.getEndDate() != null) {
-							cal.setTime(productPurchaseDisplay.getEndDate());
+						if (productPurchase.getEndDate() != null) {
+							endCal.setTime(productPurchase.getEndDate());
 						}
 						%>
 
 						<td class="table-cell-expand">
 							<liferay-ui:input-date
 								dayParam="endDateDay"
-								dayValue="<%= cal.get(Calendar.DATE) %>"
-								disabled="<%= productPurchaseDisplay.isPerpetual() %>"
+								dayValue="<%= endCal.get(Calendar.DATE) %>"
+								disabled="<%= productPurchase.getPerpetual() %>"
 								monthParam="endDateMonth"
-								monthValue="<%= cal.get(Calendar.MONTH) %>"
+								monthValue="<%= endCal.get(Calendar.MONTH) %>"
 								name="endDate"
 								yearParam="endDateYear"
-								yearValue="<%= cal.get(Calendar.YEAR) %>"
+								yearValue="<%= endCal.get(Calendar.YEAR) %>"
 							/>
 						</td>
 						<td class="table-cell-expand">
-							<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= productPurchaseDisplay.getSizing() %>" />
+
+							<%
+							int sizing = 0;
+
+							Map<String, String> properties = productPurchase.getProperties();
+
+							if (properties != null) {
+								sizing = GetterUtil.getInteger(properties.get("sizing"));
+							}
+							%>
+
+							<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= sizing %>" />
 						</td>
 
 						<%
-						cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+						Calendar originalEndCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
-						if (productPurchaseDisplay.getOriginalEndDate() != null) {
-							cal.setTime(productPurchaseDisplay.getOriginalEndDate());
+						if (productPurchase.getOriginalEndDate() != null) {
+							originalEndCal.setTime(productPurchase.getOriginalEndDate());
 						}
 						%>
 
 						<td class="table-cell-expand">
 							<liferay-ui:input-date
 								dayParam="gracePeriodEndDateDay"
-								dayValue="<%= cal.get(Calendar.DATE) %>"
-								disabled="<%= productPurchaseDisplay.isPerpetual() %>"
+								dayValue="<%= originalEndCal.get(Calendar.DATE) %>"
+								disabled="<%= productPurchase.getPerpetual() %>"
 								monthParam="gracePeriodEndDateMonth"
-								monthValue="<%= cal.get(Calendar.MONTH) %>"
+								monthValue="<%= originalEndCal.get(Calendar.MONTH) %>"
 								name="gracePeriodEndDate"
 								yearParam="gracePeriodEndDateYear"
-								yearValue="<%= cal.get(Calendar.YEAR) %>"
+								yearValue="<%= originalEndCal.get(Calendar.YEAR) %>"
 							/>
 						</td>
 						<td class="table-cell-expand">
 							<aui:select cssClass="account-edit-subscription" label="" name="status">
-								<aui:option label="<%= productPurchaseDisplay.getStatus() %>" value="<%= productPurchaseDisplay.getStatus() %>" />
 
 								<%
 								for (ProductPurchase.Status status : ProductPurchase.Status.values()) {
-									if (!productPurchaseDisplay.getStatus().equals(status.toString())) {
 								%>
 
-										<aui:option label="<%= status.toString() %>" value="<%= status.toString() %>" />
+									<aui:option label="<%= status.toString() %>" selected="<%= productPurchase.getStatus() == status %>" value="<%= status.toString() %>" />
 
 								<%
-									}
 								}
 								%>
 
@@ -194,7 +203,7 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 							<%= productPurchaseDisplay.getSalesforceOpportunityKey() %>
 						</td>
 						<td class="table-cell-expand">
-							<%= productPurchaseDisplayContext.getAccountName() %>
+							<%= editProductPurchaseDisplayContext.getAccountName() %>
 						</td>
 					</tr>
 				</tbody>

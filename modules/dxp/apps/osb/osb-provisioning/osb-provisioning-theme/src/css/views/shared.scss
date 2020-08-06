@@ -27,6 +27,10 @@
 	max-width: 66.666667%;
 }
 
+.account-edit-subscription {
+	margin-top: $spacing-default;
+}
+
 .account-header,
 .contact-header,
 .subscription-header,
@@ -206,8 +210,4 @@
 			margin-left: $spacing-md;
 		}
 	}
-}
-
-.account-edit-subscription {
-	margin-top: $spacing-default;
 }

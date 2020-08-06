@@ -32,6 +32,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductConsumptionWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -549,6 +550,7 @@ public class ViewAccountDisplayContext {
 			ContactWebService contactWebService,
 			ExternalLinkWebService externalLinkWebService,
 			NoteWebService noteWebService,
+			ProductConsumptionWebService productConsumptionWebService,
 			ProductPurchaseViewWebService productPurchaseViewWebService,
 			TeamWebService teamWebService)
 		throws Exception {
@@ -564,6 +566,7 @@ public class ViewAccountDisplayContext {
 		this.contactWebService = contactWebService;
 		this.externalLinkWebService = externalLinkWebService;
 		this.noteWebService = noteWebService;
+		this.productConsumptionWebService = productConsumptionWebService;
 		this.productPurchaseViewWebService = productPurchaseViewWebService;
 		this.teamWebService = teamWebService;
 
@@ -596,6 +599,7 @@ public class ViewAccountDisplayContext {
 	protected ExternalLinkWebService externalLinkWebService;
 	protected HttpServletRequest httpServletRequest;
 	protected NoteWebService noteWebService;
+	protected ProductConsumptionWebService productConsumptionWebService;
 	protected ProductPurchaseViewWebService productPurchaseViewWebService;
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;

@@ -82,7 +82,7 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 			renderRequest, currentURLObj, Collections.emptyList(),
 			"no-purchases-were-found");
 
-		Map<String, Integer> productConsumptionsCount = new HashMap<>();
+		Map<String, Long> productConsumptionsCount = new HashMap<>();
 
 		ProductConsumption[] productConsumptions =
 			_productPurchaseView.getProductConsumptions();
@@ -93,9 +93,9 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 					productConsumption.getProductPurchaseKey();
 
 				if (Validator.isNotNull(productPurchaseKey)) {
-					int curProductConsumptionsCount =
+					long curProductConsumptionsCount =
 						productConsumptionsCount.getOrDefault(
-							productPurchaseKey, 0);
+							productPurchaseKey, 0L);
 
 					productConsumptionsCount.put(
 						productPurchaseKey, curProductConsumptionsCount + 1);
@@ -113,7 +113,7 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 					productPurchase -> new ProductPurchaseDisplay(
 						httpServletRequest, productPurchase,
 						productConsumptionsCount.getOrDefault(
-							productPurchase.getKey(), 0))));
+							productPurchase.getKey(), 0L))));
 
 			searchContainer.setTotal(productPurchases.length);
 		}

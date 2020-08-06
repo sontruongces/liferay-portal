@@ -33,7 +33,6 @@ ProductPurchaseDisplay productPurchaseDisplay = (ProductPurchaseDisplay)row.getO
 		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="productPurchaseKey" value="<%= productPurchaseDisplay.getKey() %>" />
-		<portlet:param name="provisionedCount" value="<%= productPurchaseDisplay.getProvisionedCount() %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon
