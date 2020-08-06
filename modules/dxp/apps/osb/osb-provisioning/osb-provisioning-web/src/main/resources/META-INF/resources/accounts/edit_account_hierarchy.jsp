@@ -30,14 +30,14 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 		elementClasses="full-width"
 		itemsTotal="<%= accountSearchContainer.getTotal() %>"
 		searchActionURL="<%= currentURL %>"
-		searchContainerId="assignParentAccount"
+		searchContainerId="parentAccountContainer"
 		selectable="<%= false %>"
 		showSearch="<%= true %>"
 	/>
 
 	<liferay-ui:search-container
 		cssClass="parent-account-container"
-		id="assignParentAccount"
+		id="parentAccountContainer"
 		searchContainer="<%= accountSearchContainer %>"
 	>
 		<liferay-ui:search-container-row
@@ -111,44 +111,36 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 
 <aui:script>
 	var searchContainer = document.getElementById(
-		'<portlet:namespace />assignParentAccountSearchContainer'
+		'<portlet:namespace />parentAccountContainerSearchContainer'
 	);
 
-	var table = searchContainer.getElementsByTagName('tbody');
+	var table = searchContainer.querySelector('tbody');
 
 	if (table) {
-		var nodeList = table[0].getElementsByTagName('tr');
+		var tableRows = table.querySelectorAll('tr');
 
-		if (nodeList) {
-			Array.prototype.slice.call(nodeList).forEach(selectRow);
-		}
+		tableRows.forEach(selectRow);
 	}
 
 	function selectRow(row) {
-		if (row) {
-			row.addEventListener('click', function() {
-				var activeRow = document.getElementsByClassName('active');
+		row.addEventListener('click', function() {
+			var activeRows = Array.from(document.getElementsByClassName('active'));
 
-				if (activeRow) {
-					Array.prototype.slice.call(activeRow).forEach(resetRow);
-				}
+			activeRows.forEach(resetRow);
 
-				this.classList.add('active');
+			this.classList.add('active');
 
-				var rowData = this.dataset;
+			var rowData = this.dataset;
 
-				if (rowData) {
-					Liferay.Util.getOpener().Liferay.fire('selectedItemChange', {
-						data: rowData.key
-					});
-				}
-			});
-		}
+			if (rowData) {
+				Liferay.Util.getOpener().Liferay.fire('selectedItemChange', {
+					data: rowData.key
+				});
+			}
+		});
 	}
 
 	function resetRow(row) {
-		if (row) {
-			row.classList.remove('active');
-		}
+		row.classList.remove('active');
 	}
 </aui:script>
