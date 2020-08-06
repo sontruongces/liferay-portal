@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.AccountCodeException;
 import com.liferay.osb.koroneiki.taproot.exception.AccountNameException;
+import com.liferay.osb.koroneiki.taproot.exception.ParentAccountException;
 import com.liferay.osb.koroneiki.taproot.exception.RequiredAccountException;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
@@ -88,7 +89,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		code = StringUtil.toUpperCase(code);
 
-		validate(0, name, code);
+		validate(0, name, code, 0);
 
 		if (Validator.isNull(status)) {
 			status =
@@ -275,7 +276,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		code = StringUtil.toUpperCase(code);
 
-		validate(accountId, name, code);
+		validate(accountId, name, code, parentAccountId);
 
 		Account account = accountPersistence.findByPrimaryKey(accountId);
 
@@ -309,7 +310,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			false, false);
 	}
 
-	protected void validate(long accountId, String name, String code)
+	protected void validate(
+			long accountId, String name, String code, long parentAccountId)
 		throws PortalException {
 
 		if (Validator.isNull(name)) {
@@ -321,6 +323,24 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 			if ((account != null) && (account.getAccountId() != accountId)) {
 				throw new AccountCodeException.MustNotBeDuplicate(code);
+			}
+		}
+
+		if (parentAccountId != 0) {
+			if (accountId == parentAccountId) {
+				throw new ParentAccountException(
+					"Please select a valid parent account");
+			}
+
+			Account parentAccount = getAccount(parentAccountId);
+
+			while (parentAccount.getParentAccountId() != 0) {
+				if (parentAccount.getParentAccountId() == accountId) {
+					throw new ParentAccountException(
+						"Please select a valid parent account");
+				}
+
+				parentAccount = getAccount(parentAccount.getParentAccountId());
 			}
 		}
 	}

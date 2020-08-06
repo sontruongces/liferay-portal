@@ -329,6 +329,7 @@
 		<exception>ContactRoleName</exception>
 		<exception>ContactRoleSystem</exception>
 		<exception>ContactRoleType</exception>
+		<exception>ParentAccount</exception>
 		<exception>RequiredAccount</exception>
 		<exception>TeamName</exception>
 		<exception>TeamRoleName</exception>
