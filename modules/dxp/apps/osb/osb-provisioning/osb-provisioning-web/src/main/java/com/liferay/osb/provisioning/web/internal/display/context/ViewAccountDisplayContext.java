@@ -117,8 +117,6 @@ public class ViewAccountDisplayContext {
 	public Map<String, Object> getAccountDetailsData() throws Exception {
 		Map<String, Object> data = new HashMap<>();
 
-		data.put("details", getAccountDisplay());
-
 		PortletURL assignParentAccountURL = renderResponse.createRenderURL();
 
 		assignParentAccountURL.setParameter(
@@ -129,6 +127,8 @@ public class ViewAccountDisplayContext {
 		assignParentAccountURL.setWindowState(LiferayWindowState.POP_UP);
 
 		data.put("assignParentAccountURL", assignParentAccountURL.toString());
+
+		data.put("details", getAccountDisplay());
 
 		data.put("parentAccountName", getParentAccountName());
 
