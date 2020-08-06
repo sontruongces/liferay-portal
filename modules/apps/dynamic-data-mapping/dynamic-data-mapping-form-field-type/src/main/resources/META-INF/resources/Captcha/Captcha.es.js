@@ -42,26 +42,30 @@ class Captcha extends Component {
 
 		const DDM_PREFIX = 'ddm$$';
 
-		var namespace = this.name.substring(0, this.name.indexOf(DDM_PREFIX));
+		const namespace = this.name.substring(0, this.name.indexOf(DDM_PREFIX));
 
-		var refreshCaptcha = document.getElementById(
+		const refreshCaptcha = document.getElementById(
 			namespace + 'refreshCaptcha'
 		);
 
 		if (refreshCaptcha) {
-			var captcha = document.getElementById(namespace + 'captcha');
+			const captcha = document.getElementById(namespace + 'captcha');
 
-			if (!captcha || !captcha.src) {
-				return;
+			if (captcha && captcha.src) {
+				let url = captcha.src;
+
+				refreshCaptcha.addEventListener('click', () => {
+					const TIMESTAMP_REGEX = /(t=).*?($)/;
+					const REGEX_FIRST_MATCH = '$1';
+
+					url = url.replace(
+						TIMESTAMP_REGEX,
+						REGEX_FIRST_MATCH + Date.now()
+					);
+
+					captcha.setAttribute('src', url);
+				});
 			}
-
-			var url = captcha.src;
-
-			refreshCaptcha.addEventListener('click', () => {
-				url = url.replace(/(t=).*?($)/, '$1' + Date.now());
-
-				captcha.setAttribute('src', url);
-			});
 		}
 	}
 
