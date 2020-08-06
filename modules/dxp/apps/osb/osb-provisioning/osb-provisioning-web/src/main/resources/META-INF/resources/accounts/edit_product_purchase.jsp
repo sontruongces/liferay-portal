@@ -95,7 +95,7 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 							<%= productPurchaseDisplay.getProductName() %>
 						</td>
 						<td class="table-cell-expand">
-							<aui:input cssClass="account-edit-subscription" label="" name="purchased" value="<%= productPurchaseDisplay.getQuantity() %>" />
+							<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= productPurchaseDisplay.getQuantity() %>" />
 						</td>
 
 						<%
@@ -146,7 +146,7 @@ Calendar cal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 							/>
 						</td>
 						<td class="table-cell-expand">
-							<aui:input cssClass="account-edit-subscription" label="" name="instanceSize" value="<%= productPurchaseDisplay.getSizing() %>" />
+							<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= productPurchaseDisplay.getSizing() %>" />
 						</td>
 
 						<%

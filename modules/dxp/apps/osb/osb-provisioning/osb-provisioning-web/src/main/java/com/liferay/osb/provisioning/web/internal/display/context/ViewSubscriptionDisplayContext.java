@@ -93,12 +93,12 @@ public class ViewSubscriptionDisplayContext extends ViewAccountDisplayContext {
 					productConsumption.getProductPurchaseKey();
 
 				if (Validator.isNotNull(productPurchaseKey)) {
-					int curProductConsumptions =
+					int curProductConsumptionsCount =
 						productConsumptionsCount.getOrDefault(
 							productPurchaseKey, 0);
 
 					productConsumptionsCount.put(
-						productPurchaseKey, curProductConsumptions + 1);
+						productPurchaseKey, curProductConsumptionsCount + 1);
 				}
 			}
 		}

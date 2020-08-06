@@ -85,34 +85,13 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "productPurchaseKey");
 
 		boolean perpetual = ParamUtil.getBoolean(actionRequest, "perpetual");
-		int quantity = ParamUtil.getInteger(actionRequest, "purchased");
-		int sizing = ParamUtil.getInteger(actionRequest, "instanceSize");
+		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+		int sizing = ParamUtil.getInteger(actionRequest, "sizing");
 		String status = ParamUtil.getString(actionRequest, "status");
-
-		Map<String, String> properties = new HashMap<>();
-
-		ProductPurchase curProductPurchase =
-			_productPurchaseWebService.getProductPurchase(productPurchaseKey);
-
-		if (curProductPurchase != null) {
-			Map<String, String> curProperties =
-				curProductPurchase.getProperties();
-
-			if (curProperties != null) {
-				for (Map.Entry<String, String> entry :
-						curProperties.entrySet()) {
-
-					properties.put(entry.getKey(), entry.getValue());
-				}
-			}
-		}
-
-		properties.put("sizing", String.valueOf(sizing));
 
 		ProductPurchase productPurchase = new ProductPurchase();
 
 		productPurchase.setQuantity(quantity);
-		productPurchase.setProperties(properties);
 		productPurchase.setStatus(ProductPurchase.Status.create(status));
 
 		if (perpetual) {
@@ -155,6 +134,28 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			productPurchase.setEndDate(endDate);
 			productPurchase.setOriginalEndDate(originalEndDate);
 		}
+
+		Map<String, String> properties = new HashMap<>();
+
+		ProductPurchase curProductPurchase =
+			_productPurchaseWebService.getProductPurchase(productPurchaseKey);
+
+		if (curProductPurchase != null) {
+			Map<String, String> curProperties =
+				curProductPurchase.getProperties();
+
+			if (curProperties != null) {
+				for (Map.Entry<String, String> entry :
+						curProperties.entrySet()) {
+
+					properties.put(entry.getKey(), entry.getValue());
+				}
+			}
+		}
+
+		properties.put("sizing", String.valueOf(sizing));
+
+		productPurchase.setProperties(properties);
 
 		_productPurchaseWebService.updateProductPurchase(
 			user.getFullName(), StringPool.BLANK, productPurchaseKey,
