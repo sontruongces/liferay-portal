@@ -51,8 +51,8 @@ public class ViewAccountTeamsDisplayContext extends ViewAccountDisplayContext {
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, getSearchContainerPortletURL(),
-			Collections.emptyList(), "no-teams-were-found");
+			renderRequest, currentURLObj, Collections.emptyList(),
+			"no-teams-were-found");
 
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 

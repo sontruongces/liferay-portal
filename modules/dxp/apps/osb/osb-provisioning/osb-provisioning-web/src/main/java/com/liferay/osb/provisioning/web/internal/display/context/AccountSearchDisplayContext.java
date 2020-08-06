@@ -29,7 +29,6 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 import java.util.Collections;
 import java.util.List;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -51,12 +50,15 @@ public class AccountSearchDisplayContext {
 		_httpServletRequest = httpServletRequest;
 		_accountReader = accountReader;
 		_accountWebService = accountWebService;
+
+		_currentURLObj = PortletURLUtil.getCurrent(
+			_renderRequest, _renderResponse);
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, getSearchContainerPortletURL(),
-			Collections.emptyList(), "no-accounts-were-found");
+			_renderRequest, _currentURLObj, Collections.emptyList(),
+			"no-accounts-were-found");
 
 		String[] keywords = StringUtil.split(
 			ParamUtil.getString(_renderRequest, "keywords"), StringPool.SPACE);
@@ -103,24 +105,9 @@ public class AccountSearchDisplayContext {
 		return searchContainer;
 	}
 
-	public PortletURL getSearchContainerPortletURL() {
-		PortletURL portletURL = null;
-
-		PortletURL currentURLObj = PortletURLUtil.getCurrent(
-			_renderRequest, _renderResponse);
-
-		try {
-			portletURL = PortletURLUtil.clone(currentURLObj, _renderResponse);
-		}
-		catch (PortletException portletException) {
-			portletURL = _renderResponse.createRenderURL();
-		}
-
-		return portletURL;
-	}
-
 	private final AccountReader _accountReader;
 	private final AccountWebService _accountWebService;
+	private final PortletURL _currentURLObj;
 	private final HttpServletRequest _httpServletRequest;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;

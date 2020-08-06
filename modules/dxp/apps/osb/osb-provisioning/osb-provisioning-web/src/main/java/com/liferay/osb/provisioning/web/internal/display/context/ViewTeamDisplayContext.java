@@ -69,8 +69,8 @@ public class ViewTeamDisplayContext extends ViewAccountDisplayContext {
 		}
 
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, getSearchContainerPortletURL(),
-			Collections.emptyList(), emptyResultsMessage);
+			renderRequest, currentURLObj, Collections.emptyList(),
+			emptyResultsMessage);
 
 		StringBundler sb = new StringBundler(3);
 

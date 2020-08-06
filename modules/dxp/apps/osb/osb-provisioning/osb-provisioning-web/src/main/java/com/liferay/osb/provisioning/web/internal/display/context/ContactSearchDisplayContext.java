@@ -26,7 +26,6 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 import java.util.Collections;
 import java.util.List;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -49,12 +48,15 @@ public class ContactSearchDisplayContext {
 		_httpServletRequest = httpServletRequest;
 		_accountWebService = accountWebService;
 		_contactWebService = contactWebService;
+
+		_currentURLObj = PortletURLUtil.getCurrent(
+			_renderRequest, _renderResponse);
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, getSearchContainerPortletURL(),
-			Collections.emptyList(), "no-contacts-were-found");
+			_renderRequest, _currentURLObj, Collections.emptyList(),
+			"no-contacts-were-found");
 
 		String keywords = ParamUtil.getString(_renderRequest, "keywords");
 
@@ -80,24 +82,9 @@ public class ContactSearchDisplayContext {
 		return searchContainer;
 	}
 
-	public PortletURL getSearchContainerPortletURL() {
-		PortletURL portletURL = null;
-
-		PortletURL currentURLObj = PortletURLUtil.getCurrent(
-			_renderRequest, _renderResponse);
-
-		try {
-			portletURL = PortletURLUtil.clone(currentURLObj, _renderResponse);
-		}
-		catch (PortletException portletException) {
-			portletURL = _renderResponse.createRenderURL();
-		}
-
-		return portletURL;
-	}
-
 	private final AccountWebService _accountWebService;
 	private final ContactWebService _contactWebService;
+	private final PortletURL _currentURLObj;
 	private final HttpServletRequest _httpServletRequest;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;

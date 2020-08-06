@@ -23,7 +23,7 @@ import {convertDashToEmptyString} from '../../utilities/helpers';
 import DetailField from '../DetailField';
 
 function GeneralDetails({
-	assignParentAccountURL = '',
+	assignParentAccountURL,
 	details,
 	parentAccountName,
 	statuses,

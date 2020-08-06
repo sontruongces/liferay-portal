@@ -48,11 +48,11 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 		>
 
 			<%
-			Map<String, Object> productData = new HashMap<String, Object>();
+			Map<String, Object> accountData = new HashMap<String, Object>();
 
-			productData.put("key", accountDisplay.getKey());
+			accountData.put("key", accountDisplay.getKey());
 
-			row.setData(productData);
+			row.setData(accountData);
 
 			if (parentAccountKey.equals(accountDisplay.getKey())) {
 				row.setCssClass("active");

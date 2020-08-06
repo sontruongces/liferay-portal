@@ -53,8 +53,8 @@ public class AssignTeamContactsDisplayContext extends ViewTeamDisplayContext {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		SearchContainer searchContainer = new SearchContainer(
-			renderRequest, getSearchContainerPortletURL(),
-			Collections.emptyList(), "no-contacts-were-found");
+			renderRequest, currentURLObj, Collections.emptyList(),
+			"no-contacts-were-found");
 
 		StringBundler sb = new StringBundler(3);
 
