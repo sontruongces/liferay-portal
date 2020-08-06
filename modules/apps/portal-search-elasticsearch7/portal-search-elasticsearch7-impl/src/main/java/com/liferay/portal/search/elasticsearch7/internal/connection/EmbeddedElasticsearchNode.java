@@ -28,6 +28,7 @@ import org.elasticsearch.analysis.common.CommonAnalysisPlugin;
 import org.elasticsearch.common.logging.LogConfigurator;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
+import org.elasticsearch.index.mapper.MapperExtrasPlugin;
 import org.elasticsearch.index.reindex.ReindexPlugin;
 import org.elasticsearch.node.InternalSettingsPreparer;
 import org.elasticsearch.node.Node;
@@ -45,8 +46,8 @@ public class EmbeddedElasticsearchNode extends Node {
 			settings, Collections.emptyMap(), null, () -> "liferay");
 
 		List<Class<? extends Plugin>> classpathPlugins = Arrays.asList(
-			CommonAnalysisPlugin.class, Netty4Plugin.class,
-			PainlessPlugin.class, ReindexPlugin.class);
+			CommonAnalysisPlugin.class, MapperExtrasPlugin.class,
+			Netty4Plugin.class, PainlessPlugin.class, ReindexPlugin.class);
 
 		try {
 			LogConfigurator.registerErrorListener();
