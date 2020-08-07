@@ -324,12 +324,12 @@
 	<exceptions>
 		<exception>AccountCode</exception>
 		<exception>AccountName</exception>
+		<exception>AccountParent</exception>
 		<exception>ContactEmailAddress</exception>
 		<exception>ContactOktaId</exception>
 		<exception>ContactRoleName</exception>
 		<exception>ContactRoleSystem</exception>
 		<exception>ContactRoleType</exception>
-		<exception>ParentAccount</exception>
 		<exception>RequiredAccount</exception>
 		<exception>TeamName</exception>
 		<exception>TeamRoleName</exception>

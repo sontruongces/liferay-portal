@@ -20,39 +20,40 @@ import com.liferay.portal.kernel.exception.PortalException;
  * @author Yuanyuan Huang
  * @author Kyle Bischof
  */
-public class ParentAccountException extends PortalException {
+public class AccountParentException extends PortalException {
 
-	public ParentAccountException() {
+	public AccountParentException() {
 	}
 
-	public ParentAccountException(String msg) {
+	public AccountParentException(String msg) {
 		super(msg);
 	}
 
-	public ParentAccountException(String msg, Throwable cause) {
+	public AccountParentException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public ParentAccountException(Throwable cause) {
+	public AccountParentException(Throwable cause) {
 		super(cause);
 	}
 
-	public static class MustNotBeChild extends ParentAccountException {
+	public static class MustNotBeDescendant extends AccountParentException {
 
-		public MustNotBeChild(String accountId) {
+		public MustNotBeDescendant(String accountId) {
 			super(
 				String.format(
-					"The parent account must not be a child of %s", accountId));
+					"The parent account must not be a descendant of %s",
+					accountId));
 		}
 
 	}
 
-	public static class MustNotBeIdentical extends ParentAccountException {
+	public static class MustNotBeSelf extends AccountParentException {
 
-		public MustNotBeIdentical(String accountId) {
+		public MustNotBeSelf(String accountId) {
 			super(
 				String.format(
-					"The parent account must be different than %s", accountId));
+					"The parent account %s cannot be itself", accountId));
 		}
 
 	}

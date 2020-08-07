@@ -19,7 +19,7 @@ import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.AccountCodeException;
 import com.liferay.osb.koroneiki.taproot.exception.AccountNameException;
-import com.liferay.osb.koroneiki.taproot.exception.ParentAccountException;
+import com.liferay.osb.koroneiki.taproot.exception.AccountParentException;
 import com.liferay.osb.koroneiki.taproot.exception.RequiredAccountException;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Team;
@@ -328,7 +328,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		if (parentAccountId != 0) {
 			if (accountId == parentAccountId) {
-				throw new ParentAccountException.MustNotBeIdentical(
+				throw new AccountParentException.MustNotBeSelf(
 					String.valueOf(accountId));
 			}
 
@@ -336,7 +336,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 			while (parentAccount.getParentAccountId() != 0) {
 				if (parentAccount.getParentAccountId() == accountId) {
-					throw new ParentAccountException.MustNotBeChild(
+					throw new AccountParentException.MustNotBeDescendant(
 						String.valueOf(accountId));
 				}
 
