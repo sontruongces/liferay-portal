@@ -157,10 +157,10 @@ public class DateRangeFactory {
 	}
 
 	protected void validateDateFormat(String date) throws ParseException {
-		DateFormat dateFormat = _dateFormatFactory.getSimpleDateFormat(
-			"yyyyMMddHHmmss");
-
 		if (!ArrayUtil.contains(_ALIASES, date)) {
+			DateFormat dateFormat = _dateFormatFactory.getSimpleDateFormat(
+				"yyyyMMddHHmmss");
+
 			dateFormat.parse(date);
 		}
 	}
