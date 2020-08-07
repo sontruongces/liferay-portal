@@ -17,7 +17,8 @@ package com.liferay.osb.koroneiki.taproot.exception;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Yuanyuan Huang
+ * @author Kyle Bischof
  */
 public class ParentAccountException extends PortalException {
 
@@ -34,6 +35,26 @@ public class ParentAccountException extends PortalException {
 
 	public ParentAccountException(Throwable cause) {
 		super(cause);
+	}
+
+	public static class MustNotBeChild extends ParentAccountException {
+
+		public MustNotBeChild(String accountId) {
+			super(
+				String.format(
+					"The parent account must not be a child of %s", accountId));
+		}
+
+	}
+
+	public static class MustNotBeIdentical extends ParentAccountException {
+
+		public MustNotBeIdentical(String accountId) {
+			super(
+				String.format(
+					"The parent account must be different than %s", accountId));
+		}
+
 	}
 
 }

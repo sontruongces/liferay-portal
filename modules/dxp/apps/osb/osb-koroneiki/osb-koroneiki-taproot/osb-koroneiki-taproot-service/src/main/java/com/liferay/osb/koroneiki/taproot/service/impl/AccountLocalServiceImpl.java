@@ -89,7 +89,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		code = StringUtil.toUpperCase(code);
 
-		validate(0, name, code, 0);
+		validate(0, 0, name, code);
 
 		if (Validator.isNull(status)) {
 			status =
@@ -276,7 +276,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		code = StringUtil.toUpperCase(code);
 
-		validate(accountId, name, code, parentAccountId);
+		validate(accountId, parentAccountId, name, code);
 
 		Account account = accountPersistence.findByPrimaryKey(accountId);
 
@@ -311,7 +311,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 	}
 
 	protected void validate(
-			long accountId, String name, String code, long parentAccountId)
+			long accountId, long parentAccountId, String name, String code)
 		throws PortalException {
 
 		if (Validator.isNull(name)) {
@@ -328,16 +328,16 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		if (parentAccountId != 0) {
 			if (accountId == parentAccountId) {
-				throw new ParentAccountException(
-					"Please select a valid parent account");
+				throw new ParentAccountException.MustNotBeIdentical(
+					String.valueOf(accountId));
 			}
 
 			Account parentAccount = getAccount(parentAccountId);
 
 			while (parentAccount.getParentAccountId() != 0) {
 				if (parentAccount.getParentAccountId() == accountId) {
-					throw new ParentAccountException(
-						"Please select a valid parent account");
+					throw new ParentAccountException.MustNotBeChild(
+						String.valueOf(accountId));
 				}
 
 				parentAccount = getAccount(parentAccount.getParentAccountId());
