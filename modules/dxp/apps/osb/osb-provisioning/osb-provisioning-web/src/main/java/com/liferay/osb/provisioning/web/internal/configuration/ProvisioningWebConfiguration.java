@@ -14,20 +14,23 @@
 
 package com.liferay.osb.provisioning.web.internal.configuration;
 
-import com.liferay.portal.kernel.configuration.Configuration;
-import com.liferay.portal.kernel.configuration.ConfigurationFactoryUtil;
+import aQute.bnd.annotation.metatype.Meta;
+
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
 /**
  * @author Kyle Bischof
  */
-public class ProvisioningWebConfigurationUtil {
+@ExtendedObjectClassDefinition(generateUI = false)
+@Meta.OCD(
+	id = "com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfiguration"
+)
+public interface ProvisioningWebConfiguration {
 
-	public static String get(String key) {
-		return _configuration.get(key);
-	}
+	@Meta.AD(required = false)
+	public String generateLicenseUrl();
 
-	private static final Configuration _configuration =
-		ConfigurationFactoryUtil.getConfiguration(
-			ProvisioningWebConfigurationUtil.class.getClassLoader(), "portlet");
+	@Meta.AD(required = false)
+	public String licenseManagerUrl();
 
 }

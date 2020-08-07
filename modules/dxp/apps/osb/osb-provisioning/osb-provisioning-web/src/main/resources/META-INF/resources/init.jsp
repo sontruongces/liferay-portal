@@ -45,7 +45,7 @@ page import="com.liferay.osb.provisioning.exception.RequiredProductException" %>
 page import="com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException" %><%@
 page import="com.liferay.osb.provisioning.model.ProductBundle" %><%@
 page import="com.liferay.osb.provisioning.service.ProductBundleLocalServiceUtil" %><%@
-page import="com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfigurationValues" %><%@
+page import="com.liferay.osb.provisioning.web.internal.configuration.ProvisioningWebConfiguration" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountDisplay" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AccountSearchDisplayContext" %><%@
 page import="com.liferay.osb.provisioning.web.internal.display.context.AssignProductBundleProductsDisplayContext" %><%@
@@ -105,6 +105,10 @@ page import="java.util.Map" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<%
+ProvisioningWebConfiguration provisioningWebConfiguration = (ProvisioningWebConfiguration)liferayPortletRequest.getAttribute(ProvisioningWebConfiguration.class.getName());
+%>
 
 <aui:script>
 	window.ProvisioningConstants = {

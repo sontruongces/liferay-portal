@@ -74,7 +74,7 @@ ProductPurchaseViewDisplay productPurchaseViewDisplay = viewSubscriptionDisplayC
 	</div>
 
 	<div>
-		<a class="btn btn-primary" href="<%= ProvisioningWebConfigurationValues.getGenerateLicenseURL(productPurchaseViewDisplay.getAccountKey()) %>">
+		<a class="btn btn-primary" href="<%= StringUtil.replace(provisioningWebConfiguration.generateLicenseUrl(), "[$ACCOUNT_KEY$]", productPurchaseViewDisplay.getAccountKey()) %>">
 			<span class="lfr-btn-label"><liferay-ui:message key="generate-license" /></span>
 		</a>
 	</div>
