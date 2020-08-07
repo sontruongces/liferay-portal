@@ -130,6 +130,8 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 
 			throw exception;
 		}
+
+		sendRedirect(actionRequest, actionResponse);
 	}
 
 	protected String getRedirect(

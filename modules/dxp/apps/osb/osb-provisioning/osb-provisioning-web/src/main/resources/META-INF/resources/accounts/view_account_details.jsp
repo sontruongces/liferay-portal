@@ -20,6 +20,15 @@
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 %>
 
+<liferay-ui:error exception="<%= HttpException.class %>">
+
+	<%
+	HttpException httpException = (HttpException)errorException;
+	%>
+
+	<%= httpException.getMessage() %>
+</liferay-ui:error>
+
 <div class="account-details details-table" id="accountDetails">
 	<react:component
 		data="<%= viewAccountDisplayContext.getAccountDetailsData() %>"
