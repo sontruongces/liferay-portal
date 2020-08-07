@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import org.jsoup.nodes.Element;
@@ -71,7 +72,11 @@ public class ImageEditableElementParser implements EditableElementParser {
 			alt = fieldValueJSONObject.getString("alt");
 		}
 
-		return JSONUtil.put("alt", alt);
+		return JSONUtil.put(
+			"alt", alt
+		).put(
+			"altTemplate", _TMPL_IMAGE_FIELD_ALT_TEMPLATE
+		);
 	}
 
 	@Override
@@ -139,8 +144,11 @@ public class ImageEditableElementParser implements EditableElementParser {
 		}
 
 		String alt = configJSONObject.getString("alt");
+		String altTemplate = configJSONObject.getString("altTemplate");
 
-		if (Validator.isNotNull(alt)) {
+		if (Validator.isNotNull(alt) &&
+			!Objects.equals(altTemplate, _TMPL_IMAGE_FIELD_ALT_TEMPLATE)) {
+
 			replaceableElement.attr(
 				"alt", StringUtil.trim(_html.unescape(alt)));
 		}
