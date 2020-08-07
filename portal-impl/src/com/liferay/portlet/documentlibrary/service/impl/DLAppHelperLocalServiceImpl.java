@@ -1422,11 +1422,11 @@ public class DLAppHelperLocalServiceImpl
 			dlFileVersionPersistence.update(curDLFileVersion);
 		}
 
-		DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
-
 		if (!DLAppHelperThreadLocal.isEnabled()) {
 			return fileEntry;
 		}
+
+		DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
 
 		DLFileVersion oldDLFileVersion = (DLFileVersion)fileVersion.getModel();
 
