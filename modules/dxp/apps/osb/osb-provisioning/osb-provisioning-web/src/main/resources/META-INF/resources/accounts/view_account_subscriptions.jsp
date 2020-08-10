@@ -95,14 +95,14 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 			</liferay-ui:search-container-column-text>
 
 			<%
-			String licenseManagerUrl = StringUtil.replace(provisioningWebConfiguration.licenseManagerUrl(), "[$ACCOUNT_KEY$]", productPurchaseViewDisplay.getAccountKey());
+			String licenseManagerHREF = StringUtil.replace(provisioningWebConfiguration.licenseManagerHREF(), "[$ACCOUNT_KEY$]", productPurchaseViewDisplay.getAccountKey());
 
-			licenseManagerUrl = StringUtil.replace(licenseManagerUrl, "[$PRODUCT_KEY$]", productPurchaseViewDisplay.getProductKey());
+			licenseManagerHREF = StringUtil.replace(licenseManagerHREF, "[$PRODUCT_KEY$]", productPurchaseViewDisplay.getProductKey());
 			%>
 
 			<liferay-ui:search-container-column-text
 				cssClass="semi-bold"
-				href="<%= licenseManagerUrl %>"
+				href="<%= licenseManagerHREF %>"
 				name="provisioned"
 				value="<%= productPurchaseViewDisplay.getProvisionedCount() %>"
 			/>

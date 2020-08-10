@@ -28,9 +28,9 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface ProvisioningWebConfiguration {
 
 	@Meta.AD(required = false)
-	public String generateLicenseUrl();
+	public String generateLicenseHREF();
 
 	@Meta.AD(required = false)
-	public String licenseManagerUrl();
+	public String licenseManagerHREF();
 
 }
