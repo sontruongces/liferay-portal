@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -38,6 +39,7 @@ import com.liferay.portal.kernel.util.Validator;
 import java.util.List;
 
 import javax.portlet.PortletException;
+import javax.portlet.PortletURL;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -65,7 +67,8 @@ public class AutocompleteAccountMVCResourceCommand
 		throws PortletException {
 
 		try {
-			JSONArray jsonArray = getJSONArray(resourceRequest);
+			JSONArray jsonArray = getJSONArray(
+				resourceRequest, resourceResponse);
 
 			HttpServletResponse httpServletResponse =
 				_portal.getHttpServletResponse(resourceResponse);
@@ -80,13 +83,20 @@ public class AutocompleteAccountMVCResourceCommand
 		}
 	}
 
-	protected JSONArray getJSONArray(ResourceRequest resourceRequest)
+	protected JSONArray getJSONArray(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		String[] keywords = StringUtil.split(
 			ParamUtil.getString(resourceRequest, "keywords"), StringPool.SPACE);
+
+		int maxResult = ParamUtil.getInteger(resourceRequest, "maxResult");
+
+		if (maxResult == 0) {
+			maxResult = 20;
+		}
 
 		if (!ArrayUtil.isEmpty(keywords)) {
 			StringBundler sb = new StringBundler();
@@ -96,20 +106,30 @@ public class AutocompleteAccountMVCResourceCommand
 
 				sb.append("(contains(code, '");
 				sb.append(keyword);
-				sb.append("') or name eq '");
+				sb.append("') or contains(name, '");
+				sb.append(keyword);
+				sb.append("') or accountKey eq '");
 				sb.append(keyword);
 				sb.append("')");
 
 				if (i < (keywords.length - 1)) {
-					sb.append(" and ");
+					sb.append(" or ");
 				}
 			}
 
 			List<Account> accounts = _accountWebService.search(
-				StringPool.BLANK, sb.toString(), 0, 20, null);
+				StringPool.BLANK, sb.toString(), 1, maxResult, null);
 
 			for (Account account : accounts) {
 				JSONObject jsonObject = null;
+
+				PortletURL portletURL = PortletURLUtil.getCurrent(
+					resourceRequest, resourceResponse);
+
+				portletURL.setParameter(
+					"mvcRenderCommandName", "/accounts/view_account");
+				portletURL.setParameter("accountKey", account.getKey());
+				portletURL.setParameter("keywords", StringPool.BLANK);
 
 				if (Validator.isNotNull(account.getCode())) {
 					jsonObject = JSONUtil.put(
@@ -117,12 +137,16 @@ public class AutocompleteAccountMVCResourceCommand
 						StringBundler.concat(
 							account.getName(), " [", account.getCode(), "]")
 					).put(
+						"url", portletURL.toString()
+					).put(
 						"value", account.getCode()
 					);
 				}
 				else {
 					jsonObject = JSONUtil.put(
 						"label", account.getName()
+					).put(
+						"url", portletURL.toString()
 					).put(
 						"value", account.getName()
 					);

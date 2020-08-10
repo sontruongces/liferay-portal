@@ -71,12 +71,14 @@ public class AccountSearchDisplayContext {
 
 				sb.append("(contains(code, '");
 				sb.append(keyword);
-				sb.append("') or name eq '");
+				sb.append("') or contains(name, '");
+				sb.append(keyword);
+				sb.append("') or accountKey eq '");
 				sb.append(keyword);
 				sb.append("')");
 
 				if (i < (keywords.length - 1)) {
-					sb.append(" and ");
+					sb.append(" or ");
 				}
 			}
 		}
