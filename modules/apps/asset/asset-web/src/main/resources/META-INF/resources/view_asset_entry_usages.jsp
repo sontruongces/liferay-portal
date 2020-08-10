@@ -16,12 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String className = ParamUtil.getString(request, "className");
-long classPK = ParamUtil.getLong(request, "classPK");
-%>
-
 <liferay-asset:asset-entry-usages
-	className="<%= className %>"
-	classPK="<%= classPK %>"
+	className='<%= ParamUtil.getString(request, "className") %>'
+	classPK='<%= ParamUtil.getLong(request, "classPK") %>'
 />

@@ -39,28 +39,26 @@
 
 		<div id="<portlet:namespace />ConditionForm"></div>
 
-		<%
-		Map<String, Object> context = HashMapBuilder.<String, Object>put(
-			"categorySelectorURL", editAssetListDisplayContext.getCategorySelectorURL()
-		).put(
-			"groupIds", ListUtil.toList(editAssetListDisplayContext.getReferencedModelsGroupIds())
-		).put(
-			"id", "autofield"
-		).put(
-			"namespace", liferayPortletResponse.getNamespace()
-		).put(
-			"pathThemeImages", themeDisplay.getPathThemeImages()
-		).put(
-			"rules", editAssetListDisplayContext.getAutoFieldRulesJSONArray()
-		).put(
-			"tagSelectorURL", editAssetListDisplayContext.getTagSelectorURL()
-		).put(
-			"vocabularyIds", editAssetListDisplayContext.getVocabularyIds()
-		).build();
-		%>
-
 		<soy:component-renderer
-			context="<%= context %>"
+			context='<%=
+				HashMapBuilder.<String, Object>put(
+					"categorySelectorURL", editAssetListDisplayContext.getCategorySelectorURL()
+				).put(
+					"groupIds", ListUtil.toList(editAssetListDisplayContext.getReferencedModelsGroupIds())
+				).put(
+					"id", "autofield"
+				).put(
+					"namespace", liferayPortletResponse.getNamespace()
+				).put(
+					"pathThemeImages", themeDisplay.getPathThemeImages()
+				).put(
+					"rules", editAssetListDisplayContext.getAutoFieldRulesJSONArray()
+				).put(
+					"tagSelectorURL", editAssetListDisplayContext.getTagSelectorURL()
+				).put(
+					"vocabularyIds", editAssetListDisplayContext.getVocabularyIds()
+				).build()
+			%>'
 			module="js/AutoField.es"
 			templateNamespace="com.liferay.asset.list.web.AutoField.render"
 		/>

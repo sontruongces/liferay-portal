@@ -18,12 +18,7 @@
 
 <aui:row id="ordering">
 	<aui:col width="<%= 50 %>">
-
-		<%
-		String orderByColumn1 = assetPublisherDisplayContext.getOrderByColumn1();
-		%>
-
-		<aui:select label="order-by" name="preferences--orderByColumn1--" value="<%= orderByColumn1 %>" wrapperCssClass="field-inline w80">
+		<aui:select label="order-by" name="preferences--orderByColumn1--" value="<%= assetPublisherDisplayContext.getOrderByColumn1() %>" wrapperCssClass="field-inline w80">
 			<c:if test="<%= assetPublisherDisplayContext.isOrderingByTitleEnabled() %>">
 				<aui:option label="title" />
 			</c:if>
