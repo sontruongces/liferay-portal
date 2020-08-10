@@ -1053,6 +1053,7 @@ public class HtmlImpl implements Html {
 				put("amp", "&");
 				put("gt", ">");
 				put("lt", "<");
+				put("nbsp", " ");
 				put("rsquo", "\u2019");
 			}
 		};
