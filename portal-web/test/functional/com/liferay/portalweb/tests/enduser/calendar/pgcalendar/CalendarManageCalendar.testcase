@@ -491,6 +491,12 @@ definition {
 			userEmailAddress = "userea2@liferay.com",
 			userScreenName = "usersn2");
 
+		Navigator.gotoPage(pageName = "Calendar Page");
+
+		Calendar.searchOtherCalendars(searchValue = "u");
+
+		Calendar.viewOtherCalendarsSearchResult(calendarName = "userfn2 userln2");
+
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea1@liferay.com",
 			userLoginFullName = "userfn1 userln1");
