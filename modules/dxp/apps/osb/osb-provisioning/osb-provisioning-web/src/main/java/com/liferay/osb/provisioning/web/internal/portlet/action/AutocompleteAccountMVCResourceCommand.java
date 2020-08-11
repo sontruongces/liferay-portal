@@ -92,11 +92,7 @@ public class AutocompleteAccountMVCResourceCommand
 		String[] keywords = StringUtil.split(
 			ParamUtil.getString(resourceRequest, "keywords"), StringPool.SPACE);
 
-		int maxResult = ParamUtil.getInteger(resourceRequest, "maxResult");
-
-		if (maxResult == 0) {
-			maxResult = 20;
-		}
+		int maxResults = ParamUtil.getInteger(resourceRequest, "maxResults", 20);
 
 		if (!ArrayUtil.isEmpty(keywords)) {
 			StringBundler sb = new StringBundler();
@@ -118,7 +114,7 @@ public class AutocompleteAccountMVCResourceCommand
 			}
 
 			List<Account> accounts = _accountWebService.search(
-				StringPool.BLANK, sb.toString(), 1, maxResult, null);
+				StringPool.BLANK, sb.toString(), 1, maxResults, null);
 
 			for (Account account : accounts) {
 				JSONObject jsonObject = null;
@@ -129,10 +125,11 @@ public class AutocompleteAccountMVCResourceCommand
 				portletURL.setParameter(
 					"mvcRenderCommandName", "/accounts/view_account");
 				portletURL.setParameter("accountKey", account.getKey());
-				portletURL.setParameter("keywords", StringPool.BLANK);
 
 				if (Validator.isNotNull(account.getCode())) {
 					jsonObject = JSONUtil.put(
+						"key", account.getKey()
+					).put(
 						"label",
 						StringBundler.concat(
 							account.getName(), " [", account.getCode(), "]")
@@ -144,6 +141,8 @@ public class AutocompleteAccountMVCResourceCommand
 				}
 				else {
 					jsonObject = JSONUtil.put(
+						"key", account.getKey()
+					).put(
 						"label", account.getName()
 					).put(
 						"url", portletURL.toString()
