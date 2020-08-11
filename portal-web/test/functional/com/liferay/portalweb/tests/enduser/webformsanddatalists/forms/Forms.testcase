@@ -4244,7 +4244,7 @@ definition {
 		Navigator.gotoPage(pageName = "Form Page");
 
 		FormFields.viewTextField(
-			fieldLabel = ",-+!@#$%^*()=_.?/;:{}[]\|",
+			fieldLabel = ",-+!@#$%^*()=.?/;:{}[]\|",
 			fieldName = "TextField");
 
 		FormFields.viewTextField(
