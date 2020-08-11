@@ -31,6 +31,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -85,6 +86,13 @@ public class ProductEntryMigration {
 				}
 			}
 		}
+
+		_productEntryLocalService.addProductEntry(
+			userId, _NAME_GOLD, Collections.emptyList());
+		_productEntryLocalService.addProductEntry(
+			userId, _NAME_LIMITED, Collections.emptyList());
+		_productEntryLocalService.addProductEntry(
+			userId, _NAME_PLATINUM, Collections.emptyList());
 	}
 
 	private void _migrateExternalIdMappers(
@@ -112,6 +120,12 @@ public class ProductEntryMigration {
 			}
 		}
 	}
+
+	private static final String _NAME_GOLD = "Gold Subscription";
+
+	private static final String _NAME_LIMITED = "Limited Subscription";
+
+	private static final String _NAME_PLATINUM = "Platinum Subscription";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ProductEntryMigration.class);
