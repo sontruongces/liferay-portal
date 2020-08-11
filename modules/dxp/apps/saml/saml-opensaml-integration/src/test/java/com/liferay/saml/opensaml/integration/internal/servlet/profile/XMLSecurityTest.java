@@ -14,7 +14,6 @@
 
 package com.liferay.saml.opensaml.integration.internal.servlet.profile;
 
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.saml.constants.SamlWebKeys;
 import com.liferay.saml.opensaml.integration.internal.BaseSamlTestCase;
@@ -123,7 +122,8 @@ public class XMLSecurityTest extends BaseSamlTestCase {
 			}
 
 			authnRequestXML = StringBundler.concat(
-				authnRequestXML, " <!ENTITY lol", i, " \"", lol, "\">\n");
+				authnRequestXML, " <!ENTITY lol", String.valueOf(i), " \"", lol,
+				"\">\n");
 		}
 
 		authnRequestXML += "]>" + samlMessageXML;
