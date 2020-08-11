@@ -4245,14 +4245,14 @@ definition {
 
 		FormFields.viewTextField(
 			fieldLabel = ",-+!@#$%^*()=_.?/;:{}[]\|",
-			fieldName = "text");
+			fieldName = "TextField");
 
 		FormFields.viewTextField(
 			fieldLabel = "Jump, She exclaimed!",
 			fieldName = "JumpSheexclaimed");
 
 		FormFields.editText(
-			fieldName = "text",
+			fieldName = "TextField",
 			fieldValue = "1,2,3.");
 
 		FormFields.editText(
