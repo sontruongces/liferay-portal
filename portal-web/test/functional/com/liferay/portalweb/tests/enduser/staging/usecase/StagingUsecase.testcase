@@ -1079,6 +1079,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-84418 and LPS-117578."
+	@ignore = "true"
 	@priority = "5"
 	test PublishWithImpossibleDateRange {
 		property portal.upstream = "quarantine";
