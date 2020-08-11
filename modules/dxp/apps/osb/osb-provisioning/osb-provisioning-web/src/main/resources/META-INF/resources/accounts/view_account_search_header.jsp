@@ -31,3 +31,11 @@
 		</ul>
 	</div>
 </div>
+
+<aui:script>
+	var controlMenu = document.querySelector('.control-menu');
+
+	if (controlMenu) {
+		controlMenu.classList.add('provisioning-account');
+	}
+</aui:script>

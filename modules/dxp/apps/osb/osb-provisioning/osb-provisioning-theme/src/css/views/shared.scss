@@ -89,8 +89,23 @@
 }
 
 .control-menu {
-	&.control-menu-level-1 {
-		background-color: transparent;
+	&.provisioning-account {
+		&.control-menu-level-1 {
+			background-color: transparent;
+		}
+
+		.product-menu {
+			background-color: $dark-l1;
+		}
+
+		.toast-animation {
+			opacity: 0;
+		}
+
+		.tools-control-group,
+		.user-control-group {
+			pointer-events: none;
+		}
 	}
 
 	&.search-menu {
@@ -102,19 +117,6 @@
 			pointer-events: none;
 			width: $spacing-lg;
 		}
-	}
-
-	.product-menu {
-		background-color: $dark-l1;
-	}
-
-	.toast-animation {
-		opacity: 0;
-	}
-
-	.tools-control-group,
-	.user-control-group {
-		pointer-events: none;
 	}
 }
 
