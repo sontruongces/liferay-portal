@@ -92,7 +92,8 @@ public class AutocompleteAccountMVCResourceCommand
 		String[] keywords = StringUtil.split(
 			ParamUtil.getString(resourceRequest, "keywords"), StringPool.SPACE);
 
-		int maxResults = ParamUtil.getInteger(resourceRequest, "maxResults", 20);
+		int maxResults = ParamUtil.getInteger(
+			resourceRequest, "maxResults", 20);
 
 		if (!ArrayUtil.isEmpty(keywords)) {
 			StringBundler sb = new StringBundler();
@@ -103,8 +104,6 @@ public class AutocompleteAccountMVCResourceCommand
 				sb.append("(contains(code, '");
 				sb.append(keyword);
 				sb.append("') or contains(name, '");
-				sb.append(keyword);
-				sb.append("') or accountKey eq '");
 				sb.append(keyword);
 				sb.append("')");
 

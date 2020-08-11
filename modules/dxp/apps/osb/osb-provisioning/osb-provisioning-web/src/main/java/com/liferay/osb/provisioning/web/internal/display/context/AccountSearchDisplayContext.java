@@ -73,8 +73,6 @@ public class AccountSearchDisplayContext {
 				sb.append(keyword);
 				sb.append("') or contains(name, '");
 				sb.append(keyword);
-				sb.append("') or accountKey eq '");
-				sb.append(keyword);
 				sb.append("')");
 
 				if (i < (keywords.length - 1)) {
