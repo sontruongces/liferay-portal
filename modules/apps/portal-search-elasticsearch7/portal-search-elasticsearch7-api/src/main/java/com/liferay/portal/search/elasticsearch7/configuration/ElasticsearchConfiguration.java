@@ -76,6 +76,12 @@ public interface ElasticsearchConfiguration {
 	public boolean logExceptionsOnly();
 
 	@Meta.AD(
+		deflt = "ERROR", description = "rest-client-logger-level-help",
+		name = "rest-client-logger-level", required = false
+	)
+	public RESTClientLoggerLevel restClientLoggerLevel();
+
+	@Meta.AD(
 		deflt = "5", description = "retry-on-conflict-help",
 		name = "retry-on-conflict", required = false
 	)
