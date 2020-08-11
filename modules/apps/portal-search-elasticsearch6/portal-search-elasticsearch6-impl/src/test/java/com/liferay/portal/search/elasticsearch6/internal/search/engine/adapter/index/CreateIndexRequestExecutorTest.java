@@ -15,6 +15,7 @@
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
 import com.liferay.portal.search.engine.adapter.index.CreateIndexRequest;
 
@@ -67,6 +68,7 @@ public class CreateIndexRequestExecutorTest {
 			new CreateIndexRequestExecutorImpl() {
 				{
 					setElasticsearchClientResolver(_elasticsearchFixture);
+					setJsonFactory(new JSONFactoryImpl());
 				}
 			};
 
