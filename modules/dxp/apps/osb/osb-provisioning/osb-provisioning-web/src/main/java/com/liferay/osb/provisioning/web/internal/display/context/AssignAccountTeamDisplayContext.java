@@ -14,18 +14,13 @@
 
 package com.liferay.osb.provisioning.web.internal.display.context;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.PortletURL;
 
@@ -55,40 +50,18 @@ public class AssignAccountTeamDisplayContext extends ViewAccountDisplayContext {
 			renderRequest, currentURLObj, Collections.emptyList(),
 			"no-teams-were-found");
 
-		Map<String, Account> accountsMap = new HashMap<>();
-
-		List<Account> partnerAccounts = accountWebService.search(
-			StringPool.BLANK, "entitlements/any(k:contains(k,'Partner'))", 0,
-			10000, null);
-
-		StringBundler sb = new StringBundler((4 * partnerAccounts.size()) - 1);
-
-		for (int i = 0; i < partnerAccounts.size(); i++) {
-			Account account = partnerAccounts.get(i);
-
-			accountsMap.put(account.getKey(), account);
-
-			sb.append("(accountKey eq '");
-			sb.append(account.getKey());
-			sb.append("')");
-
-			if (i < (partnerAccounts.size() - 1)) {
-				sb.append(" or ");
-			}
-		}
-
 		List<Team> teams = teamWebService.search(
-			keywords, sb.toString(), searchContainer.getCur(),
+			keywords, "accountEntitlements/any(k:contains(k,'Partner'))",
+			searchContainer.getCur(),
 			searchContainer.getEnd() - searchContainer.getStart(), "name");
 
 		searchContainer.setResults(
 			TransformUtil.transform(
 				teams,
-				team -> new TeamDisplay(
-					renderRequest, renderResponse, team,
-					accountsMap.get(team.getAccountKey()))));
+				team -> new TeamDisplay(renderRequest, renderResponse, team)));
 
-		int count = (int)teamWebService.searchCount(keywords, sb.toString());
+		int count = (int)teamWebService.searchCount(
+			keywords, "accountEntitlements/any(k:contains(k,'Partner'))");
 
 		searchContainer.setTotal(count);
 

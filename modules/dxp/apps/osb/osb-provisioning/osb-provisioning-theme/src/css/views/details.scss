@@ -66,6 +66,12 @@
 	}
 }
 
+.details-search-container {
+	td {
+		cursor: pointer;
+	}
+}
+
 .instructions {
 	.list-group-item-flex {
 		width: 100%;
@@ -78,11 +84,5 @@
 		.list-group-title {
 			width: 19%;
 		}
-	}
-}
-
-.details-search-container {
-	td {
-		cursor: pointer;
 	}
 }

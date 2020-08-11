@@ -52,11 +52,11 @@ SearchContainer searchContainer = assignAccountTeamDisplayContext.getSearchConta
 		>
 
 			<%
-			Map<String, Object> accountData = new HashMap<String, Object>();
+			Map<String, Object> teamData = new HashMap<String, Object>();
 
-			accountData.put("key", teamDisplay.getKey());
+			teamData.put("key", teamDisplay.getKey());
 
-			row.setData(accountData);
+			row.setData(teamData);
 
 			if (teamKey.equals(teamDisplay.getKey())) {
 				row.setCssClass("active");

@@ -65,8 +65,7 @@ public class ViewAccountTeamsDisplayContext extends ViewAccountDisplayContext {
 		searchContainer.setResults(
 			TransformUtil.transform(
 				teams,
-				team -> new TeamDisplay(
-					renderRequest, renderResponse, team, null)));
+				team -> new TeamDisplay(renderRequest, renderResponse, team)));
 
 		int count = (int)teamWebService.searchCount(keywords, filterString);
 
