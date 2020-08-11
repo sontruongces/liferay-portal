@@ -484,7 +484,7 @@ public class JournalArticleModelValidator
 
 			if ((image == null) || (smallImageBytes == null)) {
 				throw new NoSuchImageException(
-					"The featured image was not found");
+					"Small image ID " + smallImageId);
 			}
 		}
 
