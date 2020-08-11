@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.search.ccr.CrossClusterReplicationHelper;
 import com.liferay.portal.search.configuration.CrossClusterReplicationConfigurationWrapper;
 import com.liferay.portal.search.configuration.ElasticsearchConnectionConfigurationWrapper;
+import com.liferay.portal.search.elasticsearch7.configuration.RESTClientLoggerLevel;
 import com.liferay.portal.search.elasticsearch7.internal.connection.ElasticsearchConnectionManager;
 
 import java.io.InputStream;
@@ -34,6 +35,8 @@ import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -41,6 +44,8 @@ import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import org.elasticsearch.action.admin.indices.close.CloseIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -118,6 +123,22 @@ public class CrossClusterReplicationHelperImpl
 						exception);
 				}
 			}
+		}
+	}
+
+	public void setRESTClientLoggerLevel() {
+		RESTClientLoggerLevel restClientLoggerLevel =
+			elasticsearchConnectionManager.getRESTClientLoggerLevel();
+
+		org.apache.commons.logging.Log log = LogFactory.getLog(
+			RestClient.class);
+
+		if (log instanceof Log4JLogger) {
+			Log4JLogger log4JLogger = (Log4JLogger)log;
+
+			Logger logger = log4JLogger.getLogger();
+
+			logger.setLevel(Level.toLevel(restClientLoggerLevel.name()));
 		}
 	}
 
@@ -232,6 +253,8 @@ public class CrossClusterReplicationHelperImpl
 
 	private RestHighLevelClient _createRestHighLevelClient(
 		String connectionId) {
+
+		setRESTClientLoggerLevel();
 
 		RestClientBuilder restClientBuilder = RestClient.builder(
 			HttpHost.create(
