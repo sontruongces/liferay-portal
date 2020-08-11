@@ -360,12 +360,18 @@ public class JournalEditArticleDisplayContext {
 			siteDefaultLocale = LocaleUtil.getSiteDefault();
 		}
 
-		if (_article == null) {
-			return LocaleUtil.toLanguageId(siteDefaultLocale);
+		if (_article != null) {
+			String contentLanguageId = LocalizationUtil.getDefaultLanguageId(
+				_article.getContent(), siteDefaultLocale);
+
+			if (LanguageUtil.isAvailableLocale(
+					getGroupId(), contentLanguageId)) {
+
+				return contentLanguageId;
+			}
 		}
 
-		return LocalizationUtil.getDefaultLanguageId(
-			_article.getContent(), siteDefaultLocale);
+		return LocaleUtil.toLanguageId(siteDefaultLocale);
 	}
 
 	public String getEditArticleURL() {
