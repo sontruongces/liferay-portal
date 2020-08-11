@@ -39,6 +39,8 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 
 	<clay:management-toolbar
 		displayContext="<%= viewAccountsManagementToolbarDisplayContext %>"
+		elementClasses="full-width"
+		showSearch="<%= false %>"
 	/>
 
 	<liferay-ui:search-container
