@@ -361,7 +361,6 @@ public class JournalArticleModelValidator
 		String smallImageURL = article.getSmallImageURL();
 
 		byte[] smallImageBytes = null;
-		String smallImageExtension = null;
 		File smallImageFile = null;
 
 		if (smallImage) {
@@ -370,12 +369,11 @@ public class JournalArticleModelValidator
 
 			if (image != null) {
 				smallImageBytes = image.getTextObj();
-				smallImageExtension = image.getType();
 
 				try {
 					if (smallImageBytes != null) {
 						smallImageFile = FileUtil.createTempFile(
-							smallImageExtension);
+							image.getType());
 
 						FileUtil.write(smallImageFile, smallImageBytes, false);
 					}
