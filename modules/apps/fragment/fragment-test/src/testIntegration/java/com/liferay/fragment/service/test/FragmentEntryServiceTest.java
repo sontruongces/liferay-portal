@@ -29,6 +29,7 @@ import com.liferay.fragment.util.comparator.FragmentEntryCreateDateComparator;
 import com.liferay.fragment.util.comparator.FragmentEntryNameComparator;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
@@ -79,6 +80,9 @@ public class FragmentEntryServiceTest {
 		_group = GroupTestUtil.addGroup();
 
 		_fragmentCollection = FragmentTestUtil.addFragmentCollection(
+			_group.getGroupId());
+
+		_fragmentCollectionAlter = FragmentTestUtil.addFragmentCollection(
 			_group.getGroupId());
 	}
 
@@ -1213,6 +1217,41 @@ public class FragmentEntryServiceTest {
 	}
 
 	@Test
+	public void testUpdateFragmentCollectionId() throws Exception {
+		FragmentEntry fragmentEntry = FragmentEntryTestUtil.addFragmentEntry(
+			_fragmentCollection.getFragmentCollectionId());
+
+		long alterFragmentCollectionId =
+			_fragmentCollectionAlter.getFragmentCollectionId();
+
+		_fragmentEntryService.updateFragmentEntry(
+			fragmentEntry.getFragmentEntryId(), alterFragmentCollectionId,
+			"Fragment Entry Updated", "div {\ncolor: red;\n}",
+			"<div>Updated</div>", "alert(\"test\");",
+			"{\n\t\"fieldSets\": [\n\t]\n}", 1,
+			WorkflowConstants.STATUS_APPROVED);
+
+		FragmentEntry persistedFragmentEntry =
+			_fragmentEntryPersistence.fetchByPrimaryKey(
+				fragmentEntry.getFragmentEntryId());
+
+		Assert.assertEquals(
+			persistedFragmentEntry.getFragmentCollectionId(),
+			alterFragmentCollectionId);
+		Assert.assertEquals(
+			"Fragment Entry Updated", persistedFragmentEntry.getName());
+		Assert.assertEquals(
+			"div {\ncolor: red;\n}", persistedFragmentEntry.getCss());
+		Assert.assertEquals(
+			"<div>Updated</div>", persistedFragmentEntry.getHtml());
+		Assert.assertEquals("alert(\"test\");", persistedFragmentEntry.getJs());
+		Assert.assertEquals(1, persistedFragmentEntry.getPreviewFileEntryId());
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_APPROVED,
+			persistedFragmentEntry.getStatus());
+	}
+
+	@Test
 	public void testUpdateFragmentEntryName() throws Exception {
 		FragmentEntry fragmentEntry = FragmentEntryTestUtil.addFragmentEntry(
 			_fragmentCollection.getFragmentCollectionId(),
@@ -1349,6 +1388,7 @@ public class FragmentEntryServiceTest {
 	}
 
 	private FragmentCollection _fragmentCollection;
+	private FragmentCollection _fragmentCollectionAlter;
 
 	@Inject
 	private FragmentEntryPersistence _fragmentEntryPersistence;
