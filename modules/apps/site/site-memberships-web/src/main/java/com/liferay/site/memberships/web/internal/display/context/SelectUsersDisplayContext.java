@@ -156,7 +156,7 @@ public class SelectUsersDisplayContext {
 		return portletURL;
 	}
 
-	public SearchContainer getUserSearchContainer() {
+	public SearchContainer<User> getUserSearchContainer() {
 		if (_userSearch != null) {
 			return _userSearch;
 		}
@@ -177,12 +177,13 @@ public class SelectUsersDisplayContext {
 
 		LinkedHashMap<String, Object> userParams = new LinkedHashMap<>();
 
-		userParams.put(Field.GROUP_ID, Long.valueOf(getGroupId()));
-
 		if (group.isLimitedToParentSiteMembers()) {
 			userParams.put("inherit", Boolean.TRUE);
 			userParams.put(
 				"usersGroups", Long.valueOf(group.getParentGroupId()));
+		}
+		else {
+			userParams.put(Field.GROUP_ID, Long.valueOf(getGroupId()));
 		}
 
 		int usersCount = UserLocalServiceUtil.searchCount(
