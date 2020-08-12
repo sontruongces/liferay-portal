@@ -50,12 +50,22 @@ public abstract class BaseConsumer implements Consumer {
 	}
 
 	public void handleCancel(String consumerTag) throws IOException {
+		if (_log.isInfoEnabled()) {
+			_log.info("Consumer cancelled for " + consumerTag + " on " + queue);
+		}
 	}
 
 	public void handleCancelOk(String consumerTag) {
+		if (_log.isInfoEnabled()) {
+			_log.info("Consumer cancelled for " + consumerTag + " on " + queue);
+		}
 	}
 
 	public void handleConsumeOk(String consumerTag) {
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Consumer registered for " + consumerTag + " on " + queue);
+		}
 	}
 
 	@Override
@@ -101,20 +111,27 @@ public abstract class BaseConsumer implements Consumer {
 	}
 
 	public void handleRecoverOk(String consumerTag) {
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Recovered connection for " + consumerTag + " on " + queue);
+		}
 	}
 
 	public void handleShutdownSignal(
 		String consumerTag, ShutdownSignalException shutdownSignalException) {
+
+		_log.error(
+			"Shutdown signal for " + consumerTag + " on " + queue,
+			shutdownSignalException);
 	}
 
 	@Activate
 	protected void activate(Map<String, Object> properties) throws Exception {
-		String exchange = GetterUtil.getString(properties.get("exchange"));
-		String queue = GetterUtil.getString(properties.get("queue"));
-		int prefetchCount = GetterUtil.getInteger(
+		exchange = GetterUtil.getString(properties.get("exchange"));
+		queue = GetterUtil.getString(properties.get("queue"));
+		prefetchCount = GetterUtil.getInteger(
 			properties.get("prefetch.count"), 20);
-		List<String> routingKeys = StringPlus.asList(
-			properties.get("routing.key"));
+		routingKeys = StringPlus.asList(properties.get("routing.key"));
 
 		Connection connection = getConnection();
 
@@ -157,9 +174,14 @@ public abstract class BaseConsumer implements Consumer {
 	protected abstract Connection getConnection();
 
 	protected Channel channel;
+	protected String exchange;
 
 	@Reference
 	protected MessageRouter messageRouter;
+
+	protected int prefetchCount;
+	protected String queue;
+	protected List<String> routingKeys;
 
 	private static final Log _log = LogFactoryUtil.getLog(BaseConsumer.class);
 
