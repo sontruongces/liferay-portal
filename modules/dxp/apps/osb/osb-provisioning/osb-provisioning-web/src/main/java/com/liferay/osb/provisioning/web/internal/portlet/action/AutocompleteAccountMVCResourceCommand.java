@@ -88,9 +88,9 @@ public class AutocompleteAccountMVCResourceCommand
 		String[] keywords = StringUtil.split(
 			ParamUtil.getString(resourceRequest, "keywords"), StringPool.SPACE);
 
-		StringBundler sb = new StringBundler();
-
 		if (!ArrayUtil.isEmpty(keywords)) {
+			StringBundler sb = new StringBundler();
+
 			for (int i = 0; i < keywords.length; i++) {
 				String keyword = keywords[i];
 

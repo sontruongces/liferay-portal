@@ -76,10 +76,10 @@ public class OSBCommercePortalInstanceCreatedDefinitionTermContributor
 			return term;
 		}
 
-		CommerceSubscriptionEntry commerceSubscriptionEntry =
-			(CommerceSubscriptionEntry)object;
-
 		if (term.equals(_PORTAL_INSTANCE_URL)) {
+			CommerceSubscriptionEntry commerceSubscriptionEntry =
+				(CommerceSubscriptionEntry)object;
+
 			UnicodeProperties subscriptionTypeSettingsProperties =
 				commerceSubscriptionEntry.
 					getSubscriptionTypeSettingsProperties();

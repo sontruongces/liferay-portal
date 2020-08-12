@@ -65,11 +65,6 @@ public class UnassignAccountCustomerContactMVCActionCommand
 		throws Exception {
 
 		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
-			User user = themeDisplay.getUser();
-
 			String accountKey = ParamUtil.getString(
 				actionRequest, "accountKey");
 
@@ -80,6 +75,12 @@ public class UnassignAccountCustomerContactMVCActionCommand
 				accountKey, emailAddress);
 
 			if ((zendeskTickets == null) || zendeskTickets.isEmpty()) {
+				ThemeDisplay themeDisplay =
+					(ThemeDisplay)actionRequest.getAttribute(
+						WebKeys.THEME_DISPLAY);
+
+				User user = themeDisplay.getUser();
+
 				_accountWebService.unassignCustomerContact(
 					user.getFullName(), StringPool.BLANK, accountKey,
 					emailAddress);

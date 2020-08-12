@@ -1262,11 +1262,11 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 	}
 
 	protected void reindexUsers(UserGroup userGroup) throws PortalException {
-		long companyId = userGroup.getCompanyId();
-
 		long[] userIds = getUserPrimaryKeys(userGroup.getUserGroupId());
 
 		if (ArrayUtil.isNotEmpty(userIds)) {
+			long companyId = userGroup.getCompanyId();
+
 			TransactionCommitCallbackUtil.registerCallback(
 				() -> {
 					reindex(companyId, userIds);

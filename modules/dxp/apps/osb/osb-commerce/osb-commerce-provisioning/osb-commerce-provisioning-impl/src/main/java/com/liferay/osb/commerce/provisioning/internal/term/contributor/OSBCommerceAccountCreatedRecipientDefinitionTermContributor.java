@@ -71,9 +71,9 @@ public class OSBCommerceAccountCreatedRecipientDefinitionTermContributor
 			return term;
 		}
 
-		CommerceAccount commerceAccount = (CommerceAccount)object;
-
 		if (term.equals(_ACCOUNT_CREATOR)) {
+			CommerceAccount commerceAccount = (CommerceAccount)object;
+
 			List<CommerceAccountUserRel> commerceAccountUserRels =
 				commerceAccount.getCommerceAccountUserRels();
 

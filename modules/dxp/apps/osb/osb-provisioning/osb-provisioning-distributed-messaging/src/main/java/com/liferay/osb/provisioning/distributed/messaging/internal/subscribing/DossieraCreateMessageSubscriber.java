@@ -398,10 +398,12 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		postalAddress.setAddressLocality(city);
 
 		String countryName = jsonObject.getString("_country");
-		String regionName = jsonObject.getString("_region");
 
 		if (Validator.isNotNull(countryName)) {
 			postalAddress.setAddressCountry(countryName);
+
+			String regionName = jsonObject.getString("_region");
+
 			postalAddress.setAddressRegion(regionName);
 		}
 

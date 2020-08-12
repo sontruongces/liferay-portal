@@ -103,13 +103,13 @@ public abstract class BaseWikiSimilarResultsContributor
 		DestinationBuilder destinationBuilder,
 		DestinationHelper destinationHelper) {
 
-		String nodeName = (String)destinationHelper.getRouteParameter(
-			"nodeName");
-		String title = (String)destinationHelper.getRouteParameter("title");
-
 		String className = destinationHelper.getClassName();
 
 		if (className.equals(WikiPage.class.getName())) {
+			String nodeName = (String)destinationHelper.getRouteParameter(
+				"nodeName");
+			String title = (String)destinationHelper.getRouteParameter("title");
+
 			AssetRenderer<?> assetRenderer =
 				destinationHelper.getAssetRenderer();
 

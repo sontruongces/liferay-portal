@@ -118,7 +118,6 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 		String teamKey = ParamUtil.getString(actionRequest, "teamKey");
 
-		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
 		String name = ParamUtil.getString(actionRequest, "name");
 
 		if (Validator.isNotNull(name)) {
@@ -131,6 +130,9 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 					user.getFullName(), StringPool.BLANK, teamKey, team);
 			}
 			else {
+				String accountKey = ParamUtil.getString(
+					actionRequest, "accountKey");
+
 				team = _teamWebService.addTeam(
 					user.getFullName(), StringPool.BLANK, accountKey, team);
 			}

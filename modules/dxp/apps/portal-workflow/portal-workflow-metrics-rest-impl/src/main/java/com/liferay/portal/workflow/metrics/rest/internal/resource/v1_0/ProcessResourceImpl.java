@@ -586,10 +586,8 @@ public class ProcessResourceImpl
 			(FilterAggregationResult)bucket.getChildAggregationResult(
 				"instanceCountFilter");
 
-		ValueCountAggregationResult valueCountAggregationResult;
-
 		if (filterAggregationResult != null) {
-			valueCountAggregationResult =
+			ValueCountAggregationResult valueCountAggregationResult =
 				(ValueCountAggregationResult)
 					filterAggregationResult.getChildAggregationResult(
 						"instanceCount");
