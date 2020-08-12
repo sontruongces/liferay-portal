@@ -84,11 +84,12 @@ public class ProductPurchaseDisplay {
 
 		StringBundler sb = new StringBundler(3);
 
-		sb.append(_dateFormat.format(_productPurchase.getOriginalEndDate()));
+		sb.append(_dateFormat.format(_productPurchase.getStartDate()));
 		sb.append(" - ");
 
 		if (_productPurchase.getEndDate() != null) {
-			sb.append(_dateFormat.format(_productPurchase.getEndDate()));
+			sb.append(
+				_dateFormat.format(_productPurchase.getOriginalEndDate()));
 		}
 		else {
 			sb.append(LanguageUtil.get(_httpServletRequest, "perpetual"));

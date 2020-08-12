@@ -73,7 +73,9 @@ public class ProductPurchaseLocalServiceImpl
 			originalEndDate = endDate;
 		}
 
-		validate(accountId, productEntryId, startDate, endDate, quantity);
+		validate(
+			accountId, productEntryId, startDate, endDate, originalEndDate,
+			quantity);
 
 		long productPurchaseId = counterLocalService.increment();
 
@@ -264,7 +266,7 @@ public class ProductPurchaseLocalServiceImpl
 			originalEndDate = endDate;
 		}
 
-		validate(startDate, endDate, quantity);
+		validate(startDate, endDate, originalEndDate, quantity);
 
 		ProductPurchase productPurchase =
 			productPurchasePersistence.findByPrimaryKey(productPurchaseId);
@@ -351,11 +353,13 @@ public class ProductPurchaseLocalServiceImpl
 			});
 	}
 
-	protected void validate(Date startDate, Date endDate, int quantity)
+	protected void validate(
+			Date startDate, Date endDate, Date originalEndDate, int quantity)
 		throws PortalException {
 
-		if ((startDate != null) && (endDate != null) &&
-			startDate.after(endDate)) {
+		if ((startDate != null) &&
+			(((endDate != null) && startDate.after(endDate)) ||
+			 ((originalEndDate != null) && startDate.after(originalEndDate)))) {
 
 			throw new ProductPurchaseEndDateException();
 		}
@@ -367,14 +371,14 @@ public class ProductPurchaseLocalServiceImpl
 
 	protected void validate(
 			long accountId, long productEntryId, Date startDate, Date endDate,
-			int quantity)
+			Date originalEndDate, int quantity)
 		throws PortalException {
 
 		_accountLocalService.getAccount(accountId);
 
 		productEntryPersistence.findByPrimaryKey(productEntryId);
 
-		validate(startDate, endDate, quantity);
+		validate(startDate, endDate, originalEndDate, quantity);
 	}
 
 	@Reference
