@@ -75,8 +75,8 @@ public class CrossClusterReplicationHelperImpl
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
-					"Skip following of the " + indexName +
-						" index. Cross-Cluster Replication is not enabled");
+					"Not following index " + indexName +
+						" because cross-cluster replication is not enabled");
 			}
 
 			return;
@@ -128,8 +128,8 @@ public class CrossClusterReplicationHelperImpl
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
-					"Skip unfollowing of the " + indexName +
-						" index. Cross-Cluster Replication is not enabled");
+					"Uunfollow index " + indexName +
+						" because cross-cluster replication is not enabled");
 			}
 
 			return;
