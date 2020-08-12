@@ -70,7 +70,7 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 
 		if (selectedItems.size() > 0) {
 			selectedItems.each(function() {
-				var value = this.attr('value').split(',');
+				var value = this.attr('value').split('_');
 
 				data.push([value[0], value[1]]);
 			});

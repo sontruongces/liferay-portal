@@ -65,11 +65,11 @@ public class ProductDisplay {
 
 	public String getKeyName() {
 		StringBundler sb = new StringBundler(3);
-		
+
 		sb.append(_product.getKey());
-		sb.append(StringPool.COMMA);
+		sb.append(StringPool.UNDERLINE);
 		sb.append(_product.getName());
-		
+
 		return sb.toString();
 	}
 
