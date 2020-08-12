@@ -15,6 +15,7 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.Constants;
@@ -60,6 +61,16 @@ public class ProductDisplay {
 
 	public String getKey() {
 		return _product.getKey();
+	}
+
+	public String getKeyName() {
+		StringBundler sb = new StringBundler(3);
+		
+		sb.append(_product.getKey());
+		sb.append(StringPool.COMMA);
+		sb.append(_product.getName());
+		
+		return sb.toString();
 	}
 
 	public String getName() {

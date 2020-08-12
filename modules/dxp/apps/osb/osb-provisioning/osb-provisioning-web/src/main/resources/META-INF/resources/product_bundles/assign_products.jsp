@@ -43,19 +43,9 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 		<liferay-ui:search-container-row
 			className="com.liferay.osb.provisioning.web.internal.display.context.ProductDisplay"
 			escapedModel="<%= true %>"
-			keyProperty="key"
+			keyProperty="keyName"
 			modelVar="productDisplay"
 		>
-
-			<%
-			Map<String, Object> productData = new HashMap<String, Object>();
-
-			productData.put("key", productDisplay.getKey());
-			productData.put("name", productDisplay.getName());
-
-			row.setData(productData);
-			%>
-
 			<liferay-ui:search-container-column-text
 				name="products"
 				property="name"
@@ -75,14 +65,14 @@ SearchContainer searchContainer = assignProductBundleProductsDisplayContext.getS
 
 	searchContainer.on('rowToggled', function(event) {
 		var selectedItems = event.elements.allSelectedElements;
+
 		var data = [];
 
 		if (selectedItems.size() > 0) {
 			selectedItems.each(function() {
-				var row = this.ancestor('tr');
-				var rowData = row.getDOM().dataset;
+				var value = this.attr('value').split(',');
 
-				data.push([rowData.key, rowData.name]);
+				data.push([value[0], value[1]]);
 			});
 		}
 

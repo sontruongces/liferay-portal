@@ -47,6 +47,9 @@ public class AssignProductBundleProductsDisplayContext {
 		_renderResponse = renderResponse;
 		_httpServletRequest = httpServletRequest;
 		_productWebService = productWebService;
+
+		_currentURLObj = PortletURLUtil.getCurrent(
+			_renderRequest, _renderResponse);
 	}
 
 	public String getClearResultsURL() {
@@ -59,18 +62,15 @@ public class AssignProductBundleProductsDisplayContext {
 	}
 
 	public String getCurrentURL() {
-		PortletURL currentURLObj = PortletURLUtil.getCurrent(
-			_renderRequest, _renderResponse);
-
-		return currentURLObj.toString();
+		return _currentURLObj.toString();
 	}
 
 	public SearchContainer getSearchContainer(String[] productKeys)
 		throws Exception {
 
 		SearchContainer searchContainer = new SearchContainer(
-			_renderRequest, _renderResponse.createRenderURL(),
-			Collections.emptyList(), "no-products-were-found");
+			_renderRequest, _currentURLObj, Collections.emptyList(),
+			"no-products-were-found");
 
 		String keywords = ParamUtil.getString(_renderRequest, "keywords");
 
@@ -97,6 +97,7 @@ public class AssignProductBundleProductsDisplayContext {
 		return searchContainer;
 	}
 
+	private final PortletURL _currentURLObj;
 	private final HttpServletRequest _httpServletRequest;
 	private final ProductWebService _productWebService;
 	private final RenderRequest _renderRequest;
