@@ -275,12 +275,13 @@ public class JournalFolderFinderImpl
 			while (itr.hasNext()) {
 				Object[] array = itr.next();
 
-				long curFolderId = (Long)array[0];
 				long modelFolder = (Long)array[1];
 
 				Object obj = null;
 
 				if (modelFolder == 1) {
+					long curFolderId = (Long)array[0];
+
 					obj = JournalFolderUtil.findByPrimaryKey(curFolderId);
 				}
 				else {
@@ -372,12 +373,13 @@ public class JournalFolderFinderImpl
 			while (itr.hasNext()) {
 				Object[] array = itr.next();
 
-				long curFolderId = (Long)array[0];
 				long modelFolder = (Long)array[1];
 
 				Object obj = null;
 
 				if (modelFolder == 1) {
+					long curFolderId = (Long)array[0];
+
 					obj = JournalFolderUtil.findByPrimaryKey(curFolderId);
 				}
 				else {

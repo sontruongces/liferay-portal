@@ -461,12 +461,12 @@ public class DefaultAssetDisplayPageFriendlyURLResolver
 			return 0;
 		}
 
-		String lastPath = paths.get(paths.size() - 1);
-
 		List<String> numbers = StringUtil.split(friendlyURL, CharPool.PERIOD);
 
 		if ((numbers.size() == 2) && Validator.isDigit(numbers.get(0)) &&
 			Validator.isDigit(numbers.get(1))) {
+
+			String lastPath = paths.get(paths.size() - 1);
 
 			return Double.valueOf(lastPath);
 		}

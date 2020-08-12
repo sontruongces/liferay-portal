@@ -76,13 +76,13 @@ public class DDMFormValuesMergerImpl implements DDMFormValuesMerger {
 			DDMFormValues ddmFormValues =
 				newDDMFormFieldValue.getDDMFormValues();
 
-			DDMForm ddmForm = ddmFormValues.getDDMForm();
-
 			DDMFormFieldValue actualDDMFormFieldValue =
 				getDDMFormFieldValueByName(
 					existingDDMFormFieldValues, newDDMFormFieldValue.getName());
 
 			if (actualDDMFormFieldValue != null) {
+				DDMForm ddmForm = ddmFormValues.getDDMForm();
+
 				List<DDMFormField> ddmFormFields = ddmForm.getDDMFormFields();
 
 				Stream<DDMFormField> stream = ddmFormFields.stream();

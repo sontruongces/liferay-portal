@@ -124,11 +124,11 @@ public class FragmentEntryProcessorHelperImpl
 			return null;
 		}
 
-		Object object = infoDisplayObjectProvider.getDisplayObject();
-
 		Map<String, Object> fieldsValues = infoDisplaysFieldValues.get(classPK);
 
 		if (MapUtil.isEmpty(fieldsValues)) {
+			Object object = infoDisplayObjectProvider.getDisplayObject();
+
 			fieldsValues = infoDisplayContributor.getInfoDisplayFieldsValues(
 				object, fragmentEntryProcessorContext.getLocale());
 

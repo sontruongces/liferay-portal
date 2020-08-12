@@ -112,12 +112,10 @@ public class MBUtil {
 	}
 
 	public static String getEditorName(String messageFormat) {
-		String editorName = PropsUtil.get(
-			"editor.wysiwyg.portal-web.docroot.html.portlet.message_boards." +
-				"edit_message.html.jsp");
-
 		if (!messageFormat.equals("bbcode")) {
-			return editorName;
+			return PropsUtil.get(
+				"editor.wysiwyg.portal-web.docroot.html.portlet." +
+					"message_boards.edit_message.html.jsp");
 		}
 
 		String bbCodeEditorName = PropsUtil.get(

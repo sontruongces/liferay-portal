@@ -229,10 +229,10 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 			_invalidFragmentEntriesNames.add(name);
 		}
 
-		int type = FragmentConstants.getTypeFromLabel(
-			StringUtil.toLowerCase(StringUtil.trim(typeLabel)));
-
 		if (fragmentEntry == null) {
+			int type = FragmentConstants.getTypeFromLabel(
+				StringUtil.toLowerCase(StringUtil.trim(typeLabel)));
+
 			return _fragmentEntryService.addFragmentEntry(
 				fragmentCollection.getGroupId(), fragmentCollectionId,
 				fragmentEntryKey, name, css, html, js, configuration, 0, type,

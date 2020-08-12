@@ -155,13 +155,13 @@ public interface AssetPublisherHelper {
 
 		baseAssetViewURL.setParameter("type", assetRendererFactory.getType());
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)liferayPortletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		String urlTitle = assetRenderer.getUrlTitle();
 
 		if (Validator.isNotNull(urlTitle)) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)liferayPortletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
 			if (assetRenderer.getGroupId() != themeDisplay.getScopeGroupId()) {
 				baseAssetViewURL.setParameter(
 					"groupId", String.valueOf(assetRenderer.getGroupId()));
