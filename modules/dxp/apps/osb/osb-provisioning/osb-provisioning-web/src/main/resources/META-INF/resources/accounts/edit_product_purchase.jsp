@@ -22,6 +22,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 EditProductPurchaseDisplayContext editProductPurchaseDisplayContext = ProvisioningWebComponentProvider.getEditProductPurchaseDisplayContext(renderRequest, renderResponse, request);
 
 ProductPurchase productPurchase = editProductPurchaseDisplayContext.getProductPurchase();
+
 ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContext.getProductPurchaseDisplay();
 %>
 
@@ -29,14 +30,8 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title="edit-subscription"
+		title='<%= (productPurchase != null) ? "edit-subscription" : "add-subscription" %>'
 	/>
-
-	<portlet:actionURL name="/accounts/edit_product_purchase" var="editProductPurchaseURL">
-		<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
-		<portlet:param name="redirect" value="<%= redirect %>" />
-		<portlet:param name="productPurchaseKey" value="<%= productPurchaseDisplay.getKey() %>" />
-	</portlet:actionURL>
 
 	<liferay-ui:error exception="<%= HttpException.class %>">
 
@@ -47,175 +42,238 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 		<%= httpException.getMessage() %>
 	</liferay-ui:error>
 
-	<aui:form action="<%= editProductPurchaseURL.toString() %>" method="post" name="fm">
-		<div>
+	<div class="main-content-body">
+		<c:if test="<%= productPurchase == null %>">
 			<table class="table table-autofit table-list table-nowrap">
 				<thead>
 					<tr>
 						<th class="table-cell-expand">
-							<liferay-ui:message key="product" />
+							<h4>
+								<liferay-ui:message key="subscription" />
+							</h4>
 						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="purchased" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="perpetual" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="start-date" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="end-date" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="instance-size" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="grace-period-end-date" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="status" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="subscription-term" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="salesforce-opportunity-key" />
-						</th>
-						<th class="table-cell-expand">
-							<liferay-ui:message key="account-name" />
+						<th>
+							<aui:button onClick='<%= renderResponse.getNamespace() + "assignProduct();" %>' value="select" />
 						</th>
 					</tr>
 				</thead>
+			</table>
 
-				<tbody>
-					<tr>
-						<td class="table-cell-expand">
-							<%= productPurchaseDisplay.getProductName() %>
-						</td>
-						<td class="table-cell-expand">
-							<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= productPurchase.getQuantity() %>" />
-						</td>
+			<div class="sheet taglib-empty-result-message" id="<portlet:namespace />emptyContent">
+				<div class="taglib-empty-result-message-header"></div>
+				<div class="sheet-text text-center">
+					<liferay-ui:message key="select-subscription-to-fill-in-details" /><br /> <br />
 
-						<%
-						String taglibOnClick = renderResponse.getNamespace() + "toggleDate(this.checked, 'startDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'endDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'gracePeriodEndDate');";
-						%>
+					<aui:button onClick='<%= renderResponse.getNamespace() + "assignProduct();" %>' value="select" />
+				</div>
+			</div>
+		</c:if>
 
-						<td class="table-cell-expand">
-							<aui:input checked="<%= productPurchase.getPerpetual() %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
-						</td>
+		<portlet:actionURL name="/accounts/edit_product_purchase" var="editProductPurchaseURL">
+			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
+			<portlet:param name="redirect" value="<%= redirect %>" />
+			<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
+			<portlet:param name="productPurchaseKey" value='<%= (productPurchase != null) ? productPurchaseDisplay.getKey() : "" %>' />
+		</portlet:actionURL>
 
-						<%
-						Calendar startCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+		<aui:form action="<%= editProductPurchaseURL.toString() %>" method="post" name="fm">
+			<aui:input name="productKey" type="hidden" />
 
-						if (productPurchase.getStartDate() != null) {
-							startCal.setTime(productPurchase.getStartDate());
-						}
-						%>
+			<div id="<portlet:namespace />subscriptionContent" hidden>
+				<table class="table table-autofit table-list table-nowrap">
+					<thead>
+						<tr>
+							<th class="table-cell-expand">
+								<liferay-ui:message key="product" />
+							</th>
 
-						<td class="table-cell-expand">
-							<liferay-ui:input-date
-								dayParam="startDateDay"
-								dayValue="<%= startCal.get(Calendar.DATE) %>"
-								disabled="<%= productPurchase.getPerpetual() %>"
-								monthParam="startDateMonth"
-								monthValue="<%= startCal.get(Calendar.MONTH) %>"
-								name="startDate"
-								yearParam="startDateYear"
-								yearValue="<%= startCal.get(Calendar.YEAR) %>"
-							/>
-						</td>
+							<c:if test="<%= productPurchase == null %>">
+								<th class="table-cell-expand">
+									<liferay-ui:message key="salesforce-opportunity-key" />
+								</th>
+							</c:if>
 
-						<%
-						Calendar endCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+							<th class="table-cell-expand">
+								<liferay-ui:message key="purchased" />
+							</th>
+							<th class="table-cell-expand">
+								<liferay-ui:message key="perpetual" />
+							</th>
+							<th class="table-cell-expand">
+								<liferay-ui:message key="start-date" />
+							</th>
+							<th class="table-cell-expand">
+								<liferay-ui:message key="end-date" />
+							</th>
+							<th class="table-cell-expand">
+								<liferay-ui:message key="instance-size" />
+							</th>
 
-						if (productPurchase.getEndDate() != null) {
-							endCal.setTime(productPurchase.getEndDate());
-						}
-						%>
+							<c:if test="<%= productPurchase != null %>">
+								<th class="table-cell-expand">
+									<liferay-ui:message key="grace-period-end-date" />
+								</th>
+								<th class="table-cell-expand">
+									<liferay-ui:message key="status" />
+								</th>
+								<th class="table-cell-expand">
+									<liferay-ui:message key="subscription-term" />
+								</th>
+								<th class="table-cell-expand">
+									<liferay-ui:message key="salesforce-opportunity-key" />
+								</th>
+							</c:if>
 
-						<td class="table-cell-expand">
-							<liferay-ui:input-date
-								dayParam="endDateDay"
-								dayValue="<%= endCal.get(Calendar.DATE) %>"
-								disabled="<%= productPurchase.getPerpetual() %>"
-								monthParam="endDateMonth"
-								monthValue="<%= endCal.get(Calendar.MONTH) %>"
-								name="endDate"
-								yearParam="endDateYear"
-								yearValue="<%= endCal.get(Calendar.YEAR) %>"
-							/>
-						</td>
-						<td class="table-cell-expand">
+							<th class="table-cell-expand">
+								<liferay-ui:message key="account-name" />
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td class="table-cell-expand" id="<portlet:namespace />productName">
+								<%= (productPurchase != null) ? productPurchaseDisplay.getProductName() : "" %>
+							</td>
+
+							<c:if test="<%= productPurchase == null %>">
+								<td class="table-cell-expand">
+									<aui:input cssClass="account-edit-subscription" label="" name="salesforceOpportunityKey">
+										<aui:validator name="required" />
+									</aui:input>
+								</td>
+							</c:if>
+
+							<td class="table-cell-expand">
+								<aui:input cssClass="account-edit-subscription" label="" name="quantity" value='<%= (productPurchase != null) ? productPurchase.getQuantity() : "1" %>' />
+							</td>
 
 							<%
-							int sizing = 0;
+							String taglibOnClick = renderResponse.getNamespace() + "toggleDate(this.checked, 'startDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'endDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'gracePeriodEndDate');";
+							%>
 
-							Map<String, String> properties = productPurchase.getProperties();
+							<td class="table-cell-expand">
+								<aui:input checked="<%= (productPurchase != null) ? productPurchase.getPerpetual() : false %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
+							</td>
 
-							if (properties != null) {
-								sizing = GetterUtil.getInteger(properties.get("sizing"));
+							<%
+							Calendar startCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+							if ((productPurchase != null) && (productPurchase.getStartDate() != null)) {
+								startCal.setTime(productPurchase.getStartDate());
 							}
 							%>
 
-							<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= sizing %>" />
-						</td>
+							<td class="table-cell-expand">
+								<liferay-ui:input-date
+									dayParam="startDateDay"
+									dayValue="<%= startCal.get(Calendar.DATE) %>"
+									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual(): false %>"
+									monthParam="startDateMonth"
+									monthValue="<%= startCal.get(Calendar.MONTH) %>"
+									name="startDate"
+									yearParam="startDateYear"
+									yearValue="<%= startCal.get(Calendar.YEAR) %>"
+								/>
+							</td>
 
-						<%
-						Calendar originalEndCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+							<%
+							Calendar endCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
-						if (productPurchase.getOriginalEndDate() != null) {
-							originalEndCal.setTime(productPurchase.getOriginalEndDate());
-						}
-						%>
+							if ((productPurchase != null) && (productPurchase.getEndDate() != null)) {
+								endCal.setTime(productPurchase.getEndDate());
+							}
+							%>
 
-						<td class="table-cell-expand">
-							<liferay-ui:input-date
-								dayParam="gracePeriodEndDateDay"
-								dayValue="<%= originalEndCal.get(Calendar.DATE) %>"
-								disabled="<%= productPurchase.getPerpetual() %>"
-								monthParam="gracePeriodEndDateMonth"
-								monthValue="<%= originalEndCal.get(Calendar.MONTH) %>"
-								name="gracePeriodEndDate"
-								yearParam="gracePeriodEndDateYear"
-								yearValue="<%= originalEndCal.get(Calendar.YEAR) %>"
-							/>
-						</td>
-						<td class="table-cell-expand">
-							<aui:select cssClass="account-edit-subscription" label="" name="status">
+							<td class="table-cell-expand">
+								<liferay-ui:input-date
+									dayParam="endDateDay"
+									dayValue="<%= endCal.get(Calendar.DATE) %>"
+									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual(): false %>"
+									monthParam="endDateMonth"
+									monthValue="<%= endCal.get(Calendar.MONTH) %>"
+									name="endDate"
+									yearParam="endDateYear"
+									yearValue="<%= endCal.get(Calendar.YEAR) %>"
+								/>
+							</td>
+							<td class="table-cell-expand">
 
 								<%
-								for (ProductPurchase.Status status : ProductPurchase.Status.values()) {
-								%>
+								int sizing = 0;
 
-									<aui:option label="<%= status.toString() %>" selected="<%= productPurchase.getStatus() == status %>" value="<%= status.toString() %>" />
+								if (productPurchase != null) {
+									Map<String, String> properties = productPurchase.getProperties();
 
-								<%
+									if (properties != null) {
+										sizing = GetterUtil.getInteger(properties.get("sizing"));
+									}
 								}
 								%>
 
-							</aui:select>
-						</td>
-						<td class="table-cell-expand">
-							<%= productPurchaseDisplay.getSupportLife() %>
-						</td>
-						<td class="table-cell-expand">
-							<%= productPurchaseDisplay.getSalesforceOpportunityKey() %>
-						</td>
-						<td class="table-cell-expand">
-							<%= editProductPurchaseDisplayContext.getAccountName() %>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+								<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= sizing %>" />
+							</td>
+
+							<c:if test="<%= productPurchase != null %>">
+
+								<%
+								Calendar originalEndCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+								if (productPurchase.getOriginalEndDate() != null) {
+									originalEndCal.setTime(productPurchase.getOriginalEndDate());
+								}
+								%>
+
+								<td class="table-cell-expand">
+									<liferay-ui:input-date
+										dayParam="gracePeriodEndDateDay"
+										dayValue="<%= originalEndCal.get(Calendar.DATE) %>"
+										disabled="<%= productPurchase.getPerpetual() %>"
+										monthParam="gracePeriodEndDateMonth"
+										monthValue="<%= originalEndCal.get(Calendar.MONTH) %>"
+										name="gracePeriodEndDate"
+										yearParam="gracePeriodEndDateYear"
+										yearValue="<%= originalEndCal.get(Calendar.YEAR) %>"
+									/>
+								</td>
+								<td class="table-cell-expand">
+									<aui:select cssClass="account-edit-subscription" label="" name="status">
+
+										<%
+										for (ProductPurchase.Status status : ProductPurchase.Status.values()) {
+										%>
+
+											<aui:option label="<%= status.toString() %>" selected="<%= productPurchase.getStatus() == status %>" value="<%= status.toString() %>" />
+
+										<%
+										}
+										%>
+
+									</aui:select>
+								</td>
+								<td class="table-cell-expand">
+									<%= productPurchaseDisplay.getSupportLife() %>
+								</td>
+								<td class="table-cell-expand">
+									<%= productPurchaseDisplay.getSalesforceOpportunityKey() %>
+								</td>
+							</c:if>
+
+							<td class="table-cell-expand">
+								<%= editProductPurchaseDisplayContext.getAccountName() %>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 			<aui:button-row>
-				<aui:button type="submit" />
+				<aui:button disabled="<%= (productPurchase != null) ? false: true %>" name="submit" type="submit" />
 
 				<aui:button href="<%= redirect %>" type="cancel" />
 			</aui:button-row>
-		</div>
-	</aui:form>
+		</aui:form>
+	</div>
 </div>
 
 <aui:script>
@@ -265,4 +323,96 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 		},
 		['aui-base']
 	);
+
+	Liferay.provide(
+		window,
+		'<portlet:namespace />assignProduct',
+		function() {
+			<portlet:renderURL var="assignProductURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/assign_product_purchase_product" />
+				<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
+			</portlet:renderURL>
+
+			var url = Liferay.Util.PortletURL.createPortletURL(
+				'<%= assignProductURL.toString() %>',
+				{
+					productKey: document.getElementById(
+						'<portlet:namespace />productKey'
+					).value
+				}
+			);
+
+			var A = AUI();
+
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: '<portlet:namespace />assignProduct',
+				title: '<liferay-ui:message key="select-subscription" />',
+				url: url.toString()
+			});
+
+			itemSelectorDialog.on('selectedItemChange', function(event) {
+				var selectedItem = event.newVal;
+
+				if (selectedItem) {
+					toggleContent(selectedItem);
+				}
+			});
+
+			itemSelectorDialog.open();
+		},
+		['aui-base', 'liferay-item-selector-dialog']
+	);
+
+	function toggleContent(selectedItem) {
+		var emptyContent = document.getElementById(
+			'<portlet:namespace />emptyContent'
+		);
+
+		if (emptyContent) {
+			emptyContent.setAttribute('hidden', true);
+		}
+
+		var subscriptionContent = document.getElementById(
+			'<portlet:namespace />subscriptionContent'
+		);
+
+		if (subscriptionContent) {
+			subscriptionContent.removeAttribute('hidden');
+		}
+
+		var productName = document.getElementById(
+			'<portlet:namespace />productName'
+		);
+
+		if (productName) {
+			productName.innerHTML = selectedItem.name;
+		}
+
+		var productKey = document.getElementById('<portlet:namespace />productKey');
+
+		if (productKey) {
+			productKey.value = selectedItem.key;
+		}
+
+		var submit = document.getElementById('<portlet:namespace />submit');
+
+		if (submit) {
+			submit.removeAttribute('disabled');
+			submit.classList.remove('disabled');
+		}
+	}
+
+	var emptyContent = document.getElementById(
+		'<portlet:namespace />emptyContent'
+	);
+
+	if (!emptyContent) {
+		var subscriptionContent = document.getElementById(
+			'<portlet:namespace />subscriptionContent'
+		);
+
+		if (subscriptionContent) {
+			subscriptionContent.removeAttribute('hidden');
+		}
+	}
 </aui:script>

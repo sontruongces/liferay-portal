@@ -14,12 +14,9 @@
 
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
-import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
-import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -38,11 +35,12 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"javax.portlet.name=" + ProvisioningPortletKeys.ACCOUNTS,
-		"mvc.command.name=/accounts/edit_product_purchase"
+		"mvc.command.name=/accounts/assign_product_purchase_product"
 	},
 	service = MVCRenderCommand.class
 )
-public class EditProductPurchaseMVCRenderCommand implements MVCRenderCommand {
+public class AssignProductPurchaseProductMVCRenderCommand
+	implements MVCRenderCommand {
 
 	@Override
 	public String render(
@@ -59,25 +57,7 @@ public class EditProductPurchaseMVCRenderCommand implements MVCRenderCommand {
 					_accountWebService.getAccount(accountKey));
 			}
 
-			String productPurchaseKey = ParamUtil.getString(
-				renderRequest, "productPurchaseKey");
-
-			if (Validator.isNotNull(productPurchaseKey)) {
-				ProductPurchase productPurchase =
-					_productPurchaseWebService.getProductPurchase(
-						productPurchaseKey);
-
-				renderRequest.setAttribute(
-					ProvisioningWebKeys.PRODUCT_PURCHASE, productPurchase);
-
-				Account account = _accountWebService.getAccount(
-					productPurchase.getAccountKey());
-
-				renderRequest.setAttribute(
-					ProvisioningWebKeys.ACCOUNT, account);
-			}
-
-			return "/accounts/edit_product_purchase.jsp";
+			return "/accounts/assign_product_purchase_product.jsp";
 		}
 		catch (Exception exception) {
 			SessionErrors.add(renderRequest, exception.getClass(), exception);
@@ -88,8 +68,5 @@ public class EditProductPurchaseMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private AccountWebService _accountWebService;
-
-	@Reference
-	private ProductPurchaseWebService _productPurchaseWebService;
 
 }

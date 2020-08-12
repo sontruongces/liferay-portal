@@ -34,6 +34,7 @@ import com.liferay.osb.provisioning.koroneiki.web.service.ExternalLinkWebService
 import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductConsumptionWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseViewWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.TeamWebService;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -575,7 +576,7 @@ public class ViewAccountDisplayContext {
 			ContactRoleWebService contactRoleWebService,
 			ContactWebService contactWebService,
 			ExternalLinkWebService externalLinkWebService,
-			NoteWebService noteWebService,
+			NoteWebService noteWebService, ProductWebService productWebService,
 			ProductConsumptionWebService productConsumptionWebService,
 			ProductPurchaseViewWebService productPurchaseViewWebService,
 			TeamWebService teamWebService)
@@ -592,6 +593,7 @@ public class ViewAccountDisplayContext {
 		this.contactWebService = contactWebService;
 		this.externalLinkWebService = externalLinkWebService;
 		this.noteWebService = noteWebService;
+		this.productWebService = productWebService;
 		this.productConsumptionWebService = productConsumptionWebService;
 		this.productPurchaseViewWebService = productPurchaseViewWebService;
 		this.teamWebService = teamWebService;
@@ -627,6 +629,7 @@ public class ViewAccountDisplayContext {
 	protected NoteWebService noteWebService;
 	protected ProductConsumptionWebService productConsumptionWebService;
 	protected ProductPurchaseViewWebService productPurchaseViewWebService;
+	protected ProductWebService productWebService;
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;
 	protected TeamWebService teamWebService;

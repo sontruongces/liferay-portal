@@ -14,9 +14,13 @@
 
 package com.liferay.osb.provisioning.web.internal.portlet.action;
 
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain;
+import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -28,6 +32,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Date;
@@ -81,13 +86,19 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		User user = themeDisplay.getUser();
 
+		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
+		String productKey = ParamUtil.getString(actionRequest, "productKey");
 		String productPurchaseKey = ParamUtil.getString(
 			actionRequest, "productPurchaseKey");
 
 		boolean perpetual = ParamUtil.getBoolean(actionRequest, "perpetual");
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
 		int sizing = ParamUtil.getInteger(actionRequest, "sizing");
-		String status = ParamUtil.getString(actionRequest, "status");
+		String salesforceOpportunityKey = ParamUtil.getString(
+			actionRequest, "salesforceOpportunityKey");
+		String status = ParamUtil.getString(
+			actionRequest, "status",
+			ProductPurchase.Status.APPROVED.toString());
 
 		ProductPurchase productPurchase = new ProductPurchase();
 
@@ -120,11 +131,11 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 				themeDisplay.getTimeZone(), null);
 
 			int gracePeriodEndDateMonth = ParamUtil.getInteger(
-				actionRequest, "gracePeriodEndDateMonth");
+				actionRequest, "gracePeriodEndDateMonth", endDateMonth);
 			int gracePeriodEndDateDay = ParamUtil.getInteger(
-				actionRequest, "gracePeriodEndDateDay");
+				actionRequest, "gracePeriodEndDateDay", endDateDay);
 			int gracePeriodEndDateYear = ParamUtil.getInteger(
-				actionRequest, "gracePeriodEndDateYear");
+				actionRequest, "gracePeriodEndDateYear", endDateYear);
 
 			Date originalEndDate = _portal.getDate(
 				gracePeriodEndDateMonth, gracePeriodEndDateDay,
@@ -137,29 +148,52 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		Map<String, String> properties = new HashMap<>();
 
-		ProductPurchase curProductPurchase =
-			_productPurchaseWebService.getProductPurchase(productPurchaseKey);
+		if (Validator.isNotNull(productPurchaseKey)) {
+			ProductPurchase curProductPurchase =
+				_productPurchaseWebService.getProductPurchase(
+					productPurchaseKey);
 
-		if (curProductPurchase != null) {
-			Map<String, String> curProperties =
-				curProductPurchase.getProperties();
+			if (curProductPurchase != null) {
+				Map<String, String> curProperties =
+					curProductPurchase.getProperties();
 
-			if (curProperties != null) {
-				for (Map.Entry<String, String> entry :
-						curProperties.entrySet()) {
+				if (curProperties != null) {
+					for (Map.Entry<String, String> entry :
+							curProperties.entrySet()) {
 
-					properties.put(entry.getKey(), entry.getValue());
+						properties.put(entry.getKey(), entry.getValue());
+					}
 				}
 			}
+		}
+		else {
+			ExternalLink externalLink = new ExternalLink();
+
+			externalLink.setDomain(ExternalLinkDomain.SALESFORCE);
+			externalLink.setEntityName(
+				ExternalLinkEntityName.SALESFORCE_OPPORTUNITY);
+			externalLink.setEntityId(salesforceOpportunityKey);
+
+			productPurchase.setExternalLinks(new ExternalLink[] {externalLink});
+
+			productPurchase.setProduct(
+				_productWebService.getProduct(productKey));
 		}
 
 		properties.put("sizing", String.valueOf(sizing));
 
 		productPurchase.setProperties(properties);
 
-		_productPurchaseWebService.updateProductPurchase(
-			user.getFullName(), StringPool.BLANK, productPurchaseKey,
-			productPurchase);
+		if (Validator.isNull(productPurchaseKey)) {
+			_productPurchaseWebService.addProductPurchase(
+				user.getFullName(), StringPool.BLANK, accountKey,
+				productPurchase);
+		}
+		else {
+			_productPurchaseWebService.updateProductPurchase(
+				user.getFullName(), StringPool.BLANK, productPurchaseKey,
+				productPurchase);
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -170,5 +204,8 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private ProductPurchaseWebService _productPurchaseWebService;
+
+	@Reference
+	private ProductWebService _productWebService;
 
 }

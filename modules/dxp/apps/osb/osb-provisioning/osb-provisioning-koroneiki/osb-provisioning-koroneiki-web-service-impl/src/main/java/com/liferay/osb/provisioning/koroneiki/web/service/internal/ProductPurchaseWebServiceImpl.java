@@ -48,8 +48,12 @@ public class ProductPurchaseWebServiceImpl
 			ProductPurchase productPurchase)
 		throws Exception {
 
-		return _productPurchaseResource.postAccountAccountKeyProductPurchase(
-			agentName, agentUID, accountKey, productPurchase);
+		HttpInvoker.HttpResponse httpResponse =
+			_productPurchaseResource.
+				postAccountAccountKeyProductPurchaseHttpResponse(
+					agentName, agentUID, accountKey, productPurchase);
+
+		return processDTO(httpResponse, ProductPurchaseSerDes::toDTO);
 	}
 
 	public ProductPurchase getProductPurchase(String productPurchaseKey)

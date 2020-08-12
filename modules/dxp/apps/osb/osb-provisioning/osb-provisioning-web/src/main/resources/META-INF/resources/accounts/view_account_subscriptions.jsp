@@ -52,6 +52,24 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 					</aui:form>
 				</div>
 			</div>
+
+			<portlet:renderURL var="editProductPurchaseURL">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="accountKey" value="<%= viewAccountDisplayContext.getAccountDisplay().getKey() %>" />
+			</portlet:renderURL>
+
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<liferay-ui:icon
+						icon="plus"
+						iconCssClass="btn btn-primary nav-btn nav-btn-monospaced"
+						markupView="lexicon"
+						message="add"
+						url="<%= editProductPurchaseURL %>"
+					/>
+				</li>
+			</ul>
 		</div>
 	</div>
 
