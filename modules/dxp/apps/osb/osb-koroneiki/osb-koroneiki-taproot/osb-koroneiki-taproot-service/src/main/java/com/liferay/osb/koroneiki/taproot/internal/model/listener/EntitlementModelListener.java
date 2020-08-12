@@ -17,8 +17,11 @@ package com.liferay.osb.koroneiki.taproot.internal.model.listener;
 import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
+import com.liferay.osb.koroneiki.taproot.model.Team;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
+import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -26,6 +29,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -83,6 +88,13 @@ public class EntitlementModelListener extends BaseModelListener<Entitlement> {
 				_classNameLocalService.getClassNameId(Account.class)) {
 
 			_accountLocalService.reindex(entitlement.getClassPK());
+
+			List<Team> teams = _teamLocalService.getAccountTeams(
+				entitlement.getClassPK(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			for (Team team : teams) {
+				_teamLocalService.reindex(team.getTeamId());
+			}
 		}
 		else if (entitlement.getClassNameId() ==
 					_classNameLocalService.getClassNameId(Contact.class)) {
@@ -102,5 +114,8 @@ public class EntitlementModelListener extends BaseModelListener<Entitlement> {
 
 	@Reference
 	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private TeamLocalService _teamLocalService;
 
 }

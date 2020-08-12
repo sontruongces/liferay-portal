@@ -41,6 +41,7 @@ public class EntitlementLocalServiceImpl
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
+
 		EntitlementDefinition entitlementDefinition =
 			entitlementDefinitionPersistence.findByPrimaryKey(
 				entitlementDefinitionId);

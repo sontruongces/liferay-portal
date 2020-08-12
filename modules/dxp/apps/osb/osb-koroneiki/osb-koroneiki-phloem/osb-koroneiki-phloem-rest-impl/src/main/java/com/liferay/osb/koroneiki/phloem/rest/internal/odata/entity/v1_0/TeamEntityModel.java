@@ -33,6 +33,9 @@ public class TeamEntityModel implements EntityModel {
 
 	public TeamEntityModel() {
 		_entityFieldsMap = Stream.of(
+			new CollectionEntityField(
+				new StringEntityField(
+					"accountEntitlements", locale -> "accountEntitlements")),
 			new StringEntityField("accountKey", locale -> "accountKey"),
 			new CollectionEntityField(
 				new StringEntityField(

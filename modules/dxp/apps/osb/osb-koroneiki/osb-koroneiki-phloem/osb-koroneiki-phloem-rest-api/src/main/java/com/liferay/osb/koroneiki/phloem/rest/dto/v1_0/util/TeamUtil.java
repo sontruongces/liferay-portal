@@ -28,6 +28,7 @@ public class TeamUtil {
 
 		return new Team() {
 			{
+				account = AccountUtil.toAccount(team.getAccount());
 				accountKey = team.getAccountKey();
 				dateCreated = team.getCreateDate();
 				dateModified = team.getModifiedDate();

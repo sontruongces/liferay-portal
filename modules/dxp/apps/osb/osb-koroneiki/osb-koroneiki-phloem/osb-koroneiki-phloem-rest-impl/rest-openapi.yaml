@@ -863,6 +863,13 @@ components:
             description:
                 Represents a team.
             properties:
+                account:
+                    description:
+                        The team's account.
+                    items:
+                        $ref: "#/components/schemas/Account"
+                    readOnly: true
+                    type: object
                 accountKey:
                     description:
                         The team's account's key.

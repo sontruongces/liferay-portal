@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.taproot.internal.search.spi.model.index.contributor;
 
+import com.liferay.osb.koroneiki.phytohormone.model.Entitlement;
 import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
@@ -81,9 +82,26 @@ public class TeamModelDocumentContributor
 
 		document.addTextSortable(Field.NAME, team.getName());
 
+		_contributeAccountData(document, account);
 		_contributeAssignedAccounts(document, team.getTeamId());
 		_contributeContacts(document, team.getTeamId());
 		_contributeExternalLinks(document, team.getTeamId());
+	}
+
+	private void _contributeAccountData(Document document, Account account)
+		throws PortalException {
+
+		Set<String> entitlementNames = new HashSet<>();
+
+		List<Entitlement> entitlements = account.getEntitlements();
+
+		for (Entitlement entitlement : entitlements) {
+			entitlementNames.add(entitlement.getName());
+		}
+
+		document.addKeyword(
+			"accountEntitlements",
+			ArrayUtil.toStringArray(entitlementNames.toArray()));
 	}
 
 	private void _contributeAssignedAccounts(Document document, long teamId)
