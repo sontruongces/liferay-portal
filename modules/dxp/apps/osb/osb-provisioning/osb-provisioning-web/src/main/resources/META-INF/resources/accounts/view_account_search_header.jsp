@@ -16,6 +16,10 @@
 
 <%@ include file="/init.jsp" %>
 
+<%
+AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
+%>
+
 <div class="control-menu control-menu-level-1 search-menu">
 	<div class="container-fluid container-fluid-max-xl">
 		<ul class="control-menu-level-1-nav control-menu-nav">
@@ -27,6 +31,12 @@
 						</svg>
 					</li>
 				</ul>
+			</li>
+			<li class="control-menu-nav-category tools-control-group">
+				<react:component
+					data="<%= accountSearchDisplayContext.getAutocompleteAccountData() %>"
+					module="js/SearchApp"
+				/>
 			</li>
 		</ul>
 	</div>

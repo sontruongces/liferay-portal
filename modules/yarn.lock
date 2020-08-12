@@ -1231,6 +1231,14 @@
     "@clayui/icon" "^3.0.4"
     classnames "^2.2.6"
 
+"@clayui/layout@3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@clayui/layout/-/layout-3.1.1.tgz#fd1486e39a876d1d25b070974c25344e4fc4d4eb"
+  integrity sha512-ALJi6lZ6pfKSonTRq9/YkQdQOsDFuPNLy9sOUOt5nWJF4tBFt7FkX+heIgfZGPoCP/GYA5AS4ZntJVf5QKe+WA==
+  dependencies:
+    classnames "^2.2.6"
+    warning "^4.0.3"
+
 "@clayui/link@3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@clayui/link/-/link-3.0.3.tgz#b771d70550c7038db680c13d1cebd063e09b35f4"
