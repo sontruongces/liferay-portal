@@ -107,8 +107,6 @@ public class ProductsAdminPortlet extends MVCPortlet {
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws IOException {
 
-		String domain = ParamUtil.getString(resourceRequest, "domain");
-
 		String entityName = ParamUtil.getString(resourceRequest, "entityName");
 
 		if (Validator.isNotNull(entityName)) {
@@ -119,6 +117,8 @@ public class ProductsAdminPortlet extends MVCPortlet {
 				entityName =
 					StringPool.PERCENT + entityName + StringPool.PERCENT;
 			}
+
+			String domain = ParamUtil.getString(resourceRequest, "domain");
 
 			List<String> entityNames = _externalLinkLocalService.search(
 				domain, entityName);

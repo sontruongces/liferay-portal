@@ -87,8 +87,6 @@ public abstract class BaseAdminPortlet extends MVCPortlet {
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws IOException {
 
-		String domain = ParamUtil.getString(resourceRequest, "domain");
-
 		String entityName = ParamUtil.getString(resourceRequest, "entityName");
 
 		if (Validator.isNotNull(entityName)) {
@@ -99,6 +97,8 @@ public abstract class BaseAdminPortlet extends MVCPortlet {
 				entityName =
 					StringPool.PERCENT + entityName + StringPool.PERCENT;
 			}
+
+			String domain = ParamUtil.getString(resourceRequest, "domain");
 
 			List<String> entityNames = externalLinkLocalService.search(
 				domain, entityName);

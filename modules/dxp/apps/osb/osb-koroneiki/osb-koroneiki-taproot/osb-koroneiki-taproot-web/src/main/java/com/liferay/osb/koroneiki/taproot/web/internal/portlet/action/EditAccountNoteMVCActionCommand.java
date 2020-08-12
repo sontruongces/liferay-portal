@@ -88,14 +88,15 @@ public class EditAccountNoteMVCActionCommand extends BaseMVCActionCommand {
 
 		long accountNoteId = ParamUtil.getLong(actionRequest, "accountNoteId");
 
-		long accountId = ParamUtil.getLong(actionRequest, "accountId");
-		String type = ParamUtil.getString(actionRequest, "type");
 		int priority = ParamUtil.getInteger(actionRequest, "priority");
 		String content = ParamUtil.getString(actionRequest, "content");
 		String format = ParamUtil.getString(actionRequest, "format");
 		String status = ParamUtil.getString(actionRequest, "status");
 
 		if (accountNoteId <= 0) {
+			long accountId = ParamUtil.getLong(actionRequest, "accountId");
+			String type = ParamUtil.getString(actionRequest, "type");
+
 			_accountNoteLocalService.addAccountNote(
 				user.getUserId(), StringPool.BLANK, user.getFullName(),
 				accountId, type, priority, content, format, status);

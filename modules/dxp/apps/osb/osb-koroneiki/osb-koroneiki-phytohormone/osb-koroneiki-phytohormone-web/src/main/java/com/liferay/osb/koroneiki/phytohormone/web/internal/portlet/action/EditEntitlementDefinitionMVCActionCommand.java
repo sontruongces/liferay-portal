@@ -99,14 +99,9 @@ public class EditEntitlementDefinitionMVCActionCommand
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws PortalException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		long entitlementDefinitionId = ParamUtil.getLong(
 			actionRequest, "entitlementDefinitionId");
 
-		long classNameId = ParamUtil.getLong(actionRequest, "classNameId");
-		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
 		String definition = ParamUtil.getString(actionRequest, "definition");
 		int status = ParamUtil.getInteger(actionRequest, "status");
@@ -114,6 +109,12 @@ public class EditEntitlementDefinitionMVCActionCommand
 		EntitlementDefinition entitlementDefinition = null;
 
 		if (entitlementDefinitionId <= 0) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			long classNameId = ParamUtil.getLong(actionRequest, "classNameId");
+			String name = ParamUtil.getString(actionRequest, "name");
+
 			entitlementDefinition =
 				_entitlementDefinitionLocalService.addEntitlementDefinition(
 					themeDisplay.getUserId(), classNameId, name, description,

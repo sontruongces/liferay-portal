@@ -143,7 +143,6 @@ public class CorpEntryMigration {
 
 			if (resultSet.next()) {
 				String countryA2 = resultSet.getString("A2");
-				String regionName = resultSet.getString("regionName");
 
 				long regionId = 0;
 				long countryId = 0;
@@ -152,6 +151,8 @@ public class CorpEntryMigration {
 					Country country = _countryService.getCountryByA2(countryA2);
 
 					countryId = country.getCountryId();
+
+					String regionName = resultSet.getString("regionName");
 
 					if (Validator.isNotNull(regionName)) {
 						List<Region> regions = _regionService.getRegions(

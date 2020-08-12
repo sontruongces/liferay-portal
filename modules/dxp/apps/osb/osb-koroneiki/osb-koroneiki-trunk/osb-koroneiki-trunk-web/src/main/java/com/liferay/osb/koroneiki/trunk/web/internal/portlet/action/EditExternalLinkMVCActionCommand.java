@@ -96,13 +96,15 @@ public class EditExternalLinkMVCActionCommand extends BaseMVCActionCommand {
 		long externalLinkId = ParamUtil.getLong(
 			actionRequest, "externalLinkId");
 
-		long classNameId = ParamUtil.getLong(actionRequest, "classNameId");
-		long classPK = ParamUtil.getLong(actionRequest, "classPK");
-		String domain = ParamUtil.getString(actionRequest, "domain");
-		String entityName = ParamUtil.getString(actionRequest, "entityName");
 		String entityId = ParamUtil.getString(actionRequest, "entityId");
 
 		if (externalLinkId <= 0) {
+			long classNameId = ParamUtil.getLong(actionRequest, "classNameId");
+			long classPK = ParamUtil.getLong(actionRequest, "classPK");
+			String domain = ParamUtil.getString(actionRequest, "domain");
+			String entityName = ParamUtil.getString(
+				actionRequest, "entityName");
+
 			_externalLinkService.addExternalLink(
 				classNameId, classPK, domain, entityName, entityId);
 		}

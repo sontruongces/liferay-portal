@@ -93,9 +93,10 @@ public class EditContactRoleMVCActionCommand extends BaseMVCActionCommand {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
-		String type = ParamUtil.getString(actionRequest, "type");
 
 		if (contactRoleId <= 0) {
+			String type = ParamUtil.getString(actionRequest, "type");
+
 			_contactRoleService.addContactRole(name, description, type);
 		}
 		else {

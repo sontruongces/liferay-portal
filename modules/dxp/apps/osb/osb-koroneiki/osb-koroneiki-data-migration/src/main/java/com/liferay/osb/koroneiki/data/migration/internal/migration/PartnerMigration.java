@@ -222,24 +222,26 @@ public class PartnerMigration {
 					continue;
 				}
 
-				int role = resultSet.getInt(1);
 				String contactUuid = resultSet.getString(3);
-				String contactFirstName = resultSet.getString(4);
-				String contactMiddleName = resultSet.getString(5);
-				String contactLastName = resultSet.getString(6);
-				String contactEmailAddress = resultSet.getString(7);
-				String contactLanguageId = resultSet.getString(8);
-				boolean emailAddressVerified = resultSet.getBoolean(9);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
 
 				if (contact == null) {
+					String contactFirstName = resultSet.getString(4);
+					String contactMiddleName = resultSet.getString(5);
+					String contactLastName = resultSet.getString(6);
+					String contactEmailAddress = resultSet.getString(7);
+					String contactLanguageId = resultSet.getString(8);
+					boolean emailAddressVerified = resultSet.getBoolean(9);
+
 					contact = _contactLocalService.addContact(
 						contactUuid, userId, StringPool.BLANK, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
 				}
+
+				int role = resultSet.getInt(1);
 
 				Long contactRoleId =
 					_roleMigration.getPartnerWorkerContactRoleId(role);

@@ -113,10 +113,6 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 		long productPurchaseId = ParamUtil.getLong(
 			actionRequest, "productPurchaseId");
 
-		long accountId = ParamUtil.getLong(actionRequest, "accountId");
-		long productEntryId = ParamUtil.getLong(
-			actionRequest, "productEntryId");
-
 		int startDateMonth = ParamUtil.getInteger(
 			actionRequest, "startDateMonth");
 		int startDateDay = ParamUtil.getInteger(actionRequest, "startDateDay");
@@ -176,6 +172,10 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		if (productPurchaseId <= 0) {
+			long accountId = ParamUtil.getLong(actionRequest, "accountId");
+			long productEntryId = ParamUtil.getLong(
+				actionRequest, "productEntryId");
+
 			_productPurchaseService.addProductPurchase(
 				accountId, productEntryId, startDate, endDate, originalEndDate,
 				quantity, status, productFields);

@@ -91,9 +91,6 @@ public class EditServiceProducerMVCActionCommand extends BaseMVCActionCommand {
 	protected void updateServiceProducer(ActionRequest actionRequest)
 		throws PortalException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		long serviceProducerId = ParamUtil.getLong(
 			actionRequest, "serviceProducerId");
 
@@ -101,6 +98,9 @@ public class EditServiceProducerMVCActionCommand extends BaseMVCActionCommand {
 		String description = ParamUtil.getString(actionRequest, "description");
 
 		if (serviceProducerId <= 0) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
 			_serviceProducerLocalService.addServiceProducer(
 				themeDisplay.getUserId(), name, description);
 		}

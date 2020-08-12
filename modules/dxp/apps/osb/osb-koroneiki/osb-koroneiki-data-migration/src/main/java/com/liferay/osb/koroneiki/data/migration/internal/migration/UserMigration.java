@@ -119,17 +119,18 @@ public class UserMigration {
 
 			while (resultSet.next()) {
 				String contactUuid = resultSet.getString(1);
-				String contactFirstName = resultSet.getString(2);
-				String contactMiddleName = resultSet.getString(3);
-				String contactLastName = resultSet.getString(4);
-				String contactEmailAddress = resultSet.getString(5);
-				String contactLanguageId = resultSet.getString(6);
-				boolean emailAddressVerified = resultSet.getBoolean(7);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
 
 				if (contact == null) {
+					String contactFirstName = resultSet.getString(2);
+					String contactMiddleName = resultSet.getString(3);
+					String contactLastName = resultSet.getString(4);
+					String contactEmailAddress = resultSet.getString(5);
+					String contactLanguageId = resultSet.getString(6);
+					boolean emailAddressVerified = resultSet.getBoolean(7);
+
 					contact = _contactLocalService.addContact(
 						contactUuid, userId, StringPool.BLANK, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
@@ -192,17 +193,18 @@ public class UserMigration {
 
 			while (resultSet.next()) {
 				String contactUuid = resultSet.getString(1);
-				String contactFirstName = resultSet.getString(2);
-				String contactMiddleName = resultSet.getString(3);
-				String contactLastName = resultSet.getString(4);
-				String contactEmailAddress = resultSet.getString(5);
-				String contactLanguageId = resultSet.getString(6);
-				boolean emailAddressVerified = resultSet.getBoolean(7);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
 
 				if (contact == null) {
+					String contactFirstName = resultSet.getString(2);
+					String contactMiddleName = resultSet.getString(3);
+					String contactLastName = resultSet.getString(4);
+					String contactEmailAddress = resultSet.getString(5);
+					String contactLanguageId = resultSet.getString(6);
+					boolean emailAddressVerified = resultSet.getBoolean(7);
+
 					contact = _contactLocalService.addContact(
 						contactUuid, userId, StringPool.BLANK, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
@@ -320,18 +322,19 @@ public class UserMigration {
 				long webUserId = resultSet.getLong(1);
 				long webOrganizationId = resultSet.getLong(2);
 				String contactUuid = resultSet.getString(3);
-				String contactFirstName = resultSet.getString(4);
-				String contactMiddleName = resultSet.getString(5);
-				String contactLastName = resultSet.getString(6);
-				String contactEmailAddress = resultSet.getString(7);
-				String contactLanguageId = resultSet.getString(8);
-				boolean emailAddressVerified = resultSet.getBoolean(9);
 				long accountId = resultSet.getLong(10);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
 
 				if (contact == null) {
+					String contactFirstName = resultSet.getString(4);
+					String contactMiddleName = resultSet.getString(5);
+					String contactLastName = resultSet.getString(6);
+					String contactEmailAddress = resultSet.getString(7);
+					String contactLanguageId = resultSet.getString(8);
+					boolean emailAddressVerified = resultSet.getBoolean(9);
+
 					contact = _contactLocalService.addContact(
 						contactUuid, userId, StringPool.BLANK, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
@@ -368,18 +371,19 @@ public class UserMigration {
 
 			while (resultSet.next()) {
 				String contactUuid = resultSet.getString(3);
-				String contactFirstName = resultSet.getString(4);
-				String contactMiddleName = resultSet.getString(5);
-				String contactLastName = resultSet.getString(6);
-				String contactEmailAddress = resultSet.getString(7);
-				String contactLanguageId = resultSet.getString(8);
-				boolean emailAddressVerified = resultSet.getBoolean(9);
 				String corpProjectUuid = resultSet.getString(10);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
 
 				if (contact == null) {
+					String contactFirstName = resultSet.getString(4);
+					String contactMiddleName = resultSet.getString(5);
+					String contactLastName = resultSet.getString(6);
+					String contactEmailAddress = resultSet.getString(7);
+					String contactLanguageId = resultSet.getString(8);
+					boolean emailAddressVerified = resultSet.getBoolean(9);
+
 					contact = _contactLocalService.addContact(
 						contactUuid, userId, StringPool.BLANK, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,

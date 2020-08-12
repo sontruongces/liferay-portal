@@ -101,13 +101,8 @@ public class EditAddressMVCActionCommand extends BaseMVCActionCommand {
 	protected void updateAddress(ActionRequest actionRequest)
 		throws PortalException {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		long addressId = ParamUtil.getLong(actionRequest, "addressId");
 
-		String className = ParamUtil.getString(actionRequest, "className");
-		long classPK = ParamUtil.getLong(actionRequest, "classPK");
 		String street1 = ParamUtil.getString(actionRequest, "addressStreet1");
 		String street2 = ParamUtil.getString(actionRequest, "addressStreet2");
 		String street3 = ParamUtil.getString(actionRequest, "addressStreet3");
@@ -120,6 +115,12 @@ public class EditAddressMVCActionCommand extends BaseMVCActionCommand {
 		boolean primary = ParamUtil.getBoolean(actionRequest, "addressPrimary");
 
 		if (addressId <= 0) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			String className = ParamUtil.getString(actionRequest, "className");
+			long classPK = ParamUtil.getLong(actionRequest, "classPK");
+
 			_addressLocalService.addAddress(
 				themeDisplay.getUserId(), className, classPK, street1, street2,
 				street3, city, zip, regionId, countryId, typeId, mailing,

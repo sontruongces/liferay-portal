@@ -88,10 +88,11 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 		long teamId = ParamUtil.getLong(actionRequest, "teamId");
 
-		long accountId = ParamUtil.getLong(actionRequest, "accountId");
 		String name = ParamUtil.getString(actionRequest, "name");
 
 		if (teamId <= 0) {
+			long accountId = ParamUtil.getLong(actionRequest, "accountId");
+
 			_teamService.addTeam(accountId, name);
 		}
 		else {
