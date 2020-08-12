@@ -242,6 +242,12 @@ definition {
 				value1 = "${userBirthday}");
 		}
 
+		if (isSet(userJobTitle)) {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_JOB_TITLE_FIELD",
+				value1 = "${userJobTitle}");
+		}
+
 		if (isSet(userMiddleName)) {
 			Type(
 				locator1 = "UsersAndOrganizationsEditUser#DETAILS_MIDDLE_NAME_FIELD",
@@ -257,6 +263,22 @@ definition {
 		Type(
 			locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
 			value1 = "${userLastName}");
+
+		if (isSet(userTag)) {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_TAG_FIELD_INPUT",
+				value1 = "${userTag}");
+
+			KeyPress(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_TAG_FIELD_INPUT",
+				value1 = "\ENTER");
+		}
+
+		if (isSet(userComment)) {
+			Type(
+				locator1 = "TextArea#COMMENTS",
+				value1 = "${userComment}");
+		}
 
 		AssertClick(
 			locator1 = "Button#SUBMIT",
@@ -301,9 +323,28 @@ definition {
 					value1 = "${userMiddleName}");
 			}
 
+			if (isSet(userJobTitle)) {
+				AssertTextEquals(
+					locator1 = "UsersAndOrganizationsEditUser#DETAILS_JOB_TITLE_FIELD",
+					value1 = "${userJobTitle}");
+			}
+
 			AssertTextEquals(
 				locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
 				value1 = "${userLastName}");
+
+			if (isSet(userTag)) {
+				AssertTextEquals(
+					key_userTag = "${userTag}",
+					locator1 = "UsersAndOrganizationsEditUser#DETAILS_TAG_FIELD",
+					value1 = "${userTag}");
+			}
+
+			if (isSet(userComment)) {
+				AssertTextEquals(
+					locator1 = "TextArea#COMMENTS",
+					value1 = "${userComment}");
+			}
 		}
 	}
 
