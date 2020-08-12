@@ -1783,7 +1783,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {team(teamKey: ___){accountKey, contacts, dateCreated, dateModified, externalLinks, key, name, system, teamRoles}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {team(teamKey: ___){account, accountKey, contacts, dateCreated, dateModified, externalLinks, key, name, system, teamRoles}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Team team(@GraphQLName("teamKey") String teamKey) throws Exception {

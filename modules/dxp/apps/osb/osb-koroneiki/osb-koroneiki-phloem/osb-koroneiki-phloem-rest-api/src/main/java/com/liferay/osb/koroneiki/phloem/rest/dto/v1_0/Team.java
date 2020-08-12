@@ -52,6 +52,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Team")
 public class Team {
 
+	@Schema(description = "The team's account.")
+	@Valid
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	@JsonIgnore
+	public void setAccount(
+		UnsafeSupplier<Account, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Account account;
+
 	@Schema(description = "The team's account's key.")
 	public String getAccountKey() {
 		return accountKey;
@@ -337,6 +366,16 @@ public class Team {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (account != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(account));
+		}
 
 		if (accountKey != null) {
 			if (sb.length() > 1) {

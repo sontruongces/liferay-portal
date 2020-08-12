@@ -29,6 +29,27 @@ import javax.annotation.Generated;
 @Generated("")
 public class Team {
 
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public void setAccount(
+		UnsafeSupplier<Account, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Account account;
+
 	public String getAccountKey() {
 		return accountKey;
 	}

@@ -63,6 +63,16 @@ public class TeamSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (team.getAccount() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(team.getAccount()));
+		}
+
 		if (team.getAccountKey() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -224,6 +234,13 @@ public class TeamSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (team.getAccount() == null) {
+			map.put("account", null);
+		}
+		else {
+			map.put("account", String.valueOf(team.getAccount()));
+		}
+
 		if (team.getAccountKey() == null) {
 			map.put("accountKey", null);
 		}
@@ -301,7 +318,13 @@ public class TeamSerDes {
 			Team team, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "accountKey")) {
+			if (Objects.equals(jsonParserFieldName, "account")) {
+				if (jsonParserFieldValue != null) {
+					team.setAccount(
+						AccountSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "accountKey")) {
 				if (jsonParserFieldValue != null) {
 					team.setAccountKey((String)jsonParserFieldValue);
 				}
