@@ -135,7 +135,7 @@ public class TeamWebServiceImpl
 		).header(
 			"API_Token", koroneikiConfiguration.apiToken()
 		).parameter(
-			"nestedFields", "account,contacts"
+			"nestedFields", "contacts"
 		).build();
 	}
 
