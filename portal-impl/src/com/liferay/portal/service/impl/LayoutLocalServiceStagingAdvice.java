@@ -280,6 +280,14 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 			boolean privateLayout, long layoutId, String typeSettings)
 		throws PortalException {
 
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if (serviceContext == null) {
+			return layoutLocalService.updateLayout(
+				groupId, privateLayout, layoutId, typeSettings);
+		}
+
 		Layout layout = LayoutUtil.findByG_P_L_Head(
 			groupId, privateLayout, layoutId, false);
 
@@ -296,18 +304,6 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 		}
 
 		layout.setTypeSettings(typeSettings);
-
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		if (serviceContext == null) {
-			serviceContext = new ServiceContext();
-
-			long defaultUserId = UserLocalServiceUtil.getDefaultUserId(
-				layout.getCompanyId());
-
-			serviceContext.setUserId(defaultUserId);
-		}
 
 		boolean hasWorkflowTask = StagingUtil.hasWorkflowTask(
 			serviceContext.getUserId(), layoutRevision);
@@ -338,6 +334,14 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 			String colorSchemeId, String css)
 		throws PortalException {
 
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if (serviceContext == null) {
+			return layoutLocalService.updateLookAndFeel(
+				groupId, privateLayout, layoutId, themeId, colorSchemeId, css);
+		}
+
 		Layout layout = LayoutUtil.findByG_P_L_Head(
 			groupId, privateLayout, layoutId, false);
 
@@ -356,18 +360,6 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 		layout.setThemeId(themeId);
 		layout.setColorSchemeId(colorSchemeId);
 		layout.setCss(css);
-
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		if (serviceContext == null) {
-			serviceContext = new ServiceContext();
-
-			long defaultUserId = UserLocalServiceUtil.getDefaultUserId(
-				layout.getCompanyId());
-
-			serviceContext.setUserId(defaultUserId);
-		}
 
 		boolean hasWorkflowTask = StagingUtil.hasWorkflowTask(
 			serviceContext.getUserId(), layoutRevision);
@@ -397,6 +389,13 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 			String languageId)
 		throws PortalException {
 
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if (serviceContext == null) {
+			return layoutLocalService.updateName(layout, name, languageId);
+		}
+
 		layout = wrapLayout(layout);
 
 		LayoutRevision layoutRevision = LayoutStagingUtil.getLayoutRevision(
@@ -409,18 +408,6 @@ public class LayoutLocalServiceStagingAdvice implements BeanFactoryAware {
 		layoutLocalServiceHelper.validateName(name, languageId);
 
 		layout.setName(name, LocaleUtil.fromLanguageId(languageId));
-
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		if (serviceContext == null) {
-			serviceContext = new ServiceContext();
-
-			long defaultUserId = UserLocalServiceUtil.getDefaultUserId(
-				layout.getCompanyId());
-
-			serviceContext.setUserId(defaultUserId);
-		}
 
 		boolean hasWorkflowTask = StagingUtil.hasWorkflowTask(
 			serviceContext.getUserId(), layoutRevision);
