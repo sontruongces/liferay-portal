@@ -49,6 +49,8 @@ public class CustomFacetDisplayBuilder {
 
 		customFacetDisplayContext.setDisplayCaption(getDisplayCaption());
 		customFacetDisplayContext.setNothingSelected(nothingSelected);
+		customFacetDisplayContext.setPaginationStartParameterName(
+			_paginationStartParameterName);
 		customFacetDisplayContext.setParameterName(_parameterName);
 		customFacetDisplayContext.setParameterValue(getFirstParameterValue());
 		customFacetDisplayContext.setParameterValues(_parameterValues);
@@ -101,6 +103,14 @@ public class CustomFacetDisplayBuilder {
 
 	public CustomFacetDisplayBuilder setMaxTerms(int maxTerms) {
 		_maxTerms = maxTerms;
+
+		return this;
+	}
+
+	public CustomFacetDisplayBuilder setPaginationStartParameterName(
+		String paginationStartParameterName) {
+
+		_paginationStartParameterName = paginationStartParameterName;
 
 		return this;
 	}
@@ -245,6 +255,7 @@ public class CustomFacetDisplayBuilder {
 	private boolean _frequenciesVisible;
 	private int _frequencyThreshold;
 	private int _maxTerms;
+	private String _paginationStartParameterName;
 	private String _parameterName;
 	private List<String> _parameterValues = Collections.emptyList();
 
