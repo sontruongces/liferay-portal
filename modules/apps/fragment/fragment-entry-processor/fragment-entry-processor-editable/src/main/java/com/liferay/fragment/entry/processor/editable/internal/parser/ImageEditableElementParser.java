@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.jsoup.nodes.Element;
