@@ -24,7 +24,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplayContext = new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountSearchDisplayContext.getSearchContainer());
 %>
 
-<div class="container-fluid container-fluid-max-xl">
+<div class="container-fluid home">
 	<div class="alert alert-info" role="alert">
 		<div class="alert-autofit-row autofit-row">
 			<div>

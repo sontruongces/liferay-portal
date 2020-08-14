@@ -171,6 +171,12 @@
 	}
 }
 
+.home {
+	background-color: $light;
+	padding-left: $spacing-default;
+	padding-right: $spacing-default;
+}
+
 .inline-edit {
 	display: inline-block;
 
