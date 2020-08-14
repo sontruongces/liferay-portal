@@ -16,12 +16,15 @@ package com.liferay.osb.provisioning.web.internal.dao.search;
 
 import com.liferay.osb.provisioning.web.internal.display.context.ProductDisplay;
 import com.liferay.portal.kernel.dao.search.EmptyOnClickRowChecker;
+import com.liferay.portal.kernel.dao.search.ResultRow;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.util.List;
 
 import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Yuanyuan Huang
@@ -35,6 +38,18 @@ public class AssignProductBundleProductsRowChecker
 		super(renderResponse);
 
 		_productKeys = productKeys;
+	}
+
+	@Override
+	public String getRowCheckBox(
+		HttpServletRequest httpServletRequest, ResultRow resultRow) {
+
+		ProductDisplay productDisplay = (ProductDisplay)resultRow.getObject();
+
+		return getRowCheckBox(
+			httpServletRequest, isChecked(resultRow.getObject()),
+			isDisabled(resultRow.getObject()),
+			productDisplay.getKey() + "_" + productDisplay.getName());
 	}
 
 	@Override
