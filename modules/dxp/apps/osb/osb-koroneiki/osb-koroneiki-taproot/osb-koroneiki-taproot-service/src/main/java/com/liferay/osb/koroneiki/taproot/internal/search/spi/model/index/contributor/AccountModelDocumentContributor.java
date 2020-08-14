@@ -110,6 +110,7 @@ public class AccountModelDocumentContributor
 		document.addTextSortable(Field.NAME, account.getName());
 
 		document.addTextSortable("code", account.getCode());
+		document.addTextSortable("name", account.getName());
 
 		_contributeContacts(document, account.getAccountId());
 		_contributeEntitlements(document, account.getAccountId());

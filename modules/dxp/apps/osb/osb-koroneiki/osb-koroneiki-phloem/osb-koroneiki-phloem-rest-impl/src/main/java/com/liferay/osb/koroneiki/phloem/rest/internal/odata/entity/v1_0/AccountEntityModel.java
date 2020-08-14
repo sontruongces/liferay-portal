@@ -86,7 +86,8 @@ public class AccountEntityModel implements EntityModel {
 				new StringEntityField(
 					"externalLinkEntityNames",
 					locale -> "externalLinkEntityNames")),
-			new StringEntityField("name", locale -> "name"),
+			new StringEntityField(
+				"name", locale -> Field.getSortableFieldName("name_String")),
 			new StringEntityField(
 				"parentAccountKey", locale -> "parentAccountKey"),
 			new CollectionEntityField(
