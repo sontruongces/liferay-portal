@@ -50,10 +50,6 @@ definition {
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-ccr.config",
 			OSGiConfigs = "clusterName=&quot;LiferayElasticsearchClusterTwo&quot;,connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;,transportAddresses=[&quot;localhost:9500&quot;]");
 
-		AntCommand(
-			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "create-follower-indices");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -778,10 +774,6 @@ definition {
 		OSGiConfig.deployOSGiConfigs(
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-ccr.config",
 			OSGiConfigs = "clusterName=&quot;LiferayElasticsearchClusterTwo&quot;,connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;,transportAddresses=[&quot;localhost:9500&quot;]");
-
-		AntCommand(
-			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "create-follower-indices");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

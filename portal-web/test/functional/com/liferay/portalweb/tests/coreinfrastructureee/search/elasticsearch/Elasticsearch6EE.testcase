@@ -52,10 +52,6 @@ definition {
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
-		AntCommand(
-			locator1 = "build-test-elasticsearch6.xml",
-			value1 = "create-follower-indices");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -783,10 +779,6 @@ definition {
 			portlet = "Search");
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
-
-		AntCommand(
-			locator1 = "build-test-elasticsearch6.xml",
-			value1 = "create-follower-indices");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
