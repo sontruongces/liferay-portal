@@ -217,25 +217,3 @@
 		}
 	}
 }
-
-.search-menu {
-	border-bottom: 1px solid $secondary-l3;
-	height: $header-height;
-	left: 0;
-	position: fixed;
-	right: 0;
-	top: 3.5rem;
-
-	.company-logo {
-		height: $spacing-default;
-		width: $spacing-default;
-	}
-}
-
-.user-personal-bar {
-	padding: $spacing-xs $spacing-default;
-	position: fixed;
-	right: 0;
-	top: 3.5rem;
-	z-index: 990;
-}

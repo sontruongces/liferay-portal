@@ -22,7 +22,7 @@ ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentPr
 AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 %>
 
-<div class="account-header autofit-row">
+<div class="account-header autofit-row provisioning-accounts">
 	<svg class="autofit-col header-icon">
 		<use xlink:href="#account-icon" />
 	</svg>

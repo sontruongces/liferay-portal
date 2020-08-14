@@ -22,7 +22,7 @@ ViewSubscriptionDisplayContext viewSubscriptionDisplayContext = ProvisioningWebC
 ProductPurchaseViewDisplay productPurchaseViewDisplay = viewSubscriptionDisplayContext.getProductPurchaseViewDisplay();
 %>
 
-<div class="autofit-row subscription-header">
+<div class="autofit-row provisioning-accounts subscription-header">
 	<svg class="autofit-col header-icon">
 		<use xlink:href="#subscription-icon" />
 	</svg>

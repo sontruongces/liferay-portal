@@ -14,17 +14,28 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-function Search({endpoint}) {
+function Search() {
 	const [value, setValue] = useState('');
 
 	return (
 		<ClayAutocomplete>
 			<ClayAutocomplete.Input
+				className="search-input"
 				onChange={event => setValue(event.target.value)}
 				placeholder={Liferay.Language.get('search-accounts')}
 				value={value}
 			/>
-			<button>A</button>
+
+			<button className="btn btn-default search-btn" type="button">
+				<svg
+					aria-hidden="true"
+					className="lexicon-icon lexicon-icon-search"
+					role="image"
+				>
+					<use xlinkHref="#search" />
+				</svg>
+			</button>
+
 			<ClayAutocomplete.DropDown active={value}>
 				<ClayDropDown.ItemList>
 					<ClayAutocomplete.Item
@@ -35,7 +46,7 @@ function Search({endpoint}) {
 					/>
 				</ClayDropDown.ItemList>
 
-				<a href="">{Liferay.Language.get('see-all-results')}</a>
+				<a className="dropdown-item" href="">{Liferay.Language.get('see-all-results')}</a>
 			</ClayAutocomplete.DropDown>
 		</ClayAutocomplete>
 	);

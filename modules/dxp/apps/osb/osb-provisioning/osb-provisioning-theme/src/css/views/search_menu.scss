@@ -1,0 +1,73 @@
+.provisioning-accounts {
+	margin-top: $header-offset;
+
+	.advanced-search-alert {
+		padding-top: $spacing-md;
+	}
+}
+
+.search-menu {
+	background-color: $body-bg;
+	border-bottom: 1px solid $secondary-l3;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: $header-offset;
+	z-index: 988;
+
+	.account-search {
+		margin: 0 auto;
+		max-width: 40.625rem;
+		width: 100%;
+
+		.input-group-item {
+			flex-wrap: nowrap;
+		}
+
+		.search-btn {
+			border-bottom-left-radius: initial;
+			border-color: $divider;
+			border-left-width: 0;
+			border-top-left-radius: initial;
+		}
+
+		.search-input {
+			border-bottom-right-radius: initial;
+			border-top-right-radius: initial;
+		}
+	}
+
+	.company-logo {
+		height: $spacing-lg;
+		padding-right: $spacing-xs;
+	}
+
+	.logo {
+		align-items: center;
+		display: flex;
+
+		h3 {
+			margin: 0;
+		}
+	}
+
+	// Offset nav with to never overlap with user personal bar
+
+	.search-menu-nav {
+		height: $header-height;
+		width: calc(100vw - 80px);
+	}
+}
+
+.user-personal-bar {
+	padding: $spacing-xs $spacing-default;
+	position: fixed;
+	right: 0;
+	top: $header-offset;
+	z-index: 990;
+
+	.sticker-lg {
+		height: $spacing-lg;
+		width: $spacing-lg;
+	}
+}

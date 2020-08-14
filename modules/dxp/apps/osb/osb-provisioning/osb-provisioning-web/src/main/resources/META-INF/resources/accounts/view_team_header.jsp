@@ -22,7 +22,7 @@ ViewTeamDisplayContext viewTeamDisplayContext = ProvisioningWebComponentProvider
 TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 %>
 
-<div class="autofit-row team-header">
+<div class="autofit-row provisioning-accounts team-header">
 	<svg class="autofit-col header-icon">
 		<use xlink:href="#subscription-icon" />
 	</svg>

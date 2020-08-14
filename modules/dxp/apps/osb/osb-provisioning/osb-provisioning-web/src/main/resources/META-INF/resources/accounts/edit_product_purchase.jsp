@@ -25,7 +25,7 @@ ProductPurchase productPurchase = editProductPurchaseDisplayContext.getProductPu
 ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContext.getProductPurchaseDisplay();
 %>
 
-<div class="account-add-items nav">
+<div class="account-add-items nav provisioning-accounts">
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"

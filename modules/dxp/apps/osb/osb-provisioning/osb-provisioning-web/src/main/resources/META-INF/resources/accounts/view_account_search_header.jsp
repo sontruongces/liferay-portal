@@ -22,12 +22,13 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 
 <div class="search-menu">
 	<div class="container-fluid">
-		<ul class="control-menu-nav">
+		<ul class="control-menu-nav search-menu-nav">
 			<li class="logo">
 				<svg class="company-logo">
 					<use xlink:href="#liferay-waffle" />
 				</svg>
-				Raysource
+
+				<h3>Raysource</h3>
 			</li>
 			<li class="account-search">
 				<react:component
@@ -40,5 +41,4 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 </div>
 
 <aui:script>
-	
 </aui:script>

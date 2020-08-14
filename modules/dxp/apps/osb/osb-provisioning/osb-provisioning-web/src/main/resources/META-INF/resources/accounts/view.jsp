@@ -24,11 +24,13 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplayContext = new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountSearchDisplayContext.getSearchContainer());
 %>
 
-<div class="container-fluid home">
-	<div class="alert alert-info" role="alert">
-		<div class="alert-autofit-row autofit-row">
-			<div>
-				<liferay-ui:message arguments='<%= new String[] {"<a href='https://reports.liferay.com/#/site/support/workbooks/810/views' target='_blank'>", "</a>"} %>' key="advanced-search-is-temporarily-provided-by-the-cas-monitoring-report" translateArguments="<%= false %>" />
+<div class="container-fluid home provisioning-accounts">
+	<div class="advanced-search-alert">
+		<div class="alert alert-info" role="alert">
+			<div class="alert-autofit-row autofit-row">
+				<div>
+					<liferay-ui:message arguments='<%= new String[] {"<a href='https://reports.liferay.com/#/site/support/workbooks/810/views' target='_blank'>", "</a>"} %>' key="advanced-search-is-temporarily-provided-by-the-cas-monitoring-report" translateArguments="<%= false %>" />
+				</div>
 			</div>
 		</div>
 	</div>
