@@ -1096,6 +1096,9 @@ AUI.add(
 
 							instance.setValue(value);
 						}
+						else {
+							instance.setValue(instance.getValue());
+						}
 					}
 				},
 
