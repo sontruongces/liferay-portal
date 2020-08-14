@@ -20,19 +20,16 @@
 AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
 %>
 
-<div class="control-menu control-menu-level-1 search-menu">
-	<div class="container-fluid container-fluid-max-xl">
-		<ul class="control-menu-level-1-nav control-menu-nav">
-			<li class="control-menu-nav-category">
-				<ul class="control-menu-nav">
-					<li class="control-menu-nav-item">
-						<svg class="control-menu-icon">
-							<use xlink:href="#bars" />
-						</svg>
-					</li>
-				</ul>
+<div class="search-menu">
+	<div class="container-fluid">
+		<ul class="control-menu-nav">
+			<li class="logo">
+				<svg class="company-logo">
+					<use xlink:href="#liferay-waffle" />
+				</svg>
+				Raysource
 			</li>
-			<li class="control-menu-nav-category tools-control-group">
+			<li class="account-search">
 				<react:component
 					data="<%= accountSearchDisplayContext.getAutocompleteAccountData() %>"
 					module="js/SearchApp"
@@ -43,9 +40,5 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 </div>
 
 <aui:script>
-	var controlMenu = document.querySelector('.control-menu');
-
-	if (controlMenu) {
-		controlMenu.classList.add('provisioning-account');
-	}
+	
 </aui:script>

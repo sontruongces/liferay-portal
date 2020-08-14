@@ -88,45 +88,6 @@
 	}
 }
 
-.control-menu {
-	&.provisioning-account {
-		&.control-menu-level-1 {
-			background-color: transparent;
-		}
-
-		.product-menu {
-			background-color: $dark-l1;
-		}
-
-		.toast-animation {
-			opacity: 0;
-		}
-
-		.tools-control-group,
-		.user-control-group {
-			pointer-events: none;
-		}
-	}
-
-	&.search-menu {
-		background-color: $dark-l1;
-		z-index: 988;
-
-		.control-menu-icon {
-			height: $spacing-lg;
-			pointer-events: none;
-			width: $spacing-lg;
-		}
-
-		.tools-control-group {
-			left: calc(50vw - 650px / 2);
-			position: absolute;
-			width: 650px;
-			z-index: 990;
-		}
-	}
-}
-
 .details-table {
 	background-color: $body-bg;
 	border: 1px solid $secondary-l3;
@@ -251,12 +212,24 @@
 	}
 }
 
-// Offset maxwidth of the container to position the personal bar right at the edge of content
+.search-menu {
+	border-bottom: 1px solid $secondary-l3;
+	height: $header-height;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 3.5rem;
+
+	.company-logo {
+		height: $spacing-default;
+		width: $spacing-default;
+	}
+}
 
 .user-personal-bar {
-	padding: $spacing-xs;
+	padding: $spacing-xs $spacing-default;
 	position: fixed;
-	right: calc((100vw - 1248px) / 2);
-	top: 0;
+	right: 0;
+	top: 3.5rem;
 	z-index: 990;
 }
