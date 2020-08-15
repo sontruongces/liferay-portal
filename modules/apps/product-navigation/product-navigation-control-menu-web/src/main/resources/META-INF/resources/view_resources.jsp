@@ -99,15 +99,8 @@ if (Validator.isNotNull(keywords)) {
 </div>
 
 <div class="add-content-button">
-
-	<%
-	String redirectURL = PortalUtil.getLayoutFullURL(layout, themeDisplay);
-
-	redirectURL = HttpUtil.addParameter(redirectURL, "portletResource", portletDisplay.getId());
-	%>
-
 	<liferay-asset:asset-add-button
-		redirect="<%= redirectURL %>"
+		redirect="<%= PortalUtil.getLayoutFullURL(layout, themeDisplay) %>"
 		useDialog="<%= false %>"
 	/>
 </div>
