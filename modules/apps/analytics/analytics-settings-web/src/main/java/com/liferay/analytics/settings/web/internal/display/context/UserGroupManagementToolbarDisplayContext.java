@@ -49,8 +49,6 @@ public class UserGroupManagementToolbarDisplayContext
 			liferayPortletRequest, liferayPortletResponse, httpServletRequest,
 			userGroupDisplayContext.getUserGroupSearch());
 
-		_userGroupDisplayContext = userGroupDisplayContext;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -136,6 +134,5 @@ public class UserGroupManagementToolbarDisplayContext
 	}
 
 	private final ResourceBundle _resourceBundle;
-	private final UserGroupDisplayContext _userGroupDisplayContext;
 
 }

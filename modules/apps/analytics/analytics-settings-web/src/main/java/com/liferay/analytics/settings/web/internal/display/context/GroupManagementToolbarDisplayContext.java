@@ -49,8 +49,6 @@ public class GroupManagementToolbarDisplayContext
 			liferayPortletRequest, liferayPortletResponse, httpServletRequest,
 			groupDisplayContext.getGroupSearch());
 
-		_groupDisplayContext = groupDisplayContext;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -135,7 +133,6 @@ public class GroupManagementToolbarDisplayContext
 		return new String[] {"site-name"};
 	}
 
-	private final GroupDisplayContext _groupDisplayContext;
 	private final ResourceBundle _resourceBundle;
 
 }
