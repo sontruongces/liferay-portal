@@ -147,6 +147,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-118486."
+	@ignore = "true"
 	@priority = "3"
 	test AssertNoChildPageOptionForPageDerivedFromSiteTemplate {
 		SiteTemplates.addCP(siteTemplateName = "Site Template Name");
