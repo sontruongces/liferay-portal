@@ -16,6 +16,8 @@
 
 <%@ include file="/init.jsp" %>
 
+<liferay-util:include page="/accounts/view_account_search_header.jsp" servletContext="<%= application %>" />
+
 <%
 ContactSearchDisplayContext contactSearchDisplayContext = ProvisioningWebComponentProvider.getContactSearchDisplayContext(renderRequest, renderResponse, request);
 

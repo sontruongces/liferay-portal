@@ -1,6 +1,8 @@
-.provisioning-accounts {
-	margin-top: $header-offset;
+.portlet-body {
+	margin-top: $header-height;
+}
 
+.provisioning-accounts {
 	.advanced-search-alert {
 		padding-top: $spacing-md;
 	}
@@ -40,6 +42,7 @@
 	.company-logo {
 		height: $spacing-lg;
 		padding-right: $spacing-xs;
+		width: $spacing-lg;
 	}
 
 	.logo {

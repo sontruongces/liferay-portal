@@ -30,7 +30,7 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 
 				<h3>Raysource</h3>
 			</li>
-			<li class="account-search">
+			<li class="account-search hide">
 				<react:component
 					data="<%= accountSearchDisplayContext.getAutocompleteAccountData() %>"
 					module="js/SearchApp"
@@ -41,4 +41,13 @@ AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebCompone
 </div>
 
 <aui:script>
+	var accounts = document.querySelector('.provisioning-accounts');
+
+	if (accounts) {
+		var accountSearch = document.querySelector('.account-search');
+
+		if (accountSearch) {
+			accountSearch.classList.remove('hide');
+		}
+	}
 </aui:script>
