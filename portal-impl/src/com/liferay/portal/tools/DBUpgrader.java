@@ -371,7 +371,9 @@ public class DBUpgrader {
 		return buildNumber;
 	}
 
-	private static int _getReleaseColumnValue(String columnName) throws Exception {
+	private static int _getReleaseColumnValue(String columnName)
+		throws Exception {
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
