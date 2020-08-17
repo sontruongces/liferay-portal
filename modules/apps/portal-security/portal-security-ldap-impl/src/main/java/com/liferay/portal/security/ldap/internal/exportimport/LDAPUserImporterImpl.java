@@ -1617,6 +1617,8 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 			serviceContext.setModifiedDate(modifiedDate);
 		}
 
+		_userLocalService.updateEmailAddressVerified(user.getUserId(), true);
+
 		user = _userLocalService.updateUser(
 			user.getUserId(), password, StringPool.BLANK, StringPool.BLANK,
 			passwordReset, ldapUser.getReminderQueryQuestion(),
@@ -1640,8 +1642,6 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 			user = _userLocalService.updateStatus(
 				user.getUserId(), ldapUser.getStatus(), serviceContext);
 		}
-
-		_userLocalService.updateEmailAddressVerified(user.getUserId(), true);
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
