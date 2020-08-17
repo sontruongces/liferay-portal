@@ -53,8 +53,6 @@ import com.liferay.portal.util.FastDateFormatFactoryImpl;
 
 import java.text.Format;
 
-import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -232,19 +230,6 @@ public class DDMFormInstanceRecordExporterImplTest extends PowerMockito {
 	}
 
 	@Test
-	public void testGetDateTimeFormatter() {
-		DDMFormInstanceRecordExporterImpl ddmFormInstanceRecordExporterImpl =
-			new DDMFormInstanceRecordExporterImpl();
-
-		DateTimeFormatter dateTimeFormatter =
-			ddmFormInstanceRecordExporterImpl.getDateTimeFormatter(
-				new Locale("pt", "BR"));
-
-		Assert.assertEquals(
-			"Localized(SHORT,SHORT)", dateTimeFormatter.toString());
-	}
-
-	@Test
 	public void testGetDDMFormFieldsLabel() {
 		DDMFormInstanceRecordExporterImpl ddmFormInstanceRecordExporterImpl =
 			new DDMFormInstanceRecordExporterImpl();
@@ -419,20 +404,12 @@ public class DDMFormInstanceRecordExporterImplTest extends PowerMockito {
 		DDMFormInstanceRecordVersion ddmFormInstanceRecordVersion = mock(
 			DDMFormInstanceRecordVersion.class);
 
-		DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-
 		Date statusDate = new Date();
 
 		Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(
 			locale);
 
 		String modifiedDate = dateFormatDateTime.format(statusDate);
-
-		when(
-			ddmFormInstanceRecordExporterImpl.getDateTimeFormatter(locale)
-		).thenReturn(
-			dateTimeFormatter
-		);
 
 		when(
 			ddmFormInstanceRecord.getDDMFormValues()
