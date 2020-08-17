@@ -572,15 +572,6 @@ public class UserNotificationEventLocalServiceImpl
 	}
 
 	@Override
-	public int getUserNotificationEventsCount(
-		long userId, String type, int deliveryType, boolean delivered,
-		boolean archived) {
-
-		return userNotificationEventPersistence.countByU_T_DT_D_A(
-			userId, type, deliveryType, delivered, archived);
-	}
-
-	@Override
 	public UserNotificationEvent sendUserNotificationEvents(
 			long userId, String portletId, int deliveryType, boolean delivered,
 			boolean actionRequired, JSONObject notificationEventJSONObject)

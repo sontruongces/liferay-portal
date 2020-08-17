@@ -8420,9 +8420,6 @@ public class JournalArticleLocalServiceImpl
 			"[$ARTICLE_DIFFS$]", DiffHtmlUtil.replaceStyles(articleDiffs),
 			false);
 
-		String portletId = PortletProviderUtil.getPortletId(
-			JournalArticle.class.getName(), PortletProvider.Action.EDIT);
-
 		String articleURL = JournalUtil.getJournalControlPanelLink(
 			article.getFolderId(), article.getGroupId(),
 			serviceContext.getLiferayPortletResponse());
