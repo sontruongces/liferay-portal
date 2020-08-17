@@ -37,9 +37,7 @@ String redirect = portletURL.toString();
 
 <portlet:actionURL name="/analytics_settings/edit_synced_contacts_fields" var="editSyncedContactsFieldsURL" />
 
-<clay:sheet
-	cssClass="portlet-analytics-settings"
->
+<div class="pb-2 portlet-analytics-settings sheet sheet-lg">
 	<h2>
 		<liferay-ui:message key="sync-data-fields" />
 	</h2>
@@ -157,4 +155,4 @@ String redirect = portletURL.toString();
 			<aui:button href="<%= redirect %>" type="cancel" value="cancel" />
 		</aui:button-row>
 	</aui:form>
-</clay:sheet>
+</div>
