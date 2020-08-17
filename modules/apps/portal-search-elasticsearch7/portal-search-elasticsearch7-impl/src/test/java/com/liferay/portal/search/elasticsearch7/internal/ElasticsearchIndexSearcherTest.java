@@ -24,6 +24,8 @@ import com.liferay.portal.search.internal.legacy.searcher.SearchRequestBuilderFa
 import com.liferay.portal.search.legacy.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.test.util.indexing.DocumentFixture;
 
+import java.util.Collections;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -84,12 +86,17 @@ public class ElasticsearchIndexSearcherTest {
 		createElasticsearchIndexSearcher(
 			SearchRequestBuilderFactory searchRequestBuilderFactory) {
 
-		return new ElasticsearchIndexSearcher() {
-			{
-				setIndexNameBuilder(String::valueOf);
-				setSearchRequestBuilderFactory(searchRequestBuilderFactory);
-			}
-		};
+		ElasticsearchIndexSearcher elasticsearchIndexSearcher =
+			new ElasticsearchIndexSearcher() {
+				{
+					setIndexNameBuilder(String::valueOf);
+					setSearchRequestBuilderFactory(searchRequestBuilderFactory);
+				}
+			};
+
+		elasticsearchIndexSearcher.activate(Collections.emptyMap());
+
+		return elasticsearchIndexSearcher;
 	}
 
 	private final DocumentFixture _documentFixture = new DocumentFixture();
