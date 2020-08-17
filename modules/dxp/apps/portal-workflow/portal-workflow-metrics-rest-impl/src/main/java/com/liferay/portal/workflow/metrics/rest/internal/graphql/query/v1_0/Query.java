@@ -18,6 +18,8 @@ import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
@@ -720,6 +722,8 @@ public class Query {
 			_httpServletResponse);
 		assigneeUserResource.setContextUriInfo(_uriInfo);
 		assigneeUserResource.setContextUser(_user);
+		assigneeUserResource.setGroupLocalService(_groupLocalService);
+		assigneeUserResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(CalendarResource calendarResource)
@@ -731,6 +735,8 @@ public class Query {
 		calendarResource.setContextHttpServletResponse(_httpServletResponse);
 		calendarResource.setContextUriInfo(_uriInfo);
 		calendarResource.setContextUser(_user);
+		calendarResource.setGroupLocalService(_groupLocalService);
+		calendarResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(InstanceResource instanceResource)
@@ -742,6 +748,8 @@ public class Query {
 		instanceResource.setContextHttpServletResponse(_httpServletResponse);
 		instanceResource.setContextUriInfo(_uriInfo);
 		instanceResource.setContextUser(_user);
+		instanceResource.setGroupLocalService(_groupLocalService);
+		instanceResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(MetricResource metricResource)
@@ -753,6 +761,8 @@ public class Query {
 		metricResource.setContextHttpServletResponse(_httpServletResponse);
 		metricResource.setContextUriInfo(_uriInfo);
 		metricResource.setContextUser(_user);
+		metricResource.setGroupLocalService(_groupLocalService);
+		metricResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(NodeResource nodeResource)
@@ -764,6 +774,8 @@ public class Query {
 		nodeResource.setContextHttpServletResponse(_httpServletResponse);
 		nodeResource.setContextUriInfo(_uriInfo);
 		nodeResource.setContextUser(_user);
+		nodeResource.setGroupLocalService(_groupLocalService);
+		nodeResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(ProcessResource processResource)
@@ -775,6 +787,8 @@ public class Query {
 		processResource.setContextHttpServletResponse(_httpServletResponse);
 		processResource.setContextUriInfo(_uriInfo);
 		processResource.setContextUser(_user);
+		processResource.setGroupLocalService(_groupLocalService);
+		processResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(SLAResource slaResource)
@@ -786,6 +800,8 @@ public class Query {
 		slaResource.setContextHttpServletResponse(_httpServletResponse);
 		slaResource.setContextUriInfo(_uriInfo);
 		slaResource.setContextUser(_user);
+		slaResource.setGroupLocalService(_groupLocalService);
+		slaResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(TaskResource taskResource)
@@ -797,6 +813,8 @@ public class Query {
 		taskResource.setContextHttpServletResponse(_httpServletResponse);
 		taskResource.setContextUriInfo(_uriInfo);
 		taskResource.setContextUser(_user);
+		taskResource.setGroupLocalService(_groupLocalService);
+		taskResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(TimeRangeResource timeRangeResource)
@@ -808,6 +826,8 @@ public class Query {
 		timeRangeResource.setContextHttpServletResponse(_httpServletResponse);
 		timeRangeResource.setContextUriInfo(_uriInfo);
 		timeRangeResource.setContextUser(_user);
+		timeRangeResource.setGroupLocalService(_groupLocalService);
+		timeRangeResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private static ComponentServiceObjects<AssigneeUserResource>
@@ -830,12 +850,14 @@ public class Query {
 		_timeRangeResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, String, Filter> _filterBiFunction;
-	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
-	private com.liferay.portal.kernel.model.User _user;
+	private BiFunction<Object, String, Filter> _filterBiFunction;
+	private GroupLocalService _groupLocalService;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
+	private RoleLocalService _roleLocalService;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
+	private com.liferay.portal.kernel.model.User _user;
 
 }

@@ -450,7 +450,7 @@ public abstract class BaseTaskResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Task task) {
+	protected void assertValid(Task task) throws Exception {
 		boolean valid = true;
 
 		for (String additionalAssertFieldName :

@@ -982,7 +982,7 @@ public abstract class BaseDataDefinitionResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DataDefinition dataDefinition) {
+	protected void assertValid(DataDefinition dataDefinition) throws Exception {
 		boolean valid = true;
 
 		if (dataDefinition.getDateCreated() == null) {

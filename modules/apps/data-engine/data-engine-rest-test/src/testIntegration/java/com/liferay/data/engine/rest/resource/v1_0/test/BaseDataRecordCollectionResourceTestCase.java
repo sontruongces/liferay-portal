@@ -924,7 +924,9 @@ public abstract class BaseDataRecordCollectionResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DataRecordCollection dataRecordCollection) {
+	protected void assertValid(DataRecordCollection dataRecordCollection)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (dataRecordCollection.getId() == null) {

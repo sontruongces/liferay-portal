@@ -518,7 +518,7 @@ public abstract class BaseProcessResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Process process) {
+	protected void assertValid(Process process) throws Exception {
 		boolean valid = true;
 
 		if (process.getId() == null) {

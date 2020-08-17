@@ -317,7 +317,7 @@ public abstract class BaseAssigneeUserResourceTestCase {
 		}
 	}
 
-	protected void assertValid(AssigneeUser assigneeUser) {
+	protected void assertValid(AssigneeUser assigneeUser) throws Exception {
 		boolean valid = true;
 
 		if (assigneeUser.getId() == null) {
