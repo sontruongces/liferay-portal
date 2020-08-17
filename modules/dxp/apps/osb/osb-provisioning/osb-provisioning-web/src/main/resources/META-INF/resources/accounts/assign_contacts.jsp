@@ -39,17 +39,17 @@ AccountDisplay accountDisplay = viewAccountContactsDisplayContext.getAccountDisp
 		<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 	</portlet:actionURL>
 
+	<liferay-ui:error exception="<%= HttpException.class %>">
+
+		<%
+		HttpException httpException = (HttpException)errorException;
+		%>
+
+		<%= httpException.getMessage() %>
+	</liferay-ui:error>
+
 	<aui:form action="<%= assignContactRolesURL.toString() %>" cssClass="container-fluid container-fluid-max-xl" method="post" name="assignContactFm">
 		<div class="assign-contacts-sheet sheet">
-			<liferay-ui:error exception="<%= HttpException.class %>">
-
-				<%
-				HttpException httpException = (HttpException)errorException;
-				%>
-
-				<%= httpException.getMessage() %>
-			</liferay-ui:error>
-
 			<react:component
 				data="<%= viewAccountContactsDisplayContext.getAssignContactData() %>"
 				module="js/AccountAddContactsApp"
