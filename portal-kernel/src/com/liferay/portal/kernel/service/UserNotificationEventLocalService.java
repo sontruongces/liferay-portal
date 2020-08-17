@@ -60,8 +60,13 @@ public interface UserNotificationEventLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.portal.service.impl.UserNotificationEventLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user notification event local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserNotificationEventLocalServiceUtil} if injection and service tracking are not available.
+	 * Never modify or reference this interface directly. Always use {@link UserNotificationEventLocalServiceUtil} to access the user notification event local service. Add custom service methods to <code>com.liferay.portal.service.impl.UserNotificationEventLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public UserNotificationEvent addUserNotificationEvent(
+			long userId, boolean delivered, boolean actionRequired,
+			NotificationEvent notificationEvent)
+		throws PortalException;
+
 	public UserNotificationEvent addUserNotificationEvent(
 			long userId, boolean actionRequired,
 			NotificationEvent notificationEvent)
@@ -69,6 +74,13 @@ public interface UserNotificationEventLocalService
 
 	public UserNotificationEvent addUserNotificationEvent(
 			long userId, NotificationEvent notificationEvent)
+		throws PortalException;
+
+	public UserNotificationEvent addUserNotificationEvent(
+			long userId, String type, long timestamp, int deliveryType,
+			long deliverBy, boolean delivered, String payload,
+			boolean actionRequired, boolean archived,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	public UserNotificationEvent addUserNotificationEvent(
@@ -450,6 +462,10 @@ public interface UserNotificationEventLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserNotificationEventsCount(
+		long userId, int deliveryType, boolean delivered, boolean archived);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getUserNotificationEventsCount(
 		long userId, String type, int deliveryType, boolean delivered);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -464,6 +480,11 @@ public interface UserNotificationEventLocalService
 	public UserNotificationEvent sendUserNotificationEvents(
 			long userId, String portletId, int deliveryType,
 			JSONObject notificationEventJSONObject)
+		throws PortalException;
+
+	public UserNotificationEvent storeUserNotificationEvents(
+			long userId, String portletId, int deliveryType,
+			boolean actionRequired, JSONObject notificationEventJSONObject)
 		throws PortalException;
 
 	public UserNotificationEvent updateUserNotificationEvent(
