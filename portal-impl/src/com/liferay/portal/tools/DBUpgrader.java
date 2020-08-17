@@ -63,7 +63,7 @@ public class DBUpgrader {
 	public static void checkRequiredBuildNumber(int requiredBuildNumber)
 		throws Exception {
 
-		int buildNumber = _getReleaseColumn("buildNumber");
+		int buildNumber = _getReleaseColumnValue("buildNumber");
 
 		if (buildNumber > ReleaseInfo.getParentBuildNumber()) {
 			StringBundler sb = new StringBundler(6);
@@ -155,14 +155,14 @@ public class DBUpgrader {
 
 		// Upgrade
 
-		int buildNumber = _getReleaseColumn("buildNumber");
+		int buildNumber = _getReleaseColumnValue("buildNumber");
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Update build " + buildNumber);
 		}
 
 		_checkPermissionAlgorithm();
-		_checkReleaseState(_getReleaseColumn("state_"));
+		_checkReleaseState(_getReleaseColumnValue("state_"));
 
 		if (PropsValues.UPGRADE_DATABASE_TRANSACTIONS_DISABLED) {
 			TransactionsUtil.disableTransactions();
@@ -371,7 +371,7 @@ public class DBUpgrader {
 		return buildNumber;
 	}
 
-	private static int _getReleaseColumn(String columnName) throws Exception {
+	private static int _getReleaseColumnValue(String columnName) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
