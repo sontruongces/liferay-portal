@@ -49,7 +49,7 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public UserNotificationEvent addUserNotificationEvent(
-			long userId, boolean actionRequired,
+			long userId, boolean delivered, boolean actionRequired,
 			NotificationEvent notificationEvent)
 		throws PortalException {
 
@@ -63,8 +63,19 @@ public class UserNotificationEventLocalServiceImpl
 			userId, notificationEvent.getType(),
 			notificationEvent.getTimestamp(),
 			notificationEvent.getDeliveryType(),
-			notificationEvent.getDeliverBy(), payloadJSONObject.toString(),
-			actionRequired, notificationEvent.isArchived(), serviceContext);
+			notificationEvent.getDeliverBy(), delivered,
+			payloadJSONObject.toString(), actionRequired,
+			notificationEvent.isArchived(), serviceContext);
+	}
+
+	@Override
+	public UserNotificationEvent addUserNotificationEvent(
+			long userId, boolean actionRequired,
+			NotificationEvent notificationEvent)
+		throws PortalException {
+
+		return addUserNotificationEvent(
+			userId, true, actionRequired, notificationEvent);
 	}
 
 	@Override
@@ -78,8 +89,9 @@ public class UserNotificationEventLocalServiceImpl
 	@Override
 	public UserNotificationEvent addUserNotificationEvent(
 			long userId, String type, long timestamp, int deliveryType,
-			long deliverBy, String payload, boolean actionRequired,
-			boolean archived, ServiceContext serviceContext)
+			long deliverBy, boolean delivered, String payload,
+			boolean actionRequired, boolean archived,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
@@ -96,12 +108,24 @@ public class UserNotificationEventLocalServiceImpl
 		userNotificationEvent.setTimestamp(timestamp);
 		userNotificationEvent.setDeliveryType(deliveryType);
 		userNotificationEvent.setDeliverBy(deliverBy);
-		userNotificationEvent.setDelivered(true);
+		userNotificationEvent.setDelivered(delivered);
 		userNotificationEvent.setPayload(payload);
 		userNotificationEvent.setActionRequired(actionRequired);
 		userNotificationEvent.setArchived(archived);
 
 		return userNotificationEventPersistence.update(userNotificationEvent);
+	}
+
+	@Override
+	public UserNotificationEvent addUserNotificationEvent(
+			long userId, String type, long timestamp, int deliveryType,
+			long deliverBy, String payload, boolean actionRequired,
+			boolean archived, ServiceContext serviceContext)
+		throws PortalException {
+
+		return addUserNotificationEvent(
+			userId, type, timestamp, deliveryType, deliverBy, true, payload,
+			actionRequired, archived, serviceContext);
 	}
 
 	@Override
@@ -448,10 +472,27 @@ public class UserNotificationEventLocalServiceImpl
 
 	@Override
 	public int getUserNotificationEventsCount(
+		long userId, int deliveryType, boolean delivered, boolean archived) {
+
+		return userNotificationEventPersistence.countByU_DT_D_A(
+			userId, deliveryType, delivered, archived);
+	}
+
+	@Override
+	public int getUserNotificationEventsCount(
 		long userId, String type, int deliveryType, boolean delivered) {
 
 		return userNotificationEventPersistence.countByU_T_DT_D(
 			userId, type, deliveryType, delivered);
+	}
+
+	@Override
+	public int getUserNotificationEventsCount(
+		long userId, String type, int deliveryType, boolean delivered,
+		boolean archived) {
+
+		return userNotificationEventPersistence.countByU_T_DT_D_A(
+			userId, type, deliveryType, delivered, archived);
 	}
 
 	@Override
@@ -516,6 +557,29 @@ public class UserNotificationEventLocalServiceImpl
 		return sendUserNotificationEvents(
 			userId, portletId, deliveryType, false,
 			notificationEventJSONObject);
+	}
+
+	@Override
+	public UserNotificationEvent storeUserNotificationEvents(
+			long userId, String portletId, int deliveryType,
+			boolean actionRequired, JSONObject notificationEventJSONObject)
+		throws PortalException {
+
+		NotificationEvent notificationEvent =
+			NotificationEventFactoryUtil.createNotificationEvent(
+				System.currentTimeMillis(), portletId,
+				notificationEventJSONObject);
+
+		notificationEvent.setDeliveryType(deliveryType);
+
+		UserNotificationEvent userNotificationEvent = addUserNotificationEvent(
+			userId, false, actionRequired, notificationEvent);
+
+		if (deliveryType == UserNotificationDeliveryConstants.TYPE_PUSH) {
+			sendPushNotification(notificationEvent);
+		}
+
+		return userNotificationEvent;
 	}
 
 	@Override
