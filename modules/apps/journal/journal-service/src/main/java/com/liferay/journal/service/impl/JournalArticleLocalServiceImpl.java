@@ -8424,7 +8424,7 @@ public class JournalArticleLocalServiceImpl
 			JournalArticle.class.getName(), PortletProvider.Action.EDIT);
 
 		String articleURL = JournalUtil.getFolderURLViewInContext(
-			article, portletId, serviceContext);
+			article, serviceContext.getLiferayPortletResponse());
 
 		String folderName = StringPool.BLANK;
 
@@ -8461,7 +8461,9 @@ public class JournalArticleLocalServiceImpl
 		subscriptionSender.setLocalizedSubjectMap(localizedSubjectMap);
 		subscriptionSender.setMailId("journal_article", article.getId());
 		subscriptionSender.setNotificationType(notificationType);
-		subscriptionSender.setPortletId(portletId);
+		subscriptionSender.setPortletId(
+			PortletProviderUtil.getPortletId(
+				JournalArticle.class.getName(), PortletProvider.Action.EDIT));
 		subscriptionSender.setReplyToAddress(fromAddress);
 		subscriptionSender.setScopeGroupId(article.getGroupId());
 		subscriptionSender.setServiceContext(serviceContext);
