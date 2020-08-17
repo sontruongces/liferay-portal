@@ -89,7 +89,7 @@ Checkbox.STATE = {
 	 * @type {?string}
 	 */
 
-	predefinedValue: Config.bool(),
+	predefinedValue: Config.bool().value(true),
 
 	/**
 	 * @default false
@@ -170,7 +170,7 @@ Checkbox.STATE = {
 	 * @type {?(bool)}
 	 */
 
-	value: Config.bool().value(true)
+	value: Config.bool()
 };
 
 export default Checkbox;

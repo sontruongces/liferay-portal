@@ -7,6 +7,7 @@
 	{@param? handleInputChangeEvent: any}
 	{@param? id: string}
 	{@param? label: string}
+	{@param? predefinedValue: ?}
 	{@param? readOnly: bool}
 	{@param? repeatable: bool}
 	{@param? required: bool}
@@ -18,10 +19,12 @@
 	{@param? visible: bool}
 	{@param? valid: bool}
 
+	{let $isChecked: isNonnull($value) ? $value : $predefinedValue /}
+
 	{call FieldBase.render}
 		{param contentRenderer kind="html"}
 			{call .content}
-				{param checked: $value /}
+				{param checked: $isChecked /}
 				{param disabled: $readOnly /}
 				{param handleInputChangeEvent: $handleInputChangeEvent /}
 				{param label: $label /}
