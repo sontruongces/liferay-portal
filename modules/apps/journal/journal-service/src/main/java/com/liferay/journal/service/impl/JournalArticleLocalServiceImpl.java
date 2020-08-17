@@ -8423,7 +8423,7 @@ public class JournalArticleLocalServiceImpl
 		String portletId = PortletProviderUtil.getPortletId(
 			JournalArticle.class.getName(), PortletProvider.Action.EDIT);
 
-		String articleURL = getURLViewInContext(
+		String articleURL = JournalUtil.getFolderURLViewInContext(
 			article, portletId, serviceContext);
 
 		String folderName = StringPool.BLANK;
