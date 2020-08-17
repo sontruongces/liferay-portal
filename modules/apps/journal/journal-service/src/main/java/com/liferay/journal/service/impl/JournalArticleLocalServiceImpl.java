@@ -8424,7 +8424,8 @@ public class JournalArticleLocalServiceImpl
 			JournalArticle.class.getName(), PortletProvider.Action.EDIT);
 
 		String articleURL = JournalUtil.getFolderURLViewInContext(
-			article, serviceContext.getLiferayPortletResponse());
+			article.getFolderId(), article.getGroupId(),
+			serviceContext.getLiferayPortletResponse());
 
 		String folderName = StringPool.BLANK;
 
