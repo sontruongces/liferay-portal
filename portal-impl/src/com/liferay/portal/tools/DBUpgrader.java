@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.dependency.manager.DependencyManagerSyncUtil;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Release;
@@ -62,12 +61,9 @@ import org.apache.commons.lang.time.StopWatch;
 public class DBUpgrader {
 
 	public static void checkRequiredBuildNumber(int requiredBuildNumber)
-		throws PortalException {
+		throws Exception {
 
-		Release release = ReleaseLocalServiceUtil.getRelease(
-			ReleaseConstants.DEFAULT_ID);
-
-		int buildNumber = release.getBuildNumber();
+		int buildNumber = _getReleaseColumn("buildNumber");
 
 		if (buildNumber > ReleaseInfo.getParentBuildNumber()) {
 			StringBundler sb = new StringBundler(6);
@@ -169,7 +165,7 @@ public class DBUpgrader {
 		}
 
 		_checkPermissionAlgorithm();
-		_checkReleaseState(_getReleaseState());
+		_checkReleaseState(_getReleaseColumn("state_"));
 
 		if (PropsValues.UPGRADE_DATABASE_TRANSACTIONS_DISABLED) {
 			TransactionsUtil.disableTransactions();
@@ -378,7 +374,7 @@ public class DBUpgrader {
 		return buildNumber;
 	}
 
-	private static int _getReleaseState() throws Exception {
+	private static int _getReleaseColumn(String columnName) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -387,14 +383,14 @@ public class DBUpgrader {
 			con = DataAccess.getConnection();
 
 			ps = con.prepareStatement(
-				"select state_ from Release_ where releaseId = ?");
+				"select " + columnName + " from Release_ where releaseId = ?");
 
 			ps.setLong(1, ReleaseConstants.DEFAULT_ID);
 
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				return rs.getInt("state_");
+				return rs.getInt(columnName);
 			}
 
 			throw new IllegalArgumentException(
