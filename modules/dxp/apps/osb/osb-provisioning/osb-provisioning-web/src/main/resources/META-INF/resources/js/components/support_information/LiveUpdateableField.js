@@ -20,7 +20,7 @@ import {
 	FIELD_TYPE_TEXTAREA,
 	FIELD_TYPE_TOGGLE
 } from '../../utilities/constants';
-import {postData} from '../../utilities/helpers';
+import {request} from '../../utilities/helpers';
 import InlineEdit from '../InlineEdit';
 
 function LiveUpdateableField({
@@ -35,7 +35,7 @@ function LiveUpdateableField({
 	updateFormData
 }) {
 	function handleSave(newValue) {
-		postData(formAction, updateFormData(newValue), 'formData')
+		request(formAction, updateFormData(newValue), 'formData', 'post')
 			.then(({data}) => {
 				if (data.successMessage) {
 					// Refresh the page to mimic the same user experience as DetailField for a consistent behavior across all fields even though the AJAX submission makes it possible to update the field value without refreshing the page.

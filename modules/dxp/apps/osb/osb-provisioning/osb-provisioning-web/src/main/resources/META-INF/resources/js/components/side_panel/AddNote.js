@@ -26,7 +26,7 @@ import {
 	NOTE_TYPE_GENERAL,
 	NOTE_TYPE_SALES
 } from '../../utilities/constants';
-import {postData} from '../../utilities/helpers';
+import {request} from '../../utilities/helpers';
 
 const FAILED = 'FAILED';
 const SUCCESSFUL = 'SUCCESSFUL';
@@ -69,7 +69,7 @@ function AddNote({
 	function handleSubmit() {
 		setSavingNote(true);
 
-		postData(actionURL, noteData, 'formData')
+		request(actionURL, noteData, 'formData', 'post')
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					content: data.note.htmlContent,

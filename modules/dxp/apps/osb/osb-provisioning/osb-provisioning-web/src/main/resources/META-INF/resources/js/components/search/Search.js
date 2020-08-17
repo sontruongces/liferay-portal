@@ -14,21 +14,41 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-function Search() {
-	const [value, setValue] = useState('');
+import {request} from '../../utilities/helpers';
+
+const MAX_RESULTS = 7;
+
+function Search({resourceURL}) {
+	const [keywords, setKeywords] = useState('');
+	const [results, setResults] = useState([]);
+
+	function handleOnChange(event) {
+		const newValue = event.target.value;
+
+		setKeywords(newValue);
+
+		request(resourceURL, {keywords: newValue, maxResults: MAX_RESULTS})
+			.then(({data}) => {
+				setResults(data);
+			})
+			.catch(err => {
+				console.error(err);
+			});
+	}
 
 	return (
 		<ClayAutocomplete>
 			<ClayAutocomplete.Input
 				className="search-input"
-				onChange={event => setValue(event.target.value)}
+				onChange={handleOnChange}
 				placeholder={Liferay.Language.get('search-accounts')}
-				value={value}
+				value={keywords}
 			/>
 
 			<button className="btn btn-default search-btn" type="button">
 				<svg
 					aria-hidden="true"
+					aria-label={Liferay.Language.get('search-icon')}
 					className="lexicon-icon lexicon-icon-search"
 					role="image"
 				>
@@ -36,24 +56,28 @@ function Search() {
 				</svg>
 			</button>
 
-			<ClayAutocomplete.DropDown active={value}>
+			<ClayAutocomplete.DropDown active={keywords}>
 				<ClayDropDown.ItemList>
-					<ClayAutocomplete.Item
-						href="/"
-						key="1"
-						match={value}
-						value="test"
-					/>
+					{results.map(result => (
+						<ClayAutocomplete.Item
+							href={result.url}
+							key={result.key}
+							match={keywords}
+							value={result.name}
+						/>
+					))}
 				</ClayDropDown.ItemList>
 
-				<a className="dropdown-item" href="">{Liferay.Language.get('see-all-results')}</a>
+				<a className="all-results dropdown-item" href="">
+					{Liferay.Language.get('see-all-results')}
+				</a>
 			</ClayAutocomplete.DropDown>
 		</ClayAutocomplete>
 	);
 }
 
 Search.propTypes = {
-	endpoint: PropTypes.string.isRequired
+	resourceURL: PropTypes.string.isRequired
 };
 
 export default Search;

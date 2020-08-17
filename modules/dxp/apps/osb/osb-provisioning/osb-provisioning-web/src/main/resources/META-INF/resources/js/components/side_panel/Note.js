@@ -20,7 +20,7 @@ import {
 	NOTE_STATUS_APPROVED,
 	NOTE_STATUS_ARCHIVED
 } from '../../utilities/constants';
-import {postData} from '../../utilities/helpers';
+import {request} from '../../utilities/helpers';
 import ActionMenu from './ActionMenu';
 import AddNote from './AddNote';
 import PanelDropdownMenu from './PanelDropdownMenu';
@@ -51,7 +51,7 @@ function Note({note}) {
 					: NOTE_STATUS_APPROVED
 		});
 
-		postData(updateURL, formData, 'formData')
+		request(updateURL, formData, 'formData', 'post')
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					id: data.note.key,
@@ -76,7 +76,7 @@ function Note({note}) {
 			priority: pinned ? NOTE_PRIORITY_UNPINNED : NOTE_PRIORITY_PINNED
 		});
 
-		postData(updateURL, formData, 'formData')
+		request(updateURL, formData, 'formData', 'post')
 			.then(({data}) => {
 				const noteFromAPI = NoteRecord({
 					id: data.note.key,

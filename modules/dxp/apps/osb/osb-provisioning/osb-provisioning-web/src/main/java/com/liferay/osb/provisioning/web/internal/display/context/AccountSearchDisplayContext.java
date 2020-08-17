@@ -34,6 +34,7 @@ import java.util.Map;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -60,7 +61,12 @@ public class AccountSearchDisplayContext {
 	public Map<String, Object> getAutocompleteAccountData() {
 		Map<String, Object> data = new HashMap<>();
 
-		data.put("endpoint", "test");
+		ResourceURL autocompleteAccountURL =
+			_renderResponse.createResourceURL();
+
+		autocompleteAccountURL.setResourceID("/accounts/autocomplete");
+
+		data.put("resourceURL", autocompleteAccountURL.toString());
 
 		return data;
 	}

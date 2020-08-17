@@ -1,3 +1,14 @@
+.autocomplete-dropdown-menu {
+	.all-results {
+		color: $primary;
+	}
+
+	.dropdown-item {
+		font-size: $mid-font-size;
+		font-weight: $font-weight-semi-bold;
+	}
+}
+
 .portlet-body {
 	margin-top: $header-height;
 }
