@@ -24,6 +24,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -52,38 +53,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ProductPurchase")
 public class ProductPurchase {
 
-	@GraphQLName("Status")
-	public static enum Status {
-
-		APPROVED("Approved"), CANCELLED("Cancelled");
-
-		@JsonCreator
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static ProductPurchase toDTO(String json) {
+		return ObjectMapperUtil.readValue(ProductPurchase.class, json);
 	}
 
 	@Schema(description = "The key of the account purchasing the product.")
@@ -110,7 +81,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The key of the account purchasing the product."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
@@ -138,7 +111,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product purchase's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -168,7 +141,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The product purchase's actual end date including extensions or grace periods."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date endDate;
 
@@ -199,7 +174,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The product purchase's links to entities in external domains."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
@@ -225,7 +202,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product purchase's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -255,7 +232,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The product purchase's original end date that was purchased from sales."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date originalEndDate;
 
@@ -285,7 +264,9 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies if the product purchase has a start and end date."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean perpetual;
 
@@ -314,7 +295,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product that is being purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Product product;
 
@@ -342,7 +323,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The key of the product being purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String productKey;
 
@@ -400,7 +381,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The quantity of the product purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer quantity;
 
@@ -428,7 +409,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The product purchase's start date.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Date startDate;
 
@@ -466,7 +447,7 @@ public class ProductPurchase {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The workflow status of the product purchase.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 
@@ -683,6 +664,40 @@ public class ProductPurchase {
 	)
 	public String xClassName;
 
+	@GraphQLName("Status")
+	public static enum Status {
+
+		APPROVED("Approved"), CANCELLED("Cancelled");
+
+		@JsonCreator
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 
@@ -704,9 +719,44 @@ public class ProductPurchase {
 			sb.append("\"");
 			sb.append(entry.getKey());
 			sb.append("\":");
-			sb.append("\"");
-			sb.append(entry.getValue());
-			sb.append("\"");
+
+			Object value = entry.getValue();
+
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
+				sb.append("[");
+
+				Object[] valueArray = (Object[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (valueArray[i] instanceof String) {
+						sb.append("\"");
+						sb.append(valueArray[i]);
+						sb.append("\"");
+					}
+					else {
+						sb.append(valueArray[i]);
+					}
+
+					if ((i + 1) < valueArray.length) {
+						sb.append(", ");
+					}
+				}
+
+				sb.append("]");
+			}
+			else if (value instanceof Map) {
+				sb.append(_toJSON((Map<String, ?>)value));
+			}
+			else if (value instanceof String) {
+				sb.append("\"");
+				sb.append(value);
+				sb.append("\"");
+			}
+			else {
+				sb.append(value);
+			}
 
 			if (iterator.hasNext()) {
 				sb.append(",");

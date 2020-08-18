@@ -27,38 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ContactRole {
+public class ContactRole implements Cloneable {
 
-	public static enum Type {
-
-		ACCOUNT_CUSTOMER("Account Customer"), ACCOUNT_WORKER("Account Worker"),
-		TEAM("Team");
-
-		public static Type create(String value) {
-			for (Type type : values()) {
-				if (Objects.equals(type.getValue(), value)) {
-					return type;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Type(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static ContactRole toDTO(String json) {
+		return ContactRoleSerDes.toDTO(json);
 	}
 
 	public Date getDateCreated() {
@@ -211,6 +183,11 @@ public class ContactRole {
 	protected Type type;
 
 	@Override
+	public ContactRole clone() throws CloneNotSupportedException {
+		return (ContactRole)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -234,6 +211,38 @@ public class ContactRole {
 
 	public String toString() {
 		return ContactRoleSerDes.toJSON(this);
+	}
+
+	public static enum Type {
+
+		ACCOUNT_CUSTOMER("Account Customer"), ACCOUNT_WORKER("Account Worker"),
+		TEAM("Team");
+
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

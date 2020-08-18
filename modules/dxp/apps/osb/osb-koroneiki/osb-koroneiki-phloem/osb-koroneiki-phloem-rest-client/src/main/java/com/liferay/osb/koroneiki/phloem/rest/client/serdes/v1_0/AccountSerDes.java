@@ -518,13 +518,23 @@ public class AccountSerDes {
 				String.valueOf(account.getCustomerContacts()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(account.getDateCreated()));
+		if (account.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(account.getDateCreated()));
+		}
 
-		map.put(
-			"dateModified",
-			liferayToJSONDateFormat.format(account.getDateModified()));
+		if (account.getDateModified() == null) {
+			map.put("dateModified", null);
+		}
+		else {
+			map.put(
+				"dateModified",
+				liferayToJSONDateFormat.format(account.getDateModified()));
+		}
 
 		if (account.getDescription() == null) {
 			map.put("description", null);
@@ -934,10 +944,13 @@ public class AccountSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

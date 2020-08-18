@@ -274,13 +274,24 @@ public class ProductPurchaseSerDes {
 				"accountKey", String.valueOf(productPurchase.getAccountKey()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(productPurchase.getDateCreated()));
+		if (productPurchase.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(
+					productPurchase.getDateCreated()));
+		}
 
-		map.put(
-			"endDate",
-			liferayToJSONDateFormat.format(productPurchase.getEndDate()));
+		if (productPurchase.getEndDate() == null) {
+			map.put("endDate", null);
+		}
+		else {
+			map.put(
+				"endDate",
+				liferayToJSONDateFormat.format(productPurchase.getEndDate()));
+		}
 
 		if (productPurchase.getExternalLinks() == null) {
 			map.put("externalLinks", null);
@@ -298,10 +309,15 @@ public class ProductPurchaseSerDes {
 			map.put("key", String.valueOf(productPurchase.getKey()));
 		}
 
-		map.put(
-			"originalEndDate",
-			liferayToJSONDateFormat.format(
-				productPurchase.getOriginalEndDate()));
+		if (productPurchase.getOriginalEndDate() == null) {
+			map.put("originalEndDate", null);
+		}
+		else {
+			map.put(
+				"originalEndDate",
+				liferayToJSONDateFormat.format(
+					productPurchase.getOriginalEndDate()));
+		}
 
 		if (productPurchase.getPerpetual() == null) {
 			map.put("perpetual", null);
@@ -341,9 +357,14 @@ public class ProductPurchaseSerDes {
 			map.put("quantity", String.valueOf(productPurchase.getQuantity()));
 		}
 
-		map.put(
-			"startDate",
-			liferayToJSONDateFormat.format(productPurchase.getStartDate()));
+		if (productPurchase.getStartDate() == null) {
+			map.put("startDate", null);
+		}
+		else {
+			map.put(
+				"startDate",
+				liferayToJSONDateFormat.format(productPurchase.getStartDate()));
+		}
 
 		if (productPurchase.getStatus() == null) {
 			map.put("status", null);
@@ -513,10 +534,13 @@ public class ProductPurchaseSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

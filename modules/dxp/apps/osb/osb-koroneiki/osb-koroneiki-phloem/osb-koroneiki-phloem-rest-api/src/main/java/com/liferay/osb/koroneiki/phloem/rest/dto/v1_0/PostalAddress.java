@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -43,6 +44,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @XmlRootElement(name = "PostalAddress")
 public class PostalAddress {
+
+	public static PostalAddress toDTO(String json) {
+		return ObjectMapperUtil.readValue(PostalAddress.class, json);
+	}
 
 	@Schema(description = "The address's country (e.g., United States).")
 	public String getAddressCountry() {
@@ -68,7 +73,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's country (e.g., United States).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressCountry;
 
@@ -96,7 +101,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's locality (e.g., city).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressLocality;
 
@@ -124,7 +129,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's region (e.g., California).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressRegion;
 
@@ -152,7 +157,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's type.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String addressType;
 
@@ -178,7 +183,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's ID.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
@@ -208,7 +213,9 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this is a mailing addrress."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean mailing;
 
@@ -236,7 +243,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The address's postal code (e.g., zip code).")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String postalCode;
 
@@ -266,7 +273,9 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this is the main address of the user/organization."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean primary;
 
@@ -296,7 +305,9 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The street address's first line (e.g., 1600 Amphitheatre Pkwy.)."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String streetAddressLine1;
 
@@ -324,7 +335,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The street address's second line.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String streetAddressLine2;
 
@@ -352,7 +363,7 @@ public class PostalAddress {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The street address's third line.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String streetAddressLine3;
 
@@ -557,9 +568,44 @@ public class PostalAddress {
 			sb.append("\"");
 			sb.append(entry.getKey());
 			sb.append("\":");
-			sb.append("\"");
-			sb.append(entry.getValue());
-			sb.append("\"");
+
+			Object value = entry.getValue();
+
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
+				sb.append("[");
+
+				Object[] valueArray = (Object[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (valueArray[i] instanceof String) {
+						sb.append("\"");
+						sb.append(valueArray[i]);
+						sb.append("\"");
+					}
+					else {
+						sb.append(valueArray[i]);
+					}
+
+					if ((i + 1) < valueArray.length) {
+						sb.append(", ");
+					}
+				}
+
+				sb.append("]");
+			}
+			else if (value instanceof Map) {
+				sb.append(_toJSON((Map<String, ?>)value));
+			}
+			else if (value instanceof String) {
+				sb.append("\"");
+				sb.append(value);
+				sb.append("\"");
+			}
+			else {
+				sb.append(value);
+			}
 
 			if (iterator.hasNext()) {
 				sb.append(",");

@@ -27,38 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class AuditEntry {
+public class AuditEntry implements Cloneable {
 
-	public static enum Action {
-
-		ADD("Add"), ASSIGN("Assign"), DELETE("Delete"), RENEW("Renew"),
-		UNASSIGN("Unassign"), UPDATE("Update");
-
-		public static Action create(String value) {
-			for (Action action : values()) {
-				if (Objects.equals(action.getValue(), value)) {
-					return action;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Action(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static AuditEntry toDTO(String json) {
+		return AuditEntrySerDes.toDTO(json);
 	}
 
 	public Action getAction() {
@@ -299,6 +271,11 @@ public class AuditEntry {
 	protected String summary;
 
 	@Override
+	public AuditEntry clone() throws CloneNotSupportedException {
+		return (AuditEntry)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -322,6 +299,38 @@ public class AuditEntry {
 
 	public String toString() {
 		return AuditEntrySerDes.toJSON(this);
+	}
+
+	public static enum Action {
+
+		ADD("Add"), ASSIGN("Assign"), DELETE("Delete"), RENEW("Renew"),
+		UNASSIGN("Unassign"), UPDATE("Update");
+
+		public static Action create(String value) {
+			for (Action action : values()) {
+				if (Objects.equals(action.getValue(), value)) {
+					return action;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Action(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

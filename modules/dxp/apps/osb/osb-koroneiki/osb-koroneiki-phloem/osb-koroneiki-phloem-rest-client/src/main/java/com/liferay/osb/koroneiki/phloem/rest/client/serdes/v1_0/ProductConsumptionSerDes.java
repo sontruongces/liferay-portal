@@ -233,14 +233,25 @@ public class ProductConsumptionSerDes {
 				String.valueOf(productConsumption.getAccountKey()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(
-				productConsumption.getDateCreated()));
+		if (productConsumption.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(
+					productConsumption.getDateCreated()));
+		}
 
-		map.put(
-			"endDate",
-			liferayToJSONDateFormat.format(productConsumption.getEndDate()));
+		if (productConsumption.getEndDate() == null) {
+			map.put("endDate", null);
+		}
+		else {
+			map.put(
+				"endDate",
+				liferayToJSONDateFormat.format(
+					productConsumption.getEndDate()));
+		}
 
 		if (productConsumption.getExternalLinks() == null) {
 			map.put("externalLinks", null);
@@ -285,9 +296,15 @@ public class ProductConsumptionSerDes {
 				String.valueOf(productConsumption.getProperties()));
 		}
 
-		map.put(
-			"startDate",
-			liferayToJSONDateFormat.format(productConsumption.getStartDate()));
+		if (productConsumption.getStartDate() == null) {
+			map.put("startDate", null);
+		}
+		else {
+			map.put(
+				"startDate",
+				liferayToJSONDateFormat.format(
+					productConsumption.getStartDate()));
+		}
 
 		return map;
 	}
@@ -430,10 +447,13 @@ public class ProductConsumptionSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

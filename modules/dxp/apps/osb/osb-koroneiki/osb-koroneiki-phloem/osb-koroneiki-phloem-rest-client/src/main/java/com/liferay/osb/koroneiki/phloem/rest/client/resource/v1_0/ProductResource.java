@@ -15,9 +15,11 @@
 package com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPermission;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ProductSerDes;
 
 import java.util.LinkedHashMap;
@@ -100,26 +102,22 @@ public interface ProductResource {
 
 	public void deleteProductProductPermission(
 			String agentName, String agentUID, String productKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ProductPermission productPermission)
+			ProductPermission productPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse deleteProductProductPermissionHttpResponse(
 			String agentName, String agentUID, String productKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ProductPermission productPermission)
+			ProductPermission productPermission)
 		throws Exception;
 
 	public void putProductProductPermission(
 			String agentName, String agentUID, String productKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ProductPermission productPermission)
+			ProductPermission productPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putProductProductPermissionHttpResponse(
 			String agentName, String agentUID, String productKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ProductPermission productPermission)
+			ProductPermission productPermission)
 		throws Exception;
 
 	public static class Builder {
@@ -193,7 +191,16 @@ public interface ProductResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductSerDes::toDTO);
+			try {
+				return Page.of(content, ProductSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getProductsPageHttpResponse(
@@ -274,7 +281,7 @@ public interface ProductResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -340,7 +347,16 @@ public interface ProductResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ProductSerDes::toDTO);
+			try {
+				return Page.of(content, ProductSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -411,7 +427,7 @@ public interface ProductResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -466,6 +482,17 @@ public interface ProductResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteProductHttpResponse(
@@ -533,7 +560,7 @@ public interface ProductResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -598,7 +625,7 @@ public interface ProductResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -652,8 +679,7 @@ public interface ProductResource {
 
 		public void deleteProductProductPermission(
 				String agentName, String agentUID, String productKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ProductPermission productPermission)
+				ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -667,13 +693,23 @@ public interface ProductResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				deleteProductProductPermissionHttpResponse(
 					String agentName, String agentUID, String productKey,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ProductPermission productPermission)
+					ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -719,8 +755,7 @@ public interface ProductResource {
 
 		public void putProductProductPermission(
 				String agentName, String agentUID, String productKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ProductPermission productPermission)
+				ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -734,12 +769,22 @@ public interface ProductResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse putProductProductPermissionHttpResponse(
 				String agentName, String agentUID, String productKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ProductPermission productPermission)
+				ProductPermission productPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

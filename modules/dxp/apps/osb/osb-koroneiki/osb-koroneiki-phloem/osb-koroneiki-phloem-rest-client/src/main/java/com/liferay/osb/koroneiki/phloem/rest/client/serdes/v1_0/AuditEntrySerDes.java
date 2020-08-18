@@ -259,9 +259,14 @@ public class AuditEntrySerDes {
 			map.put("auditSetId", String.valueOf(auditEntry.getAuditSetId()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(auditEntry.getDateCreated()));
+		if (auditEntry.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(auditEntry.getDateCreated()));
+		}
 
 		if (auditEntry.getDescription() == null) {
 			map.put("description", null);
@@ -442,10 +447,13 @@ public class AuditEntrySerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

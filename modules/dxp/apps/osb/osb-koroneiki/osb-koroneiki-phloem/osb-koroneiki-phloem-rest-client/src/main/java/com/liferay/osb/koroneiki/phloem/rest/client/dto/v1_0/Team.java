@@ -27,7 +27,11 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Team {
+public class Team implements Cloneable {
+
+	public static Team toDTO(String json) {
+		return TeamSerDes.toDTO(json);
+	}
 
 	public Account getAccount() {
 		return account;
@@ -234,6 +238,11 @@ public class Team {
 	}
 
 	protected TeamRole[] teamRoles;
+
+	@Override
+	public Team clone() throws CloneNotSupportedException {
+		return (Team)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

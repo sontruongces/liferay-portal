@@ -213,15 +213,25 @@ public class EntitlementDefinitionSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(
-				entitlementDefinition.getDateCreated()));
+		if (entitlementDefinition.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(
+					entitlementDefinition.getDateCreated()));
+		}
 
-		map.put(
-			"dateModified",
-			liferayToJSONDateFormat.format(
-				entitlementDefinition.getDateModified()));
+		if (entitlementDefinition.getDateModified() == null) {
+			map.put("dateModified", null);
+		}
+		else {
+			map.put(
+				"dateModified",
+				liferayToJSONDateFormat.format(
+					entitlementDefinition.getDateModified()));
+		}
 
 		if (entitlementDefinition.getDefinition() == null) {
 			map.put("definition", null);
@@ -404,10 +414,13 @@ public class EntitlementDefinitionSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

@@ -24,6 +24,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -52,110 +53,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Account")
 public class Account {
 
-	@GraphQLName("Region")
-	public static enum Region {
-
-		AUSTRALIA("Australia"), BRAZIL("Brazil"), CHINA("China"),
-		GLOBAL("Global"), HUNGARY("Hungary"), INDIA("India"), JAPAN("Japan"),
-		SPAIN("Spain"), UNITED_STATES("United States");
-
-		@JsonCreator
-		public static Region create(String value) {
-			for (Region region : values()) {
-				if (Objects.equals(region.getValue(), value)) {
-					return region;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Region(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	@GraphQLName("Status")
-	public static enum Status {
-
-		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
-		INACTIVE("Inactive");
-
-		@JsonCreator
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	@GraphQLName("Tier")
-	public static enum Tier {
-
-		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
-		STRATEGIC("Strategic");
-
-		@JsonCreator
-		public static Tier create(String value) {
-			for (Tier tier : values()) {
-				if (Objects.equals(tier.getValue(), value)) {
-					return tier;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Tier(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static Account toDTO(String json) {
+		return ObjectMapperUtil.readValue(Account.class, json);
 	}
 
 	@Schema(description = "The teams that are assigned to this account.")
@@ -183,7 +82,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The teams that are assigned to this account.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Team[] assignedTeams;
 
@@ -209,7 +108,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The code of the account.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String code;
 
@@ -237,7 +136,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's contact email address.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String contactEmailAddress;
 
@@ -266,7 +165,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's contacts.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Contact[] contacts;
 
@@ -295,7 +194,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's customer contacts.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Contact[] customerContacts;
 
@@ -323,7 +222,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -353,7 +252,9 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The most recent time that any of the account's fields changed."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -381,7 +282,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The description of the account.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String description;
 
@@ -410,7 +311,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's entitlements.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Entitlement[] entitlements;
 
@@ -441,7 +342,9 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The account's links to entities in external domains."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ExternalLink[] externalLinks;
 
@@ -469,7 +372,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's fax number.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String faxNumber;
 
@@ -499,7 +402,9 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this account is an internal or test account."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean internal;
 
@@ -525,7 +430,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -554,7 +459,7 @@ public class Account {
 	}
 
 	@Deprecated
-	@GraphQLField
+	@GraphQLField(description = "The assetAttachmentId of the account's logo.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long logoId;
 
@@ -580,7 +485,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The name of the account.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String name;
 
@@ -608,7 +513,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's parent account key.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String parentAccountKey;
 
@@ -636,7 +541,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's phone number.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String phoneNumber;
 
@@ -666,7 +571,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's postal addresses.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected PostalAddress[] postalAddresses;
 
@@ -696,7 +601,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The products that the account has purchased.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ProductPurchase[] productPurchases;
 
@@ -724,7 +629,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's profile email address.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String profileEmailAddress;
 
@@ -762,7 +667,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The region responsible for the account.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Region region;
 
@@ -800,7 +705,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The status of the account.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 
@@ -836,7 +741,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The tier of the account.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Tier tier;
 
@@ -864,7 +769,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's website.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String website;
 
@@ -893,7 +798,7 @@ public class Account {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The account's worker contacts.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Contact[] workerContacts;
 
@@ -1328,6 +1233,112 @@ public class Account {
 	)
 	public String xClassName;
 
+	@GraphQLName("Region")
+	public static enum Region {
+
+		AUSTRALIA("Australia"), BRAZIL("Brazil"), CHINA("China"),
+		GLOBAL("Global"), HUNGARY("Hungary"), INDIA("India"), JAPAN("Japan"),
+		SPAIN("Spain"), UNITED_STATES("United States");
+
+		@JsonCreator
+		public static Region create(String value) {
+			for (Region region : values()) {
+				if (Objects.equals(region.getValue(), value)) {
+					return region;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Region(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	@GraphQLName("Status")
+	public static enum Status {
+
+		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
+		INACTIVE("Inactive");
+
+		@JsonCreator
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	@GraphQLName("Tier")
+	public static enum Tier {
+
+		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
+		STRATEGIC("Strategic");
+
+		@JsonCreator
+		public static Tier create(String value) {
+			for (Tier tier : values()) {
+				if (Objects.equals(tier.getValue(), value)) {
+					return tier;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Tier(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 
@@ -1349,9 +1360,44 @@ public class Account {
 			sb.append("\"");
 			sb.append(entry.getKey());
 			sb.append("\":");
-			sb.append("\"");
-			sb.append(entry.getValue());
-			sb.append("\"");
+
+			Object value = entry.getValue();
+
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
+				sb.append("[");
+
+				Object[] valueArray = (Object[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (valueArray[i] instanceof String) {
+						sb.append("\"");
+						sb.append(valueArray[i]);
+						sb.append("\"");
+					}
+					else {
+						sb.append(valueArray[i]);
+					}
+
+					if ((i + 1) < valueArray.length) {
+						sb.append(", ");
+					}
+				}
+
+				sb.append("]");
+			}
+			else if (value instanceof Map) {
+				sb.append(_toJSON((Map<String, ?>)value));
+			}
+			else if (value instanceof String) {
+				sb.append("\"");
+				sb.append(value);
+				sb.append("\"");
+			}
+			else {
+				sb.append(value);
+			}
 
 			if (iterator.hasNext()) {
 				sb.append(",");

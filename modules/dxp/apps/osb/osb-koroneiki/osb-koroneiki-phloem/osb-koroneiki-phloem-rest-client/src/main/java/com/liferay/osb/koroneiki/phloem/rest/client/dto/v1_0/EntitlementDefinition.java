@@ -27,37 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class EntitlementDefinition {
+public class EntitlementDefinition implements Cloneable {
 
-	public static enum Status {
-
-		APPROVED("Approved"), INACTIVE("Inactive");
-
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static EntitlementDefinition toDTO(String json) {
+		return EntitlementDefinitionSerDes.toDTO(json);
 	}
 
 	public Date getDateCreated() {
@@ -233,6 +206,11 @@ public class EntitlementDefinition {
 	protected Status status;
 
 	@Override
+	public EntitlementDefinition clone() throws CloneNotSupportedException {
+		return (EntitlementDefinition)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -257,6 +235,37 @@ public class EntitlementDefinition {
 
 	public String toString() {
 		return EntitlementDefinitionSerDes.toJSON(this);
+	}
+
+	public static enum Status {
+
+		APPROVED("Approved"), INACTIVE("Inactive");
+
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

@@ -15,9 +15,11 @@
 package com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactPermission;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactSerDes;
 
 import java.util.LinkedHashMap;
@@ -134,28 +136,24 @@ public interface ContactResource {
 
 	public void deleteContactByOktaContactPermission(
 			String agentName, String agentUID, String oktaId,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ContactPermission contactPermission)
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactByOktaContactPermissionHttpResponse(
 				String agentName, String agentUID, String oktaId,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByOktaContactPermission(
 			String agentName, String agentUID, String oktaId,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ContactPermission contactPermission)
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactByOktaContactPermissionHttpResponse(
 				String agentName, String agentUID, String oktaId,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 		throws Exception;
 
 	public void deleteContactByUuidContactUuid(
@@ -185,28 +183,24 @@ public interface ContactResource {
 
 	public void deleteContactByUuidContactUuidContactPermission(
 			String agentName, String agentUID, String contactUuid,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ContactPermission contactPermission)
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactByUuidContactUuidContactPermissionHttpResponse(
 				String agentName, String agentUID, String contactUuid,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 		throws Exception;
 
 	public void putContactByUuidContactUuidContactPermission(
 			String agentName, String agentUID, String contactUuid,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ContactPermission contactPermission)
+			ContactPermission contactPermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactByUuidContactUuidContactPermissionHttpResponse(
 				String agentName, String agentUID, String contactUuid,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 		throws Exception;
 
 	public Page<Contact> getTeamTeamKeyContactsPage(
@@ -288,7 +282,16 @@ public interface ContactResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactSerDes::toDTO);
+			try {
+				return Page.of(content, ContactSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -352,7 +355,16 @@ public interface ContactResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactSerDes::toDTO);
+			try {
+				return Page.of(content, ContactSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -416,7 +428,16 @@ public interface ContactResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactSerDes::toDTO);
+			try {
+				return Page.of(content, ContactSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -480,7 +501,16 @@ public interface ContactResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactSerDes::toDTO);
+			try {
+				return Page.of(content, ContactSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getContactsPageHttpResponse(
@@ -561,7 +591,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -625,6 +655,17 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -695,7 +736,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -762,7 +803,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -829,6 +870,17 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteContactByOktaHttpResponse(
@@ -896,7 +948,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -962,7 +1014,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1016,8 +1068,7 @@ public interface ContactResource {
 
 		public void deleteContactByOktaContactPermission(
 				String agentName, String agentUID, String oktaId,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1031,13 +1082,23 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				deleteContactByOktaContactPermissionHttpResponse(
 					String agentName, String agentUID, String oktaId,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ContactPermission contactPermission)
+					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1083,8 +1144,7 @@ public interface ContactResource {
 
 		public void putContactByOktaContactPermission(
 				String agentName, String agentUID, String oktaId,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1098,13 +1158,23 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				putContactByOktaContactPermissionHttpResponse(
 					String agentName, String agentUID, String oktaId,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ContactPermission contactPermission)
+					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1165,6 +1235,17 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1235,7 +1316,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1301,7 +1382,7 @@ public interface ContactResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1355,8 +1436,7 @@ public interface ContactResource {
 
 		public void deleteContactByUuidContactUuidContactPermission(
 				String agentName, String agentUID, String contactUuid,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1370,13 +1450,23 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				deleteContactByUuidContactUuidContactPermissionHttpResponse(
 					String agentName, String agentUID, String contactUuid,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ContactPermission contactPermission)
+					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1422,8 +1512,7 @@ public interface ContactResource {
 
 		public void putContactByUuidContactUuidContactPermission(
 				String agentName, String agentUID, String contactUuid,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactPermission contactPermission)
+				ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1437,13 +1526,23 @@ public interface ContactResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				putContactByUuidContactUuidContactPermissionHttpResponse(
 					String agentName, String agentUID, String contactUuid,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ContactPermission contactPermission)
+					ContactPermission contactPermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1504,7 +1603,16 @@ public interface ContactResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactSerDes::toDTO);
+			try {
+				return Page.of(content, ContactSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getTeamTeamKeyContactsPageHttpResponse(

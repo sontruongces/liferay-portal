@@ -323,13 +323,23 @@ public class ContactSerDes {
 			map.put("contactRoles", String.valueOf(contact.getContactRoles()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(contact.getDateCreated()));
+		if (contact.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(contact.getDateCreated()));
+		}
 
-		map.put(
-			"dateModified",
-			liferayToJSONDateFormat.format(contact.getDateModified()));
+		if (contact.getDateModified() == null) {
+			map.put("dateModified", null);
+		}
+		else {
+			map.put(
+				"dateModified",
+				liferayToJSONDateFormat.format(contact.getDateModified()));
+		}
 
 		if (contact.getEmailAddress() == null) {
 			map.put("emailAddress", null);
@@ -604,10 +614,13 @@ public class ContactSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

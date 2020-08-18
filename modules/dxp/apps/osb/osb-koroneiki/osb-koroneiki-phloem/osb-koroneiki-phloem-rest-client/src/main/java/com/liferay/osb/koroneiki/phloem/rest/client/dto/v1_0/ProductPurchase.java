@@ -28,37 +28,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ProductPurchase {
+public class ProductPurchase implements Cloneable {
 
-	public static enum Status {
-
-		APPROVED("Approved"), CANCELLED("Cancelled");
-
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static ProductPurchase toDTO(String json) {
+		return ProductPurchaseSerDes.toDTO(json);
 	}
 
 	public String getAccountKey() {
@@ -342,6 +315,11 @@ public class ProductPurchase {
 	protected Status status;
 
 	@Override
+	public ProductPurchase clone() throws CloneNotSupportedException {
+		return (ProductPurchase)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -365,6 +343,37 @@ public class ProductPurchase {
 
 	public String toString() {
 		return ProductPurchaseSerDes.toJSON(this);
+	}
+
+	public static enum Status {
+
+		APPROVED("Approved"), CANCELLED("Cancelled");
+
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

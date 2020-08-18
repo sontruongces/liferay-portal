@@ -22,6 +22,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -48,9 +49,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("Team")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"name"})
+@Schema(requiredProperties = {"name"}, description = "Represents a team.")
 @XmlRootElement(name = "Team")
 public class Team {
+
+	public static Team toDTO(String json) {
+		return ObjectMapperUtil.readValue(Team.class, json);
+	}
 
 	@Schema(description = "The team's account.")
 	@Valid
@@ -77,7 +82,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's account.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Account account;
 
@@ -105,7 +110,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's account's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String accountKey;
 
@@ -134,7 +139,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's contacts.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Contact[] contacts;
 
@@ -162,7 +167,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -192,7 +197,9 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The most recent time that any of the team's fields changed."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -221,7 +228,9 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The team's links to entities in external domains."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected ExternalLink[] externalLinks;
 
@@ -247,7 +256,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -273,7 +282,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The name of the team.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String name;
@@ -304,7 +313,9 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "A flag that identifies whether this is a system team."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Boolean system;
 
@@ -333,7 +344,7 @@ public class Team {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The team's account team roles.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected TeamRole[] teamRoles;
 
@@ -549,9 +560,44 @@ public class Team {
 			sb.append("\"");
 			sb.append(entry.getKey());
 			sb.append("\":");
-			sb.append("\"");
-			sb.append(entry.getValue());
-			sb.append("\"");
+
+			Object value = entry.getValue();
+
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
+				sb.append("[");
+
+				Object[] valueArray = (Object[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (valueArray[i] instanceof String) {
+						sb.append("\"");
+						sb.append(valueArray[i]);
+						sb.append("\"");
+					}
+					else {
+						sb.append(valueArray[i]);
+					}
+
+					if ((i + 1) < valueArray.length) {
+						sb.append(", ");
+					}
+				}
+
+				sb.append("]");
+			}
+			else if (value instanceof Map) {
+				sb.append(_toJSON((Map<String, ?>)value));
+			}
+			else if (value instanceof String) {
+				sb.append("\"");
+				sb.append(value);
+				sb.append("\"");
+			}
+			else {
+				sb.append(value);
+			}
 
 			if (iterator.hasNext()) {
 				sb.append(",");

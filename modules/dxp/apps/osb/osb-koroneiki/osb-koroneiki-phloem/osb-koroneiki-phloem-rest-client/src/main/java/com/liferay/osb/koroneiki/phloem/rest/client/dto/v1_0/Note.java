@@ -27,99 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Note {
+public class Note implements Cloneable {
 
-	public static enum Format {
-
-		HTML("HTML"), PLAIN("Plain");
-
-		public static Format create(String value) {
-			for (Format format : values()) {
-				if (Objects.equals(format.getValue(), value)) {
-					return format;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Format(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	public static enum Status {
-
-		APPROVED("Approved"), ARCHIVED("Archived");
-
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	public static enum Type {
-
-		GENERAL("General"), SALES("Sales");
-
-		public static Type create(String value) {
-			for (Type type : values()) {
-				if (Objects.equals(type.getValue(), value)) {
-					return type;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Type(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static Note toDTO(String json) {
+		return NoteSerDes.toDTO(json);
 	}
 
 	public String getContent() {
@@ -395,6 +306,11 @@ public class Note {
 	protected Type type;
 
 	@Override
+	public Note clone() throws CloneNotSupportedException {
+		return (Note)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -418,6 +334,99 @@ public class Note {
 
 	public String toString() {
 		return NoteSerDes.toJSON(this);
+	}
+
+	public static enum Format {
+
+		HTML("HTML"), PLAIN("Plain");
+
+		public static Format create(String value) {
+			for (Format format : values()) {
+				if (Objects.equals(format.getValue(), value)) {
+					return format;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Format(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	public static enum Status {
+
+		APPROVED("Approved"), ARCHIVED("Archived");
+
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	public static enum Type {
+
+		GENERAL("General"), SALES("Sales");
+
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

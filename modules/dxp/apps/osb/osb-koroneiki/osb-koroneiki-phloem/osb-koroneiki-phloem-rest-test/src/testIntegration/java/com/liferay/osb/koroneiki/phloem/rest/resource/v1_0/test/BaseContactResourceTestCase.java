@@ -29,8 +29,9 @@ import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
 import com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0.ContactResource;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactSerDes;
 import com.liferay.petra.function.UnsafeTriConsumer;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -46,10 +47,12 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -679,25 +682,46 @@ public abstract class BaseContactResourceTestCase {
 			(entityField, contact1, contact2) -> {
 				Class<?> clazz = contact1.getClass();
 
+				String entityFieldName = entityField.getName();
+
 				Method method = clazz.getMethod(
-					"get" +
-						StringUtil.upperCaseFirstLetter(entityField.getName()));
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
 
 				Class<?> returnType = method.getReturnType();
 
 				if (returnType.isAssignableFrom(Map.class)) {
 					BeanUtils.setProperty(
-						contact1, entityField.getName(),
+						contact1, entityFieldName,
 						Collections.singletonMap("Aaa", "Aaa"));
 					BeanUtils.setProperty(
-						contact2, entityField.getName(),
+						contact2, entityFieldName,
 						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						contact1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						contact2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
 				}
 				else {
 					BeanUtils.setProperty(
-						contact1, entityField.getName(), "Aaa");
+						contact1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 					BeanUtils.setProperty(
-						contact2, entityField.getName(), "Bbb");
+						contact2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
 				}
 			});
 	}
@@ -791,6 +815,13 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
+	public void testGraphQLGetContactByEmailAddresEmailAddressNotFound()
+		throws Exception {
+
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testPutContactByEmailAddresEmailAddress() throws Exception {
 		Assert.assertTrue(false);
 	}
@@ -807,6 +838,11 @@ public abstract class BaseContactResourceTestCase {
 
 	@Test
 	public void testGraphQLGetContactByOkta() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGraphQLGetContactByOktaNotFound() throws Exception {
 		Assert.assertTrue(true);
 	}
 
@@ -837,6 +873,13 @@ public abstract class BaseContactResourceTestCase {
 
 	@Test
 	public void testGraphQLGetContactByUuidContactUuid() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	public void testGraphQLGetContactByUuidContactUuidNotFound()
+		throws Exception {
+
 		Assert.assertTrue(true);
 	}
 
@@ -962,6 +1005,9 @@ public abstract class BaseContactResourceTestCase {
 		return null;
 	}
 
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
+
 	protected void assertHttpResponseStatusCode(
 		int expectedHttpResponseStatusCode,
 		HttpInvoker.HttpResponse actualHttpResponse) {
@@ -1007,25 +1053,6 @@ public abstract class BaseContactResourceTestCase {
 
 			Assert.assertTrue(
 				contacts2 + " does not contain " + contact1, contains);
-		}
-	}
-
-	protected void assertEqualsJSONArray(
-		List<Contact> contacts, JSONArray jsonArray) {
-
-		for (Contact contact : contacts) {
-			boolean contains = false;
-
-			for (Object object : jsonArray) {
-				if (equalsJSONObject(contact, (JSONObject)object)) {
-					contains = true;
-
-					break;
-				}
-			}
-
-			Assert.assertTrue(
-				jsonArray + " does not contain " + contact, contains);
 		}
 	}
 
@@ -1178,13 +1205,50 @@ public abstract class BaseContactResourceTestCase {
 		return new String[0];
 	}
 
-	protected List<GraphQLField> getGraphQLFields() {
+	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
-		for (String additionalAssertFieldName :
-				getAdditionalAssertFieldNames()) {
+		for (Field field :
+				ReflectionUtil.getDeclaredFields(
+					com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Contact.
+						class)) {
 
-			graphQLFields.add(new GraphQLField(additionalAssertFieldName));
+			if (!ArrayUtil.contains(
+					getAdditionalAssertFieldNames(), field.getName())) {
+
+				continue;
+			}
+
+			graphQLFields.addAll(getGraphQLFields(field));
+		}
+
+		return graphQLFields;
+	}
+
+	protected List<GraphQLField> getGraphQLFields(Field... fields)
+		throws Exception {
+
+		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		for (Field field : fields) {
+			com.liferay.portal.vulcan.graphql.annotation.GraphQLField
+				vulcanGraphQLField = field.getAnnotation(
+					com.liferay.portal.vulcan.graphql.annotation.GraphQLField.
+						class);
+
+			if (vulcanGraphQLField != null) {
+				Class<?> clazz = field.getType();
+
+				if (clazz.isArray()) {
+					clazz = clazz.getComponentType();
+				}
+
+				List<GraphQLField> childrenGraphQLFields = getGraphQLFields(
+					ReflectionUtil.getDeclaredFields(clazz));
+
+				graphQLFields.add(
+					new GraphQLField(field.getName(), childrenGraphQLFields));
+			}
 		}
 
 		return graphQLFields;
@@ -1366,106 +1430,25 @@ public abstract class BaseContactResourceTestCase {
 		return true;
 	}
 
-	protected boolean equalsJSONObject(Contact contact, JSONObject jsonObject) {
-		for (String fieldName : getAdditionalAssertFieldNames()) {
-			if (Objects.equals("emailAddress", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getEmailAddress(),
-						jsonObject.getString("emailAddress"))) {
+	protected boolean equals(
+		Map<String, Object> map1, Map<String, Object> map2) {
+
+		if (Objects.equals(map1.keySet(), map2.keySet())) {
+			for (Map.Entry<String, Object> entry : map1.entrySet()) {
+				if (entry.getValue() instanceof Map) {
+					if (!equals(
+							(Map)entry.getValue(),
+							(Map)map2.get(entry.getKey()))) {
+
+						return false;
+					}
+				}
+				else if (!Objects.deepEquals(
+							entry.getValue(), map2.get(entry.getKey()))) {
 
 					return false;
 				}
-
-				continue;
 			}
-
-			if (Objects.equals("emailAddressVerified", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getEmailAddressVerified(),
-						jsonObject.getBoolean("emailAddressVerified"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("firstName", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getFirstName(),
-						jsonObject.getString("firstName"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("key", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getKey(), jsonObject.getString("key"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("languageId", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getLanguageId(),
-						jsonObject.getString("languageId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("lastName", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getLastName(),
-						jsonObject.getString("lastName"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("middleName", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getMiddleName(),
-						jsonObject.getString("middleName"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("oktaId", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getOktaId(), jsonObject.getString("oktaId"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("uuid", fieldName)) {
-				if (!Objects.deepEquals(
-						contact.getUuid(), jsonObject.getString("uuid"))) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			throw new IllegalArgumentException(
-				"Invalid field name " + fieldName);
 		}
 
 		return true;
@@ -1693,20 +1676,46 @@ public abstract class BaseContactResourceTestCase {
 		return httpResponse.getContent();
 	}
 
+	protected JSONObject invokeGraphQLMutation(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField mutationGraphQLField = new GraphQLField(
+			"mutation", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(mutationGraphQLField.toString()));
+	}
+
+	protected JSONObject invokeGraphQLQuery(GraphQLField graphQLField)
+		throws Exception {
+
+		GraphQLField queryGraphQLField = new GraphQLField(
+			"query", graphQLField);
+
+		return JSONFactoryUtil.createJSONObject(
+			invoke(queryGraphQLField.toString()));
+	}
+
 	protected Contact randomContact() throws Exception {
 		return new Contact() {
 			{
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
-				emailAddress = RandomTestUtil.randomString();
+				emailAddress =
+					StringUtil.toLowerCase(RandomTestUtil.randomString()) +
+						"@liferay.com";
 				emailAddressVerified = RandomTestUtil.randomBoolean();
-				firstName = RandomTestUtil.randomString();
-				key = RandomTestUtil.randomString();
-				languageId = RandomTestUtil.randomString();
-				lastName = RandomTestUtil.randomString();
-				middleName = RandomTestUtil.randomString();
-				oktaId = RandomTestUtil.randomString();
-				uuid = RandomTestUtil.randomString();
+				firstName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				languageId = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				lastName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				middleName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				oktaId = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				uuid = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}
@@ -1732,9 +1741,22 @@ public abstract class BaseContactResourceTestCase {
 			this(key, new HashMap<>(), graphQLFields);
 		}
 
+		public GraphQLField(String key, List<GraphQLField> graphQLFields) {
+			this(key, new HashMap<>(), graphQLFields);
+		}
+
 		public GraphQLField(
 			String key, Map<String, Object> parameterMap,
 			GraphQLField... graphQLFields) {
+
+			_key = key;
+			_parameterMap = parameterMap;
+			_graphQLFields = Arrays.asList(graphQLFields);
+		}
+
+		public GraphQLField(
+			String key, Map<String, Object> parameterMap,
+			List<GraphQLField> graphQLFields) {
 
 			_key = key;
 			_parameterMap = parameterMap;
@@ -1762,7 +1784,7 @@ public abstract class BaseContactResourceTestCase {
 				sb.append(")");
 			}
 
-			if (_graphQLFields.length > 0) {
+			if (!_graphQLFields.isEmpty()) {
 				sb.append("{");
 
 				for (GraphQLField graphQLField : _graphQLFields) {
@@ -1778,7 +1800,7 @@ public abstract class BaseContactResourceTestCase {
 			return sb.toString();
 		}
 
-		private final GraphQLField[] _graphQLFields;
+		private final List<GraphQLField> _graphQLFields;
 		private final String _key;
 		private final Map<String, Object> _parameterMap;
 

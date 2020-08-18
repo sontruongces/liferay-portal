@@ -15,9 +15,11 @@
 package com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.TeamRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.TeamRoleSerDes;
 
 import java.util.LinkedHashMap;
@@ -91,27 +93,23 @@ public interface TeamRoleResource {
 
 	public void deleteTeamRoleTeamRolePermission(
 			String agentName, String agentUID, String teamRoleKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				TeamRolePermission teamRolePermission)
+			TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteTeamRoleTeamRolePermissionHttpResponse(
 				String agentName, String agentUID, String teamRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					TeamRolePermission teamRolePermission)
+				TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public void putTeamRoleTeamRolePermission(
 			String agentName, String agentUID, String teamRoleKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				TeamRolePermission teamRolePermission)
+			TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse putTeamRoleTeamRolePermissionHttpResponse(
 			String agentName, String agentUID, String teamRoleKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				TeamRolePermission teamRolePermission)
+			TeamRolePermission teamRolePermission)
 		throws Exception;
 
 	public TeamRole getTeamRoleTeamRoleTypeTeamRoleName(
@@ -194,7 +192,16 @@ public interface TeamRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, TeamRoleSerDes::toDTO);
+			try {
+				return Page.of(content, TeamRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -259,7 +266,16 @@ public interface TeamRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, TeamRoleSerDes::toDTO);
+			try {
+				return Page.of(content, TeamRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getTeamRolesPageHttpResponse(
@@ -340,7 +356,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -403,6 +419,17 @@ public interface TeamRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteTeamRoleHttpResponse(
@@ -470,7 +497,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -535,7 +562,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -589,8 +616,7 @@ public interface TeamRoleResource {
 
 		public void deleteTeamRoleTeamRolePermission(
 				String agentName, String agentUID, String teamRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					TeamRolePermission teamRolePermission)
+				TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -604,13 +630,23 @@ public interface TeamRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				deleteTeamRoleTeamRolePermissionHttpResponse(
 					String agentName, String agentUID, String teamRoleKey,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						TeamRolePermission teamRolePermission)
+					TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -656,8 +692,7 @@ public interface TeamRoleResource {
 
 		public void putTeamRoleTeamRolePermission(
 				String agentName, String agentUID, String teamRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					TeamRolePermission teamRolePermission)
+				TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -671,13 +706,23 @@ public interface TeamRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				putTeamRoleTeamRolePermissionHttpResponse(
 					String agentName, String agentUID, String teamRoleKey,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						TeamRolePermission teamRolePermission)
+					TeamRolePermission teamRolePermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -747,7 +792,7 @@ public interface TeamRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 

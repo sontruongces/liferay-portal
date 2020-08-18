@@ -265,13 +265,23 @@ public class NoteSerDes {
 			map.put("creatorUID", String.valueOf(note.getCreatorUID()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(note.getDateCreated()));
+		if (note.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(note.getDateCreated()));
+		}
 
-		map.put(
-			"dateModified",
-			liferayToJSONDateFormat.format(note.getDateModified()));
+		if (note.getDateModified() == null) {
+			map.put("dateModified", null);
+		}
+		else {
+			map.put(
+				"dateModified",
+				liferayToJSONDateFormat.format(note.getDateModified()));
+		}
 
 		if (note.getFormat() == null) {
 			map.put("format", null);
@@ -464,10 +474,13 @@ public class NoteSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {

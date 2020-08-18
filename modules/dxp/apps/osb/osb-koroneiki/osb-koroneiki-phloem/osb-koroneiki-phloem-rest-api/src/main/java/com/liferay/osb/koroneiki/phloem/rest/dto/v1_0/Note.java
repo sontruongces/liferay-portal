@@ -24,6 +24,7 @@ import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -52,106 +53,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Note")
 public class Note {
 
-	@GraphQLName("Format")
-	public static enum Format {
-
-		HTML("HTML"), PLAIN("Plain");
-
-		@JsonCreator
-		public static Format create(String value) {
-			for (Format format : values()) {
-				if (Objects.equals(format.getValue(), value)) {
-					return format;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Format(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	@GraphQLName("Status")
-	public static enum Status {
-
-		APPROVED("Approved"), ARCHIVED("Archived");
-
-		@JsonCreator
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	@GraphQLName("Type")
-	public static enum Type {
-
-		GENERAL("General"), SALES("Sales");
-
-		@JsonCreator
-		public static Type create(String value) {
-			for (Type type : values()) {
-				if (Objects.equals(type.getValue(), value)) {
-					return type;
-				}
-			}
-
-			return null;
-		}
-
-		@JsonValue
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Type(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static Note toDTO(String json) {
+		return ObjectMapperUtil.readValue(Note.class, json);
 	}
 
 	@Schema(description = "The content of the note.")
@@ -178,7 +81,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The content of the note.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String content;
 
@@ -206,7 +109,9 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The full name of the user who created the note."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String creatorName;
 
@@ -234,7 +139,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The Okta ID of the user who created the note.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String creatorUID;
 
@@ -262,7 +167,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The note's creation date.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
@@ -292,7 +197,9 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The most recent time that any of the note's fields changed."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateModified;
 
@@ -330,7 +237,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The style structure of the content.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Format format;
 
@@ -356,7 +263,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The note's key.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String key;
 
@@ -386,7 +293,9 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The full name of the user who last modified the note."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String modifierName;
 
@@ -414,7 +323,9 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The Okta ID of the user who last modified the note."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String modifierUID;
 
@@ -444,7 +355,9 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "The importance of this note. A lower number indicates a higher importance."
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer priority;
 
@@ -482,7 +395,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The workflow status of the note.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Status status;
 
@@ -518,7 +431,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "The type of information the note contains.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Type type;
 
@@ -727,6 +640,108 @@ public class Note {
 	)
 	public String xClassName;
 
+	@GraphQLName("Format")
+	public static enum Format {
+
+		HTML("HTML"), PLAIN("Plain");
+
+		@JsonCreator
+		public static Format create(String value) {
+			for (Format format : values()) {
+				if (Objects.equals(format.getValue(), value)) {
+					return format;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Format(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	@GraphQLName("Status")
+	public static enum Status {
+
+		APPROVED("Approved"), ARCHIVED("Archived");
+
+		@JsonCreator
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	@GraphQLName("Type")
+	public static enum Type {
+
+		GENERAL("General"), SALES("Sales");
+
+		@JsonCreator
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		@JsonValue
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
 	private static String _escape(Object object) {
 		String string = String.valueOf(object);
 
@@ -748,9 +763,44 @@ public class Note {
 			sb.append("\"");
 			sb.append(entry.getKey());
 			sb.append("\":");
-			sb.append("\"");
-			sb.append(entry.getValue());
-			sb.append("\"");
+
+			Object value = entry.getValue();
+
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
+				sb.append("[");
+
+				Object[] valueArray = (Object[])value;
+
+				for (int i = 0; i < valueArray.length; i++) {
+					if (valueArray[i] instanceof String) {
+						sb.append("\"");
+						sb.append(valueArray[i]);
+						sb.append("\"");
+					}
+					else {
+						sb.append(valueArray[i]);
+					}
+
+					if ((i + 1) < valueArray.length) {
+						sb.append(", ");
+					}
+				}
+
+				sb.append("]");
+			}
+			else if (value instanceof Map) {
+				sb.append(_toJSON((Map<String, ?>)value));
+			}
+			else if (value instanceof String) {
+				sb.append("\"");
+				sb.append(value);
+				sb.append("\"");
+			}
+			else {
+				sb.append(value);
+			}
 
 			if (iterator.hasNext()) {
 				sb.append(",");

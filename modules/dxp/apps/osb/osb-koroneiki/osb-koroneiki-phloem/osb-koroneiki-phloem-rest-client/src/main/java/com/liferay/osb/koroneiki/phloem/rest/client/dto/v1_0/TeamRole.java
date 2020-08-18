@@ -27,37 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class TeamRole {
+public class TeamRole implements Cloneable {
 
-	public static enum Type {
-
-		ACCOUNT("Account"), REGULAR("Regular");
-
-		public static Type create(String value) {
-			for (Type type : values()) {
-				if (Objects.equals(type.getValue(), value)) {
-					return type;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Type(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static TeamRole toDTO(String json) {
+		return TeamRoleSerDes.toDTO(json);
 	}
 
 	public Date getDateCreated() {
@@ -189,6 +162,11 @@ public class TeamRole {
 	protected Type type;
 
 	@Override
+	public TeamRole clone() throws CloneNotSupportedException {
+		return (TeamRole)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -212,6 +190,37 @@ public class TeamRole {
 
 	public String toString() {
 		return TeamRoleSerDes.toJSON(this);
+	}
+
+	public static enum Type {
+
+		ACCOUNT("Account"), REGULAR("Regular");
+
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value)) {
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

@@ -26,7 +26,11 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class ContactRolePermission {
+public class ContactRolePermission implements Cloneable {
+
+	public static ContactRolePermission toDTO(String json) {
+		return ContactRolePermissionSerDes.toDTO(json);
+	}
 
 	public Boolean getAssignContact() {
 		return assignContact;
@@ -151,6 +155,11 @@ public class ContactRolePermission {
 	}
 
 	protected Boolean view;
+
+	@Override
+	public ContactRolePermission clone() throws CloneNotSupportedException {
+		return (ContactRolePermission)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

@@ -15,9 +15,11 @@
 package com.liferay.osb.koroneiki.phloem.rest.client.resource.v1_0;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRolePermission;
 import com.liferay.osb.koroneiki.phloem.rest.client.http.HttpInvoker;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Page;
 import com.liferay.osb.koroneiki.phloem.rest.client.pagination.Pagination;
+import com.liferay.osb.koroneiki.phloem.rest.client.problem.Problem;
 import com.liferay.osb.koroneiki.phloem.rest.client.serdes.v1_0.ContactRoleSerDes;
 
 import java.util.LinkedHashMap;
@@ -176,28 +178,24 @@ public interface ContactRoleResource {
 
 	public void deleteContactRoleContactRolePermission(
 			String agentName, String agentUID, String contactRoleKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ContactRolePermission contactRolePermission)
+			ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			deleteContactRoleContactRolePermissionHttpResponse(
 				String agentName, String agentUID, String contactRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactRolePermission contactRolePermission)
+				ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public void putContactRoleContactRolePermission(
 			String agentName, String agentUID, String contactRoleKey,
-			com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-				ContactRolePermission contactRolePermission)
+			ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			putContactRoleContactRolePermissionHttpResponse(
 				String agentName, String agentUID, String contactRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactRolePermission contactRolePermission)
+				ContactRolePermission contactRolePermission)
 		throws Exception;
 
 	public ContactRole getContactRoleContactRoleTypeContactRoleName(
@@ -309,7 +307,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -374,7 +381,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -440,7 +456,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -507,7 +532,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -573,7 +607,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -639,7 +682,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -706,7 +758,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -772,7 +833,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -838,7 +908,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -904,7 +983,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse getContactRolesPageHttpResponse(
@@ -985,7 +1073,7 @@ public interface ContactRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1049,6 +1137,17 @@ public interface ContactRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse deleteContactRoleHttpResponse(
@@ -1118,7 +1217,7 @@ public interface ContactRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1183,7 +1282,7 @@ public interface ContactRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1237,8 +1336,7 @@ public interface ContactRoleResource {
 
 		public void deleteContactRoleContactRolePermission(
 				String agentName, String agentUID, String contactRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactRolePermission contactRolePermission)
+				ContactRolePermission contactRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1252,13 +1350,23 @@ public interface ContactRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				deleteContactRoleContactRolePermissionHttpResponse(
 					String agentName, String agentUID, String contactRoleKey,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ContactRolePermission contactRolePermission)
+					ContactRolePermission contactRolePermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1304,8 +1412,7 @@ public interface ContactRoleResource {
 
 		public void putContactRoleContactRolePermission(
 				String agentName, String agentUID, String contactRoleKey,
-				com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-					ContactRolePermission contactRolePermission)
+				ContactRolePermission contactRolePermission)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -1319,13 +1426,23 @@ public interface ContactRoleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return;
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
 				putContactRoleContactRolePermissionHttpResponse(
 					String agentName, String agentUID, String contactRoleKey,
-					com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.
-						ContactRolePermission contactRolePermission)
+					ContactRolePermission contactRolePermission)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1396,7 +1513,7 @@ public interface ContactRoleResource {
 					Level.WARNING,
 					"Unable to process HTTP response: " + content, e);
 
-				throw e;
+				throw new Problem.ProblemException(Problem.toDTO(content));
 			}
 		}
 
@@ -1454,7 +1571,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1518,7 +1644,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -1583,7 +1718,16 @@ public interface ContactRoleResource {
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
 
-			return Page.of(content, ContactRoleSerDes::toDTO);
+			try {
+				return Page.of(content, ContactRoleSerDes::toDTO);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse

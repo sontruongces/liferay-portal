@@ -48,11 +48,12 @@ import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamResource;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.TeamRoleResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
-import com.liferay.portal.kernel.model.Company;
-import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+
+import java.util.function.BiFunction;
 
 import javax.annotation.Generated;
 
@@ -247,7 +248,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the team for the account."
+	)
 	public boolean deleteAccountAssignedTeamTeamKeyRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -266,7 +269,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the team for the account.")
 	public boolean updateAccountAssignedTeamTeamKeyRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -285,7 +288,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the contact for the account."
+	)
 	public boolean deleteAccountContactByEmailAddresContactEmailAddressRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -306,7 +311,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the contact for the account.")
 	public boolean updateAccountContactByEmailAddresContactEmailAddressRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -327,7 +332,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the contact for the account."
+	)
 	public boolean deleteAccountContactByOktaRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -345,7 +352,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the contact for the account.")
 	public boolean updateAccountContactByOktaRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -363,7 +370,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the contact for the account."
+	)
 	public boolean deleteAccountContactByUuidContactUuidRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -383,7 +392,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the contact for the account.")
 	public boolean updateAccountContactByUuidContactUuidRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -403,7 +412,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns customer contacts from the account.")
 	public boolean deleteAccountCustomerContactByEmailAddres(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -422,7 +431,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns customer contacts from the account.")
 	public boolean deleteAccountCustomerContactByOkta(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -440,7 +449,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns contacts from the account.")
 	public boolean deleteAccountCustomerContactByUuid(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -458,7 +467,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns worker contacts from the account.")
 	public boolean deleteAccountWorkerContactByEmailAddres(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -477,7 +486,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns customer contacts from the account.")
 	public boolean deleteAccountWorkerContactByOkta(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -494,7 +503,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns contacts from the account.")
 	public boolean deleteAccountWorkerContactByUuid(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -831,7 +840,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Immediately runs a synchronization of the entitlement definition."
+	)
 	public boolean createEntitlementDefinitionSynchronize(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -850,7 +861,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Adds an external link to the account.")
 	public ExternalLink createAccountAccountKeyExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -866,7 +877,7 @@ public class Mutation {
 					agentName, agentUID, accountKey, externalLink));
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Adds an external link to the contact.")
 	public ExternalLink createContactByOktaExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -882,7 +893,7 @@ public class Mutation {
 					agentName, agentUID, oktaId, externalLink));
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Adds an external link to the contact.")
 	public ExternalLink createContactByUuidContactUuidExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -914,7 +925,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Updates the external link. Only the entityId field can be updated."
+	)
 	public ExternalLink updateExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -929,7 +942,9 @@ public class Mutation {
 				agentName, agentUID, externalLinkKey, externalLink));
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Adds an external link to the product consumption."
+	)
 	public ExternalLink
 			createProductConsumptionProductConsumptionKeyExternalLink(
 				@GraphQLName("agentName") String agentName,
@@ -949,7 +964,9 @@ public class Mutation {
 						externalLink));
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Adds an external link to the product purchase."
+	)
 	public ExternalLink createProductPurchaseProductPurchaseKeyExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -966,7 +983,7 @@ public class Mutation {
 						agentName, agentUID, productPurchaseKey, externalLink));
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Adds an external link to the product.")
 	public ExternalLink createProductProductKeyExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -982,7 +999,7 @@ public class Mutation {
 					agentName, agentUID, productKey, externalLink));
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Adds an external link to the team.")
 	public ExternalLink createTeamTeamKeyExternalLink(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1386,7 +1403,7 @@ public class Mutation {
 				agentName, agentUID, teamKey, team));
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns contacts from the team.")
 	public boolean deleteTeamContactByEmailAddress(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1403,7 +1420,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns contacts to the team.")
 	public boolean updateTeamContactByEmailAddress(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1420,7 +1437,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the contact for the team."
+	)
 	public boolean deleteTeamContactByEmailAddressRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1438,7 +1457,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the contact for the team.")
 	public boolean updateTeamContactByEmailAddressRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1456,7 +1475,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns contacts from the team.")
 	public boolean deleteTeamContactByOkta(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1473,7 +1492,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns contacts to the team.")
 	public boolean updateTeamContactByOkta(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1490,7 +1509,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the contact for the team."
+	)
 	public boolean deleteTeamContactByOktaRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1508,7 +1529,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the contact for the team.")
 	public boolean updateTeamContactByOktaRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1526,7 +1547,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Unassigns contacts from the team.")
 	public boolean deleteTeamContactByUuid(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1543,7 +1564,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns contacts to the team.")
 	public boolean updateTeamContactByUuid(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1560,7 +1581,9 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "Unassigns roles from the contact for the team."
+	)
 	public boolean deleteTeamContactByUuidContactUuidRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1578,7 +1601,7 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField
+	@GraphQLField(description = "Assigns roles to the contact for the team.")
 	public boolean updateTeamContactByUuidContactUuidRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -1922,10 +1945,11 @@ public class Mutation {
 		_teamRoleResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private Company _company;
+	private com.liferay.portal.kernel.model.Company _company;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
+	private com.liferay.portal.kernel.model.User _user;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
 	private UriInfo _uriInfo;
-	private User _user;
 
 }

@@ -27,7 +27,11 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Contact {
+public class Contact implements Cloneable {
+
+	public static Contact toDTO(String json) {
+		return ContactSerDes.toDTO(json);
+	}
 
 	public ContactRole[] getContactRoles() {
 		return contactRoles;
@@ -339,6 +343,11 @@ public class Contact {
 	}
 
 	protected String uuid;
+
+	@Override
+	public Contact clone() throws CloneNotSupportedException {
+		return (Contact)super.clone();
+	}
 
 	@Override
 	public boolean equals(Object object) {

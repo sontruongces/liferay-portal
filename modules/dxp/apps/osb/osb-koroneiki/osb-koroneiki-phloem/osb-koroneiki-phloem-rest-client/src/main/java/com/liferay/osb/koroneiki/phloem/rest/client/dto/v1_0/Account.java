@@ -27,103 +27,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Account {
+public class Account implements Cloneable {
 
-	public static enum Region {
-
-		AUSTRALIA("Australia"), BRAZIL("Brazil"), CHINA("China"),
-		GLOBAL("Global"), HUNGARY("Hungary"), INDIA("India"), JAPAN("Japan"),
-		SPAIN("Spain"), UNITED_STATES("United States");
-
-		public static Region create(String value) {
-			for (Region region : values()) {
-				if (Objects.equals(region.getValue(), value)) {
-					return region;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Region(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	public static enum Status {
-
-		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
-		INACTIVE("Inactive");
-
-		public static Status create(String value) {
-			for (Status status : values()) {
-				if (Objects.equals(status.getValue(), value)) {
-					return status;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Status(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
-	}
-
-	public static enum Tier {
-
-		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
-		STRATEGIC("Strategic");
-
-		public static Tier create(String value) {
-			for (Tier tier : values()) {
-				if (Objects.equals(tier.getValue(), value)) {
-					return tier;
-				}
-			}
-
-			return null;
-		}
-
-		public String getValue() {
-			return _value;
-		}
-
-		@Override
-		public String toString() {
-			return _value;
-		}
-
-		private Tier(String value) {
-			_value = value;
-		}
-
-		private final String _value;
-
+	public static Account toDTO(String json) {
+		return AccountSerDes.toDTO(json);
 	}
 
 	public Team[] getAssignedTeams() {
@@ -670,6 +577,11 @@ public class Account {
 	protected Contact[] workerContacts;
 
 	@Override
+	public Account clone() throws CloneNotSupportedException {
+		return (Account)super.clone();
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
 			return true;
@@ -693,6 +605,103 @@ public class Account {
 
 	public String toString() {
 		return AccountSerDes.toJSON(this);
+	}
+
+	public static enum Region {
+
+		AUSTRALIA("Australia"), BRAZIL("Brazil"), CHINA("China"),
+		GLOBAL("Global"), HUNGARY("Hungary"), INDIA("India"), JAPAN("Japan"),
+		SPAIN("Spain"), UNITED_STATES("United States");
+
+		public static Region create(String value) {
+			for (Region region : values()) {
+				if (Objects.equals(region.getValue(), value)) {
+					return region;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Region(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	public static enum Status {
+
+		APPROVED("Approved"), CLOSED("Closed"), EXPIRED("Expired"),
+		INACTIVE("Inactive");
+
+		public static Status create(String value) {
+			for (Status status : values()) {
+				if (Objects.equals(status.getValue(), value)) {
+					return status;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Status(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
+	}
+
+	public static enum Tier {
+
+		OEM("OEM"), PREMIER("Premier"), REGULAR("Regular"),
+		STRATEGIC("Strategic");
+
+		public static Tier create(String value) {
+			for (Tier tier : values()) {
+				if (Objects.equals(tier.getValue(), value)) {
+					return tier;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Tier(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

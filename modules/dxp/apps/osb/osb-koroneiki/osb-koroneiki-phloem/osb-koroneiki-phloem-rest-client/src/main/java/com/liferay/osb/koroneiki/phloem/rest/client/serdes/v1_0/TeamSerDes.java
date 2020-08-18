@@ -255,13 +255,23 @@ public class TeamSerDes {
 			map.put("contacts", String.valueOf(team.getContacts()));
 		}
 
-		map.put(
-			"dateCreated",
-			liferayToJSONDateFormat.format(team.getDateCreated()));
+		if (team.getDateCreated() == null) {
+			map.put("dateCreated", null);
+		}
+		else {
+			map.put(
+				"dateCreated",
+				liferayToJSONDateFormat.format(team.getDateCreated()));
+		}
 
-		map.put(
-			"dateModified",
-			liferayToJSONDateFormat.format(team.getDateModified()));
+		if (team.getDateModified() == null) {
+			map.put("dateModified", null);
+		}
+		else {
+			map.put(
+				"dateModified",
+				liferayToJSONDateFormat.format(team.getDateModified()));
+		}
 
 		if (team.getExternalLinks() == null) {
 			map.put("externalLinks", null);
@@ -448,10 +458,13 @@ public class TeamSerDes {
 
 				sb.append("]");
 			}
-			else {
+			else if (value instanceof String) {
 				sb.append("\"");
 				sb.append(_escape(entry.getValue()));
 				sb.append("\"");
+			}
+			else {
+				sb.append(String.valueOf(entry.getValue()));
 			}
 
 			if (iterator.hasNext()) {
