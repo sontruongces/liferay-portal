@@ -19,6 +19,7 @@ import {request} from '../../utilities/helpers';
 const MAX_RESULTS = 7;
 
 function Search({resourceURL}) {
+	const [error, setError] = useState(false);
 	const [keywords, setKeywords] = useState('');
 	const [results, setResults] = useState([]);
 
@@ -29,9 +30,17 @@ function Search({resourceURL}) {
 
 		request(resourceURL, {keywords: newValue, maxResults: MAX_RESULTS})
 			.then(({data}) => {
-				setResults(data);
+				if (data.length === 0) {
+					setError(true);
+				}
+				else {
+					setError(false);
+					setResults(data);
+				}
 			})
 			.catch(err => {
+				setError(true);
+
 				console.error(err);
 			});
 	}
@@ -57,20 +66,30 @@ function Search({resourceURL}) {
 			</button>
 
 			<ClayAutocomplete.DropDown active={keywords}>
-				<ClayDropDown.ItemList>
-					{results.map(result => (
-						<ClayAutocomplete.Item
-							href={result.url}
-							key={result.key}
-							match={keywords}
-							value={result.name}
-						/>
-					))}
-				</ClayDropDown.ItemList>
+				{error && (
+					<ClayDropDown.Item className="disabled">
+						{Liferay.Language.get('no-results-were-found')}
+					</ClayDropDown.Item>
+				)}
 
-				<a className="all-results dropdown-item" href="">
-					{Liferay.Language.get('see-all-results')}
-				</a>
+				{!error && (
+					<>
+						<ClayDropDown.ItemList>
+							{results.map(result => (
+								<ClayAutocomplete.Item
+									href={result.url}
+									key={result.key}
+									match={keywords}
+									value={result.name}
+								/>
+							))}
+						</ClayDropDown.ItemList>
+
+						<a className="all-results dropdown-item" href="">
+							{Liferay.Language.get('see-all-results')}
+						</a>
+					</>
+				)}
 			</ClayAutocomplete.DropDown>
 		</ClayAutocomplete>
 	);
