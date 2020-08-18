@@ -116,8 +116,6 @@ public class AutocompleteAccountMVCResourceCommand
 				StringPool.BLANK, sb.toString(), 1, maxResults, null);
 
 			for (Account account : accounts) {
-				JSONObject jsonObject = null;
-
 				PortletURL portletURL = PortletURLUtil.getCurrent(
 					resourceRequest, resourceResponse);
 
@@ -125,29 +123,16 @@ public class AutocompleteAccountMVCResourceCommand
 					"mvcRenderCommandName", "/accounts/view_account");
 				portletURL.setParameter("accountKey", account.getKey());
 
+				JSONObject jsonObject = JSONUtil.put(
+					"key", account.getKey()
+				).put(
+					"name", account.getName()
+				).put(
+					"url", portletURL.toString()
+				);
+
 				if (Validator.isNotNull(account.getCode())) {
-					jsonObject = JSONUtil.put(
-						"key", account.getKey()
-					).put(
-						"label",
-						StringBundler.concat(
-							account.getName(), " [", account.getCode(), "]")
-					).put(
-						"url", portletURL.toString()
-					).put(
-						"value", account.getCode()
-					);
-				}
-				else {
-					jsonObject = JSONUtil.put(
-						"key", account.getKey()
-					).put(
-						"label", account.getName()
-					).put(
-						"url", portletURL.toString()
-					).put(
-						"value", account.getName()
-					);
+					jsonObject.put("code", account.getCode());
 				}
 
 				jsonArray.put(jsonObject);
