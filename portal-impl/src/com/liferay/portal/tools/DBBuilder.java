@@ -134,9 +134,7 @@ public class DBBuilder {
 				Paths.get(sqlDir), regex)) {
 
 			for (Path path : paths) {
-				Path fileNamePath = path.getFileName();
-
-				String fileName = fileNamePath.toString();
+				String fileName = String.valueOf(path.getFileName());
 
 				_generateSQLFile(
 					sqlDir, StringUtil.removeSubstring(fileName, ".sql"));
