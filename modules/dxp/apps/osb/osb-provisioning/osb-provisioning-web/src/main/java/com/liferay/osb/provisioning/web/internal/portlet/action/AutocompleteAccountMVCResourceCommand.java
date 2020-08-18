@@ -92,9 +92,6 @@ public class AutocompleteAccountMVCResourceCommand
 		String[] keywords = StringUtil.split(
 			ParamUtil.getString(resourceRequest, "keywords"), StringPool.SPACE);
 
-		int maxResults = ParamUtil.getInteger(
-			resourceRequest, "maxResults", 20);
-
 		if (!ArrayUtil.isEmpty(keywords)) {
 			StringBundler sb = new StringBundler();
 
@@ -111,6 +108,9 @@ public class AutocompleteAccountMVCResourceCommand
 					sb.append(" or ");
 				}
 			}
+
+			int maxResults = ParamUtil.getInteger(
+				resourceRequest, "maxResults", 20);
 
 			List<Account> accounts = _accountWebService.search(
 				StringPool.BLANK, sb.toString(), 1, maxResults, null);
