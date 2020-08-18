@@ -32,8 +32,7 @@ function Search({resourceURL}) {
 			.then(({data}) => {
 				if (data.length === 0) {
 					setError(true);
-				}
-				else {
+				} else {
 					setError(false);
 					setResults(data);
 				}
@@ -85,9 +84,11 @@ function Search({resourceURL}) {
 							))}
 						</ClayDropDown.ItemList>
 
-						<a className="all-results dropdown-item" href="">
-							{Liferay.Language.get('see-all-results')}
-						</a>
+						{results.length === MAX_RESULTS && (
+							<a className="all-results dropdown-item" href="">
+								{Liferay.Language.get('see-all-results')}
+							</a>
+						)}
 					</>
 				)}
 			</ClayAutocomplete.DropDown>
