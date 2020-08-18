@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -197,9 +195,7 @@ public class BaseHttpHandlerImpl implements HttpHandler {
 	}
 
 	protected String getQuery(HttpExchange httpExchange) throws IOException {
-		URI requestURI = httpExchange.getRequestURI();
-
-		String requestURIString = requestURI.toString();
+		String requestURIString = String.valueOf(httpExchange.getRequestURI());
 
 		if (!requestURIString.contains("?")) {
 			return null;
