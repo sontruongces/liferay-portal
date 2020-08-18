@@ -14,6 +14,7 @@
 
 package com.liferay.layout.page.template.internal.upgrade.v1_2_0;
 
+import com.liferay.fragment.constants.FragmentConstants;
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
 import com.liferay.layout.page.template.constants.LayoutPageTemplateEntryTypeConstants;
@@ -157,6 +158,8 @@ public class UpgradeLayoutPageTemplateStructure extends UpgradeProcess {
 						))
 				).put(
 					"rowId", String.valueOf(i)
+				).put(
+					"type", String.valueOf(FragmentConstants.TYPE_SECTION)
 				));
 		}
 
