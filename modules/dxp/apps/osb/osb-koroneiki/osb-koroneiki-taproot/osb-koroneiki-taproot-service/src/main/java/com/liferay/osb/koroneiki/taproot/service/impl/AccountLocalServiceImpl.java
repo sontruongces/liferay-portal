@@ -171,7 +171,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			_teamLocalService.deleteTeam(team);
 		}
 
-		// Team Role
+		// Team account roles
 
 		teamAccountRolePersistence.removeByAccountId(account.getAccountId());
 
