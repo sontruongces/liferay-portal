@@ -189,11 +189,10 @@ public class ActionRequestPortletContainerTest
 		HttpServletRequest httpServletRequest =
 			PortletContainerTestUtil.getHttpServletRequest(group, layout);
 
-		PortletURL portletURL = PortletURLFactoryUtil.create(
-			httpServletRequest, TEST_PORTLET_ID, layout.getPlid(),
-			PortletRequest.ACTION_PHASE);
-
-		String url = portletURL.toString();
+		String url = String.valueOf(
+			PortletURLFactoryUtil.create(
+				httpServletRequest, TEST_PORTLET_ID, layout.getPlid(),
+				PortletRequest.ACTION_PHASE));
 
 		try (CaptureAppender captureAppender =
 				Log4JLoggerTestUtil.configureLog4JLogger(
@@ -244,11 +243,10 @@ public class ActionRequestPortletContainerTest
 
 		// Make an action request using the portal authentication token
 
-		PortletURL portletURL = PortletURLFactoryUtil.create(
-			httpServletRequest, TEST_PORTLET_ID, layout.getPlid(),
-			PortletRequest.ACTION_PHASE);
-
-		String url = portletURL.toString();
+		String url = String.valueOf(
+			PortletURLFactoryUtil.create(
+				httpServletRequest, TEST_PORTLET_ID, layout.getPlid(),
+				PortletRequest.ACTION_PHASE));
 
 		url = HttpUtil.setParameter(url, "p_auth", response.getBody());
 
@@ -337,11 +335,10 @@ public class ActionRequestPortletContainerTest
 
 		// Make an action request using the portal authentication token
 
-		PortletURL portletURL = PortletURLFactoryUtil.create(
-			httpServletRequest, TEST_PORTLET_ID, layout.getPlid(),
-			PortletRequest.ACTION_PHASE);
-
-		String url = portletURL.toString();
+		String url = String.valueOf(
+			PortletURLFactoryUtil.create(
+				httpServletRequest, TEST_PORTLET_ID, layout.getPlid(),
+				PortletRequest.ACTION_PHASE));
 
 		url = HttpUtil.removeParameter(url, "p_auth");
 
