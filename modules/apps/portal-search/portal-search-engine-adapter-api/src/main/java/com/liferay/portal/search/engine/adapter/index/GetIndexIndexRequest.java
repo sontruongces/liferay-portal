@@ -33,6 +33,10 @@ public class GetIndexIndexRequest
 		return indexRequestExecutor.executeIndexRequest(this);
 	}
 
+	public String getConnectionId() {
+		return _connectionId;
+	}
+
 	@Override
 	public String[] getIndexNames() {
 		return new String[] {_indexName};
@@ -53,10 +57,15 @@ public class GetIndexIndexRequest
 		return _preferLocalCluster;
 	}
 
+	public void setConnectionId(String connectionId) {
+		_connectionId = connectionId;
+	}
+
 	public void setPreferLocalCluster(boolean preferLocalCluster) {
 		_preferLocalCluster = preferLocalCluster;
 	}
 
+	private String _connectionId;
 	private final String _indexName;
 	private boolean _preferLocalCluster;
 
