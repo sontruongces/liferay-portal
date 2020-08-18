@@ -53,6 +53,8 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -348,6 +350,18 @@ public class AccountResourceImpl
 	@Override
 	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
 		return _entityModel;
+	}
+
+	@NestedField(
+		parentClass = com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.Team.class,
+		value = "account"
+	)
+	public Account getTeamNestedFieldAccount(
+			@NestedFieldId("accountKey") String accountKey)
+		throws Exception {
+
+		return AccountUtil.toAccount(
+			_accountLocalService.getAccount(accountKey));
 	}
 
 	@Override
