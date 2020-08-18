@@ -38,6 +38,7 @@ page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product" %><%
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Team" %><%@
 page import="com.liferay.osb.provisioning.constants.ProductTypeConstants" %><%@
+page import="com.liferay.osb.provisioning.constants.ProvisioningPortletKeys" %><%@
 page import="com.liferay.osb.provisioning.constants.ProvisioningWebKeys" %><%@
 page import="com.liferay.osb.provisioning.exception.ContactRequiredException" %><%@
 page import="com.liferay.osb.provisioning.exception.ProductBundleNameException" %><%@
@@ -80,6 +81,7 @@ page import="com.liferay.portal.kernel.exception.NoSuchRegionException" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.model.Address" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
+page import="com.liferay.portal.kernel.portlet.PortletURLFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
@@ -99,7 +101,9 @@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
 
-<%@ page import="javax.portlet.PortletURL" %>
+<%@ page import="javax.portlet.PortletRequest" %><%@
+page import="javax.portlet.PortletURL" %><%@
+page import="javax.portlet.ResourceURL" %>
 
 <liferay-frontend:defineObjects />
 

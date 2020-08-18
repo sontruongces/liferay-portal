@@ -27,14 +27,11 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceURL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,19 +53,6 @@ public class AccountSearchDisplayContext {
 
 		_currentURLObj = PortletURLUtil.getCurrent(
 			_renderRequest, _renderResponse);
-	}
-
-	public Map<String, Object> getAutocompleteAccountData() {
-		Map<String, Object> data = new HashMap<>();
-
-		ResourceURL autocompleteAccountURL =
-			_renderResponse.createResourceURL();
-
-		autocompleteAccountURL.setResourceID("/accounts/autocomplete");
-
-		data.put("resourceURL", autocompleteAccountURL.toString());
-
-		return data;
 	}
 
 	public SearchContainer getSearchContainer() throws Exception {
