@@ -55,6 +55,14 @@ public class AccountSearchDisplayContext {
 			_renderRequest, _renderResponse);
 	}
 
+	public String getClearResultsURL() {
+		PortletURL clearResultsURL = _currentURLObj;
+
+		clearResultsURL.setParameter("keywords", StringPool.BLANK);
+
+		return clearResultsURL.toString();
+	}
+
 	public SearchContainer getSearchContainer() throws Exception {
 		SearchContainer searchContainer = new SearchContainer(
 			_renderRequest, _currentURLObj, Collections.emptyList(),

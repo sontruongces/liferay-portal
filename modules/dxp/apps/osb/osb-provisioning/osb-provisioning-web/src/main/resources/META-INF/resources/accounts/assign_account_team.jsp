@@ -126,4 +126,26 @@ SearchContainer searchContainer = assignAccountTeamDisplayContext.getSearchConta
 	function resetRow(row) {
 		row.classList.remove('active');
 	}
+
+	var elements = document.querySelectorAll('a');
+
+	elements.forEach(resetElement);
+
+	function resetElement(element) {
+		if (!element.classList.contains('dropdown-toggle')) {
+			element.addEventListener('click', resetData);
+		}
+	}
+
+	var searchForm = document.querySelector('form');
+
+	if (searchForm) {
+		searchForm.addEventListener('submit', resetData);
+	}
+
+	function resetData() {
+		Liferay.Util.getOpener().Liferay.fire('selectedItemChange', {
+			data: ''
+		});
+	}
 </aui:script>
