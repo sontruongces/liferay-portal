@@ -14,14 +14,19 @@ import ClayDropDown from '@clayui/drop-down';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {NAMESPACE} from '../../utilities/constants';
 import {request} from '../../utilities/helpers';
 
 const MAX_RESULTS = 7;
 
-function Search({resourceURL}) {
+function Search({accountsHomeURL = '', resourceURL}) {
 	const [error, setError] = useState(false);
 	const [keywords, setKeywords] = useState('');
 	const [results, setResults] = useState([]);
+
+	function buildSearchResultsURL() {
+		return `${accountsHomeURL}&${NAMESPACE}keywords=${keywords}`;
+	}
 
 	function handleOnChange(event) {
 		const newValue = event.target.value;
@@ -32,7 +37,8 @@ function Search({resourceURL}) {
 			.then(({data}) => {
 				if (data.length === 0) {
 					setError(true);
-				} else {
+				}
+				else {
 					setError(false);
 					setResults(data);
 				}
@@ -53,7 +59,11 @@ function Search({resourceURL}) {
 				value={keywords}
 			/>
 
-			<button className="btn btn-default search-btn" type="button">
+			<a
+				className="btn btn-default search-btn"
+				href={buildSearchResultsURL()}
+				role="button"
+			>
 				<svg
 					aria-hidden="true"
 					aria-label={Liferay.Language.get('search-icon')}
@@ -62,7 +72,7 @@ function Search({resourceURL}) {
 				>
 					<use xlinkHref="#search" />
 				</svg>
-			</button>
+			</a>
 
 			<ClayAutocomplete.DropDown active={keywords}>
 				{error && (
@@ -85,7 +95,10 @@ function Search({resourceURL}) {
 						</ClayDropDown.ItemList>
 
 						{results.length === MAX_RESULTS && (
-							<a className="all-results dropdown-item" href="">
+							<a
+								className="all-results dropdown-item"
+								href={buildSearchResultsURL()}
+							>
 								{Liferay.Language.get('see-all-results')}
 							</a>
 						)}
@@ -97,6 +110,7 @@ function Search({resourceURL}) {
 }
 
 Search.propTypes = {
+	accountsHomeURL: PropTypes.string.isRequired,
 	resourceURL: PropTypes.string.isRequired
 };
 

@@ -15,7 +15,12 @@ import React from 'react';
 import Search from '../../../src/main/resources/META-INF/resources/js/components/search/Search';
 
 function renderSearch() {
-	return render(<Search resourceURL="/resource/URL" />);
+	return render(
+		<Search
+			accountsHomeURL="/accounts/home/URL"
+			resourceURL="/resource/URL"
+		/>
+	);
 }
 
 describe('Search', () => {

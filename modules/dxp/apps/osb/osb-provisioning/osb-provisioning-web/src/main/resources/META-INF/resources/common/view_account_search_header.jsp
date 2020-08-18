@@ -19,6 +19,10 @@
 <%
 Map<String, Object> data = new HashMap<>();
 
+PortletURL accountsHomeURL = PortletURLFactoryUtil.create(request, ProvisioningPortletKeys.ACCOUNTS, PortletRequest.RENDER_PHASE);
+
+data.put("accountsHomeURL", accountsHomeURL.toString());
+
 ResourceURL autocompleteAccountURL = PortletURLFactoryUtil.create(request, ProvisioningPortletKeys.ACCOUNTS, PortletRequest.RESOURCE_PHASE);
 
 autocompleteAccountURL.setResourceID("/accounts/autocomplete");
