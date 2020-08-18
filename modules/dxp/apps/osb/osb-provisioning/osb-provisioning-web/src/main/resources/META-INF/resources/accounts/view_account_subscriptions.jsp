@@ -65,7 +65,7 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 						icon="plus"
 						iconCssClass="btn btn-primary nav-btn nav-btn-monospaced"
 						markupView="lexicon"
-						message="add"
+						message="add-subscription"
 						url="<%= editProductPurchaseURL %>"
 					/>
 				</li>

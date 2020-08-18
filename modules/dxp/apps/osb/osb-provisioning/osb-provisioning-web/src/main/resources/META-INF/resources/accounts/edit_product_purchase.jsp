@@ -168,7 +168,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 								<liferay-ui:input-date
 									dayParam="startDateDay"
 									dayValue="<%= startCal.get(Calendar.DATE) %>"
-									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual(): false %>"
+									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual() : false %>"
 									monthParam="startDateMonth"
 									monthValue="<%= startCal.get(Calendar.MONTH) %>"
 									name="startDate"
@@ -189,7 +189,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 								<liferay-ui:input-date
 									dayParam="endDateDay"
 									dayValue="<%= endCal.get(Calendar.DATE) %>"
-									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual(): false %>"
+									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual() : false %>"
 									monthParam="endDateMonth"
 									monthValue="<%= endCal.get(Calendar.MONTH) %>"
 									name="endDate"
@@ -268,7 +268,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 			</div>
 
 			<aui:button-row>
-				<aui:button disabled="<%= (productPurchase != null) ? false: true %>" name="submit" type="submit" />
+				<aui:button disabled="<%= (productPurchase != null) ? false : true %>" name="submit" type="submit" />
 
 				<aui:button href="<%= redirect %>" type="cancel" />
 			</aui:button-row>
@@ -402,9 +402,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 		}
 	}
 
-	var emptyContent = document.getElementById(
-		'<portlet:namespace />emptyContent'
-	);
+	var emptyContent = document.getElementById('<portlet:namespace />emptyContent');
 
 	if (!emptyContent) {
 		var subscriptionContent = document.getElementById(

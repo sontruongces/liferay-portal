@@ -71,9 +71,7 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 </div>
 
 <aui:script>
-	var searchContainer = document.getElementById(
-		'<portlet:namespace />assignProductSearchContainer'
-	);
+	var searchContainer = document.getElementById('<portlet:namespace />assignProductSearchContainer');
 
 	var table = searchContainer.querySelector('tbody');
 
