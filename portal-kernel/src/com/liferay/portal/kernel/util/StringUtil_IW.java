@@ -326,6 +326,10 @@ public class StringUtil_IW {
 		return StringUtil.randomId();
 	}
 
+	public java.lang.String randomId(int length) {
+		return StringUtil.randomId(length);
+	}
+
 	/**
 	 * @deprecated
 	 */
@@ -356,15 +360,15 @@ public class StringUtil_IW {
 		return StringUtil.read(classLoader, name, all);
 	}
 
-	public java.lang.String read(java.io.InputStream is)
+	public java.lang.String read(java.io.InputStream inputStream)
 		throws java.io.IOException {
-		return StringUtil.read(is);
+		return StringUtil.read(inputStream);
 	}
 
-	public void readLines(java.io.InputStream is,
+	public void readLines(java.io.InputStream inputStream,
 		java.util.Collection<java.lang.String> lines)
 		throws java.io.IOException {
-		StringUtil.readLines(is, lines);
+		StringUtil.readLines(inputStream, lines);
 	}
 
 	public java.lang.String removeChar(java.lang.String s, char oldSub) {
@@ -651,8 +655,8 @@ public class StringUtil_IW {
 		return StringUtil.toHexString(l);
 	}
 
-	public java.lang.String toHexString(java.lang.Object obj) {
-		return StringUtil.toHexString(obj);
+	public java.lang.String toHexString(java.lang.Object object) {
+		return StringUtil.toHexString(object);
 	}
 
 	public java.lang.String toLowerCase(java.lang.String s) {
