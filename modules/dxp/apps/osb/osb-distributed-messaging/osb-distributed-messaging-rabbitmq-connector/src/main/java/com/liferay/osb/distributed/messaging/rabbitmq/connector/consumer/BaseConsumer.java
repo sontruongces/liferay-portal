@@ -51,20 +51,25 @@ public abstract class BaseConsumer implements Consumer {
 
 	public void handleCancel(String consumerTag) throws IOException {
 		if (_log.isInfoEnabled()) {
-			_log.info("Consumer cancelled for " + consumerTag + " on " + queue);
+			_log.info(
+				StringBundler.concat(
+					"Consumer cancelled for ", consumerTag, " on ", queue));
 		}
 	}
 
 	public void handleCancelOk(String consumerTag) {
 		if (_log.isInfoEnabled()) {
-			_log.info("Consumer cancelled for " + consumerTag + " on " + queue);
+			_log.info(
+				StringBundler.concat(
+					"Consumer cancelled for ", consumerTag, " on ", queue));
 		}
 	}
 
 	public void handleConsumeOk(String consumerTag) {
 		if (_log.isInfoEnabled()) {
 			_log.info(
-				"Consumer registered for " + consumerTag + " on " + queue);
+				StringBundler.concat(
+					"Consumer registered for ", consumerTag, " on ", queue));
 		}
 	}
 
@@ -113,7 +118,8 @@ public abstract class BaseConsumer implements Consumer {
 	public void handleRecoverOk(String consumerTag) {
 		if (_log.isInfoEnabled()) {
 			_log.info(
-				"Recovered connection for " + consumerTag + " on " + queue);
+				StringBundler.concat(
+					"Recovered connection for ", consumerTag, " on ", queue));
 		}
 	}
 
@@ -121,7 +127,8 @@ public abstract class BaseConsumer implements Consumer {
 		String consumerTag, ShutdownSignalException shutdownSignalException) {
 
 		_log.error(
-			"Shutdown signal for " + consumerTag + " on " + queue,
+			StringBundler.concat(
+				"Shutdown signal for ", consumerTag, " on ", queue),
 			shutdownSignalException);
 	}
 
