@@ -243,16 +243,13 @@ public class AssetListEntryExportImportContentProcessor
 				(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
 					DLFileEntryType.class);
 
-			long[] newClassTypeIds = classTypeIdsStream.map(
-				classTypeId -> {
-					return _getClassTypeIdFromClassTypeMaps(
-						classTypeId, ddmStructureIds, dlFileEntryTypeIds);
-				}
-			).toArray();
-
 			unicodeProperties.setProperty(
 				"classTypeIds" + clazz.getSimpleName(),
-				StringUtil.merge(newClassTypeIds));
+				StringUtil.merge(
+					classTypeIdsStream.map(
+						classTypeId -> _getClassTypeIdFromClassTypeMaps(
+							classTypeId, ddmStructureIds, dlFileEntryTypeIds)
+					).toArray()));
 
 			long anyClassType = GetterUtil.getLong(
 				unicodeProperties.getProperty(
