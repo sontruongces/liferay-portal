@@ -258,7 +258,28 @@ public class AssetListEntryExportImportContentProcessor
 			).toArray();
 
 			unicodeProperties.setProperty(
-				"classTypeIds" + className, StringUtil.merge(newClassTypeIds));
+				"classTypeIds" + clazz.getSimpleName(),
+				StringUtil.merge(newClassTypeIds));
+
+			long anyClassType = GetterUtil.getLong(
+				unicodeProperties.getProperty(
+					"anyClassType" + clazz.getSimpleName()));
+
+			if (anyClassType == 0L) {
+				continue;
+			}
+
+			long newAnyClassType = MapUtil.getLong(
+				ddmStructureIds, anyClassType, anyClassType);
+
+			if (newAnyClassType == anyClassType) {
+				newAnyClassType = MapUtil.getLong(
+					dlFileEntryTypeIds, anyClassType, anyClassType);
+			}
+
+			unicodeProperties.setProperty(
+				"anyClassType" + clazz.getSimpleName(),
+				String.valueOf(newAnyClassType));
 		}
 
 		return unicodeProperties.toString();
