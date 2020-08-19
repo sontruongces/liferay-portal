@@ -159,9 +159,7 @@ long assetClassPK = DLAssetHelperUtil.getAssetClassPK(fileEntry, fileVersion);
 																				}
 																			});
 																		dropdownGroupItem.setLabel(LanguageUtil.get(request, "convert-to"));
-																	}
-																);
-
+																	});
 															}
 														}
 													%>'

@@ -131,9 +131,9 @@ if (portletTitleBasedNavigation) {
 			<div class="contextual-sidebar sidebar-light sidebar-preview">
 
 				<%
-					request.setAttribute("info_panel.jsp-fileEntry", fileEntry);
-					request.setAttribute("info_panel.jsp-fileVersion", fileVersion);
-					request.setAttribute("info_panel_file_entry.jsp-hideActions", true);
+				request.setAttribute("info_panel.jsp-fileEntry", fileEntry);
+				request.setAttribute("info_panel.jsp-fileVersion", fileVersion);
+				request.setAttribute("info_panel_file_entry.jsp-hideActions", true);
 				%>
 
 				<liferay-util:include page="/document_library/info_panel_file_entry.jsp" servletContext="<%= application %>" />
@@ -143,8 +143,8 @@ if (portletTitleBasedNavigation) {
 			<liferay-frontend:sidebar-panel>
 
 				<%
-					request.setAttribute("info_panel.jsp-fileEntry", fileEntry);
-					request.setAttribute("info_panel.jsp-fileVersion", fileVersion);
+				request.setAttribute("info_panel.jsp-fileEntry", fileEntry);
+				request.setAttribute("info_panel.jsp-fileVersion", fileVersion);
 				%>
 
 				<liferay-util:include page="/document_library/info_panel_file_entry.jsp" servletContext="<%= application %>" />
@@ -164,7 +164,7 @@ if (portletTitleBasedNavigation) {
 				<c:if test="<%= dlPortletInstanceSettingsHelper.isShowActions() %>">
 
 					<%
-						for (ToolbarItem toolbarItem : dlViewFileVersionDisplayContext.getToolbarItems()) {
+					for (ToolbarItem toolbarItem : dlViewFileVersionDisplayContext.getToolbarItems()) {
 					%>
 
 					<liferay-ui:toolbar-item
@@ -172,7 +172,7 @@ if (portletTitleBasedNavigation) {
 					/>
 
 					<%
-						}
+					}
 					%>
 
 				</c:if>

@@ -48,8 +48,7 @@ page import="java.util.Map" %>
 <portlet:defineObjects />
 
 <%
-SearchEngineDisplayContext
-	searchEngineDisplayContext = (SearchEngineDisplayContext)request.getAttribute(SearchAdminWebKeys.SEARCH_ENGINE_DISPLAY_CONTEXT);
+SearchEngineDisplayContext searchEngineDisplayContext = (SearchEngineDisplayContext)request.getAttribute(SearchAdminWebKeys.SEARCH_ENGINE_DISPLAY_CONTEXT);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
