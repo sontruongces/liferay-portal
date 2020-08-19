@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Gianmarco Brunialti Masera
  */
 @Component(
 	property = "language.id=" + StringPool.BLANK, service = ResourceBundle.class
