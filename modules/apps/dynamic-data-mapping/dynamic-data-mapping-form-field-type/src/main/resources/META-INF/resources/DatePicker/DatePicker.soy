@@ -9,6 +9,8 @@
 	{@param years: list<?>}
 	{@param? _daySelected: any}
 	{@param? _handleDayClicked: any}
+	{@param? _handleDayKeyDown: any}
+	{@param? _handleDayFocus: any}
 	{@param? _handleDotClicked: any}
 	{@param? _handleInput: any}
 	{@param? _handleInputBlurred: any}
@@ -49,6 +51,8 @@
 			{call .content}
 				{param _daySelected: $_daySelected /}
 				{param _handleDayClicked: $_handleDayClicked /}
+				{param _handleDayKeyDown: $_handleDayKeyDown /}
+				{param _handleDayFocus: $_handleDayFocus /}
 				{param _handleDotClicked: $_handleDotClicked /}
 				{param _handleInput: $_handleInput /}
 				{param _handleInputBlurred: $_handleInputBlurred /}
@@ -103,6 +107,8 @@
 	{@param years: list<?>}
 	{@param? _daySelected: any}
 	{@param? _handleDayClicked: any}
+	{@param? _handleDayKeyDown: any}
+	{@param? _handleDayFocus: any}
 	{@param? _handleDotClicked: any}
 	{@param? _handleInput: any}
 	{@param? _handleInputBlurred: any}
@@ -243,6 +249,8 @@
 					{call .body}
 						{param _daySelected: $_daySelected /}
 						{param _handleDayClicked: $_handleDayClicked /}
+						{param _handleDayKeyDown: $_handleDayKeyDown /}
+						{param _handleDayFocus: $_handleDayFocus /}
 						{param _weeks: $_weeks /}
 					{/call}
 				{/if}
@@ -317,6 +325,8 @@
 	{@param _daySelected: any}
 	{@param _weeks: list<?>}
 	{@param? _handleDayClicked: any}
+	{@param? _handleDayKeyDown: any}
+	{@param? _handleDayFocus: any}
 
 	<div class="grid">
 		{foreach $week in $_weeks}
@@ -339,6 +349,8 @@
 						tabindex="0"
 
 						onClick="{$_handleDayClicked}"
+						onFocus="{$_handleDayFocus}"
+						onKeyDown="{$_handleDayKeyDown}"
 					{/let}
 
 					<div {$attributes}>

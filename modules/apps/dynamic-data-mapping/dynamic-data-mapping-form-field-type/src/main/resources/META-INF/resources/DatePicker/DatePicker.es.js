@@ -177,6 +177,12 @@ class DatePicker extends Component {
 	}
 
 	rendered() {
+		if (this._refreshFocus) {
+			const elementDayActive = this.elementValue_.find('.day.active');
+
+			elementDayActive.focus();
+		}
+
 		if (this._vanillaTextMask) {
 			const {textMaskInputElement} = this._vanillaTextMask;
 
@@ -270,13 +276,6 @@ class DatePicker extends Component {
 		const ariaLabel = event.target.getAttribute('ariaLabel');
 		const selectedDate = Helpers.formatDate(ariaLabel);
 
-		if (selectedDate.getMonth() > this.currentMonth.getMonth()) {
-			this._handleNextMonth();
-		}
-		else if (selectedDate.getMonth() < this.currentMonth.getMonth()) {
-			this._handlePreviousMonth();
-		}
-
 		this.setState(
 			{
 				_daySelected: ariaLabel,
@@ -287,6 +286,44 @@ class DatePicker extends Component {
 				this._handleFieldEdited();
 			}
 		);
+	}
+
+	_handleDayFocus(event) {
+		const ariaLabel = event.target.getAttribute('ariaLabel');
+		const selectedDate = Helpers.formatDate(ariaLabel);
+
+		this.currentMonth = Helpers.formatDate(ariaLabel);
+
+		if (selectedDate.getMonth() > this.currentMonth.getMonth()) {
+			this._handleNextMonth();
+		}
+		else if (selectedDate.getMonth() < this.currentMonth.getMonth()) {
+			this._handlePreviousMonth();
+		}
+
+		this._refreshFocus = true;
+
+		this.setState({
+			_daySelected: ariaLabel,
+			expanded: true,
+			value: selectedDate
+		});
+	}
+
+	_handleDayKeyDown(event) {
+		if (event.key === 'ArrowUp') {
+			this.elementValue_.find("select[name='month']").focus();
+
+			this._refreshFocus = false;
+		}
+		else if (event.key === 'Enter' || event.key === ' ') {
+			this._handleDayClicked(event);
+		}
+		else if (event.key === 'Escape') {
+			this.setState({
+				expanded: false
+			});
+		}
 	}
 
 	_handleDocClick(event) {
@@ -445,6 +482,15 @@ DatePicker.STATE = {
 	 * @instance
 	 * @memberof DatePicker
 	 * @type {!Array<Array>}
+	 */
+
+	_refreshFocus: Config.bool().internal(),
+
+	/**
+	 * @default false
+	 * @instance
+	 * @memberof DatePicker
+	 * @type {?bool}
 	 */
 
 	_weeks: Config.array(Config.array()).internal(),
