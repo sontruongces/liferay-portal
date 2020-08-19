@@ -149,21 +149,6 @@ public class IndexedFieldsFixture {
 			"viewCount_sortable", String.valueOf(assetEntry.getViewCount()));
 	}
 
-	public com.liferay.portal.search.document.Document postProcessDocument(
-		com.liferay.portal.search.document.Document document) {
-
-		if (_isSearchEngineSolr()) {
-			DocumentBuilder documentBuilder = _documentBuilderFactory.builder(
-				document);
-
-			documentBuilder.unsetValue("score");
-
-			return documentBuilder.build();
-		}
-
-		return document;
-	}
-
 	public void postProcessDocument(
 		com.liferay.portal.kernel.search.Document document) {
 
