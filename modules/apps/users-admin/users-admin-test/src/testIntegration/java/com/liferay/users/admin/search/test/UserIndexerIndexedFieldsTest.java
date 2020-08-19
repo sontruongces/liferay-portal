@@ -51,7 +51,6 @@ import com.liferay.users.admin.test.util.search.UserGroupSearchFixture;
 import com.liferay.users.admin.test.util.search.UserSearchFixture;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -150,7 +149,7 @@ public class UserIndexerIndexedFieldsTest {
 
 		Map<String, String> map = _getExpectedFieldValues(user);
 
-		map.put("organizationIds", _getValues(user.getOrganizationIds()));
+		map.put("organizationIds", _getStringValue(user.getOrganizationIds()));
 
 		FieldValuesAssert.assertFieldValues(map, document, searchTerm);
 	}
@@ -174,7 +173,7 @@ public class UserIndexerIndexedFieldsTest {
 
 		Map<String, String> map = _getExpectedFieldValues(user);
 
-		map.put("userGroupIds", _getValues(user.getUserGroupIds()));
+		map.put("userGroupIds", _getStringValue(user.getUserGroupIds()));
 
 		FieldValuesAssert.assertFieldValues(map, document, searchTerm);
 	}
