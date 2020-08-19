@@ -2,12 +2,12 @@ import React from 'react';
 import ProductCard from '../product_card/ProductCard';
 
 function ListRenderer({
-	CPEntries,
+  	cpEntries,
 	portletNamespace
 }) {
 	return (
 		<div className={'align-items-center d-flex'}>
-			{CPEntries.map((entry, index) => (
+			{cpEntries.map((entry, index) => (
 				<div
 					className={
 						'col-sm-12 col-md-4 osb-commerce-product-card-container'

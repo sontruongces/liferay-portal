@@ -17,12 +17,12 @@
 <%@ include file="/init.jsp" %>
 
 <%
-Map<String, Object> CPEntries = (Map<String, Object>)request.getAttribute("osb-commerce-provisioning:CPContentList");
+Map<String, Object> cpEntriesMap = (Map<String, Object>)request.getAttribute("osb-commerce-provisioning:CPEntriesMap");
 %>
 
 <div class="container product-publisher-container">
 	<react:component
-		data="<%= CPEntries %>"
+		data="<%= cpEntriesMap %>"
 		module="js/components/list_renderer/ListRenderer"
 	/>
 </div>

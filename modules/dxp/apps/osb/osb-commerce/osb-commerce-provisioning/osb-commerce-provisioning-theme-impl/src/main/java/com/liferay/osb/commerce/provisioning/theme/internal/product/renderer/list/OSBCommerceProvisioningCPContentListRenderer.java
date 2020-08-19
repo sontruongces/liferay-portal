@@ -79,39 +79,37 @@ public class OSBCommerceProvisioningCPContentListRenderer
 		throws Exception {
 
 		httpServletRequest.setAttribute(
-			"osb-commerce-provisioning:CPContentList",
-			_getCPEntriesRenderProps(httpServletRequest));
+			"osb-commerce-provisioning:CPEntriesMap",
+			_getCPEntriesMap(httpServletRequest));
 
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/product_publisher/render/view.jsp");
 	}
 
-	private Map<String, Object> _getCPEntriesRenderProps(
-			HttpServletRequest request)
+	private Map<String, Object> _getCPEntriesMap(HttpServletRequest request)
 		throws PortalException {
 
 		CPDataSourceResult cpDataSourceResult =
 			(CPDataSourceResult)request.getAttribute(
 				CPWebKeys.CP_DATA_SOURCE_RESULT);
 
-		List<Map<String, Object>> cpEntriesRenderProps = new ArrayList<>();
+		List<Map<String, Object>> cpEntries = new ArrayList<>();
 
 		for (CPCatalogEntry cpCatalogEntry :
 				cpDataSourceResult.getCPCatalogEntries()) {
 
-			cpEntriesRenderProps.add(
-				_getCPEntryRenderProps(cpCatalogEntry, request));
+			cpEntries.add(_getCPEntryMap(cpCatalogEntry, request));
 		}
 
 		return new HashMap<String, Object>() {
 			{
-				put("CPEntries", cpEntriesRenderProps);
+				put("cpEntries", cpEntries);
 			}
 		};
 	}
 
-	private Map<String, Object> _getCPEntryRenderProps(
+	private Map<String, Object> _getCPEntryMap(
 			CPCatalogEntry cpCatalogEntry, HttpServletRequest request)
 		throws PortalException {
 
@@ -126,29 +124,29 @@ public class OSBCommerceProvisioningCPContentListRenderer
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		Map<String, Object> renderProps = new HashMap<>();
+		Map<String, Object> cpEntryMap = new HashMap<>();
 
-		renderProps.put("description", cpCatalogEntry.getShortDescription());
+		cpEntryMap.put("description", cpCatalogEntry.getShortDescription());
 
-		renderProps.put(
+		cpEntryMap.put(
 			"detailURL",
 			_cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
 
-		renderProps.put("name", cpCatalogEntry.getName());
-		renderProps.put("productId", cpCatalogEntry.getCPDefinitionId());
-		renderProps.put(
+		cpEntryMap.put("name", cpCatalogEntry.getName());
+		cpEntryMap.put("productId", cpCatalogEntry.getCPDefinitionId());
+		cpEntryMap.put(
 			"productImageURL", cpCatalogEntry.getDefaultImageFileUrl());
 
 		if (cpSku != null) {
-			renderProps.put("sku", cpSku.getSku());
-			renderProps.put("skuId", cpSku.getCPInstanceId());
+			cpEntryMap.put("sku", cpSku.getSku());
+			cpEntryMap.put("skuId", cpSku.getCPInstanceId());
 		}
 
-		renderProps.put(
+		cpEntryMap.put(
 			"spritemap",
 			themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
 
-		return renderProps;
+		return cpEntryMap;
 	}
 
 	@Reference
