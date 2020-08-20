@@ -4190,7 +4190,14 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		Long userId = (Long)params.remove("usersGroups");
 
 		for (long classNameId : classNameIds) {
-			groups.addAll(groupPersistence.findByC_C(companyId, classNameId));
+			if (site != null) {
+				groups.addAll(
+					groupPersistence.findByC_C_S(companyId, classNameId, site));
+			}
+			else {
+				groups.addAll(
+					groupPersistence.findByC_C(companyId, classNameId));
+			}
 		}
 
 		Iterator<Group> iterator = groups.iterator();
@@ -4309,14 +4316,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			if ((membershipRestriction != null) &&
 				(membershipRestriction != group.getMembershipRestriction())) {
 
-				iterator.remove();
-
-				continue;
-			}
-
-			// Filter by site
-
-			if ((site != null) && (site != group.isSite())) {
 				iterator.remove();
 
 				continue;
