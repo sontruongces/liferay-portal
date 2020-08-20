@@ -1,3 +1,11 @@
+body {
+	&.open {
+		.search-menu {
+			padding-left: $product-menu-sidebar-width;
+		}
+	}
+}
+
 .autocomplete-dropdown-menu {
 	.all-results {
 		color: $primary;
@@ -23,9 +31,11 @@
 	background-color: $body-bg;
 	border-bottom: 1px solid $secondary-l3;
 	left: 0;
+	padding-left: 0;
 	position: fixed;
 	right: 0;
 	top: $header-offset;
+	transition: padding 0.5s ease;
 	z-index: 988;
 
 	.account-search {
