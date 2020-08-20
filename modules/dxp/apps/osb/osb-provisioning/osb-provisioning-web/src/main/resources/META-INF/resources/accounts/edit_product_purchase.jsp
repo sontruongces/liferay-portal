@@ -24,13 +24,29 @@ EditProductPurchaseDisplayContext editProductPurchaseDisplayContext = Provisioni
 ProductPurchase productPurchase = editProductPurchaseDisplayContext.getProductPurchase();
 
 ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContext.getProductPurchaseDisplay();
+
+String productPurchaseKey = BeanParamUtil.getString(productPurchase, request, "key", "");
+long quantity = BeanParamUtil.getLong(productPurchase, request, "quantity", 1);
+boolean isPerpetual = BeanParamUtil.getBoolean(productPurchase, request, "perpetual", false);
+
+boolean isDisabled = true;
+String productName = "";
+String title = "add-subscription";
+
+if (productPurchase != null) {
+	isDisabled = false;
+
+	productName = productPurchaseDisplay.getProductName();
+
+	title = "edit-subscription";
+}
 %>
 
 <div class="account-add-items nav provisioning-accounts">
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title='<%= (productPurchase != null) ? "edit-subscription" : "add-subscription" %>'
+		title="<%= title %>"
 	/>
 
 	<liferay-ui:error exception="<%= HttpException.class %>">
@@ -53,7 +69,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 							</h4>
 						</th>
 						<th>
-							<aui:button onClick='<%= renderResponse.getNamespace() + "assignProduct();" %>' value="select" />
+							<aui:button onClick='<%= renderResponse.getNamespace() + "selectProduct();" %>' value="select" />
 						</th>
 					</tr>
 				</thead>
@@ -64,7 +80,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 				<div class="sheet-text text-center">
 					<liferay-ui:message key="select-subscription-to-fill-in-details" /><br /> <br />
 
-					<aui:button onClick='<%= renderResponse.getNamespace() + "assignProduct();" %>' value="select" />
+					<aui:button onClick='<%= renderResponse.getNamespace() + "selectProduct();" %>' value="select" />
 				</div>
 			</div>
 		</c:if>
@@ -73,7 +89,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
 			<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
-			<portlet:param name="productPurchaseKey" value='<%= (productPurchase != null) ? productPurchaseDisplay.getKey() : "" %>' />
+			<portlet:param name="productPurchaseKey" value="<%= productPurchaseKey %>" />
 		</portlet:actionURL>
 
 		<aui:form action="<%= editProductPurchaseURL.toString() %>" method="post" name="fm">
@@ -133,7 +149,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 					<tbody>
 						<tr>
 							<td class="table-cell-expand" id="<portlet:namespace />productName">
-								<%= (productPurchase != null) ? productPurchaseDisplay.getProductName() : "" %>
+								<%= productName %>
 							</td>
 
 							<c:if test="<%= productPurchase == null %>">
@@ -145,7 +161,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 							</c:if>
 
 							<td class="table-cell-expand">
-								<aui:input cssClass="account-edit-subscription" label="" name="quantity" value='<%= (productPurchase != null) ? productPurchase.getQuantity() : "1" %>' />
+								<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= quantity %>" />
 							</td>
 
 							<%
@@ -153,7 +169,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 							%>
 
 							<td class="table-cell-expand">
-								<aui:input checked="<%= (productPurchase != null) ? productPurchase.getPerpetual() : false %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
+								<aui:input checked="<%= isPerpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
 							</td>
 
 							<%
@@ -168,7 +184,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 								<liferay-ui:input-date
 									dayParam="startDateDay"
 									dayValue="<%= startCal.get(Calendar.DATE) %>"
-									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual() : false %>"
+									disabled="<%= isPerpetual %>"
 									monthParam="startDateMonth"
 									monthValue="<%= startCal.get(Calendar.MONTH) %>"
 									name="startDate"
@@ -189,7 +205,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 								<liferay-ui:input-date
 									dayParam="endDateDay"
 									dayValue="<%= endCal.get(Calendar.DATE) %>"
-									disabled="<%= (productPurchase != null) ? productPurchase.getPerpetual() : false %>"
+									disabled="<%= isPerpetual %>"
 									monthParam="endDateMonth"
 									monthValue="<%= endCal.get(Calendar.MONTH) %>"
 									name="endDate"
@@ -228,7 +244,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 									<liferay-ui:input-date
 										dayParam="gracePeriodEndDateDay"
 										dayValue="<%= originalEndCal.get(Calendar.DATE) %>"
-										disabled="<%= productPurchase.getPerpetual() %>"
+										disabled="<%= isPerpetual %>"
 										monthParam="gracePeriodEndDateMonth"
 										monthValue="<%= originalEndCal.get(Calendar.MONTH) %>"
 										name="gracePeriodEndDate"
@@ -268,7 +284,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 			</div>
 
 			<aui:button-row>
-				<aui:button disabled="<%= (productPurchase != null) ? false : true %>" name="submit" type="submit" />
+				<aui:button disabled="<%= isDisabled %>" name="submit" type="submit" />
 
 				<aui:button href="<%= redirect %>" type="cancel" />
 			</aui:button-row>
@@ -326,15 +342,15 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 
 	Liferay.provide(
 		window,
-		'<portlet:namespace />assignProduct',
+		'<portlet:namespace />selectProduct',
 		function() {
-			<portlet:renderURL var="assignProductURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="mvcRenderCommandName" value="/accounts/assign_product_purchase_product" />
+			<portlet:renderURL var="selectProductURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/select_product_purchase_product" />
 				<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
 			</portlet:renderURL>
 
 			var url = Liferay.Util.PortletURL.createPortletURL(
-				'<%= assignProductURL.toString() %>',
+				'<%= selectProductURL.toString() %>',
 				{
 					productKey: document.getElementById(
 						'<portlet:namespace />productKey'
@@ -345,7 +361,7 @@ ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContex
 			var A = AUI();
 
 			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-				eventName: '<portlet:namespace />assignProduct',
+				eventName: '<portlet:namespace />selectProduct',
 				title: '<liferay-ui:message key="select-subscription" />',
 				url: url.toString()
 			});

@@ -19,6 +19,8 @@
 <%
 ViewAccountDisplayContext viewAccountDisplayContext = ProvisioningWebComponentProvider.getViewAccountDisplayContext(renderRequest, renderResponse, request);
 
+AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
+
 PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 %>
 
@@ -56,7 +58,7 @@ PortletURL portletURL = viewAccountDisplayContext.getPortletURL();
 			<portlet:renderURL var="editProductPurchaseURL">
 				<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
-				<portlet:param name="accountKey" value="<%= viewAccountDisplayContext.getAccountDisplay().getKey() %>" />
+				<portlet:param name="accountKey" value="<%= accountDisplay.getKey() %>" />
 			</portlet:renderURL>
 
 			<ul class="navbar-nav">

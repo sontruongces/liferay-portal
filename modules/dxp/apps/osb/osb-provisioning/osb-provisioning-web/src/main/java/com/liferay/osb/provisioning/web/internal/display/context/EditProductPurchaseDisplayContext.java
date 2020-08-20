@@ -80,7 +80,7 @@ public class EditProductPurchaseDisplayContext
 
 		portletURL.setParameter(
 			"mvcRenderCommandName",
-			"/accounts/assign_product_purchase_product");
+			"/accounts/select_product_purchase_product");
 		portletURL.setParameter("accountKey", getAccountKey());
 
 		return portletURL.toString();

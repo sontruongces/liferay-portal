@@ -287,8 +287,9 @@ public class ProvisioningWebComponentProvider {
 			renderRequest, renderResponse, httpServletRequest, _accountReader,
 			_accountEntryWebService, _accountWebService, _auditEntryWebService,
 			_contactRoleWebService, _contactWebService, _externalLinkWebService,
-			_noteWebService, _productWebService, _productConsumptionWebService,
-			_productPurchaseViewWebService, _teamWebService);
+			_noteWebService, _productConsumptionWebService,
+			_productPurchaseViewWebService, _productWebService,
+			_teamWebService);
 
 		httpServletRequest.setAttribute(
 			clazz.getName(), viewAccountDisplayContext);

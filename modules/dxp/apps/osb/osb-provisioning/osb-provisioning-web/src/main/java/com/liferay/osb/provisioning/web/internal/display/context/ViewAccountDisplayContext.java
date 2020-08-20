@@ -576,10 +576,10 @@ public class ViewAccountDisplayContext {
 			ContactRoleWebService contactRoleWebService,
 			ContactWebService contactWebService,
 			ExternalLinkWebService externalLinkWebService,
-			NoteWebService noteWebService, ProductWebService productWebService,
+			NoteWebService noteWebService,
 			ProductConsumptionWebService productConsumptionWebService,
 			ProductPurchaseViewWebService productPurchaseViewWebService,
-			TeamWebService teamWebService)
+			ProductWebService productWebService, TeamWebService teamWebService)
 		throws Exception {
 
 		this.renderRequest = renderRequest;
@@ -593,9 +593,9 @@ public class ViewAccountDisplayContext {
 		this.contactWebService = contactWebService;
 		this.externalLinkWebService = externalLinkWebService;
 		this.noteWebService = noteWebService;
-		this.productWebService = productWebService;
 		this.productConsumptionWebService = productConsumptionWebService;
 		this.productPurchaseViewWebService = productPurchaseViewWebService;
+		this.productWebService = productWebService;
 		this.teamWebService = teamWebService;
 
 		doInit();

@@ -28,14 +28,14 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 	clearResultsURL="<%= editProductPurchaseDisplayContext.getProductPurchaseProductClearResultsURL() %>"
 	itemsTotal="<%= productSearchContainer.getTotal() %>"
 	searchActionURL="<%= currentURL %>"
-	searchContainerId="assignProduct"
+	searchContainerId="selectProduct"
 	selectable="<%= false %>"
 	showSearch="<%= true %>"
 />
 
 <div class="container-fluid container-fluid-max-xl">
 	<liferay-ui:search-container
-		id="assignProduct"
+		id="selectProduct"
 		searchContainer="<%= productSearchContainer %>"
 	>
 		<liferay-ui:search-container-row
@@ -71,21 +71,46 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 </div>
 
 <aui:script>
-	var searchContainer = document.getElementById('<portlet:namespace />assignProductSearchContainer');
+	var searchContainer = document.getElementById('<portlet:namespace />selectProductSearchContainer');
 
 	var table = searchContainer.querySelector('tbody');
 
 	if (table) {
 		var tableRows = table.querySelectorAll('tr');
 
-		tableRows.forEach(selectRow);
+		tableRows.forEach(<portlet:namespace />selectRow);
 	}
 
-	function selectRow(row) {
+	var anchors = document.querySelectorAll('a');
+
+	anchors.forEach(<portlet:namespace />resetAnchor);
+
+	var searchForm = document.querySelector('form');
+
+	if (searchForm) {
+		searchForm.addEventListener('submit', <portlet:namespace />resetData);
+	}
+
+	function <portlet:namespace />resetAnchor(element) {
+		if (!element.classList.contains('dropdown-toggle')) {
+			element.addEventListener('click', <portlet:namespace />resetData);
+		}
+	}
+
+	function <portlet:namespace />resetData() {
+		Liferay.Util.getOpener().Liferay.fire(
+			'<portlet:namespace />selectProduct',
+			{
+				data: ''
+			}
+		);
+	}
+
+	function <portlet:namespace />selectRow(row) {
 		row.addEventListener('click', function() {
 			var activeRows = Array.from(document.getElementsByClassName('active'));
 
-			activeRows.forEach(resetRow);
+			activeRows.forEach(<portlet:namespace />resetRow);
 
 			this.classList.add('active');
 
@@ -93,7 +118,7 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 
 			if (rowData) {
 				Liferay.Util.getOpener().Liferay.fire(
-					'<portlet:namespace />assignProduct',
+					'<portlet:namespace />selectProduct',
 					{
 						data: rowData
 					}
@@ -102,7 +127,7 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 		});
 	}
 
-	function resetRow(row) {
+	function <portlet:namespace />resetRow(row) {
 		row.classList.remove('active');
 	}
 </aui:script>
