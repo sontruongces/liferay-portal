@@ -3,6 +3,12 @@ body {
 		.search-menu {
 			padding-left: $product-menu-sidebar-width;
 		}
+
+		// Offset nav with to never overlap with user personal bar and make space for the product menu sidebar when it's open
+
+		.search-menu-nav {
+			width: calc(100vw - 400px);
+		}
 	}
 }
 
