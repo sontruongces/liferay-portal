@@ -276,6 +276,22 @@ public class CompanyIndexFactoryTest {
 	}
 
 	@Test
+	public void testOptionalDefaultTemplateIsAlwaysAfterContributedTemplates()
+		throws Exception {
+
+		_companyIndexFactory.setAdditionalTypeMappings(
+			loadAdditionalTypeMappings());
+
+		createIndices();
+
+		indexOneDocument("match_additional_mapping");
+		indexOneDocument("match_catch_all");
+
+		assertType("match_additional_mapping", "keyword");
+		assertType("match_catch_all", "text");
+	}
+
+	@Test
 	public void testOverrideTypeMappings() throws Exception {
 		_companyIndexFactory.setAdditionalIndexConfigurations(
 			loadAdditionalAnalyzers());
