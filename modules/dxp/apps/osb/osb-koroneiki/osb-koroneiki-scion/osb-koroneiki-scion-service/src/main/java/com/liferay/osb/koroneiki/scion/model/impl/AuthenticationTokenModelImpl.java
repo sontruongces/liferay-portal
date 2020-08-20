@@ -508,8 +508,6 @@ public class AuthenticationTokenModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -686,24 +684,18 @@ public class AuthenticationTokenModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AuthenticationTokenModelImpl authenticationTokenModelImpl = this;
+		_setModifiedDate = false;
+		_originalServiceProducerId = _serviceProducerId;
 
-		authenticationTokenModelImpl._setModifiedDate = false;
+		_setOriginalServiceProducerId = false;
 
-		authenticationTokenModelImpl._originalServiceProducerId =
-			authenticationTokenModelImpl._serviceProducerId;
+		_originalDigest = _digest;
 
-		authenticationTokenModelImpl._setOriginalServiceProducerId = false;
+		_originalStatus = _status;
 
-		authenticationTokenModelImpl._originalDigest =
-			authenticationTokenModelImpl._digest;
+		_setOriginalStatus = false;
 
-		authenticationTokenModelImpl._originalStatus =
-			authenticationTokenModelImpl._status;
-
-		authenticationTokenModelImpl._setOriginalStatus = false;
-
-		authenticationTokenModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

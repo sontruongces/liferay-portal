@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -429,12 +428,11 @@ public class ServiceComponentPersistenceTest {
 		ServiceComponent existingServiceComponent =
 			_persistence.findByPrimaryKey(newServiceComponent.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingServiceComponent.getBuildNamespace(),
-				ReflectionTestUtil.invoke(
-					existingServiceComponent, "getOriginalBuildNamespace",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingServiceComponent.getBuildNamespace(),
+			ReflectionTestUtil.invoke(
+				existingServiceComponent, "getOriginalBuildNamespace",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingServiceComponent.getBuildNumber()),
 			ReflectionTestUtil.<Long>invoke(

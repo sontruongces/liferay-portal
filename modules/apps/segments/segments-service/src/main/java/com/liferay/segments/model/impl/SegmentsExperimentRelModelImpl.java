@@ -676,21 +676,16 @@ public class SegmentsExperimentRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SegmentsExperimentRelModelImpl segmentsExperimentRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalSegmentsExperimentId = _segmentsExperimentId;
 
-		segmentsExperimentRelModelImpl._setModifiedDate = false;
+		_setOriginalSegmentsExperimentId = false;
 
-		segmentsExperimentRelModelImpl._originalSegmentsExperimentId =
-			segmentsExperimentRelModelImpl._segmentsExperimentId;
+		_originalSegmentsExperienceId = _segmentsExperienceId;
 
-		segmentsExperimentRelModelImpl._setOriginalSegmentsExperimentId = false;
+		_setOriginalSegmentsExperienceId = false;
 
-		segmentsExperimentRelModelImpl._originalSegmentsExperienceId =
-			segmentsExperimentRelModelImpl._segmentsExperienceId;
-
-		segmentsExperimentRelModelImpl._setOriginalSegmentsExperienceId = false;
-
-		segmentsExperimentRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

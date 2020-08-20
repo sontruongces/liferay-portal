@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -487,12 +486,10 @@ public class LayoutSEOEntryPersistenceTest {
 		LayoutSEOEntry existingLayoutSEOEntry = _persistence.findByPrimaryKey(
 			newLayoutSEOEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutSEOEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayoutSEOEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutSEOEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayoutSEOEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutSEOEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

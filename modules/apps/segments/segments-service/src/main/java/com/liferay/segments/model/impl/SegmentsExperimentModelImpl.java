@@ -601,8 +601,6 @@ public class SegmentsExperimentModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -947,47 +945,37 @@ public class SegmentsExperimentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SegmentsExperimentModelImpl segmentsExperimentModelImpl = this;
+		_originalUuid = _uuid;
 
-		segmentsExperimentModelImpl._originalUuid =
-			segmentsExperimentModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		segmentsExperimentModelImpl._originalGroupId =
-			segmentsExperimentModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		segmentsExperimentModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		segmentsExperimentModelImpl._originalCompanyId =
-			segmentsExperimentModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		segmentsExperimentModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		segmentsExperimentModelImpl._setModifiedDate = false;
+		_originalSegmentsExperienceId = _segmentsExperienceId;
 
-		segmentsExperimentModelImpl._originalSegmentsExperienceId =
-			segmentsExperimentModelImpl._segmentsExperienceId;
+		_setOriginalSegmentsExperienceId = false;
 
-		segmentsExperimentModelImpl._setOriginalSegmentsExperienceId = false;
+		_originalSegmentsExperimentKey = _segmentsExperimentKey;
 
-		segmentsExperimentModelImpl._originalSegmentsExperimentKey =
-			segmentsExperimentModelImpl._segmentsExperimentKey;
+		_originalClassNameId = _classNameId;
 
-		segmentsExperimentModelImpl._originalClassNameId =
-			segmentsExperimentModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		segmentsExperimentModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		segmentsExperimentModelImpl._originalClassPK =
-			segmentsExperimentModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		segmentsExperimentModelImpl._setOriginalClassPK = false;
+		_originalStatus = _status;
 
-		segmentsExperimentModelImpl._originalStatus =
-			segmentsExperimentModelImpl._status;
+		_setOriginalStatus = false;
 
-		segmentsExperimentModelImpl._setOriginalStatus = false;
-
-		segmentsExperimentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -479,24 +479,19 @@ public class ContactAccountRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactAccountRoleModelImpl contactAccountRoleModelImpl = this;
+		_originalContactId = _contactId;
 
-		contactAccountRoleModelImpl._originalContactId =
-			contactAccountRoleModelImpl._contactId;
+		_setOriginalContactId = false;
 
-		contactAccountRoleModelImpl._setOriginalContactId = false;
+		_originalAccountId = _accountId;
 
-		contactAccountRoleModelImpl._originalAccountId =
-			contactAccountRoleModelImpl._accountId;
+		_setOriginalAccountId = false;
 
-		contactAccountRoleModelImpl._setOriginalAccountId = false;
+		_originalContactRoleId = _contactRoleId;
 
-		contactAccountRoleModelImpl._originalContactRoleId =
-			contactAccountRoleModelImpl._contactRoleId;
+		_setOriginalContactRoleId = false;
 
-		contactAccountRoleModelImpl._setOriginalContactRoleId = false;
-
-		contactAccountRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

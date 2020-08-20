@@ -532,7 +532,7 @@ public class ContactRoleModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -716,25 +716,20 @@ public class ContactRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactRoleModelImpl contactRoleModelImpl = this;
+		_originalUuid = _uuid;
 
-		contactRoleModelImpl._originalUuid = contactRoleModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		contactRoleModelImpl._originalCompanyId =
-			contactRoleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		contactRoleModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalContactRoleKey = _contactRoleKey;
 
-		contactRoleModelImpl._setModifiedDate = false;
+		_originalName = _name;
 
-		contactRoleModelImpl._originalContactRoleKey =
-			contactRoleModelImpl._contactRoleKey;
+		_originalType = _type;
 
-		contactRoleModelImpl._originalName = contactRoleModelImpl._name;
-
-		contactRoleModelImpl._originalType = contactRoleModelImpl._type;
-
-		contactRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -358,8 +358,6 @@ public class AssetTagStatsModelImpl
 
 	@Override
 	public void setAssetCount(int assetCount) {
-		_columnBitmask = -1L;
-
 		_assetCount = assetCount;
 	}
 
@@ -472,18 +470,15 @@ public class AssetTagStatsModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetTagStatsModelImpl assetTagStatsModelImpl = this;
+		_originalTagId = _tagId;
 
-		assetTagStatsModelImpl._originalTagId = assetTagStatsModelImpl._tagId;
+		_setOriginalTagId = false;
 
-		assetTagStatsModelImpl._setOriginalTagId = false;
+		_originalClassNameId = _classNameId;
 
-		assetTagStatsModelImpl._originalClassNameId =
-			assetTagStatsModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		assetTagStatsModelImpl._setOriginalClassNameId = false;
-
-		assetTagStatsModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

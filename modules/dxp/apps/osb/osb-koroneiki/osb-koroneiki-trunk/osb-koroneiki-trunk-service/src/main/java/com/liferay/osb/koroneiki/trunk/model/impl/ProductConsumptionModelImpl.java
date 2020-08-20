@@ -772,37 +772,28 @@ public class ProductConsumptionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ProductConsumptionModelImpl productConsumptionModelImpl = this;
+		_originalUuid = _uuid;
 
-		productConsumptionModelImpl._originalUuid =
-			productConsumptionModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		productConsumptionModelImpl._originalCompanyId =
-			productConsumptionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		productConsumptionModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		productConsumptionModelImpl._originalUserId =
-			productConsumptionModelImpl._userId;
+		_setOriginalUserId = false;
 
-		productConsumptionModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalProductConsumptionKey = _productConsumptionKey;
 
-		productConsumptionModelImpl._setModifiedDate = false;
+		_originalAccountId = _accountId;
 
-		productConsumptionModelImpl._originalProductConsumptionKey =
-			productConsumptionModelImpl._productConsumptionKey;
+		_setOriginalAccountId = false;
 
-		productConsumptionModelImpl._originalAccountId =
-			productConsumptionModelImpl._accountId;
+		_originalProductEntryId = _productEntryId;
 
-		productConsumptionModelImpl._setOriginalAccountId = false;
+		_setOriginalProductEntryId = false;
 
-		productConsumptionModelImpl._originalProductEntryId =
-			productConsumptionModelImpl._productEntryId;
-
-		productConsumptionModelImpl._setOriginalProductEntryId = false;
-
-		productConsumptionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

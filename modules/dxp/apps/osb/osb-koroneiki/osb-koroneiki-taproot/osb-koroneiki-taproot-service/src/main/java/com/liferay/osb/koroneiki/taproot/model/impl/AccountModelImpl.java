@@ -943,28 +943,24 @@ public class AccountModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AccountModelImpl accountModelImpl = this;
+		_originalUuid = _uuid;
 
-		accountModelImpl._originalUuid = accountModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		accountModelImpl._originalCompanyId = accountModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		accountModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalAccountKey = _accountKey;
 
-		accountModelImpl._setModifiedDate = false;
+		_originalParentAccountId = _parentAccountId;
 
-		accountModelImpl._originalAccountKey = accountModelImpl._accountKey;
+		_setOriginalParentAccountId = false;
 
-		accountModelImpl._originalParentAccountId =
-			accountModelImpl._parentAccountId;
+		_originalName = _name;
 
-		accountModelImpl._setOriginalParentAccountId = false;
+		_originalCode = _code;
 
-		accountModelImpl._originalName = accountModelImpl._name;
-
-		accountModelImpl._originalCode = accountModelImpl._code;
-
-		accountModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

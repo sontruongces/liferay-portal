@@ -630,8 +630,6 @@ public class WorkflowMetricsSLADefinitionModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1122,54 +1120,39 @@ public class WorkflowMetricsSLADefinitionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WorkflowMetricsSLADefinitionModelImpl
-			workflowMetricsSLADefinitionModelImpl = this;
+		_originalUuid = _uuid;
 
-		workflowMetricsSLADefinitionModelImpl._originalUuid =
-			workflowMetricsSLADefinitionModelImpl._uuid;
+		_originalWorkflowMetricsSLADefinitionId =
+			_workflowMetricsSLADefinitionId;
 
-		workflowMetricsSLADefinitionModelImpl.
-			_originalWorkflowMetricsSLADefinitionId =
-				workflowMetricsSLADefinitionModelImpl.
-					_workflowMetricsSLADefinitionId;
+		_setOriginalWorkflowMetricsSLADefinitionId = false;
 
-		workflowMetricsSLADefinitionModelImpl.
-			_setOriginalWorkflowMetricsSLADefinitionId = false;
+		_originalGroupId = _groupId;
 
-		workflowMetricsSLADefinitionModelImpl._originalGroupId =
-			workflowMetricsSLADefinitionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		workflowMetricsSLADefinitionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		workflowMetricsSLADefinitionModelImpl._originalCompanyId =
-			workflowMetricsSLADefinitionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		workflowMetricsSLADefinitionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalActive = _active;
 
-		workflowMetricsSLADefinitionModelImpl._setModifiedDate = false;
+		_setOriginalActive = false;
 
-		workflowMetricsSLADefinitionModelImpl._originalActive =
-			workflowMetricsSLADefinitionModelImpl._active;
+		_originalName = _name;
 
-		workflowMetricsSLADefinitionModelImpl._setOriginalActive = false;
+		_originalProcessId = _processId;
 
-		workflowMetricsSLADefinitionModelImpl._originalName =
-			workflowMetricsSLADefinitionModelImpl._name;
+		_setOriginalProcessId = false;
 
-		workflowMetricsSLADefinitionModelImpl._originalProcessId =
-			workflowMetricsSLADefinitionModelImpl._processId;
+		_originalProcessVersion = _processVersion;
 
-		workflowMetricsSLADefinitionModelImpl._setOriginalProcessId = false;
+		_originalStatus = _status;
 
-		workflowMetricsSLADefinitionModelImpl._originalProcessVersion =
-			workflowMetricsSLADefinitionModelImpl._processVersion;
+		_setOriginalStatus = false;
 
-		workflowMetricsSLADefinitionModelImpl._originalStatus =
-			workflowMetricsSLADefinitionModelImpl._status;
-
-		workflowMetricsSLADefinitionModelImpl._setOriginalStatus = false;
-
-		workflowMetricsSLADefinitionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

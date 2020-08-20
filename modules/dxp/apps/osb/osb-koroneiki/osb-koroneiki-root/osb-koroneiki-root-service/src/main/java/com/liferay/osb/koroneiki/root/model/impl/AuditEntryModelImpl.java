@@ -926,33 +926,26 @@ public class AuditEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AuditEntryModelImpl auditEntryModelImpl = this;
+		_setModifiedDate = false;
+		_originalAuditEntryKey = _auditEntryKey;
 
-		auditEntryModelImpl._setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		auditEntryModelImpl._originalAuditEntryKey =
-			auditEntryModelImpl._auditEntryKey;
+		_setOriginalClassNameId = false;
 
-		auditEntryModelImpl._originalClassNameId =
-			auditEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		auditEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		auditEntryModelImpl._originalClassPK = auditEntryModelImpl._classPK;
+		_originalFieldClassNameId = _fieldClassNameId;
 
-		auditEntryModelImpl._setOriginalClassPK = false;
+		_setOriginalFieldClassNameId = false;
 
-		auditEntryModelImpl._originalFieldClassNameId =
-			auditEntryModelImpl._fieldClassNameId;
+		_originalFieldClassPK = _fieldClassPK;
 
-		auditEntryModelImpl._setOriginalFieldClassNameId = false;
+		_setOriginalFieldClassPK = false;
 
-		auditEntryModelImpl._originalFieldClassPK =
-			auditEntryModelImpl._fieldClassPK;
-
-		auditEntryModelImpl._setOriginalFieldClassPK = false;
-
-		auditEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

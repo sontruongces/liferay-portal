@@ -516,7 +516,7 @@ public class TeamRoleModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -682,23 +682,20 @@ public class TeamRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		TeamRoleModelImpl teamRoleModelImpl = this;
+		_originalUuid = _uuid;
 
-		teamRoleModelImpl._originalUuid = teamRoleModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		teamRoleModelImpl._originalCompanyId = teamRoleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		teamRoleModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalTeamRoleKey = _teamRoleKey;
 
-		teamRoleModelImpl._setModifiedDate = false;
+		_originalName = _name;
 
-		teamRoleModelImpl._originalTeamRoleKey = teamRoleModelImpl._teamRoleKey;
+		_originalType = _type;
 
-		teamRoleModelImpl._originalName = teamRoleModelImpl._name;
-
-		teamRoleModelImpl._originalType = teamRoleModelImpl._type;
-
-		teamRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -757,35 +757,26 @@ public class LayoutPageTemplateStructureModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutPageTemplateStructureModelImpl
-			layoutPageTemplateStructureModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutPageTemplateStructureModelImpl._originalUuid =
-			layoutPageTemplateStructureModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutPageTemplateStructureModelImpl._originalGroupId =
-			layoutPageTemplateStructureModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutPageTemplateStructureModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutPageTemplateStructureModelImpl._originalCompanyId =
-			layoutPageTemplateStructureModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutPageTemplateStructureModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		layoutPageTemplateStructureModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		layoutPageTemplateStructureModelImpl._originalClassNameId =
-			layoutPageTemplateStructureModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		layoutPageTemplateStructureModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		layoutPageTemplateStructureModelImpl._originalClassPK =
-			layoutPageTemplateStructureModelImpl._classPK;
-
-		layoutPageTemplateStructureModelImpl._setOriginalClassPK = false;
-
-		layoutPageTemplateStructureModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

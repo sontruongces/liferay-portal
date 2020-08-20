@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -668,12 +667,11 @@ public class WorkflowMetricsSLADefinitionVersionPersistenceTest {
 				_persistence.findByPrimaryKey(
 					newWorkflowMetricsSLADefinitionVersion.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingWorkflowMetricsSLADefinitionVersion.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingWorkflowMetricsSLADefinitionVersion,
-					"getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingWorkflowMetricsSLADefinitionVersion.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingWorkflowMetricsSLADefinitionVersion, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(
 				existingWorkflowMetricsSLADefinitionVersion.getGroupId()),
@@ -681,12 +679,11 @@ public class WorkflowMetricsSLADefinitionVersionPersistenceTest {
 				existingWorkflowMetricsSLADefinitionVersion,
 				"getOriginalGroupId", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingWorkflowMetricsSLADefinitionVersion.getVersion(),
-				ReflectionTestUtil.invoke(
-					existingWorkflowMetricsSLADefinitionVersion,
-					"getOriginalVersion", new Class<?>[0])));
+		Assert.assertEquals(
+			existingWorkflowMetricsSLADefinitionVersion.getVersion(),
+			ReflectionTestUtil.invoke(
+				existingWorkflowMetricsSLADefinitionVersion,
+				"getOriginalVersion", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(
 				existingWorkflowMetricsSLADefinitionVersion.

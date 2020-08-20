@@ -842,7 +842,7 @@ public class SegmentsExperienceModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
 
 		if (!_setOriginalPriority) {
 			_setOriginalPriority = true;
@@ -1095,52 +1095,40 @@ public class SegmentsExperienceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SegmentsExperienceModelImpl segmentsExperienceModelImpl = this;
+		_originalUuid = _uuid;
 
-		segmentsExperienceModelImpl._originalUuid =
-			segmentsExperienceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		segmentsExperienceModelImpl._originalGroupId =
-			segmentsExperienceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		segmentsExperienceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		segmentsExperienceModelImpl._originalCompanyId =
-			segmentsExperienceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		segmentsExperienceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalSegmentsEntryId = _segmentsEntryId;
 
-		segmentsExperienceModelImpl._setModifiedDate = false;
+		_setOriginalSegmentsEntryId = false;
 
-		segmentsExperienceModelImpl._originalSegmentsEntryId =
-			segmentsExperienceModelImpl._segmentsEntryId;
+		_originalSegmentsExperienceKey = _segmentsExperienceKey;
 
-		segmentsExperienceModelImpl._setOriginalSegmentsEntryId = false;
+		_originalClassNameId = _classNameId;
 
-		segmentsExperienceModelImpl._originalSegmentsExperienceKey =
-			segmentsExperienceModelImpl._segmentsExperienceKey;
+		_setOriginalClassNameId = false;
 
-		segmentsExperienceModelImpl._originalClassNameId =
-			segmentsExperienceModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		segmentsExperienceModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		segmentsExperienceModelImpl._originalClassPK =
-			segmentsExperienceModelImpl._classPK;
+		_originalPriority = _priority;
 
-		segmentsExperienceModelImpl._setOriginalClassPK = false;
+		_setOriginalPriority = false;
 
-		segmentsExperienceModelImpl._originalPriority =
-			segmentsExperienceModelImpl._priority;
+		_originalActive = _active;
 
-		segmentsExperienceModelImpl._setOriginalPriority = false;
+		_setOriginalActive = false;
 
-		segmentsExperienceModelImpl._originalActive =
-			segmentsExperienceModelImpl._active;
-
-		segmentsExperienceModelImpl._setOriginalActive = false;
-
-		segmentsExperienceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

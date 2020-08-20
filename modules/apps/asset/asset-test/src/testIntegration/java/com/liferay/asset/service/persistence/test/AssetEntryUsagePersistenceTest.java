@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -504,12 +503,10 @@ public class AssetEntryUsagePersistenceTest {
 		AssetEntryUsage existingAssetEntryUsage = _persistence.findByPrimaryKey(
 			newAssetEntryUsage.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetEntryUsage.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingAssetEntryUsage, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetEntryUsage.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingAssetEntryUsage, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAssetEntryUsage.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -526,12 +523,11 @@ public class AssetEntryUsagePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetEntryUsage, "getOriginalContainerType",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetEntryUsage.getContainerKey(),
-				ReflectionTestUtil.invoke(
-					existingAssetEntryUsage, "getOriginalContainerKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetEntryUsage.getContainerKey(),
+			ReflectionTestUtil.invoke(
+				existingAssetEntryUsage, "getOriginalContainerKey",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAssetEntryUsage.getPlid()),
 			ReflectionTestUtil.<Long>invoke(

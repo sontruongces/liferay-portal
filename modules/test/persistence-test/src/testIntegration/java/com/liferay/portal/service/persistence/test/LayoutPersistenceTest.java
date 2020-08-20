@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -989,11 +988,10 @@ public class LayoutPersistenceTest {
 		Layout existingLayout = _persistence.findByPrimaryKey(
 			newLayout.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayout.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayout, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayout.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayout, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayout.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -1047,12 +1045,10 @@ public class LayoutPersistenceTest {
 			Boolean.valueOf(existingLayout.getPrivateLayout()),
 			ReflectionTestUtil.<Boolean>invoke(
 				existingLayout, "getOriginalPrivateLayout", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayout.getFriendlyURL(),
-				ReflectionTestUtil.invoke(
-					existingLayout, "getOriginalFriendlyURL",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayout.getFriendlyURL(),
+			ReflectionTestUtil.invoke(
+				existingLayout, "getOriginalFriendlyURL", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingLayout.getGroupId()),
@@ -1062,12 +1058,11 @@ public class LayoutPersistenceTest {
 			Boolean.valueOf(existingLayout.getPrivateLayout()),
 			ReflectionTestUtil.<Boolean>invoke(
 				existingLayout, "getOriginalPrivateLayout", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayout.getSourcePrototypeLayoutUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayout, "getOriginalSourcePrototypeLayoutUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayout.getSourcePrototypeLayoutUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayout, "getOriginalSourcePrototypeLayoutUuid",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingLayout.getHeadId()),

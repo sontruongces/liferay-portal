@@ -688,29 +688,26 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
 	@Override
 	public void resetOriginalValues() {
-		TeamModelImpl teamModelImpl = this;
+		_originalUuid = _uuid;
 
-		teamModelImpl._originalUuid = teamModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		teamModelImpl._originalCompanyId = teamModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		teamModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalTeamKey = _teamKey;
 
-		teamModelImpl._setModifiedDate = false;
+		_originalAccountId = _accountId;
 
-		teamModelImpl._originalTeamKey = teamModelImpl._teamKey;
+		_setOriginalAccountId = false;
 
-		teamModelImpl._originalAccountId = teamModelImpl._accountId;
+		_originalName = _name;
 
-		teamModelImpl._setOriginalAccountId = false;
+		_originalSystem = _system;
 
-		teamModelImpl._originalName = teamModelImpl._name;
+		_setOriginalSystem = false;
 
-		teamModelImpl._originalSystem = teamModelImpl._system;
-
-		teamModelImpl._setOriginalSystem = false;
-
-		teamModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

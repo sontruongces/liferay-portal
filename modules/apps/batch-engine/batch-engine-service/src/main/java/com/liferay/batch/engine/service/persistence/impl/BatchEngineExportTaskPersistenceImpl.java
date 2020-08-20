@@ -2085,6 +2085,7 @@ public class BatchEngineExportTaskPersistenceImpl
 			}
 			else {
 				session.evict(batchEngineExportTask);
+
 				session.saveOrUpdate(batchEngineExportTask);
 			}
 

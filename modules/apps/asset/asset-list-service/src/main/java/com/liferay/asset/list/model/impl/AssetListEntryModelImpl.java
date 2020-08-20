@@ -755,32 +755,26 @@ public class AssetListEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetListEntryModelImpl assetListEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetListEntryModelImpl._originalUuid = assetListEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetListEntryModelImpl._originalGroupId =
-			assetListEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetListEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetListEntryModelImpl._originalCompanyId =
-			assetListEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetListEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalAssetListEntryKey = _assetListEntryKey;
 
-		assetListEntryModelImpl._setModifiedDate = false;
+		_originalTitle = _title;
 
-		assetListEntryModelImpl._originalAssetListEntryKey =
-			assetListEntryModelImpl._assetListEntryKey;
+		_originalType = _type;
 
-		assetListEntryModelImpl._originalTitle = assetListEntryModelImpl._title;
+		_setOriginalType = false;
 
-		assetListEntryModelImpl._originalType = assetListEntryModelImpl._type;
-
-		assetListEntryModelImpl._setOriginalType = false;
-
-		assetListEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

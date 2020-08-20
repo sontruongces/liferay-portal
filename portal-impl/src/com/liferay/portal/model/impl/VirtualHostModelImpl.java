@@ -310,8 +310,6 @@ public class VirtualHostModelImpl
 
 	@Override
 	public void setVirtualHostId(long virtualHostId) {
-		_columnBitmask = -1L;
-
 		_virtualHostId = virtualHostId;
 	}
 
@@ -525,21 +523,17 @@ public class VirtualHostModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		VirtualHostModelImpl virtualHostModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		virtualHostModelImpl._originalCompanyId =
-			virtualHostModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		virtualHostModelImpl._setOriginalCompanyId = false;
+		_originalLayoutSetId = _layoutSetId;
 
-		virtualHostModelImpl._originalLayoutSetId =
-			virtualHostModelImpl._layoutSetId;
+		_setOriginalLayoutSetId = false;
 
-		virtualHostModelImpl._setOriginalLayoutSetId = false;
+		_originalHostname = _hostname;
 
-		virtualHostModelImpl._originalHostname = virtualHostModelImpl._hostname;
-
-		virtualHostModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -539,12 +538,11 @@ public class LayoutPageTemplateStructurePersistenceTest {
 			_persistence.findByPrimaryKey(
 				newLayoutPageTemplateStructure.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutPageTemplateStructure.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayoutPageTemplateStructure, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutPageTemplateStructure.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayoutPageTemplateStructure, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutPageTemplateStructure.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

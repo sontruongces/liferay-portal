@@ -701,31 +701,24 @@ public class SegmentsEntryRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SegmentsEntryRelModelImpl segmentsEntryRelModelImpl = this;
+		_originalGroupId = _groupId;
 
-		segmentsEntryRelModelImpl._originalGroupId =
-			segmentsEntryRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		segmentsEntryRelModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalSegmentsEntryId = _segmentsEntryId;
 
-		segmentsEntryRelModelImpl._setModifiedDate = false;
+		_setOriginalSegmentsEntryId = false;
 
-		segmentsEntryRelModelImpl._originalSegmentsEntryId =
-			segmentsEntryRelModelImpl._segmentsEntryId;
+		_originalClassNameId = _classNameId;
 
-		segmentsEntryRelModelImpl._setOriginalSegmentsEntryId = false;
+		_setOriginalClassNameId = false;
 
-		segmentsEntryRelModelImpl._originalClassNameId =
-			segmentsEntryRelModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		segmentsEntryRelModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		segmentsEntryRelModelImpl._originalClassPK =
-			segmentsEntryRelModelImpl._classPK;
-
-		segmentsEntryRelModelImpl._setOriginalClassPK = false;
-
-		segmentsEntryRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

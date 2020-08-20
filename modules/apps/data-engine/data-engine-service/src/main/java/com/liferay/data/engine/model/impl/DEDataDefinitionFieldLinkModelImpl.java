@@ -585,36 +585,27 @@ public class DEDataDefinitionFieldLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DEDataDefinitionFieldLinkModelImpl deDataDefinitionFieldLinkModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		deDataDefinitionFieldLinkModelImpl._originalUuid =
-			deDataDefinitionFieldLinkModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		deDataDefinitionFieldLinkModelImpl._originalGroupId =
-			deDataDefinitionFieldLinkModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		deDataDefinitionFieldLinkModelImpl._setOriginalGroupId = false;
+		_originalClassNameId = _classNameId;
 
-		deDataDefinitionFieldLinkModelImpl._originalClassNameId =
-			deDataDefinitionFieldLinkModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		deDataDefinitionFieldLinkModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		deDataDefinitionFieldLinkModelImpl._originalClassPK =
-			deDataDefinitionFieldLinkModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		deDataDefinitionFieldLinkModelImpl._setOriginalClassPK = false;
+		_originalDdmStructureId = _ddmStructureId;
 
-		deDataDefinitionFieldLinkModelImpl._originalDdmStructureId =
-			deDataDefinitionFieldLinkModelImpl._ddmStructureId;
+		_setOriginalDdmStructureId = false;
 
-		deDataDefinitionFieldLinkModelImpl._setOriginalDdmStructureId = false;
+		_originalFieldName = _fieldName;
 
-		deDataDefinitionFieldLinkModelImpl._originalFieldName =
-			deDataDefinitionFieldLinkModelImpl._fieldName;
-
-		deDataDefinitionFieldLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

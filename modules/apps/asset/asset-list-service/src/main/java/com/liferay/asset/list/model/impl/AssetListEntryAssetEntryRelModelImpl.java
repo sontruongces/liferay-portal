@@ -585,7 +585,7 @@ public class AssetListEntryAssetEntryRelModelImpl
 
 	@Override
 	public void setPosition(int position) {
-		_columnBitmask = -1L;
+		_columnBitmask |= POSITION_COLUMN_BITMASK;
 
 		if (!_setOriginalPosition) {
 			_setOriginalPosition = true;
@@ -742,42 +742,30 @@ public class AssetListEntryAssetEntryRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetListEntryAssetEntryRelModelImpl
-			assetListEntryAssetEntryRelModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetListEntryAssetEntryRelModelImpl._originalUuid =
-			assetListEntryAssetEntryRelModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetListEntryAssetEntryRelModelImpl._originalGroupId =
-			assetListEntryAssetEntryRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetListEntryAssetEntryRelModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetListEntryAssetEntryRelModelImpl._originalCompanyId =
-			assetListEntryAssetEntryRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetListEntryAssetEntryRelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalAssetListEntryId = _assetListEntryId;
 
-		assetListEntryAssetEntryRelModelImpl._setModifiedDate = false;
+		_setOriginalAssetListEntryId = false;
 
-		assetListEntryAssetEntryRelModelImpl._originalAssetListEntryId =
-			assetListEntryAssetEntryRelModelImpl._assetListEntryId;
+		_originalSegmentsEntryId = _segmentsEntryId;
 
-		assetListEntryAssetEntryRelModelImpl._setOriginalAssetListEntryId =
-			false;
+		_setOriginalSegmentsEntryId = false;
 
-		assetListEntryAssetEntryRelModelImpl._originalSegmentsEntryId =
-			assetListEntryAssetEntryRelModelImpl._segmentsEntryId;
+		_originalPosition = _position;
 
-		assetListEntryAssetEntryRelModelImpl._setOriginalSegmentsEntryId =
-			false;
+		_setOriginalPosition = false;
 
-		assetListEntryAssetEntryRelModelImpl._originalPosition =
-			assetListEntryAssetEntryRelModelImpl._position;
-
-		assetListEntryAssetEntryRelModelImpl._setOriginalPosition = false;
-
-		assetListEntryAssetEntryRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

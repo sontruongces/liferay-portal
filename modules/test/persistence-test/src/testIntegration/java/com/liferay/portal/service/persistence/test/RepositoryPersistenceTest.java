@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -493,11 +492,10 @@ public class RepositoryPersistenceTest {
 		Repository existingRepository = _persistence.findByPrimaryKey(
 			newRepository.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingRepository.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingRepository, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingRepository.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingRepository, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingRepository.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -507,17 +505,14 @@ public class RepositoryPersistenceTest {
 			Long.valueOf(existingRepository.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingRepository, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingRepository.getName(),
-				ReflectionTestUtil.invoke(
-					existingRepository, "getOriginalName", new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingRepository.getPortletId(),
-				ReflectionTestUtil.invoke(
-					existingRepository, "getOriginalPortletId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingRepository.getName(),
+			ReflectionTestUtil.invoke(
+				existingRepository, "getOriginalName", new Class<?>[0]));
+		Assert.assertEquals(
+			existingRepository.getPortletId(),
+			ReflectionTestUtil.invoke(
+				existingRepository, "getOriginalPortletId", new Class<?>[0]));
 	}
 
 	protected Repository addRepository() throws Exception {

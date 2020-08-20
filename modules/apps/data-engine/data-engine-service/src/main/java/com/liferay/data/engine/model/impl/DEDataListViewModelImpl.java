@@ -831,28 +831,23 @@ public class DEDataListViewModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DEDataListViewModelImpl deDataListViewModelImpl = this;
+		_originalUuid = _uuid;
 
-		deDataListViewModelImpl._originalUuid = deDataListViewModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		deDataListViewModelImpl._originalGroupId =
-			deDataListViewModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		deDataListViewModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		deDataListViewModelImpl._originalCompanyId =
-			deDataListViewModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		deDataListViewModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		deDataListViewModelImpl._setModifiedDate = false;
+		_originalDdmStructureId = _ddmStructureId;
 
-		deDataListViewModelImpl._originalDdmStructureId =
-			deDataListViewModelImpl._ddmStructureId;
+		_setOriginalDdmStructureId = false;
 
-		deDataListViewModelImpl._setOriginalDdmStructureId = false;
-
-		deDataListViewModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

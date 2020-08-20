@@ -553,21 +553,16 @@ public class SegmentsEntryRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SegmentsEntryRoleModelImpl segmentsEntryRoleModelImpl = this;
+		_setModifiedDate = false;
+		_originalSegmentsEntryId = _segmentsEntryId;
 
-		segmentsEntryRoleModelImpl._setModifiedDate = false;
+		_setOriginalSegmentsEntryId = false;
 
-		segmentsEntryRoleModelImpl._originalSegmentsEntryId =
-			segmentsEntryRoleModelImpl._segmentsEntryId;
+		_originalRoleId = _roleId;
 
-		segmentsEntryRoleModelImpl._setOriginalSegmentsEntryId = false;
+		_setOriginalRoleId = false;
 
-		segmentsEntryRoleModelImpl._originalRoleId =
-			segmentsEntryRoleModelImpl._roleId;
-
-		segmentsEntryRoleModelImpl._setOriginalRoleId = false;
-
-		segmentsEntryRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

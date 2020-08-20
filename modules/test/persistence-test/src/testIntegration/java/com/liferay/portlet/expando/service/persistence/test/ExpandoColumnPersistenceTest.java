@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -435,12 +434,10 @@ public class ExpandoColumnPersistenceTest {
 			Long.valueOf(existingExpandoColumn.getTableId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingExpandoColumn, "getOriginalTableId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingExpandoColumn.getName(),
-				ReflectionTestUtil.invoke(
-					existingExpandoColumn, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingExpandoColumn.getName(),
+			ReflectionTestUtil.invoke(
+				existingExpandoColumn, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected ExpandoColumn addExpandoColumn() throws Exception {

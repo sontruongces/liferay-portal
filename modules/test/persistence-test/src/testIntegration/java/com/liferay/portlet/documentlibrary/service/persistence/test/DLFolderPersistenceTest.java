@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -648,11 +647,10 @@ public class DLFolderPersistenceTest {
 		DLFolder existingDLFolder = _persistence.findByPrimaryKey(
 			newDLFolder.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFolder.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDLFolder, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFolder.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDLFolder, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDLFolder.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -676,11 +674,10 @@ public class DLFolderPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingDLFolder, "getOriginalParentFolderId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFolder.getName(),
-				ReflectionTestUtil.invoke(
-					existingDLFolder, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFolder.getName(),
+			ReflectionTestUtil.invoke(
+				existingDLFolder, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected DLFolder addDLFolder() throws Exception {

@@ -546,8 +546,6 @@ public class EntitlementModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -656,25 +654,20 @@ public class EntitlementModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		EntitlementModelImpl entitlementModelImpl = this;
+		_setModifiedDate = false;
+		_originalEntitlementDefinitionId = _entitlementDefinitionId;
 
-		entitlementModelImpl._setModifiedDate = false;
+		_setOriginalEntitlementDefinitionId = false;
 
-		entitlementModelImpl._originalEntitlementDefinitionId =
-			entitlementModelImpl._entitlementDefinitionId;
+		_originalClassNameId = _classNameId;
 
-		entitlementModelImpl._setOriginalEntitlementDefinitionId = false;
+		_setOriginalClassNameId = false;
 
-		entitlementModelImpl._originalClassNameId =
-			entitlementModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		entitlementModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		entitlementModelImpl._originalClassPK = entitlementModelImpl._classPK;
-
-		entitlementModelImpl._setOriginalClassPK = false;
-
-		entitlementModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

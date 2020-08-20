@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -515,12 +514,11 @@ public class DLOpenerFileEntryReferencePersistenceTest {
 				existingDLOpenerFileEntryReference, "getOriginalFileEntryId",
 				new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLOpenerFileEntryReference.getReferenceType(),
-				ReflectionTestUtil.invoke(
-					existingDLOpenerFileEntryReference,
-					"getOriginalReferenceType", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLOpenerFileEntryReference.getReferenceType(),
+			ReflectionTestUtil.invoke(
+				existingDLOpenerFileEntryReference, "getOriginalReferenceType",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDLOpenerFileEntryReference.getFileEntryId()),
 			ReflectionTestUtil.<Long>invoke(

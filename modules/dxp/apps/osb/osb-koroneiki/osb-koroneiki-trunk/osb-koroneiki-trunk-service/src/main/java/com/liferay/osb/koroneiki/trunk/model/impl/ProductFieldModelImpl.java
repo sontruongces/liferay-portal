@@ -598,18 +598,15 @@ public class ProductFieldModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ProductFieldModelImpl productFieldModelImpl = this;
+		_originalClassNameId = _classNameId;
 
-		productFieldModelImpl._originalClassNameId =
-			productFieldModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		productFieldModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		productFieldModelImpl._originalClassPK = productFieldModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		productFieldModelImpl._setOriginalClassPK = false;
-
-		productFieldModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

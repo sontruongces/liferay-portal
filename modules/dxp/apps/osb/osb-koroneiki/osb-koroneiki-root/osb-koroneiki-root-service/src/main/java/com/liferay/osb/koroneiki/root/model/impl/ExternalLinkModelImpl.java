@@ -706,31 +706,24 @@ public class ExternalLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ExternalLinkModelImpl externalLinkModelImpl = this;
+		_setModifiedDate = false;
+		_originalExternalLinkKey = _externalLinkKey;
 
-		externalLinkModelImpl._setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		externalLinkModelImpl._originalExternalLinkKey =
-			externalLinkModelImpl._externalLinkKey;
+		_setOriginalClassNameId = false;
 
-		externalLinkModelImpl._originalClassNameId =
-			externalLinkModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		externalLinkModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		externalLinkModelImpl._originalClassPK = externalLinkModelImpl._classPK;
+		_originalDomain = _domain;
 
-		externalLinkModelImpl._setOriginalClassPK = false;
+		_originalEntityName = _entityName;
 
-		externalLinkModelImpl._originalDomain = externalLinkModelImpl._domain;
+		_originalEntityId = _entityId;
 
-		externalLinkModelImpl._originalEntityName =
-			externalLinkModelImpl._entityName;
-
-		externalLinkModelImpl._originalEntityId =
-			externalLinkModelImpl._entityId;
-
-		externalLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

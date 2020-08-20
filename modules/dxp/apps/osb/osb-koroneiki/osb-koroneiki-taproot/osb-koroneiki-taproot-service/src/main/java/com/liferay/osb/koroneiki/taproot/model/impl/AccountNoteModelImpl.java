@@ -523,8 +523,6 @@ public class AccountNoteModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -692,8 +690,6 @@ public class AccountNoteModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -890,30 +886,25 @@ public class AccountNoteModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AccountNoteModelImpl accountNoteModelImpl = this;
+		_originalUuid = _uuid;
 
-		accountNoteModelImpl._originalUuid = accountNoteModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		accountNoteModelImpl._originalCompanyId =
-			accountNoteModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		accountNoteModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		accountNoteModelImpl._setModifiedDate = false;
+		_originalAccountNoteKey = _accountNoteKey;
 
-		accountNoteModelImpl._originalAccountNoteKey =
-			accountNoteModelImpl._accountNoteKey;
+		_originalAccountId = _accountId;
 
-		accountNoteModelImpl._originalAccountId =
-			accountNoteModelImpl._accountId;
+		_setOriginalAccountId = false;
 
-		accountNoteModelImpl._setOriginalAccountId = false;
+		_originalType = _type;
 
-		accountNoteModelImpl._originalType = accountNoteModelImpl._type;
+		_originalStatus = _status;
 
-		accountNoteModelImpl._originalStatus = accountNoteModelImpl._status;
-
-		accountNoteModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

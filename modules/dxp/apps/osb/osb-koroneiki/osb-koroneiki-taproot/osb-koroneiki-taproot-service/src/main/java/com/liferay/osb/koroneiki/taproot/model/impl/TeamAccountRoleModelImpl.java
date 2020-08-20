@@ -470,24 +470,19 @@ public class TeamAccountRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		TeamAccountRoleModelImpl teamAccountRoleModelImpl = this;
+		_originalTeamId = _teamId;
 
-		teamAccountRoleModelImpl._originalTeamId =
-			teamAccountRoleModelImpl._teamId;
+		_setOriginalTeamId = false;
 
-		teamAccountRoleModelImpl._setOriginalTeamId = false;
+		_originalAccountId = _accountId;
 
-		teamAccountRoleModelImpl._originalAccountId =
-			teamAccountRoleModelImpl._accountId;
+		_setOriginalAccountId = false;
 
-		teamAccountRoleModelImpl._setOriginalAccountId = false;
+		_originalTeamRoleId = _teamRoleId;
 
-		teamAccountRoleModelImpl._originalTeamRoleId =
-			teamAccountRoleModelImpl._teamRoleId;
+		_setOriginalTeamRoleId = false;
 
-		teamAccountRoleModelImpl._setOriginalTeamRoleId = false;
-
-		teamAccountRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

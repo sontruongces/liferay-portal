@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -691,11 +690,10 @@ public class GroupPersistenceTest {
 		Group existingGroup = _persistence.findByPrimaryKey(
 			newGroup.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingGroup.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingGroup, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingGroup.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingGroup, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingGroup.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -710,21 +708,19 @@ public class GroupPersistenceTest {
 			Long.valueOf(existingGroup.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingGroup, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingGroup.getGroupKey(),
-				ReflectionTestUtil.invoke(
-					existingGroup, "getOriginalGroupKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingGroup.getGroupKey(),
+			ReflectionTestUtil.invoke(
+				existingGroup, "getOriginalGroupKey", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingGroup.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingGroup, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingGroup.getFriendlyURL(),
-				ReflectionTestUtil.invoke(
-					existingGroup, "getOriginalFriendlyURL", new Class<?>[0])));
+		Assert.assertEquals(
+			existingGroup.getFriendlyURL(),
+			ReflectionTestUtil.invoke(
+				existingGroup, "getOriginalFriendlyURL", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingGroup.getCompanyId()),
@@ -747,11 +743,10 @@ public class GroupPersistenceTest {
 			Long.valueOf(existingGroup.getLiveGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingGroup, "getOriginalLiveGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingGroup.getGroupKey(),
-				ReflectionTestUtil.invoke(
-					existingGroup, "getOriginalGroupKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingGroup.getGroupKey(),
+			ReflectionTestUtil.invoke(
+				existingGroup, "getOriginalGroupKey", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingGroup.getCompanyId()),
@@ -765,11 +760,10 @@ public class GroupPersistenceTest {
 			Long.valueOf(existingGroup.getLiveGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingGroup, "getOriginalLiveGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingGroup.getGroupKey(),
-				ReflectionTestUtil.invoke(
-					existingGroup, "getOriginalGroupKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingGroup.getGroupKey(),
+			ReflectionTestUtil.invoke(
+				existingGroup, "getOriginalGroupKey", new Class<?>[0]));
 	}
 
 	protected Group addGroup() throws Exception {

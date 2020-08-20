@@ -42,7 +42,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -960,12 +959,10 @@ public class LayoutVersionPersistenceTest {
 			ReflectionTestUtil.<Integer>invoke(
 				existingLayoutVersion, "getOriginalVersion", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutVersion.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayoutVersion, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutVersion.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayoutVersion, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutVersion.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -1007,12 +1004,11 @@ public class LayoutVersionPersistenceTest {
 			ReflectionTestUtil.<Boolean>invoke(
 				existingLayoutVersion, "getOriginalPrivateLayout",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutVersion.getFriendlyURL(),
-				ReflectionTestUtil.invoke(
-					existingLayoutVersion, "getOriginalFriendlyURL",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutVersion.getFriendlyURL(),
+			ReflectionTestUtil.invoke(
+				existingLayoutVersion, "getOriginalFriendlyURL",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Integer.valueOf(existingLayoutVersion.getVersion()),
 			ReflectionTestUtil.<Integer>invoke(

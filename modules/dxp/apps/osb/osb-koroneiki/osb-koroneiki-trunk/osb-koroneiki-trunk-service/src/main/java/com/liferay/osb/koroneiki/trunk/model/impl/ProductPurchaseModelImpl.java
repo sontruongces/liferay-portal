@@ -778,31 +778,24 @@ public class ProductPurchaseModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ProductPurchaseModelImpl productPurchaseModelImpl = this;
+		_originalUuid = _uuid;
 
-		productPurchaseModelImpl._originalUuid = productPurchaseModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		productPurchaseModelImpl._originalCompanyId =
-			productPurchaseModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		productPurchaseModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalProductPurchaseKey = _productPurchaseKey;
 
-		productPurchaseModelImpl._setModifiedDate = false;
+		_originalAccountId = _accountId;
 
-		productPurchaseModelImpl._originalProductPurchaseKey =
-			productPurchaseModelImpl._productPurchaseKey;
+		_setOriginalAccountId = false;
 
-		productPurchaseModelImpl._originalAccountId =
-			productPurchaseModelImpl._accountId;
+		_originalProductEntryId = _productEntryId;
 
-		productPurchaseModelImpl._setOriginalAccountId = false;
+		_setOriginalProductEntryId = false;
 
-		productPurchaseModelImpl._originalProductEntryId =
-			productPurchaseModelImpl._productEntryId;
-
-		productPurchaseModelImpl._setOriginalProductEntryId = false;
-
-		productPurchaseModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

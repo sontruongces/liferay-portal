@@ -828,43 +828,36 @@ public class SharingEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SharingEntryModelImpl sharingEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		sharingEntryModelImpl._originalUuid = sharingEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		sharingEntryModelImpl._originalGroupId = sharingEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		sharingEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		sharingEntryModelImpl._originalCompanyId =
-			sharingEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		sharingEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		sharingEntryModelImpl._originalUserId = sharingEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		sharingEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalToUserId = _toUserId;
 
-		sharingEntryModelImpl._setModifiedDate = false;
+		_setOriginalToUserId = false;
 
-		sharingEntryModelImpl._originalToUserId =
-			sharingEntryModelImpl._toUserId;
+		_originalClassNameId = _classNameId;
 
-		sharingEntryModelImpl._setOriginalToUserId = false;
+		_setOriginalClassNameId = false;
 
-		sharingEntryModelImpl._originalClassNameId =
-			sharingEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		sharingEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		sharingEntryModelImpl._originalClassPK = sharingEntryModelImpl._classPK;
+		_originalExpirationDate = _expirationDate;
 
-		sharingEntryModelImpl._setOriginalClassPK = false;
-
-		sharingEntryModelImpl._originalExpirationDate =
-			sharingEntryModelImpl._expirationDate;
-
-		sharingEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

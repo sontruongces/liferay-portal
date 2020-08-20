@@ -625,7 +625,7 @@ public class EntitlementDefinitionModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -812,35 +812,26 @@ public class EntitlementDefinitionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		EntitlementDefinitionModelImpl entitlementDefinitionModelImpl = this;
+		_originalUuid = _uuid;
 
-		entitlementDefinitionModelImpl._originalUuid =
-			entitlementDefinitionModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		entitlementDefinitionModelImpl._originalCompanyId =
-			entitlementDefinitionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		entitlementDefinitionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalEntitlementDefinitionKey = _entitlementDefinitionKey;
 
-		entitlementDefinitionModelImpl._setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		entitlementDefinitionModelImpl._originalEntitlementDefinitionKey =
-			entitlementDefinitionModelImpl._entitlementDefinitionKey;
+		_setOriginalClassNameId = false;
 
-		entitlementDefinitionModelImpl._originalClassNameId =
-			entitlementDefinitionModelImpl._classNameId;
+		_originalName = _name;
 
-		entitlementDefinitionModelImpl._setOriginalClassNameId = false;
+		_originalStatus = _status;
 
-		entitlementDefinitionModelImpl._originalName =
-			entitlementDefinitionModelImpl._name;
+		_setOriginalStatus = false;
 
-		entitlementDefinitionModelImpl._originalStatus =
-			entitlementDefinitionModelImpl._status;
-
-		entitlementDefinitionModelImpl._setOriginalStatus = false;
-
-		entitlementDefinitionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

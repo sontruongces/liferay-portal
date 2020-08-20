@@ -818,9 +818,7 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void resetOriginalValues() {
-		EntryModelImpl entryModelImpl = this;
-
-		entryModelImpl._setModifiedDate = false;
+		_setModifiedDate = false;
 	}
 
 	@Override

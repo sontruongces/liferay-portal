@@ -408,31 +408,6 @@ public class LayoutSetModelImpl
 			(Map)attributeSetterBiConsumers);
 	}
 
-	public boolean getHead() {
-		return _head;
-	}
-
-	@Override
-	public boolean isHead() {
-		return _head;
-	}
-
-	public boolean getOriginalHead() {
-		return _originalHead;
-	}
-
-	public void setHead(boolean head) {
-		_columnBitmask |= HEAD_COLUMN_BITMASK;
-
-		if (!_setOriginalHead) {
-			_setOriginalHead = true;
-
-			_originalHead = _head;
-		}
-
-		_head = head;
-	}
-
 	@Override
 	public void populateVersionModel(LayoutSetVersion layoutSetVersion) {
 		layoutSetVersion.setGroupId(getGroupId());
@@ -490,6 +465,32 @@ public class LayoutSetModelImpl
 
 	public long getOriginalHeadId() {
 		return _originalHeadId;
+	}
+
+	@JSON(include = false)
+	public boolean getHead() {
+		return _head;
+	}
+
+	@Override
+	public boolean isHead() {
+		return _head;
+	}
+
+	public void setHead(boolean head) {
+		_columnBitmask |= HEAD_COLUMN_BITMASK;
+
+		if (!_setOriginalHead) {
+			_setOriginalHead = true;
+
+			_originalHead = _head;
+		}
+
+		_head = head;
+	}
+
+	public boolean getOriginalHead() {
+		return _originalHead;
 	}
 
 	@JSON
@@ -877,43 +878,38 @@ public class LayoutSetModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutSetModelImpl layoutSetModelImpl = this;
+		_originalHeadId = _headId;
 
-		layoutSetModelImpl._originalHeadId = layoutSetModelImpl._headId;
+		_setOriginalHeadId = false;
 
-		layoutSetModelImpl._setOriginalHeadId = false;
+		_originalHead = _head;
 
-		layoutSetModelImpl._originalHead = layoutSetModelImpl._head;
+		_setOriginalHead = false;
 
-		layoutSetModelImpl._setOriginalHead = false;
+		_originalGroupId = _groupId;
 
-		layoutSetModelImpl._originalGroupId = layoutSetModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutSetModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutSetModelImpl._originalCompanyId = layoutSetModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutSetModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutSetModelImpl._setModifiedDate = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutSetModelImpl._originalPrivateLayout =
-			layoutSetModelImpl._privateLayout;
+		_originalLogoId = _logoId;
 
-		layoutSetModelImpl._setOriginalPrivateLayout = false;
+		_setOriginalLogoId = false;
 
-		layoutSetModelImpl._originalLogoId = layoutSetModelImpl._logoId;
-
-		layoutSetModelImpl._setOriginalLogoId = false;
-
-		layoutSetModelImpl._originalLayoutSetPrototypeUuid =
-			layoutSetModelImpl._layoutSetPrototypeUuid;
+		_originalLayoutSetPrototypeUuid = _layoutSetPrototypeUuid;
 
 		setCompanyFallbackVirtualHostname(null);
 
 		setVirtualHostnames(null);
 
-		layoutSetModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

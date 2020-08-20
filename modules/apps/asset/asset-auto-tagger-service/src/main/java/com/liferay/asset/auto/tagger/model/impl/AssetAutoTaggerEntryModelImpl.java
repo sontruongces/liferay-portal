@@ -351,8 +351,6 @@ public class AssetAutoTaggerEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -525,21 +523,16 @@ public class AssetAutoTaggerEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetAutoTaggerEntryModelImpl assetAutoTaggerEntryModelImpl = this;
+		_setModifiedDate = false;
+		_originalAssetEntryId = _assetEntryId;
 
-		assetAutoTaggerEntryModelImpl._setModifiedDate = false;
+		_setOriginalAssetEntryId = false;
 
-		assetAutoTaggerEntryModelImpl._originalAssetEntryId =
-			assetAutoTaggerEntryModelImpl._assetEntryId;
+		_originalAssetTagId = _assetTagId;
 
-		assetAutoTaggerEntryModelImpl._setOriginalAssetEntryId = false;
+		_setOriginalAssetTagId = false;
 
-		assetAutoTaggerEntryModelImpl._originalAssetTagId =
-			assetAutoTaggerEntryModelImpl._assetTagId;
-
-		assetAutoTaggerEntryModelImpl._setOriginalAssetTagId = false;
-
-		assetAutoTaggerEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

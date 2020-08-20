@@ -584,7 +584,7 @@ public class LayoutVersionModelImpl
 
 	@Override
 	public void setVersion(int version) {
-		_columnBitmask = -1L;
+		_columnBitmask |= VERSION_COLUMN_BITMASK;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;
@@ -2013,87 +2013,70 @@ public class LayoutVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutVersionModelImpl layoutVersionModelImpl = this;
+		_originalVersion = _version;
 
-		layoutVersionModelImpl._originalVersion =
-			layoutVersionModelImpl._version;
+		_setOriginalVersion = false;
 
-		layoutVersionModelImpl._setOriginalVersion = false;
+		_originalUuid = _uuid;
 
-		layoutVersionModelImpl._originalUuid = layoutVersionModelImpl._uuid;
+		_originalPlid = _plid;
 
-		layoutVersionModelImpl._originalPlid = layoutVersionModelImpl._plid;
+		_setOriginalPlid = false;
 
-		layoutVersionModelImpl._setOriginalPlid = false;
+		_originalGroupId = _groupId;
 
-		layoutVersionModelImpl._originalGroupId =
-			layoutVersionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutVersionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutVersionModelImpl._originalCompanyId =
-			layoutVersionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutVersionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentPlid = _parentPlid;
 
-		layoutVersionModelImpl._setModifiedDate = false;
+		_setOriginalParentPlid = false;
 
-		layoutVersionModelImpl._originalParentPlid =
-			layoutVersionModelImpl._parentPlid;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutVersionModelImpl._setOriginalParentPlid = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutVersionModelImpl._originalPrivateLayout =
-			layoutVersionModelImpl._privateLayout;
+		_originalLayoutId = _layoutId;
 
-		layoutVersionModelImpl._setOriginalPrivateLayout = false;
+		_setOriginalLayoutId = false;
 
-		layoutVersionModelImpl._originalLayoutId =
-			layoutVersionModelImpl._layoutId;
+		_originalParentLayoutId = _parentLayoutId;
 
-		layoutVersionModelImpl._setOriginalLayoutId = false;
+		_setOriginalParentLayoutId = false;
 
-		layoutVersionModelImpl._originalParentLayoutId =
-			layoutVersionModelImpl._parentLayoutId;
+		_originalClassNameId = _classNameId;
 
-		layoutVersionModelImpl._setOriginalParentLayoutId = false;
+		_setOriginalClassNameId = false;
 
-		layoutVersionModelImpl._originalClassNameId =
-			layoutVersionModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		layoutVersionModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		layoutVersionModelImpl._originalClassPK =
-			layoutVersionModelImpl._classPK;
+		_originalType = _type;
 
-		layoutVersionModelImpl._setOriginalClassPK = false;
+		_originalHidden = _hidden;
 
-		layoutVersionModelImpl._originalType = layoutVersionModelImpl._type;
+		_setOriginalHidden = false;
 
-		layoutVersionModelImpl._originalHidden = layoutVersionModelImpl._hidden;
+		_originalFriendlyURL = _friendlyURL;
 
-		layoutVersionModelImpl._setOriginalHidden = false;
+		_originalIconImageId = _iconImageId;
 
-		layoutVersionModelImpl._originalFriendlyURL =
-			layoutVersionModelImpl._friendlyURL;
+		_setOriginalIconImageId = false;
 
-		layoutVersionModelImpl._originalIconImageId =
-			layoutVersionModelImpl._iconImageId;
+		_originalPriority = _priority;
 
-		layoutVersionModelImpl._setOriginalIconImageId = false;
+		_setOriginalPriority = false;
 
-		layoutVersionModelImpl._originalPriority =
-			layoutVersionModelImpl._priority;
+		_originalLayoutPrototypeUuid = _layoutPrototypeUuid;
 
-		layoutVersionModelImpl._setOriginalPriority = false;
+		_originalSourcePrototypeLayoutUuid = _sourcePrototypeLayoutUuid;
 
-		layoutVersionModelImpl._originalLayoutPrototypeUuid =
-			layoutVersionModelImpl._layoutPrototypeUuid;
-
-		layoutVersionModelImpl._originalSourcePrototypeLayoutUuid =
-			layoutVersionModelImpl._sourcePrototypeLayoutUuid;
-
-		layoutVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

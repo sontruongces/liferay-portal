@@ -759,42 +759,32 @@ public class AssetListEntryUsageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetListEntryUsageModelImpl assetListEntryUsageModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetListEntryUsageModelImpl._originalUuid =
-			assetListEntryUsageModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetListEntryUsageModelImpl._originalGroupId =
-			assetListEntryUsageModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetListEntryUsageModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetListEntryUsageModelImpl._originalCompanyId =
-			assetListEntryUsageModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetListEntryUsageModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalAssetListEntryId = _assetListEntryId;
 
-		assetListEntryUsageModelImpl._setModifiedDate = false;
+		_setOriginalAssetListEntryId = false;
 
-		assetListEntryUsageModelImpl._originalAssetListEntryId =
-			assetListEntryUsageModelImpl._assetListEntryId;
+		_originalClassNameId = _classNameId;
 
-		assetListEntryUsageModelImpl._setOriginalAssetListEntryId = false;
+		_setOriginalClassNameId = false;
 
-		assetListEntryUsageModelImpl._originalClassNameId =
-			assetListEntryUsageModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		assetListEntryUsageModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		assetListEntryUsageModelImpl._originalClassPK =
-			assetListEntryUsageModelImpl._classPK;
+		_originalPortletId = _portletId;
 
-		assetListEntryUsageModelImpl._setOriginalClassPK = false;
-
-		assetListEntryUsageModelImpl._originalPortletId =
-			assetListEntryUsageModelImpl._portletId;
-
-		assetListEntryUsageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -734,11 +733,10 @@ public class DLFileEntryPersistenceTest {
 		DLFileEntry existingDLFileEntry = _persistence.findByPrimaryKey(
 			newDLFileEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDLFileEntry, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDLFileEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDLFileEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -752,11 +750,10 @@ public class DLFileEntryPersistenceTest {
 			Long.valueOf(existingDLFileEntry.getFolderId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingDLFileEntry, "getOriginalFolderId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileEntry.getName(),
-				ReflectionTestUtil.invoke(
-					existingDLFileEntry, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileEntry.getName(),
+			ReflectionTestUtil.invoke(
+				existingDLFileEntry, "getOriginalName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingDLFileEntry.getGroupId()),
@@ -766,12 +763,10 @@ public class DLFileEntryPersistenceTest {
 			Long.valueOf(existingDLFileEntry.getFolderId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingDLFileEntry, "getOriginalFolderId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileEntry.getFileName(),
-				ReflectionTestUtil.invoke(
-					existingDLFileEntry, "getOriginalFileName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileEntry.getFileName(),
+			ReflectionTestUtil.invoke(
+				existingDLFileEntry, "getOriginalFileName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingDLFileEntry.getGroupId()),
@@ -781,11 +776,10 @@ public class DLFileEntryPersistenceTest {
 			Long.valueOf(existingDLFileEntry.getFolderId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingDLFileEntry, "getOriginalFolderId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileEntry.getTitle(),
-				ReflectionTestUtil.invoke(
-					existingDLFileEntry, "getOriginalTitle", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileEntry.getTitle(),
+			ReflectionTestUtil.invoke(
+				existingDLFileEntry, "getOriginalTitle", new Class<?>[0]));
 	}
 
 	protected DLFileEntry addDLFileEntry() throws Exception {

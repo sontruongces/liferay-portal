@@ -829,6 +829,7 @@ public class AnalyticsMessagePersistenceImpl
 			}
 			else {
 				session.evict(analyticsMessage);
+
 				session.saveOrUpdate(analyticsMessage);
 			}
 

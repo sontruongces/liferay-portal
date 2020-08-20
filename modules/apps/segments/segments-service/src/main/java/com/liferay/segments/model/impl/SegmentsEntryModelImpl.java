@@ -581,8 +581,6 @@ public class SegmentsEntryModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1139,34 +1137,28 @@ public class SegmentsEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SegmentsEntryModelImpl segmentsEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		segmentsEntryModelImpl._originalUuid = segmentsEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		segmentsEntryModelImpl._originalGroupId =
-			segmentsEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		segmentsEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		segmentsEntryModelImpl._originalCompanyId =
-			segmentsEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		segmentsEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalSegmentsEntryKey = _segmentsEntryKey;
 
-		segmentsEntryModelImpl._setModifiedDate = false;
+		_originalActive = _active;
 
-		segmentsEntryModelImpl._originalSegmentsEntryKey =
-			segmentsEntryModelImpl._segmentsEntryKey;
+		_setOriginalActive = false;
 
-		segmentsEntryModelImpl._originalActive = segmentsEntryModelImpl._active;
+		_originalSource = _source;
 
-		segmentsEntryModelImpl._setOriginalActive = false;
+		_originalType = _type;
 
-		segmentsEntryModelImpl._originalSource = segmentsEntryModelImpl._source;
-
-		segmentsEntryModelImpl._originalType = segmentsEntryModelImpl._type;
-
-		segmentsEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

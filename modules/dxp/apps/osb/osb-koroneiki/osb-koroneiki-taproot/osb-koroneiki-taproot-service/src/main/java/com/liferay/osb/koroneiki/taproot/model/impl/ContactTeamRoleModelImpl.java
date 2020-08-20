@@ -471,24 +471,19 @@ public class ContactTeamRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactTeamRoleModelImpl contactTeamRoleModelImpl = this;
+		_originalContactId = _contactId;
 
-		contactTeamRoleModelImpl._originalContactId =
-			contactTeamRoleModelImpl._contactId;
+		_setOriginalContactId = false;
 
-		contactTeamRoleModelImpl._setOriginalContactId = false;
+		_originalTeamId = _teamId;
 
-		contactTeamRoleModelImpl._originalTeamId =
-			contactTeamRoleModelImpl._teamId;
+		_setOriginalTeamId = false;
 
-		contactTeamRoleModelImpl._setOriginalTeamId = false;
+		_originalContactRoleId = _contactRoleId;
 
-		contactTeamRoleModelImpl._originalContactRoleId =
-			contactTeamRoleModelImpl._contactRoleId;
+		_setOriginalContactRoleId = false;
 
-		contactTeamRoleModelImpl._setOriginalContactRoleId = false;
-
-		contactTeamRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

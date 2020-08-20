@@ -939,33 +939,26 @@ public class LayoutSEOEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutSEOEntryModelImpl layoutSEOEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutSEOEntryModelImpl._originalUuid = layoutSEOEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutSEOEntryModelImpl._originalGroupId =
-			layoutSEOEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutSEOEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutSEOEntryModelImpl._originalCompanyId =
-			layoutSEOEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutSEOEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutSEOEntryModelImpl._setModifiedDate = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutSEOEntryModelImpl._originalPrivateLayout =
-			layoutSEOEntryModelImpl._privateLayout;
+		_originalLayoutId = _layoutId;
 
-		layoutSEOEntryModelImpl._setOriginalPrivateLayout = false;
+		_setOriginalLayoutId = false;
 
-		layoutSEOEntryModelImpl._originalLayoutId =
-			layoutSEOEntryModelImpl._layoutId;
-
-		layoutSEOEntryModelImpl._setOriginalLayoutId = false;
-
-		layoutSEOEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

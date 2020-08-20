@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -407,11 +406,10 @@ public class PortletPersistenceTest {
 			Long.valueOf(existingPortlet.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingPortlet, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingPortlet.getPortletId(),
-				ReflectionTestUtil.invoke(
-					existingPortlet, "getOriginalPortletId", new Class<?>[0])));
+		Assert.assertEquals(
+			existingPortlet.getPortletId(),
+			ReflectionTestUtil.invoke(
+				existingPortlet, "getOriginalPortletId", new Class<?>[0]));
 	}
 
 	protected Portlet addPortlet() throws Exception {

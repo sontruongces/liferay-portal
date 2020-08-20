@@ -428,7 +428,7 @@ public class LayoutSetVersionModelImpl
 
 	@Override
 	public void setVersion(int version) {
-		_columnBitmask = -1L;
+		_columnBitmask |= VERSION_COLUMN_BITMASK;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;
@@ -818,44 +818,34 @@ public class LayoutSetVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutSetVersionModelImpl layoutSetVersionModelImpl = this;
+		_originalVersion = _version;
 
-		layoutSetVersionModelImpl._originalVersion =
-			layoutSetVersionModelImpl._version;
+		_setOriginalVersion = false;
 
-		layoutSetVersionModelImpl._setOriginalVersion = false;
+		_originalLayoutSetId = _layoutSetId;
 
-		layoutSetVersionModelImpl._originalLayoutSetId =
-			layoutSetVersionModelImpl._layoutSetId;
+		_setOriginalLayoutSetId = false;
 
-		layoutSetVersionModelImpl._setOriginalLayoutSetId = false;
+		_originalGroupId = _groupId;
 
-		layoutSetVersionModelImpl._originalGroupId =
-			layoutSetVersionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutSetVersionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutSetVersionModelImpl._originalCompanyId =
-			layoutSetVersionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutSetVersionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutSetVersionModelImpl._setModifiedDate = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutSetVersionModelImpl._originalPrivateLayout =
-			layoutSetVersionModelImpl._privateLayout;
+		_originalLogoId = _logoId;
 
-		layoutSetVersionModelImpl._setOriginalPrivateLayout = false;
+		_setOriginalLogoId = false;
 
-		layoutSetVersionModelImpl._originalLogoId =
-			layoutSetVersionModelImpl._logoId;
+		_originalLayoutSetPrototypeUuid = _layoutSetPrototypeUuid;
 
-		layoutSetVersionModelImpl._setOriginalLogoId = false;
-
-		layoutSetVersionModelImpl._originalLayoutSetPrototypeUuid =
-			layoutSetVersionModelImpl._layoutSetPrototypeUuid;
-
-		layoutSetVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

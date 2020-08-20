@@ -499,8 +499,6 @@ public class ServiceProducerModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -622,21 +620,17 @@ public class ServiceProducerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ServiceProducerModelImpl serviceProducerModelImpl = this;
+		_originalUuid = _uuid;
 
-		serviceProducerModelImpl._originalUuid = serviceProducerModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		serviceProducerModelImpl._originalCompanyId =
-			serviceProducerModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		serviceProducerModelImpl._setOriginalCompanyId = false;
+		_originalAuthorizationUserId = _authorizationUserId;
 
-		serviceProducerModelImpl._originalAuthorizationUserId =
-			serviceProducerModelImpl._authorizationUserId;
+		_setOriginalAuthorizationUserId = false;
 
-		serviceProducerModelImpl._setOriginalAuthorizationUserId = false;
-
-		serviceProducerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

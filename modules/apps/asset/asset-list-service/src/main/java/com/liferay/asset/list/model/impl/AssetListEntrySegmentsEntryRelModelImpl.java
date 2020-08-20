@@ -716,37 +716,26 @@ public class AssetListEntrySegmentsEntryRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetListEntrySegmentsEntryRelModelImpl
-			assetListEntrySegmentsEntryRelModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetListEntrySegmentsEntryRelModelImpl._originalUuid =
-			assetListEntrySegmentsEntryRelModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetListEntrySegmentsEntryRelModelImpl._originalGroupId =
-			assetListEntrySegmentsEntryRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetListEntrySegmentsEntryRelModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetListEntrySegmentsEntryRelModelImpl._originalCompanyId =
-			assetListEntrySegmentsEntryRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetListEntrySegmentsEntryRelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalAssetListEntryId = _assetListEntryId;
 
-		assetListEntrySegmentsEntryRelModelImpl._setModifiedDate = false;
+		_setOriginalAssetListEntryId = false;
 
-		assetListEntrySegmentsEntryRelModelImpl._originalAssetListEntryId =
-			assetListEntrySegmentsEntryRelModelImpl._assetListEntryId;
+		_originalSegmentsEntryId = _segmentsEntryId;
 
-		assetListEntrySegmentsEntryRelModelImpl._setOriginalAssetListEntryId =
-			false;
+		_setOriginalSegmentsEntryId = false;
 
-		assetListEntrySegmentsEntryRelModelImpl._originalSegmentsEntryId =
-			assetListEntrySegmentsEntryRelModelImpl._segmentsEntryId;
-
-		assetListEntrySegmentsEntryRelModelImpl._setOriginalSegmentsEntryId =
-			false;
-
-		assetListEntrySegmentsEntryRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

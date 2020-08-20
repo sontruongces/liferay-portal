@@ -2501,6 +2501,7 @@ public class DLContentPersistenceImpl
 			}
 			else {
 				session.evict(dlContent);
+
 				session.saveOrUpdate(dlContent);
 			}
 

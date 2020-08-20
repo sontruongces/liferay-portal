@@ -700,39 +700,26 @@ public class LayoutPageTemplateStructureRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutPageTemplateStructureRelModelImpl
-			layoutPageTemplateStructureRelModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutPageTemplateStructureRelModelImpl._originalUuid =
-			layoutPageTemplateStructureRelModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutPageTemplateStructureRelModelImpl._originalGroupId =
-			layoutPageTemplateStructureRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutPageTemplateStructureRelModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutPageTemplateStructureRelModelImpl._originalCompanyId =
-			layoutPageTemplateStructureRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutPageTemplateStructureRelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalLayoutPageTemplateStructureId = _layoutPageTemplateStructureId;
 
-		layoutPageTemplateStructureRelModelImpl._setModifiedDate = false;
+		_setOriginalLayoutPageTemplateStructureId = false;
 
-		layoutPageTemplateStructureRelModelImpl.
-			_originalLayoutPageTemplateStructureId =
-				layoutPageTemplateStructureRelModelImpl.
-					_layoutPageTemplateStructureId;
+		_originalSegmentsExperienceId = _segmentsExperienceId;
 
-		layoutPageTemplateStructureRelModelImpl.
-			_setOriginalLayoutPageTemplateStructureId = false;
+		_setOriginalSegmentsExperienceId = false;
 
-		layoutPageTemplateStructureRelModelImpl._originalSegmentsExperienceId =
-			layoutPageTemplateStructureRelModelImpl._segmentsExperienceId;
-
-		layoutPageTemplateStructureRelModelImpl.
-			_setOriginalSegmentsExperienceId = false;
-
-		layoutPageTemplateStructureRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

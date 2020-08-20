@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -532,12 +531,10 @@ public class AssetListEntryPersistenceTest {
 		AssetListEntry existingAssetListEntry = _persistence.findByPrimaryKey(
 			newAssetListEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetListEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingAssetListEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetListEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingAssetListEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAssetListEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -547,23 +544,20 @@ public class AssetListEntryPersistenceTest {
 			Long.valueOf(existingAssetListEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetListEntry, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetListEntry.getAssetListEntryKey(),
-				ReflectionTestUtil.invoke(
-					existingAssetListEntry, "getOriginalAssetListEntryKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetListEntry.getAssetListEntryKey(),
+			ReflectionTestUtil.invoke(
+				existingAssetListEntry, "getOriginalAssetListEntryKey",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingAssetListEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetListEntry, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetListEntry.getTitle(),
-				ReflectionTestUtil.invoke(
-					existingAssetListEntry, "getOriginalTitle",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetListEntry.getTitle(),
+			ReflectionTestUtil.invoke(
+				existingAssetListEntry, "getOriginalTitle", new Class<?>[0]));
 	}
 
 	protected AssetListEntry addAssetListEntry() throws Exception {

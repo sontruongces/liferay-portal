@@ -639,23 +639,18 @@ public class ProductEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ProductEntryModelImpl productEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		productEntryModelImpl._originalUuid = productEntryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		productEntryModelImpl._originalCompanyId =
-			productEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		productEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalProductEntryKey = _productEntryKey;
 
-		productEntryModelImpl._setModifiedDate = false;
+		_originalName = _name;
 
-		productEntryModelImpl._originalProductEntryKey =
-			productEntryModelImpl._productEntryKey;
-
-		productEntryModelImpl._originalName = productEntryModelImpl._name;
-
-		productEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

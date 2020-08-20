@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -557,12 +556,10 @@ public class LayoutFriendlyURLPersistenceTest {
 		LayoutFriendlyURL existingLayoutFriendlyURL =
 			_persistence.findByPrimaryKey(newLayoutFriendlyURL.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutFriendlyURL.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayoutFriendlyURL, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutFriendlyURL.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayoutFriendlyURL, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutFriendlyURL.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -573,12 +570,11 @@ public class LayoutFriendlyURLPersistenceTest {
 			Long.valueOf(existingLayoutFriendlyURL.getPlid()),
 			ReflectionTestUtil.<Long>invoke(
 				existingLayoutFriendlyURL, "getOriginalPlid", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutFriendlyURL.getLanguageId(),
-				ReflectionTestUtil.invoke(
-					existingLayoutFriendlyURL, "getOriginalLanguageId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutFriendlyURL.getLanguageId(),
+			ReflectionTestUtil.invoke(
+				existingLayoutFriendlyURL, "getOriginalLanguageId",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutFriendlyURL.getGroupId()),
@@ -590,18 +586,16 @@ public class LayoutFriendlyURLPersistenceTest {
 			ReflectionTestUtil.<Boolean>invoke(
 				existingLayoutFriendlyURL, "getOriginalPrivateLayout",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutFriendlyURL.getFriendlyURL(),
-				ReflectionTestUtil.invoke(
-					existingLayoutFriendlyURL, "getOriginalFriendlyURL",
-					new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutFriendlyURL.getLanguageId(),
-				ReflectionTestUtil.invoke(
-					existingLayoutFriendlyURL, "getOriginalLanguageId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutFriendlyURL.getFriendlyURL(),
+			ReflectionTestUtil.invoke(
+				existingLayoutFriendlyURL, "getOriginalFriendlyURL",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			existingLayoutFriendlyURL.getLanguageId(),
+			ReflectionTestUtil.invoke(
+				existingLayoutFriendlyURL, "getOriginalLanguageId",
+				new Class<?>[0]));
 	}
 
 	protected LayoutFriendlyURL addLayoutFriendlyURL() throws Exception {

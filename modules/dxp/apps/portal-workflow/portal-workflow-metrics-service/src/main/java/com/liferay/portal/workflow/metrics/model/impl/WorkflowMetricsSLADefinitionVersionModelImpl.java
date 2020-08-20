@@ -634,8 +634,6 @@ public class WorkflowMetricsSLADefinitionVersionModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1122,38 +1120,26 @@ public class WorkflowMetricsSLADefinitionVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WorkflowMetricsSLADefinitionVersionModelImpl
-			workflowMetricsSLADefinitionVersionModelImpl = this;
+		_originalUuid = _uuid;
 
-		workflowMetricsSLADefinitionVersionModelImpl._originalUuid =
-			workflowMetricsSLADefinitionVersionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		workflowMetricsSLADefinitionVersionModelImpl._originalGroupId =
-			workflowMetricsSLADefinitionVersionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		workflowMetricsSLADefinitionVersionModelImpl._setOriginalGroupId =
-			false;
+		_originalCompanyId = _companyId;
 
-		workflowMetricsSLADefinitionVersionModelImpl._originalCompanyId =
-			workflowMetricsSLADefinitionVersionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		workflowMetricsSLADefinitionVersionModelImpl._setOriginalCompanyId =
-			false;
+		_setModifiedDate = false;
 
-		workflowMetricsSLADefinitionVersionModelImpl._setModifiedDate = false;
+		_originalVersion = _version;
 
-		workflowMetricsSLADefinitionVersionModelImpl._originalVersion =
-			workflowMetricsSLADefinitionVersionModelImpl._version;
+		_originalWorkflowMetricsSLADefinitionId =
+			_workflowMetricsSLADefinitionId;
 
-		workflowMetricsSLADefinitionVersionModelImpl.
-			_originalWorkflowMetricsSLADefinitionId =
-				workflowMetricsSLADefinitionVersionModelImpl.
-					_workflowMetricsSLADefinitionId;
+		_setOriginalWorkflowMetricsSLADefinitionId = false;
 
-		workflowMetricsSLADefinitionVersionModelImpl.
-			_setOriginalWorkflowMetricsSLADefinitionId = false;
-
-		workflowMetricsSLADefinitionVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

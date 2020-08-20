@@ -652,39 +652,32 @@ public class AssetEntryUsageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetEntryUsageModelImpl assetEntryUsageModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetEntryUsageModelImpl._originalUuid = assetEntryUsageModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetEntryUsageModelImpl._originalGroupId =
-			assetEntryUsageModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetEntryUsageModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalAssetEntryId = _assetEntryId;
 
-		assetEntryUsageModelImpl._setModifiedDate = false;
+		_setOriginalAssetEntryId = false;
 
-		assetEntryUsageModelImpl._originalAssetEntryId =
-			assetEntryUsageModelImpl._assetEntryId;
+		_originalContainerType = _containerType;
 
-		assetEntryUsageModelImpl._setOriginalAssetEntryId = false;
+		_setOriginalContainerType = false;
 
-		assetEntryUsageModelImpl._originalContainerType =
-			assetEntryUsageModelImpl._containerType;
+		_originalContainerKey = _containerKey;
 
-		assetEntryUsageModelImpl._setOriginalContainerType = false;
+		_originalPlid = _plid;
 
-		assetEntryUsageModelImpl._originalContainerKey =
-			assetEntryUsageModelImpl._containerKey;
+		_setOriginalPlid = false;
 
-		assetEntryUsageModelImpl._originalPlid = assetEntryUsageModelImpl._plid;
+		_originalType = _type;
 
-		assetEntryUsageModelImpl._setOriginalPlid = false;
+		_setOriginalType = false;
 
-		assetEntryUsageModelImpl._originalType = assetEntryUsageModelImpl._type;
-
-		assetEntryUsageModelImpl._setOriginalType = false;
-
-		assetEntryUsageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

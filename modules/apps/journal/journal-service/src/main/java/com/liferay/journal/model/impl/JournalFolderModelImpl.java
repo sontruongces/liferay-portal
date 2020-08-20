@@ -617,7 +617,7 @@ public class JournalFolderModelImpl
 
 	@Override
 	public void setParentFolderId(long parentFolderId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PARENTFOLDERID_COLUMN_BITMASK;
 
 		if (!_setOriginalParentFolderId) {
 			_setOriginalParentFolderId = true;
@@ -661,7 +661,7 @@ public class JournalFolderModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1172,39 +1172,32 @@ public class JournalFolderModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		JournalFolderModelImpl journalFolderModelImpl = this;
+		_originalUuid = _uuid;
 
-		journalFolderModelImpl._originalUuid = journalFolderModelImpl._uuid;
+		_originalFolderId = _folderId;
 
-		journalFolderModelImpl._originalFolderId =
-			journalFolderModelImpl._folderId;
+		_setOriginalFolderId = false;
 
-		journalFolderModelImpl._setOriginalFolderId = false;
+		_originalGroupId = _groupId;
 
-		journalFolderModelImpl._originalGroupId =
-			journalFolderModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		journalFolderModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		journalFolderModelImpl._originalCompanyId =
-			journalFolderModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		journalFolderModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentFolderId = _parentFolderId;
 
-		journalFolderModelImpl._setModifiedDate = false;
+		_setOriginalParentFolderId = false;
 
-		journalFolderModelImpl._originalParentFolderId =
-			journalFolderModelImpl._parentFolderId;
+		_originalName = _name;
 
-		journalFolderModelImpl._setOriginalParentFolderId = false;
+		_originalStatus = _status;
 
-		journalFolderModelImpl._originalName = journalFolderModelImpl._name;
+		_setOriginalStatus = false;
 
-		journalFolderModelImpl._originalStatus = journalFolderModelImpl._status;
-
-		journalFolderModelImpl._setOriginalStatus = false;
-
-		journalFolderModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

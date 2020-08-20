@@ -1187,32 +1187,26 @@ public class DDLRecordSetModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDLRecordSetModelImpl ddlRecordSetModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddlRecordSetModelImpl._originalUuid = ddlRecordSetModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddlRecordSetModelImpl._originalGroupId = ddlRecordSetModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddlRecordSetModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddlRecordSetModelImpl._originalCompanyId =
-			ddlRecordSetModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddlRecordSetModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalDDMStructureId = _DDMStructureId;
 
-		ddlRecordSetModelImpl._setModifiedDate = false;
+		_setOriginalDDMStructureId = false;
 
-		ddlRecordSetModelImpl._originalDDMStructureId =
-			ddlRecordSetModelImpl._DDMStructureId;
-
-		ddlRecordSetModelImpl._setOriginalDDMStructureId = false;
-
-		ddlRecordSetModelImpl._originalRecordSetKey =
-			ddlRecordSetModelImpl._recordSetKey;
+		_originalRecordSetKey = _recordSetKey;
 
 		setDDMFormValues(null);
 
-		ddlRecordSetModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

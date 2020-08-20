@@ -618,20 +618,15 @@ public class DLOpenerFileEntryReferenceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLOpenerFileEntryReferenceModelImpl
-			dlOpenerFileEntryReferenceModelImpl = this;
+		_setModifiedDate = false;
 
-		dlOpenerFileEntryReferenceModelImpl._setModifiedDate = false;
+		_originalReferenceType = _referenceType;
 
-		dlOpenerFileEntryReferenceModelImpl._originalReferenceType =
-			dlOpenerFileEntryReferenceModelImpl._referenceType;
+		_originalFileEntryId = _fileEntryId;
 
-		dlOpenerFileEntryReferenceModelImpl._originalFileEntryId =
-			dlOpenerFileEntryReferenceModelImpl._fileEntryId;
+		_setOriginalFileEntryId = false;
 
-		dlOpenerFileEntryReferenceModelImpl._setOriginalFileEntryId = false;
-
-		dlOpenerFileEntryReferenceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

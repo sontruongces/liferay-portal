@@ -533,8 +533,6 @@ public class BackgroundTaskModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -824,36 +822,28 @@ public class BackgroundTaskModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		BackgroundTaskModelImpl backgroundTaskModelImpl = this;
+		_originalGroupId = _groupId;
 
-		backgroundTaskModelImpl._originalGroupId =
-			backgroundTaskModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		backgroundTaskModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		backgroundTaskModelImpl._originalCompanyId =
-			backgroundTaskModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		backgroundTaskModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		backgroundTaskModelImpl._setModifiedDate = false;
+		_originalTaskExecutorClassName = _taskExecutorClassName;
 
-		backgroundTaskModelImpl._originalName = backgroundTaskModelImpl._name;
+		_originalCompleted = _completed;
 
-		backgroundTaskModelImpl._originalTaskExecutorClassName =
-			backgroundTaskModelImpl._taskExecutorClassName;
+		_setOriginalCompleted = false;
 
-		backgroundTaskModelImpl._originalCompleted =
-			backgroundTaskModelImpl._completed;
+		_originalStatus = _status;
 
-		backgroundTaskModelImpl._setOriginalCompleted = false;
+		_setOriginalStatus = false;
 
-		backgroundTaskModelImpl._originalStatus =
-			backgroundTaskModelImpl._status;
-
-		backgroundTaskModelImpl._setOriginalStatus = false;
-
-		backgroundTaskModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

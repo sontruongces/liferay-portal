@@ -777,23 +777,20 @@ public class ContactModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactModelImpl contactModelImpl = this;
+		_originalUuid = _uuid;
 
-		contactModelImpl._originalUuid = contactModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		contactModelImpl._originalCompanyId = contactModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		contactModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalContactKey = _contactKey;
 
-		contactModelImpl._setModifiedDate = false;
+		_originalOktaId = _oktaId;
 
-		contactModelImpl._originalContactKey = contactModelImpl._contactKey;
+		_originalEmailAddress = _emailAddress;
 
-		contactModelImpl._originalOktaId = contactModelImpl._oktaId;
-
-		contactModelImpl._originalEmailAddress = contactModelImpl._emailAddress;
-
-		contactModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -390,7 +390,7 @@ public class AnnouncementsFlagModelImpl
 
 	@Override
 	public void setUserId(long userId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= USERID_COLUMN_BITMASK;
 
 		if (!_setOriginalUserId) {
 			_setOriginalUserId = true;
@@ -429,8 +429,6 @@ public class AnnouncementsFlagModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -596,29 +594,23 @@ public class AnnouncementsFlagModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AnnouncementsFlagModelImpl announcementsFlagModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		announcementsFlagModelImpl._originalCompanyId =
-			announcementsFlagModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		announcementsFlagModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		announcementsFlagModelImpl._originalUserId =
-			announcementsFlagModelImpl._userId;
+		_setOriginalUserId = false;
 
-		announcementsFlagModelImpl._setOriginalUserId = false;
+		_originalEntryId = _entryId;
 
-		announcementsFlagModelImpl._originalEntryId =
-			announcementsFlagModelImpl._entryId;
+		_setOriginalEntryId = false;
 
-		announcementsFlagModelImpl._setOriginalEntryId = false;
+		_originalValue = _value;
 
-		announcementsFlagModelImpl._originalValue =
-			announcementsFlagModelImpl._value;
+		_setOriginalValue = false;
 
-		announcementsFlagModelImpl._setOriginalValue = false;
-
-		announcementsFlagModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override
