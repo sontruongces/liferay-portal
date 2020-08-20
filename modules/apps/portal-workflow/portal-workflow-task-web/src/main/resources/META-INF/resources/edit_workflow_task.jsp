@@ -254,7 +254,7 @@ renderResponse.setTitle(headerTitle);
 							<liferay-asset:asset-metadata
 								className="<%= assetEntry.getClassName() %>"
 								classPK="<%= assetEntry.getClassPK() %>"
-								metadataFields="<%= new String[] {"author", "categories", "tags"} %>"
+								metadataFields='<%= new String[] {"author", "categories", "tags"} %>'
 							/>
 						</c:if>
 					</liferay-ui:panel>
