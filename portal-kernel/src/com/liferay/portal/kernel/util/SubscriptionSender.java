@@ -500,6 +500,10 @@ public class SubscriptionSender implements Serializable {
 		this.scopeGroupId = scopeGroupId;
 	}
 
+	public void setSendToCurrentUser(boolean sendToCurrentUser) {
+		_sendToCurrentUser = sendToCurrentUser;
+	}
+
 	public void setServiceContext(ServiceContext serviceContext) {
 		this.serviceContext = serviceContext;
 	}
@@ -932,7 +936,7 @@ public class SubscriptionSender implements Serializable {
 	protected void sendNotification(User user, boolean notifyImmediately)
 		throws Exception {
 
-		if (currentUserId == user.getUserId()) {
+		if (!_sendToCurrentUser && (currentUserId == user.getUserId())) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Skip user " + currentUserId);
 			}
@@ -1141,6 +1145,7 @@ public class SubscriptionSender implements Serializable {
 	private final List<Tuple> _persistedSubscribersTuples = new ArrayList<>();
 	private final List<ObjectValuePair<String, String>>
 		_runtimeSubscribersOVPs = new ArrayList<>();
+	private boolean _sendToCurrentUser;
 	private final Set<String> _sentEmailAddresses = new HashSet<>();
 
 }
