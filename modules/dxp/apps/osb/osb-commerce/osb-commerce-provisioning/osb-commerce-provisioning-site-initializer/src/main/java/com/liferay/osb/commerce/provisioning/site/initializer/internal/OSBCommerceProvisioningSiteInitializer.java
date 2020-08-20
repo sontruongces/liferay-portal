@@ -256,10 +256,9 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			ServiceContext serviceContext)
 		throws Exception {
 
-		String isPrivatePath = privateLayout ? "private" : "public";
-
-		fragmentPath =
-			_PATH + "fragments/layouts/" + isPrivatePath + "/" + fragmentPath;
+		fragmentPath = StringBundler.concat(
+			_PATH, "fragments/layouts/", privateLayout ? "private" : "public",
+			"/", fragmentPath);
 
 		List<FragmentEntry> fragmentEntry = _addFragmentEntries(
 			fragmentCollection.getFragmentCollectionId(), fragmentPath,
