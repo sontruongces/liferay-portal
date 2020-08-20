@@ -20,12 +20,16 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.workflow.kaleo.definition.ExecutionType;
 import com.liferay.portal.workflow.kaleo.model.KaleoAction;
 import com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken;
+import com.liferay.portal.workflow.kaleo.model.KaleoTimerInstanceToken;
 import com.liferay.portal.workflow.kaleo.runtime.ExecutionContext;
 import com.liferay.portal.workflow.kaleo.runtime.action.ActionExecutorManager;
 import com.liferay.portal.workflow.kaleo.runtime.action.KaleoActionExecutor;
+import com.liferay.portal.workflow.kaleo.runtime.util.WorkflowContextUtil;
 import com.liferay.portal.workflow.kaleo.service.KaleoActionLocalService;
 import com.liferay.portal.workflow.kaleo.service.KaleoInstanceLocalService;
 import com.liferay.portal.workflow.kaleo.service.KaleoLogLocalService;
+import com.liferay.portal.workflow.kaleo.service.KaleoTimerInstanceTokenLocalService;
+
 
 import java.util.List;
 
@@ -40,8 +44,8 @@ public class KaleoActionExecutorImpl implements KaleoActionExecutor {
 
 	@Override
 	public void executeKaleoActions(
-			String kaleoClassName, long kaleoClassPK,
-			ExecutionType executionType, ExecutionContext executionContext)
+		String kaleoClassName, long kaleoClassPK,
+		ExecutionType executionType, ExecutionContext executionContext)
 		throws PortalException {
 
 		List<KaleoAction> kaleoActions =
@@ -64,6 +68,18 @@ public class KaleoActionExecutorImpl implements KaleoActionExecutor {
 					kaleoInstanceToken.getKaleoInstanceId(),
 					executionContext.getWorkflowContext(),
 					executionContext.getServiceContext());
+
+				final KaleoTimerInstanceToken kaleoTimerInstanceToken =
+					executionContext.getKaleoTimerInstanceToken();
+
+				if (kaleoTimerInstanceToken != null) {
+					kaleoTimerInstanceToken.setWorkflowContext(
+						WorkflowContextUtil.convert(
+							executionContext.getWorkflowContext()));
+
+					_kaleoTimerInstanceTokenLocalService.
+						updateKaleoTimerInstanceToken(kaleoTimerInstanceToken);
+				}
 			}
 			catch (Exception exception) {
 				_log.error(exception, exception);
@@ -96,5 +112,9 @@ public class KaleoActionExecutorImpl implements KaleoActionExecutor {
 
 	@Reference
 	private KaleoLogLocalService _kaleoLogLocalService;
+
+	@Reference
+	private KaleoTimerInstanceTokenLocalService
+		_kaleoTimerInstanceTokenLocalService;
 
 }
