@@ -18,7 +18,7 @@
 
 <liferay-util:include page="/common/view_account_search_header.jsp" servletContext="<%= application %>" />
 
-<div class="container-fluid container-fluid-max-xl">
+<div class="container-fluid home">
 	<clay:management-toolbar
 		creationMenu='<%=
 			new JSPCreationMenu(pageContext) {
@@ -31,6 +31,8 @@
 				}
 			}
 		%>'
+		elementClasses="full-width"
+		id="productBundlesManagementToolbar"
 		selectable="<%= false %>"
 		showSearch="<%= false %>"
 	/>
