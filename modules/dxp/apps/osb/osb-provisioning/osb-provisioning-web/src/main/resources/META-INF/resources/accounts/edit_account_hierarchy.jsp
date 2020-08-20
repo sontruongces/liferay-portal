@@ -119,14 +119,40 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 	if (table) {
 		var tableRows = table.querySelectorAll('tr');
 
-		tableRows.forEach(selectRow);
+		tableRows.forEach(<portlet:namespace />selectRow);
 	}
 
-	function selectRow(row) {
+	var anchors = document.querySelectorAll('a');
+
+	anchors.forEach(<portlet:namespace />resetAnchor);
+
+	var searchForm = document.querySelector('form');
+
+	if (searchForm) {
+		searchForm.addEventListener('submit', <portlet:namespace />resetData);
+	}
+
+	function <portlet:namespace />resetAnchor(element) {
+		if (!element.classList.contains('dropdown-toggle')) {
+			element.addEventListener('click', <portlet:namespace />resetData);
+		}
+	}
+
+	function <portlet:namespace />resetData() {
+		Liferay.Util.getOpener().Liferay.fire('selectedItemChange', {
+			data: ''
+		});
+	}
+
+	function <portlet:namespace />resetRow(row) {
+		row.classList.remove('active');
+	}
+
+	function <portlet:namespace />selectRow(row) {
 		row.addEventListener('click', function() {
 			var activeRows = Array.from(document.getElementsByClassName('active'));
 
-			activeRows.forEach(resetRow);
+			activeRows.forEach(<portlet:namespace />resetRow);
 
 			this.classList.add('active');
 
@@ -137,32 +163,6 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 					data: rowData.key
 				});
 			}
-		});
-	}
-
-	function resetRow(row) {
-		row.classList.remove('active');
-	}
-
-	var elements = document.querySelectorAll('a');
-
-	elements.forEach(resetElement);
-
-	function resetElement(element) {
-		if (!element.classList.contains('dropdown-toggle')) {
-			element.addEventListener('click', resetData);
-		}
-	}
-
-	var searchForm = document.querySelector('form');
-
-	if (searchForm) {
-		searchForm.addEventListener('submit', resetData);
-	}
-
-	function resetData() {
-		Liferay.Util.getOpener().Liferay.fire('selectedItemChange', {
-			data: ''
 		});
 	}
 </aui:script>

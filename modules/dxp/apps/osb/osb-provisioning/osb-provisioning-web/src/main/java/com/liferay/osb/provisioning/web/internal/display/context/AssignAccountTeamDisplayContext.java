@@ -41,9 +41,7 @@ public class AssignAccountTeamDisplayContext extends ViewAccountDisplayContext {
 		return portletURL.toString();
 	}
 
-	public SearchContainer getSearchContainer(String teamRoleName)
-		throws Exception {
-
+	public SearchContainer getSearchContainer() throws Exception {
 		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 		SearchContainer searchContainer = new SearchContainer(

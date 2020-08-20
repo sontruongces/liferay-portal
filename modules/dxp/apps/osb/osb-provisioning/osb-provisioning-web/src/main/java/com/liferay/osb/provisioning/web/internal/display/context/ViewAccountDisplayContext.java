@@ -25,7 +25,6 @@ import com.liferay.osb.provisioning.constants.ProvisioningActionKeys;
 import com.liferay.osb.provisioning.constants.ProvisioningWebKeys;
 import com.liferay.osb.provisioning.customer.model.AccountEntry;
 import com.liferay.osb.provisioning.customer.web.service.AccountEntryWebService;
-import com.liferay.osb.provisioning.koroneiki.constants.TeamRoleConstants;
 import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.AuditEntryWebService;
@@ -137,8 +136,6 @@ public class ViewAccountDisplayContext {
 		assignPartnerTeamURL.setParameter("accountKey", account.getKey());
 		assignPartnerTeamURL.setParameter(
 			"teamKey", accountDisplay.getPartnerTeamKey());
-		assignPartnerTeamURL.setParameter(
-			"teamRoleName", TeamRoleConstants.NAME_PARTNER);
 		assignPartnerTeamURL.setWindowState(LiferayWindowState.POP_UP);
 
 		data.put("assignPartnerTeamURL", assignPartnerTeamURL.toString());
@@ -152,8 +149,6 @@ public class ViewAccountDisplayContext {
 			"accountKey", account.getKey());
 		assignFirstLineSupportTeamURL.setParameter(
 			"teamKey", accountDisplay.getFirstLineSupportTeamKey());
-		assignFirstLineSupportTeamURL.setParameter(
-			"teamRoleName", TeamRoleConstants.NAME_FIRST_LINE_SUPPORT);
 		assignFirstLineSupportTeamURL.setWindowState(LiferayWindowState.POP_UP);
 
 		data.put(
