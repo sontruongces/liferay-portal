@@ -19,8 +19,6 @@ import com.liferay.layout.admin.web.internal.handler.LayoutExceptionRequestHandl
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypePortlet;
@@ -146,10 +144,6 @@ public class AddSimpleLayoutMVCActionCommand
 				actionRequest, actionResponse, jsonObject);
 		}
 		catch (PortalException portalException) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(portalException, portalException);
-			}
-
 			SessionErrors.add(actionRequest, "layoutNameInvalid");
 
 			hideDefaultErrorMessage(actionRequest);
@@ -158,9 +152,6 @@ public class AddSimpleLayoutMVCActionCommand
 				actionRequest, actionResponse, portalException);
 		}
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		AddSimpleLayoutMVCActionCommand.class);
 
 	@Reference
 	private ActionUtil _actionUtil;
