@@ -413,10 +413,6 @@ public class TrashImpl implements Trash {
 			return null;
 		}
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
 			httpServletRequest, TrashEntry.class.getName(),
 			PortletProvider.Action.VIEW);
@@ -426,6 +422,11 @@ public class TrashImpl implements Trash {
 		}
 
 		portletURL.setParameter("mvcPath", "/view_content.jsp");
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
 		portletURL.setParameter("redirect", themeDisplay.getURLCurrent());
 
 		TrashEntry trashEntry = TrashEntryLocalServiceUtil.getEntry(

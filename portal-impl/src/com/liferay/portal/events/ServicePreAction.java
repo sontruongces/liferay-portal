@@ -807,8 +807,6 @@ public class ServicePreAction extends Action {
 			boolean initPermissionChecker)
 		throws Exception {
 
-		HttpSession session = httpServletRequest.getSession();
-
 		// Company
 
 		Company company = PortalUtil.getCompany(httpServletRequest);
@@ -825,10 +823,6 @@ public class ServicePreAction extends Action {
 		if (cdnDynamicResourceEnabled) {
 			dynamicResourcesCDNHost = cdnHost;
 		}
-
-		// Portal URL
-
-		String portalURL = PortalUtil.getPortalURL(httpServletRequest);
 
 		// Paths
 
@@ -922,6 +916,10 @@ public class ServicePreAction extends Action {
 			return null;
 		}
 
+		// Portal URL
+
+		String portalURL = PortalUtil.getPortalURL(httpServletRequest);
+
 		boolean signedIn = !user.isDefaultUser();
 
 		if (PropsValues.BROWSER_CACHE_DISABLED ||
@@ -934,6 +932,8 @@ public class ServicePreAction extends Action {
 			httpServletResponse.setHeader(
 				HttpHeaders.PRAGMA, HttpHeaders.PRAGMA_NO_CACHE_VALUE);
 		}
+
+		HttpSession session = httpServletRequest.getSession();
 
 		User realUser = user;
 

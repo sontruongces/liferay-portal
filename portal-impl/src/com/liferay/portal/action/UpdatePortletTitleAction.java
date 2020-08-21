@@ -47,8 +47,6 @@ public class UpdatePortletTitleAction extends JSONAction {
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		HttpSession session = httpServletRequest.getSession();
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -66,6 +64,8 @@ public class UpdatePortletTitleAction extends JSONAction {
 
 			return null;
 		}
+
+		HttpSession session = httpServletRequest.getSession();
 
 		String languageId = LanguageUtil.getLanguageId(httpServletRequest);
 		String title = ParamUtil.getString(httpServletRequest, "title");

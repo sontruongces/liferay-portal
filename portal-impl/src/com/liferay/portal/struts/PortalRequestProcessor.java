@@ -530,8 +530,6 @@ public class PortalRequestProcessor {
 			}
 		}
 
-		String remoteUser = httpServletRequest.getRemoteUser();
-
 		User user = null;
 
 		try {
@@ -588,6 +586,8 @@ public class PortalRequestProcessor {
 		else if (path.equals(_PATH_PORTAL_SETUP_WIZARD)) {
 			return _PATH_PORTAL_LAYOUT;
 		}
+
+		String remoteUser = httpServletRequest.getRemoteUser();
 
 		if ((remoteUser != null) || (user != null)) {
 
