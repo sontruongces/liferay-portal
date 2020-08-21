@@ -19,7 +19,6 @@ import com.liferay.commerce.constants.CommerceActionKeys;
 import com.liferay.commerce.currency.constants.CommerceCurrencyActionKeys;
 import com.liferay.commerce.discount.constants.CommerceDiscountActionKeys;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
-import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.theme.minium.SiteInitializerDependencyResolver;
@@ -266,7 +265,6 @@ public class OSBCommercePortalInstanceInitializer
 						CommerceActionKeys.MANAGE_COMMERCE_COUNTRIES,
 						CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES,
 						CommerceActionKeys.MANAGE_COMMERCE_ORDER_PRICES,
-						CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS,
 						CPActionKeys.MANAGE_COMMERCE_PRODUCT_MEASUREMENT_UNITS,
 						CPActionKeys.MANAGE_COMMERCE_PRODUCT_TAX_CATEGORIES,
 						CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS,
