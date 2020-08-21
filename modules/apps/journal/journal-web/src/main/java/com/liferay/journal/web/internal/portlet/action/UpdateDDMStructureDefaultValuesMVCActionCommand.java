@@ -101,9 +101,6 @@ public class UpdateDDMStructureDefaultValuesMVCActionCommand
 			actionRequest, ActionRequest.ACTION_NAME);
 
 		long groupId = ParamUtil.getLong(uploadPortletRequest, "groupId");
-		long classNameId = ParamUtil.getLong(
-			uploadPortletRequest, "classNameId");
-		long classPK = ParamUtil.getLong(uploadPortletRequest, "classPK");
 		String articleId = ParamUtil.getString(
 			uploadPortletRequest, "articleId");
 		Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
@@ -189,6 +186,10 @@ public class UpdateDDMStructureDefaultValuesMVCActionCommand
 		if (actionName.equals("/journal/add_ddm_structure_default_values")) {
 
 			// Add article
+
+			long classNameId = ParamUtil.getLong(
+				uploadPortletRequest, "classNameId");
+			long classPK = ParamUtil.getLong(uploadPortletRequest, "classPK");
 
 			article = _journalArticleService.addArticleDefaultValues(
 				groupId, classNameId, classPK, titleMap, descriptionMap,

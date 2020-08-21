@@ -58,14 +58,12 @@ public class AssetPublisherRenderParametersPortletFilter
 			FilterChain filterChain)
 		throws IOException, PortletException {
 
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			renderRequest);
-
 		long categoryId = ParamUtil.getLong(renderRequest, "categoryId");
 		String tag = ParamUtil.getString(renderRequest, "tag");
 
 		if ((categoryId > 0) || Validator.isNotNull(tag)) {
-			clearRenderRequestParameters(renderRequest, httpServletRequest);
+			clearRenderRequestParameters(
+				renderRequest, _portal.getHttpServletRequest(renderRequest));
 		}
 
 		filterChain.doFilter(renderRequest, renderResponse);
