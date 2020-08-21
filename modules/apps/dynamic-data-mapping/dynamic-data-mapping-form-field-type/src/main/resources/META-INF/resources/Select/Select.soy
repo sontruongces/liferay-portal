@@ -106,12 +106,12 @@
 					{/if}
 				{/let}
 
-				<ul {$attributes}>
+				<div {$attributes}>
 					{foreach $currentValue in $value}
 						{foreach $option in $options}
 							{if $currentValue == $option.value}
 								{if $multiple}
-									<li>
+									<div>
 										{call ClayLabel.render}
 											{param closeable: true /}
 											{param elementClasses: 'ddm-select-option-label' /}
@@ -125,7 +125,7 @@
 											{param spritemap: $spritemap /}
 											{param truncate: true /}
 										{/call}
-									</li>
+									</div>
 								{else}
 									{call SingleSelectedOption.render}
 										{param label: $option.label /}
@@ -152,7 +152,7 @@
 							{/call}
 						{/if}
 					</a>
-				</ul>
+				</div>
 			</div>
 		{/let}
 
