@@ -21,11 +21,11 @@ const MAX_RESULTS = 7;
 
 function Search({accountsHomeURL = '', resourceURL}) {
 	const [error, setError] = useState(false);
-	const [keywords, setKeywords] = useState('');
+	const [autocompleteKeywords, setKeywords] = useState('');
 	const [results, setResults] = useState([]);
 
 	function buildSearchResultsURL() {
-		return `${accountsHomeURL}&${NAMESPACE}keywords=${keywords}`;
+		return `${accountsHomeURL}&${NAMESPACE}keywords=${autocompleteKeywords}`;
 	}
 
 	function handleOnChange(event) {
@@ -33,7 +33,10 @@ function Search({accountsHomeURL = '', resourceURL}) {
 
 		setKeywords(newValue);
 
-		request(resourceURL, {keywords: newValue, maxResults: MAX_RESULTS})
+		request(resourceURL, {
+			autocompleteKeywords: newValue,
+			maxResults: MAX_RESULTS
+		})
 			.then(({data}) => {
 				if (data.length === 0) {
 					setError(true);
@@ -56,7 +59,7 @@ function Search({accountsHomeURL = '', resourceURL}) {
 				className="search-input"
 				onChange={handleOnChange}
 				placeholder={Liferay.Language.get('search-accounts')}
-				value={keywords}
+				value={autocompleteKeywords}
 			/>
 
 			<a
@@ -74,7 +77,7 @@ function Search({accountsHomeURL = '', resourceURL}) {
 				</svg>
 			</a>
 
-			<ClayAutocomplete.DropDown active={keywords}>
+			<ClayAutocomplete.DropDown active={autocompleteKeywords}>
 				{error && (
 					<ClayDropDown.Item className="disabled">
 						{Liferay.Language.get('no-results-were-found')}
@@ -88,7 +91,7 @@ function Search({accountsHomeURL = '', resourceURL}) {
 								<ClayAutocomplete.Item
 									href={result.url}
 									key={result.key}
-									match={keywords}
+									match={autocompleteKeywords}
 									value={result.name}
 								/>
 							))}

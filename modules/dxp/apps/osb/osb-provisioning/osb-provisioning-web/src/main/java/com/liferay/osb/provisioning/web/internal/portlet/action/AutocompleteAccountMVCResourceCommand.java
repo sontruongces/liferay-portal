@@ -89,7 +89,8 @@ public class AutocompleteAccountMVCResourceCommand
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		String[] keywords = StringUtil.split(
-			ParamUtil.getString(resourceRequest, "keywords"), StringPool.SPACE);
+			ParamUtil.getString(resourceRequest, "autocompleteKeywords"),
+			StringPool.SPACE);
 
 		if (!ArrayUtil.isEmpty(keywords)) {
 			StringBundler sb = new StringBundler();
