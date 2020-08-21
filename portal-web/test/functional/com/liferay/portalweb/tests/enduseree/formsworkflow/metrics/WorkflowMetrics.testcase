@@ -55,6 +55,7 @@ definition {
 		var key_testSLADefinitionDays = "1";
 		var key_testSLADefinitionDescription = "SLA Description";
 		var key_testSLADefinitionEnd = "Process Ends: Approved";
+		var key_testSLADefinitionHours = "00:00";
 		var key_testSLADefinitionName = "SLA Name";
 		var key_testSLADefinitionStart = "Process Begins";
 
@@ -66,6 +67,7 @@ definition {
 			slaDefinitionDays = "${key_testSLADefinitionDays}",
 			slaDefinitionDescription = "${key_testSLADefinitionDescription}",
 			slaDefinitionEnd = "${key_testSLADefinitionEnd}",
+			slaDefinitionHours = "${key_testSLADefinitionHours}",
 			slaDefinitionName = "${key_testSLADefinitionName}",
 			slaDefinitionStart = "${key_testSLADefinitionStart}");
 
