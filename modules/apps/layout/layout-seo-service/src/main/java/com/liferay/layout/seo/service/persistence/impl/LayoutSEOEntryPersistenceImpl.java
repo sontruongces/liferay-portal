@@ -2094,7 +2094,7 @@ public class LayoutSEOEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutSEOEntry.isNew()) {
+			if (isNew) {
 				session.save(layoutSEOEntry);
 
 				layoutSEOEntry.setNew(false);
@@ -2550,6 +2550,7 @@ public class LayoutSEOEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(LayoutSEOEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

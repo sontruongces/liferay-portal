@@ -1631,7 +1631,7 @@ public class TrashVersionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (trashVersion.isNew()) {
+			if (isNew) {
 				session.save(trashVersion);
 
 				trashVersion.setNew(false);
@@ -2062,6 +2062,7 @@ public class TrashVersionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(TrashVersionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

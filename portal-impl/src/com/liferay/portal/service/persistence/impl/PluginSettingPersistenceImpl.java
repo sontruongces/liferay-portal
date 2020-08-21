@@ -1188,7 +1188,7 @@ public class PluginSettingPersistenceImpl
 		try {
 			session = openSession();
 
-			if (pluginSetting.isNew()) {
+			if (isNew) {
 				session.save(pluginSetting);
 
 				pluginSetting.setNew(false);
@@ -1589,6 +1589,7 @@ public class PluginSettingPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(PluginSettingImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

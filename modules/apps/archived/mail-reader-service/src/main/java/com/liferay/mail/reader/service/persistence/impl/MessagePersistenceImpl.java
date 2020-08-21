@@ -1624,7 +1624,7 @@ public class MessagePersistenceImpl
 		try {
 			session = openSession();
 
-			if (message.isNew()) {
+			if (isNew) {
 				session.save(message);
 
 				message.setNew(false);
@@ -2053,6 +2053,7 @@ public class MessagePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(MessageImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

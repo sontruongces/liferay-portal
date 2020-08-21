@@ -2549,7 +2549,7 @@ public class SyncDevicePersistenceImpl
 		try {
 			session = openSession();
 
-			if (syncDevice.isNew()) {
+			if (isNew) {
 				session.save(syncDevice);
 
 				syncDevice.setNew(false);
@@ -3028,6 +3028,7 @@ public class SyncDevicePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(SyncDeviceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

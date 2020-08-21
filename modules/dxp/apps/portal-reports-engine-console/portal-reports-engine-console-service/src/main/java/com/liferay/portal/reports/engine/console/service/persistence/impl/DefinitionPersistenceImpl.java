@@ -3152,7 +3152,7 @@ public class DefinitionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (definition.isNew()) {
+			if (isNew) {
 				session.save(definition);
 
 				definition.setNew(false);
@@ -3680,6 +3680,7 @@ public class DefinitionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(DefinitionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

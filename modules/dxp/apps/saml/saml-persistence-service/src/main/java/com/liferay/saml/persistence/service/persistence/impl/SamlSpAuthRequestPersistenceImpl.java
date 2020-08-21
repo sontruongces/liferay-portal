@@ -1227,7 +1227,7 @@ public class SamlSpAuthRequestPersistenceImpl
 		try {
 			session = openSession();
 
-			if (samlSpAuthRequest.isNew()) {
+			if (isNew) {
 				session.save(samlSpAuthRequest);
 
 				samlSpAuthRequest.setNew(false);
@@ -1583,6 +1583,7 @@ public class SamlSpAuthRequestPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(SamlSpAuthRequestImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -1594,7 +1595,7 @@ public class SamlSpAuthRequestPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

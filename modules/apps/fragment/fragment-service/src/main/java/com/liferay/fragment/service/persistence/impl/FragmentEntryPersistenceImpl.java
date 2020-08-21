@@ -6773,7 +6773,7 @@ public class FragmentEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (fragmentEntry.isNew()) {
+			if (isNew) {
 				session.save(fragmentEntry);
 
 				fragmentEntry.setNew(false);
@@ -7610,6 +7610,7 @@ public class FragmentEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(FragmentEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

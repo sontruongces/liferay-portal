@@ -554,7 +554,7 @@ public class BrowserTrackerPersistenceImpl
 		try {
 			session = openSession();
 
-			if (browserTracker.isNew()) {
+			if (isNew) {
 				session.save(browserTracker);
 
 				browserTracker.setNew(false);
@@ -891,6 +891,7 @@ public class BrowserTrackerPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(BrowserTrackerImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

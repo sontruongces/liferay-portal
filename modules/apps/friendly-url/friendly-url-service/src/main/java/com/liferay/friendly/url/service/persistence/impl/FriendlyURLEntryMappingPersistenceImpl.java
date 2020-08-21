@@ -615,7 +615,7 @@ public class FriendlyURLEntryMappingPersistenceImpl
 		try {
 			session = openSession();
 
-			if (friendlyURLEntryMapping.isNew()) {
+			if (isNew) {
 				session.save(friendlyURLEntryMapping);
 
 				friendlyURLEntryMapping.setNew(false);
@@ -964,6 +964,7 @@ public class FriendlyURLEntryMappingPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(FriendlyURLEntryMappingImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

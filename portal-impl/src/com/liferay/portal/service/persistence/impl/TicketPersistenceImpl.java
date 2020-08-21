@@ -1794,7 +1794,7 @@ public class TicketPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ticket.isNew()) {
+			if (isNew) {
 				session.save(ticket);
 
 				ticket.setNew(false);
@@ -2265,6 +2265,7 @@ public class TicketPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(TicketImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

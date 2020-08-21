@@ -5354,7 +5354,7 @@ public class AssetEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetEntry.isNew()) {
+			if (isNew) {
 				session.save(assetEntry);
 
 				assetEntry.setNew(false);
@@ -6787,6 +6787,7 @@ public class AssetEntryPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(AssetEntryImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -6808,7 +6809,7 @@ public class AssetEntryPersistenceImpl
 	protected TableMapper<AssetEntry, com.liferay.asset.kernel.model.AssetTag>
 		assetEntryToAssetTagTableMapper;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

@@ -3877,7 +3877,7 @@ public class TeamRolePersistenceImpl
 		try {
 			session = openSession();
 
-			if (teamRole.isNew()) {
+			if (isNew) {
 				session.save(teamRole);
 
 				teamRole.setNew(false);
@@ -4370,6 +4370,7 @@ public class TeamRolePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(TeamRoleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

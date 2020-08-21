@@ -2557,7 +2557,7 @@ public class MBMailingListPersistenceImpl
 		try {
 			session = openSession();
 
-			if (mbMailingList.isNew()) {
+			if (isNew) {
 				session.save(mbMailingList);
 
 				mbMailingList.setNew(false);
@@ -3050,6 +3050,7 @@ public class MBMailingListPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(MBMailingListImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

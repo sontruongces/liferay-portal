@@ -2567,7 +2567,7 @@ public class SystemEventPersistenceImpl
 		try {
 			session = openSession();
 
-			if (systemEvent.isNew()) {
+			if (isNew) {
 				session.save(systemEvent);
 
 				systemEvent.setNew(false);
@@ -3133,6 +3133,7 @@ public class SystemEventPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(SystemEventImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

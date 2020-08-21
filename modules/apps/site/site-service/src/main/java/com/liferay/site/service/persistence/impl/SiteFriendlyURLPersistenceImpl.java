@@ -3321,7 +3321,7 @@ public class SiteFriendlyURLPersistenceImpl
 		try {
 			session = openSession();
 
-			if (siteFriendlyURL.isNew()) {
+			if (isNew) {
 				session.save(siteFriendlyURL);
 
 				siteFriendlyURL.setNew(false);
@@ -3863,6 +3863,7 @@ public class SiteFriendlyURLPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(SiteFriendlyURLImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

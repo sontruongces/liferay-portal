@@ -3489,7 +3489,7 @@ public class SocialActivityAchievementPersistenceImpl
 		try {
 			session = openSession();
 
-			if (socialActivityAchievement.isNew()) {
+			if (isNew) {
 				session.save(socialActivityAchievement);
 
 				socialActivityAchievement.setNew(false);
@@ -4143,6 +4143,7 @@ public class SocialActivityAchievementPersistenceImpl
 	public void destroy() {
 		EntityCacheUtil.removeCache(
 			SocialActivityAchievementImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

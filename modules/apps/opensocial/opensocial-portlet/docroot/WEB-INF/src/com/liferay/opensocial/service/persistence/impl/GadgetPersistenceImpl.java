@@ -3478,7 +3478,7 @@ public class GadgetPersistenceImpl
 		try {
 			session = openSession();
 
-			if (gadget.isNew()) {
+			if (isNew) {
 				session.save(gadget);
 
 				gadget.setNew(false);
@@ -3968,6 +3968,7 @@ public class GadgetPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(GadgetImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

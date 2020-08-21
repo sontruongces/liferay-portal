@@ -1799,7 +1799,7 @@ public class AuditEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (auditEntry.isNew()) {
+			if (isNew) {
 				session.save(auditEntry);
 
 				auditEntry.setNew(false);
@@ -2253,6 +2253,7 @@ public class AuditEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AuditEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

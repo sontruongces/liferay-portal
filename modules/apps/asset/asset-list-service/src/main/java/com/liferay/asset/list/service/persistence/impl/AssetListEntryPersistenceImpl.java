@@ -6260,7 +6260,7 @@ public class AssetListEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetListEntry.isNew()) {
+			if (isNew) {
 				session.save(assetListEntry);
 
 				assetListEntry.setNew(false);
@@ -6837,6 +6837,7 @@ public class AssetListEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AssetListEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

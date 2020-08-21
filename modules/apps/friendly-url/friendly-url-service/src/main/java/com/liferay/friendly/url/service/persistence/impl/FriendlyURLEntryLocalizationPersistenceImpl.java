@@ -1559,7 +1559,7 @@ public class FriendlyURLEntryLocalizationPersistenceImpl
 		try {
 			session = openSession();
 
-			if (friendlyURLEntryLocalization.isNew()) {
+			if (isNew) {
 				session.save(friendlyURLEntryLocalization);
 
 				friendlyURLEntryLocalization.setNew(false);
@@ -1991,6 +1991,7 @@ public class FriendlyURLEntryLocalizationPersistenceImpl
 	public void deactivate() {
 		entityCache.removeCache(
 			FriendlyURLEntryLocalizationImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -2947,7 +2947,7 @@ public class JournalFeedPersistenceImpl
 		try {
 			session = openSession();
 
-			if (journalFeed.isNew()) {
+			if (isNew) {
 				session.save(journalFeed);
 
 				journalFeed.setNew(false);
@@ -3440,6 +3440,7 @@ public class JournalFeedPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(JournalFeedImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1138,7 +1138,7 @@ public class KaleoProcessLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoProcessLink.isNew()) {
+			if (isNew) {
 				session.save(kaleoProcessLink);
 
 				kaleoProcessLink.setNew(false);
@@ -1534,6 +1534,7 @@ public class KaleoProcessLinkPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KaleoProcessLinkImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

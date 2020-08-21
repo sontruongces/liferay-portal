@@ -2377,7 +2377,7 @@ public class ContactTeamRolePersistenceImpl
 		try {
 			session = openSession();
 
-			if (contactTeamRole.isNew()) {
+			if (isNew) {
 				session.save(contactTeamRole);
 
 				contactTeamRole.setNew(false);
@@ -2895,6 +2895,7 @@ public class ContactTeamRolePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ContactTeamRoleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

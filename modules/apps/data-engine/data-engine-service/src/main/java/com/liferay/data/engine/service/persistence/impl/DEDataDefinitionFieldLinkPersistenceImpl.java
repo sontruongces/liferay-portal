@@ -1590,7 +1590,7 @@ public class DEDataDefinitionFieldLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (deDataDefinitionFieldLink.isNew()) {
+			if (isNew) {
 				session.save(deDataDefinitionFieldLink);
 
 				deDataDefinitionFieldLink.setNew(false);
@@ -2016,6 +2016,7 @@ public class DEDataDefinitionFieldLinkPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(DEDataDefinitionFieldLinkImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1304,7 +1304,7 @@ public class OrgGroupRolePersistenceImpl
 		try {
 			session = openSession();
 
-			if (orgGroupRole.isNew()) {
+			if (isNew) {
 				session.save(orgGroupRole);
 
 				orgGroupRole.setNew(false);
@@ -1722,6 +1722,7 @@ public class OrgGroupRolePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(OrgGroupRoleImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

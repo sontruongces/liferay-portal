@@ -2941,7 +2941,7 @@ public class UserGroupGroupRolePersistenceImpl
 		try {
 			session = openSession();
 
-			if (userGroupGroupRole.isNew()) {
+			if (isNew) {
 				session.save(userGroupGroupRole);
 
 				userGroupGroupRole.setNew(false);
@@ -3544,6 +3544,7 @@ public class UserGroupGroupRolePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(UserGroupGroupRoleImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

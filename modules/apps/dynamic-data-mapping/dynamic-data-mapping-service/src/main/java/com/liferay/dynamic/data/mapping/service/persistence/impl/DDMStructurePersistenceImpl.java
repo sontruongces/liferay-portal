@@ -11036,7 +11036,7 @@ public class DDMStructurePersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmStructure.isNew()) {
+			if (isNew) {
 				session.save(ddmStructure);
 
 				ddmStructure.setNew(false);
@@ -11979,6 +11979,7 @@ public class DDMStructurePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(DDMStructureImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

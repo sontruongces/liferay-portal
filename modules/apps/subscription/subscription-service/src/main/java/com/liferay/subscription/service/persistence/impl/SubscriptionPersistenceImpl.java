@@ -4179,7 +4179,7 @@ public class SubscriptionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (subscription.isNew()) {
+			if (isNew) {
 				session.save(subscription);
 
 				subscription.setNew(false);
@@ -4888,6 +4888,7 @@ public class SubscriptionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(SubscriptionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

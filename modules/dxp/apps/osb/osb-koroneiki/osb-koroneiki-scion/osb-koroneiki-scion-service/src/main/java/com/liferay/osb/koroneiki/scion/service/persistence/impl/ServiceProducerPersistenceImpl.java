@@ -1748,7 +1748,7 @@ public class ServiceProducerPersistenceImpl
 		try {
 			session = openSession();
 
-			if (serviceProducer.isNew()) {
+			if (isNew) {
 				session.save(serviceProducer);
 
 				serviceProducer.setNew(false);
@@ -2188,6 +2188,7 @@ public class ServiceProducerPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ServiceProducerImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

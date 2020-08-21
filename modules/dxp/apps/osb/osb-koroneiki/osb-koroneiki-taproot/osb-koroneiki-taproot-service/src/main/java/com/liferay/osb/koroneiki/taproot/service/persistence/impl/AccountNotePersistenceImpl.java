@@ -3359,7 +3359,7 @@ public class AccountNotePersistenceImpl
 		try {
 			session = openSession();
 
-			if (accountNote.isNew()) {
+			if (isNew) {
 				session.save(accountNote);
 
 				accountNote.setNew(false);
@@ -3916,6 +3916,7 @@ public class AccountNotePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AccountNoteImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

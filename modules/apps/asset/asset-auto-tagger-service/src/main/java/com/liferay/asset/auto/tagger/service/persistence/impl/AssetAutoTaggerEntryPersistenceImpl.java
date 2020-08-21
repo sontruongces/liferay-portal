@@ -1664,7 +1664,7 @@ public class AssetAutoTaggerEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetAutoTaggerEntry.isNew()) {
+			if (isNew) {
 				session.save(assetAutoTaggerEntry);
 
 				assetAutoTaggerEntry.setNew(false);
@@ -2106,6 +2106,7 @@ public class AssetAutoTaggerEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AssetAutoTaggerEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

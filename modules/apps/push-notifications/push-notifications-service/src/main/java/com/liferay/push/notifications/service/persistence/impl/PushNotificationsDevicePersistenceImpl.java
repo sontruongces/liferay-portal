@@ -1527,7 +1527,7 @@ public class PushNotificationsDevicePersistenceImpl
 		try {
 			session = openSession();
 
-			if (pushNotificationsDevice.isNew()) {
+			if (isNew) {
 				session.save(pushNotificationsDevice);
 
 				pushNotificationsDevice.setNew(false);
@@ -1935,6 +1935,7 @@ public class PushNotificationsDevicePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(PushNotificationsDeviceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

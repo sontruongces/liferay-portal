@@ -3756,7 +3756,7 @@ public class AssetEntryUsagePersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetEntryUsage.isNew()) {
+			if (isNew) {
 				session.save(assetEntryUsage);
 
 				assetEntryUsage.setNew(false);
@@ -4368,6 +4368,7 @@ public class AssetEntryUsagePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AssetEntryUsageImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

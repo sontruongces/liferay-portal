@@ -2409,7 +2409,7 @@ public class ContactAccountRolePersistenceImpl
 		try {
 			session = openSession();
 
-			if (contactAccountRole.isNew()) {
+			if (isNew) {
 				session.save(contactAccountRole);
 
 				contactAccountRole.setNew(false);
@@ -2945,6 +2945,7 @@ public class ContactAccountRolePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ContactAccountRoleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

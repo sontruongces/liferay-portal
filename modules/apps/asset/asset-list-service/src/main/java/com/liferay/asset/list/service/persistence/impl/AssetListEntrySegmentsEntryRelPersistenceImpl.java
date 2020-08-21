@@ -3209,7 +3209,7 @@ public class AssetListEntrySegmentsEntryRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetListEntrySegmentsEntryRel.isNew()) {
+			if (isNew) {
 				session.save(assetListEntrySegmentsEntryRel);
 
 				assetListEntrySegmentsEntryRel.setNew(false);
@@ -3799,6 +3799,7 @@ public class AssetListEntrySegmentsEntryRelPersistenceImpl
 	public void deactivate() {
 		entityCache.removeCache(
 			AssetListEntrySegmentsEntryRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1180,7 +1180,7 @@ public class SegmentsExperimentRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (segmentsExperimentRel.isNew()) {
+			if (isNew) {
 				session.save(segmentsExperimentRel);
 
 				segmentsExperimentRel.setNew(false);
@@ -1584,6 +1584,7 @@ public class SegmentsExperimentRelPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(SegmentsExperimentRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

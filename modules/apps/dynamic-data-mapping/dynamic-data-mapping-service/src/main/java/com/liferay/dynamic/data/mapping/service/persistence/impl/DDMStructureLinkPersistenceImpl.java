@@ -2194,7 +2194,7 @@ public class DDMStructureLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmStructureLink.isNew()) {
+			if (isNew) {
 				session.save(ddmStructureLink);
 
 				ddmStructureLink.setNew(false);
@@ -2683,6 +2683,7 @@ public class DDMStructureLinkPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(DDMStructureLinkImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

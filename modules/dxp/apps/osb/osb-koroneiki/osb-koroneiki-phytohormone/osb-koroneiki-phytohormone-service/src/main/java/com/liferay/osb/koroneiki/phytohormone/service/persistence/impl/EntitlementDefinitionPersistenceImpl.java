@@ -5009,7 +5009,7 @@ public class EntitlementDefinitionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (entitlementDefinition.isNew()) {
+			if (isNew) {
 				session.save(entitlementDefinition);
 
 				entitlementDefinition.setNew(false);
@@ -5551,6 +5551,7 @@ public class EntitlementDefinitionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(EntitlementDefinitionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

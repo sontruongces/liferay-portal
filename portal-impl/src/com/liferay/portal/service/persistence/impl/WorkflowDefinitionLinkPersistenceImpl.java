@@ -3149,7 +3149,7 @@ public class WorkflowDefinitionLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (workflowDefinitionLink.isNew()) {
+			if (isNew) {
 				session.save(workflowDefinitionLink);
 
 				workflowDefinitionLink.setNew(false);
@@ -3778,6 +3778,7 @@ public class WorkflowDefinitionLinkPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(WorkflowDefinitionLinkImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

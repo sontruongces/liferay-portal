@@ -2791,7 +2791,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (calendarNotificationTemplate.isNew()) {
+			if (isNew) {
 				session.save(calendarNotificationTemplate);
 
 				calendarNotificationTemplate.setNew(false);
@@ -3328,6 +3328,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	public void deactivate() {
 		entityCache.removeCache(
 			CalendarNotificationTemplateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

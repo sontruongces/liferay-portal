@@ -25333,7 +25333,7 @@ public class LayoutVersionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutVersion.isNew()) {
+			if (isNew) {
 				session.save(layoutVersion);
 
 				layoutVersion.setNew(false);
@@ -28350,6 +28350,7 @@ public class LayoutVersionPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(LayoutVersionImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

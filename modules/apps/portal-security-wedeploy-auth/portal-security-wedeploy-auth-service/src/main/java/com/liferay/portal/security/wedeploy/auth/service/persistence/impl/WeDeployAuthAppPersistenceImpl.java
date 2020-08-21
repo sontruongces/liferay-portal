@@ -1039,7 +1039,7 @@ public class WeDeployAuthAppPersistenceImpl
 		try {
 			session = openSession();
 
-			if (weDeployAuthApp.isNew()) {
+			if (isNew) {
 				session.save(weDeployAuthApp);
 
 				weDeployAuthApp.setNew(false);
@@ -1387,6 +1387,7 @@ public class WeDeployAuthAppPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(WeDeployAuthAppImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

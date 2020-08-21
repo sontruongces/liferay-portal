@@ -2847,7 +2847,7 @@ public class WorkflowMetricsSLADefinitionVersionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (workflowMetricsSLADefinitionVersion.isNew()) {
+			if (isNew) {
 				session.save(workflowMetricsSLADefinitionVersion);
 
 				workflowMetricsSLADefinitionVersion.setNew(false);
@@ -3433,6 +3433,7 @@ public class WorkflowMetricsSLADefinitionVersionPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			WorkflowMetricsSLADefinitionVersionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

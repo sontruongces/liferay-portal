@@ -1883,7 +1883,7 @@ public class OAuthUserPersistenceImpl
 		try {
 			session = openSession();
 
-			if (oAuthUser.isNew()) {
+			if (isNew) {
 				session.save(oAuthUser);
 
 				oAuthUser.setNew(false);
@@ -2321,6 +2321,7 @@ public class OAuthUserPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(OAuthUserImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

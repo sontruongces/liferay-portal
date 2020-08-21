@@ -4070,7 +4070,7 @@ public class SiteNavigationMenuItemPersistenceImpl
 		try {
 			session = openSession();
 
-			if (siteNavigationMenuItem.isNew()) {
+			if (isNew) {
 				session.save(siteNavigationMenuItem);
 
 				siteNavigationMenuItem.setNew(false);
@@ -4725,6 +4725,7 @@ public class SiteNavigationMenuItemPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(SiteNavigationMenuItemImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

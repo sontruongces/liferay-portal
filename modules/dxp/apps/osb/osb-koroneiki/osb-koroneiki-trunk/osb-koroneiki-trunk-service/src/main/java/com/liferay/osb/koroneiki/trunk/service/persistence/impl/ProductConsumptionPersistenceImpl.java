@@ -6471,7 +6471,7 @@ public class ProductConsumptionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (productConsumption.isNew()) {
+			if (isNew) {
 				session.save(productConsumption);
 
 				productConsumption.setNew(false);
@@ -7138,6 +7138,7 @@ public class ProductConsumptionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ProductConsumptionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

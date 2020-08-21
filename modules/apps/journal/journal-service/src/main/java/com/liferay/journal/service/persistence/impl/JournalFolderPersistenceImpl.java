@@ -7746,7 +7746,7 @@ public class JournalFolderPersistenceImpl
 		try {
 			session = openSession();
 
-			if (journalFolder.isNew()) {
+			if (isNew) {
 				session.save(journalFolder);
 
 				journalFolder.setNew(false);
@@ -8477,6 +8477,7 @@ public class JournalFolderPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(JournalFolderImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -4133,7 +4133,7 @@ public class KaleoInstancePersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoInstance.isNew()) {
+			if (isNew) {
 				session.save(kaleoInstance);
 
 				kaleoInstance.setNew(false);
@@ -4806,6 +4806,7 @@ public class KaleoInstancePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(KaleoInstanceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -4851,7 +4852,7 @@ public class KaleoInstancePersistenceImpl
 	@Reference
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

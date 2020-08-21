@@ -1186,7 +1186,7 @@ public class ListTypePersistenceImpl
 		try {
 			session = openSession();
 
-			if (listType.isNew()) {
+			if (isNew) {
 				session.save(listType);
 
 				listType.setNew(false);
@@ -1575,6 +1575,7 @@ public class ListTypePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ListTypeImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

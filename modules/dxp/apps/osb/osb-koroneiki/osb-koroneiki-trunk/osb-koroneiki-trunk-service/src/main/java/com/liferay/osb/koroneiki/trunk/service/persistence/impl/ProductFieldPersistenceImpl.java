@@ -1362,7 +1362,7 @@ public class ProductFieldPersistenceImpl
 		try {
 			session = openSession();
 
-			if (productField.isNew()) {
+			if (isNew) {
 				session.save(productField);
 
 				productField.setNew(false);
@@ -1780,6 +1780,7 @@ public class ProductFieldPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ProductFieldImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

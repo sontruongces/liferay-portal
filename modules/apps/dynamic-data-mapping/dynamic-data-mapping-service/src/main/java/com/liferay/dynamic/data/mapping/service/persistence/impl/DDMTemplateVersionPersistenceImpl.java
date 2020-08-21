@@ -1689,7 +1689,7 @@ public class DDMTemplateVersionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmTemplateVersion.isNew()) {
+			if (isNew) {
 				session.save(ddmTemplateVersion);
 
 				ddmTemplateVersion.setNew(false);
@@ -2135,6 +2135,7 @@ public class DDMTemplateVersionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(DDMTemplateVersionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

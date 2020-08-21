@@ -822,7 +822,7 @@ public class AnalyticsMessagePersistenceImpl
 		try {
 			session = openSession();
 
-			if (analyticsMessage.isNew()) {
+			if (isNew) {
 				session.save(analyticsMessage);
 
 				analyticsMessage.setNew(false);
@@ -1194,6 +1194,7 @@ public class AnalyticsMessagePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AnalyticsMessageImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

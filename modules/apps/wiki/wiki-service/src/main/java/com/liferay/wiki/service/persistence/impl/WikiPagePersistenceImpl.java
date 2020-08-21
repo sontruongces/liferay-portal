@@ -22282,7 +22282,7 @@ public class WikiPagePersistenceImpl
 		try {
 			session = openSession();
 
-			if (wikiPage.isNew()) {
+			if (isNew) {
 				session.save(wikiPage);
 
 				wikiPage.setNew(false);
@@ -24372,6 +24372,7 @@ public class WikiPagePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(WikiPageImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

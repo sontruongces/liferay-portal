@@ -3909,7 +3909,7 @@ public class ContactRolePersistenceImpl
 		try {
 			session = openSession();
 
-			if (contactRole.isNew()) {
+			if (isNew) {
 				session.save(contactRole);
 
 				contactRole.setNew(false);
@@ -4403,6 +4403,7 @@ public class ContactRolePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ContactRoleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

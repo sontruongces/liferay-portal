@@ -2793,7 +2793,7 @@ public class DLFileEntryMetadataPersistenceImpl
 		try {
 			session = openSession();
 
-			if (dlFileEntryMetadata.isNew()) {
+			if (isNew) {
 				session.save(dlFileEntryMetadata);
 
 				dlFileEntryMetadata.setNew(false);
@@ -3359,6 +3359,7 @@ public class DLFileEntryMetadataPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(DLFileEntryMetadataImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1697,7 +1697,7 @@ public class DDMDataProviderInstanceLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmDataProviderInstanceLink.isNew()) {
+			if (isNew) {
 				session.save(ddmDataProviderInstanceLink);
 
 				ddmDataProviderInstanceLink.setNew(false);
@@ -2164,6 +2164,7 @@ public class DDMDataProviderInstanceLinkPersistenceImpl
 	public void deactivate() {
 		entityCache.removeCache(
 			DDMDataProviderInstanceLinkImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

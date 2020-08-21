@@ -3718,7 +3718,7 @@ public class DDMDataProviderInstancePersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmDataProviderInstance.isNew()) {
+			if (isNew) {
 				session.save(ddmDataProviderInstance);
 
 				ddmDataProviderInstance.setNew(false);
@@ -4280,6 +4280,7 @@ public class DDMDataProviderInstancePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(DDMDataProviderInstanceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1405,7 +1405,7 @@ public class OAuth2ApplicationScopeAliasesPersistenceImpl
 		try {
 			session = openSession();
 
-			if (oAuth2ApplicationScopeAliases.isNew()) {
+			if (isNew) {
 				session.save(oAuth2ApplicationScopeAliases);
 
 				oAuth2ApplicationScopeAliases.setNew(false);
@@ -1855,6 +1855,7 @@ public class OAuth2ApplicationScopeAliasesPersistenceImpl
 	public void deactivate() {
 		entityCache.removeCache(
 			OAuth2ApplicationScopeAliasesImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

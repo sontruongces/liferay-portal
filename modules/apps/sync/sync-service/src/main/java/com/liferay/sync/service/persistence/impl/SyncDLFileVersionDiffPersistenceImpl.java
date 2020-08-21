@@ -1720,7 +1720,7 @@ public class SyncDLFileVersionDiffPersistenceImpl
 		try {
 			session = openSession();
 
-			if (syncDLFileVersionDiff.isNew()) {
+			if (isNew) {
 				session.save(syncDLFileVersionDiff);
 
 				syncDLFileVersionDiff.setNew(false);
@@ -2141,6 +2141,7 @@ public class SyncDLFileVersionDiffPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(SyncDLFileVersionDiffImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -2186,7 +2187,7 @@ public class SyncDLFileVersionDiffPersistenceImpl
 	@Reference
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

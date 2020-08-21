@@ -21453,7 +21453,7 @@ public class LayoutPageTemplateEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutPageTemplateEntry.isNew()) {
+			if (isNew) {
 				session.save(layoutPageTemplateEntry);
 
 				layoutPageTemplateEntry.setNew(false);
@@ -22849,6 +22849,7 @@ public class LayoutPageTemplateEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(LayoutPageTemplateEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1574,7 +1574,7 @@ public class CountryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (country.isNew()) {
+			if (isNew) {
 				session.save(country);
 
 				country.setNew(false);
@@ -1988,6 +1988,7 @@ public class CountryPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(CountryImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

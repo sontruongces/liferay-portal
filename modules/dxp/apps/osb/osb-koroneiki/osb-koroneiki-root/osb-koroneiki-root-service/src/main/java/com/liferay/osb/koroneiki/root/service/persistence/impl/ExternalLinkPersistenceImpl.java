@@ -1920,7 +1920,7 @@ public class ExternalLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (externalLink.isNew()) {
+			if (isNew) {
 				session.save(externalLink);
 
 				externalLink.setNew(false);
@@ -2374,6 +2374,7 @@ public class ExternalLinkPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ExternalLinkImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -3320,7 +3320,7 @@ public class PollsVotePersistenceImpl
 		try {
 			session = openSession();
 
-			if (pollsVote.isNew()) {
+			if (isNew) {
 				session.save(pollsVote);
 
 				pollsVote.setNew(false);
@@ -3894,6 +3894,7 @@ public class PollsVotePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(PollsVoteImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

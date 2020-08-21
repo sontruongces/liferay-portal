@@ -2386,7 +2386,7 @@ public class FriendlyURLEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (friendlyURLEntry.isNew()) {
+			if (isNew) {
 				session.save(friendlyURLEntry);
 
 				friendlyURLEntry.setNew(false);
@@ -2886,6 +2886,7 @@ public class FriendlyURLEntryPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(FriendlyURLEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

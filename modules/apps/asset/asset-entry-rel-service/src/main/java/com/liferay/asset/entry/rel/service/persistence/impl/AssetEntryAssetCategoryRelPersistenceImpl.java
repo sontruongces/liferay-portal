@@ -1693,7 +1693,7 @@ public class AssetEntryAssetCategoryRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetEntryAssetCategoryRel.isNew()) {
+			if (isNew) {
 				session.save(assetEntryAssetCategoryRel);
 
 				assetEntryAssetCategoryRel.setNew(false);
@@ -2149,6 +2149,7 @@ public class AssetEntryAssetCategoryRelPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(AssetEntryAssetCategoryRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

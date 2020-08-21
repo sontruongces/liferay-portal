@@ -1849,7 +1849,7 @@ public class UserTrackerPersistenceImpl
 		try {
 			session = openSession();
 
-			if (userTracker.isNew()) {
+			if (isNew) {
 				session.save(userTracker);
 
 				userTracker.setNew(false);
@@ -2309,6 +2309,7 @@ public class UserTrackerPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(UserTrackerImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

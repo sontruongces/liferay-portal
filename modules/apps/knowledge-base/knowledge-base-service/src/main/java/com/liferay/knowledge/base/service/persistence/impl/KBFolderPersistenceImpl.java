@@ -3397,7 +3397,7 @@ public class KBFolderPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kbFolder.isNew()) {
+			if (isNew) {
 				session.save(kbFolder);
 
 				kbFolder.setNew(false);
@@ -3923,6 +3923,7 @@ public class KBFolderPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(KBFolderImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

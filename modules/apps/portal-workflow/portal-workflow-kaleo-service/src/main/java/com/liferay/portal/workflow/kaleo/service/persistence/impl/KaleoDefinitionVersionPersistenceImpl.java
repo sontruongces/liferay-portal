@@ -1831,7 +1831,7 @@ public class KaleoDefinitionVersionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoDefinitionVersion.isNew()) {
+			if (isNew) {
 				session.save(kaleoDefinitionVersion);
 
 				kaleoDefinitionVersion.setNew(false);
@@ -2291,6 +2291,7 @@ public class KaleoDefinitionVersionPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(KaleoDefinitionVersionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

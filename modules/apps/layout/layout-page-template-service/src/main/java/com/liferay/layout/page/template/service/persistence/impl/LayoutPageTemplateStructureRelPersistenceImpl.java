@@ -3270,7 +3270,7 @@ public class LayoutPageTemplateStructureRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutPageTemplateStructureRel.isNew()) {
+			if (isNew) {
 				session.save(layoutPageTemplateStructureRel);
 
 				layoutPageTemplateStructureRel.setNew(false);
@@ -3876,6 +3876,7 @@ public class LayoutPageTemplateStructureRelPersistenceImpl
 	public void deactivate() {
 		entityCache.removeCache(
 			LayoutPageTemplateStructureRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

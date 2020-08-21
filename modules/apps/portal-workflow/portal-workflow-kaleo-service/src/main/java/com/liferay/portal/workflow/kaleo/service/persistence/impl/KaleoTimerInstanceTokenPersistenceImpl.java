@@ -2352,7 +2352,7 @@ public class KaleoTimerInstanceTokenPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoTimerInstanceToken.isNew()) {
+			if (isNew) {
 				session.save(kaleoTimerInstanceToken);
 
 				kaleoTimerInstanceToken.setNew(false);
@@ -2880,6 +2880,7 @@ public class KaleoTimerInstanceTokenPersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(KaleoTimerInstanceTokenImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
