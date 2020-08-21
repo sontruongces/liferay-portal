@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
@@ -116,8 +115,7 @@ public class AutocompleteAccountMVCResourceCommand
 				StringPool.BLANK, sb.toString(), 1, maxResults, null);
 
 			for (Account account : accounts) {
-				PortletURL portletURL = PortletURLUtil.getCurrent(
-					resourceRequest, resourceResponse);
+				PortletURL portletURL = resourceResponse.createRenderURL();
 
 				portletURL.setParameter(
 					"mvcRenderCommandName", "/accounts/view_account");
