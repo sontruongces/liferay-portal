@@ -86,24 +86,27 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		User user = themeDisplay.getUser();
 
-		String accountKey = ParamUtil.getString(actionRequest, "accountKey");
-		String productKey = ParamUtil.getString(actionRequest, "productKey");
 		String productPurchaseKey = ParamUtil.getString(
 			actionRequest, "productPurchaseKey");
 
 		boolean perpetual = ParamUtil.getBoolean(actionRequest, "perpetual");
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
-		int sizing = ParamUtil.getInteger(actionRequest, "sizing");
-		String salesforceOpportunityKey = ParamUtil.getString(
-			actionRequest, "salesforceOpportunityKey");
 		String status = ParamUtil.getString(
 			actionRequest, "status",
 			ProductPurchase.Status.APPROVED.toString());
+		int sizing = ParamUtil.getInteger(actionRequest, "sizing");
+		String salesforceOpportunityKey = ParamUtil.getString(
+			actionRequest, "salesforceOpportunityKey");
 
 		ProductPurchase productPurchase = new ProductPurchase();
 
-		productPurchase.setQuantity(quantity);
-		productPurchase.setStatus(ProductPurchase.Status.create(status));
+		if (Validator.isNull(productPurchaseKey)) {
+			String productKey = ParamUtil.getString(
+				actionRequest, "productKey");
+
+			productPurchase.setProduct(
+				_productWebService.getProduct(productKey));
+		}
 
 		if (perpetual) {
 			productPurchase.setPerpetual(perpetual);
@@ -142,9 +145,12 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 				gracePeriodEndDateYear, themeDisplay.getTimeZone(), null);
 
 			productPurchase.setStartDate(startDate);
-			productPurchase.setEndDate(endDate);
 			productPurchase.setOriginalEndDate(originalEndDate);
+			productPurchase.setEndDate(endDate);
 		}
+
+		productPurchase.setQuantity(quantity);
+		productPurchase.setStatus(ProductPurchase.Status.create(status));
 
 		Map<String, String> properties = new HashMap<>();
 
@@ -153,20 +159,25 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 				_productPurchaseWebService.getProductPurchase(
 					productPurchaseKey);
 
-			if (curProductPurchase != null) {
-				Map<String, String> curProperties =
-					curProductPurchase.getProperties();
+			Map<String, String> curProperties =
+				curProductPurchase.getProperties();
 
-				if (curProperties != null) {
-					for (Map.Entry<String, String> entry :
-							curProperties.entrySet()) {
+			if (curProperties != null) {
+				for (Map.Entry<String, String> entry :
+						curProperties.entrySet()) {
 
-						properties.put(entry.getKey(), entry.getValue());
-					}
+					properties.put(entry.getKey(), entry.getValue());
 				}
 			}
 		}
-		else {
+
+		properties.put("sizing", String.valueOf(sizing));
+
+		productPurchase.setProperties(properties);
+
+		if (Validator.isNotNull(productPurchaseKey) &&
+			Validator.isNotNull(salesforceOpportunityKey)) {
+
 			ExternalLink externalLink = new ExternalLink();
 
 			externalLink.setDomain(ExternalLinkDomain.SALESFORCE);
@@ -175,16 +186,12 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			externalLink.setEntityId(salesforceOpportunityKey);
 
 			productPurchase.setExternalLinks(new ExternalLink[] {externalLink});
-
-			productPurchase.setProduct(
-				_productWebService.getProduct(productKey));
 		}
 
-		properties.put("sizing", String.valueOf(sizing));
-
-		productPurchase.setProperties(properties);
-
 		if (Validator.isNull(productPurchaseKey)) {
+			String accountKey = ParamUtil.getString(
+				actionRequest, "accountKey");
+
 			_productPurchaseWebService.addProductPurchase(
 				user.getFullName(), StringPool.BLANK, accountKey,
 				productPurchase);

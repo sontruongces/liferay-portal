@@ -17,9 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String productKey = ParamUtil.getString(renderRequest, "productKey");
-
 EditProductPurchaseDisplayContext editProductPurchaseDisplayContext = ProvisioningWebComponentProvider.getEditProductPurchaseDisplayContext(renderRequest, renderResponse, request);
+
+String productKey = ParamUtil.getString(renderRequest, "productKey");
 
 SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getProductPurchaseProductSearchContainer();
 %>
@@ -71,7 +71,9 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 </div>
 
 <aui:script>
-	var searchContainer = document.getElementById('<portlet:namespace />selectProductSearchContainer');
+	var searchContainer = document.getElementById(
+		'<portlet:namespace />selectProductSearchContainer'
+	);
 
 	var table = searchContainer.querySelector('tbody');
 
@@ -106,6 +108,10 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 		);
 	}
 
+	function <portlet:namespace />resetRow(row) {
+		row.classList.remove('active');
+	}
+
 	function <portlet:namespace />selectRow(row) {
 		row.addEventListener('click', function() {
 			var activeRows = Array.from(document.getElementsByClassName('active'));
@@ -125,9 +131,5 @@ SearchContainer productSearchContainer = editProductPurchaseDisplayContext.getPr
 				);
 			}
 		});
-	}
-
-	function <portlet:namespace />resetRow(row) {
-		row.classList.remove('active');
 	}
 </aui:script>

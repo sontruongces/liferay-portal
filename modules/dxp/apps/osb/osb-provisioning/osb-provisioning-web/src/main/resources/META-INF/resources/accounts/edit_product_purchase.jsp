@@ -25,20 +25,18 @@ ProductPurchase productPurchase = editProductPurchaseDisplayContext.getProductPu
 
 ProductPurchaseDisplay productPurchaseDisplay = editProductPurchaseDisplayContext.getProductPurchaseDisplay();
 
-String productPurchaseKey = BeanParamUtil.getString(productPurchase, request, "key", "");
+String productPurchaseKey = BeanParamUtil.getString(productPurchase, request, "key");
 long quantity = BeanParamUtil.getLong(productPurchase, request, "quantity", 1);
-boolean isPerpetual = BeanParamUtil.getBoolean(productPurchase, request, "perpetual", false);
+boolean perpetual = BeanParamUtil.getBoolean(productPurchase, request, "perpetual");
 
-boolean isDisabled = true;
-String productName = "";
-String title = "add-subscription";
+int sizing = 0;
 
 if (productPurchase != null) {
-	isDisabled = false;
+	Map<String, String> properties = productPurchase.getProperties();
 
-	productName = productPurchaseDisplay.getProductName();
-
-	title = "edit-subscription";
+	if (properties != null) {
+		sizing = GetterUtil.getInteger(properties.get("sizing"));
+	}
 }
 %>
 
@@ -46,7 +44,7 @@ if (productPurchase != null) {
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
-		title="<%= title %>"
+		title='<%= (productPurchase != null) ? "edit-subscription" : "add-subscription" %>'
 	/>
 
 	<liferay-ui:error exception="<%= HttpException.class %>">
@@ -77,6 +75,7 @@ if (productPurchase != null) {
 
 			<div class="sheet taglib-empty-result-message" id="<portlet:namespace />emptyContent">
 				<div class="taglib-empty-result-message-header"></div>
+
 				<div class="sheet-text text-center">
 					<liferay-ui:message key="select-subscription-to-fill-in-details" /><br /> <br />
 
@@ -88,8 +87,8 @@ if (productPurchase != null) {
 		<portlet:actionURL name="/accounts/edit_product_purchase" var="editProductPurchaseURL">
 			<portlet:param name="mvcRenderCommandName" value="/accounts/edit_product_purchase" />
 			<portlet:param name="redirect" value="<%= redirect %>" />
-			<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
 			<portlet:param name="productPurchaseKey" value="<%= productPurchaseKey %>" />
+			<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
 		</portlet:actionURL>
 
 		<aui:form action="<%= editProductPurchaseURL.toString() %>" method="post" name="fm">
@@ -149,7 +148,7 @@ if (productPurchase != null) {
 					<tbody>
 						<tr>
 							<td class="table-cell-expand" id="<portlet:namespace />productName">
-								<%= productName %>
+								<%= (productPurchase != null) ? productPurchaseDisplay.getProductName() : "" %>
 							</td>
 
 							<c:if test="<%= productPurchase == null %>">
@@ -169,7 +168,7 @@ if (productPurchase != null) {
 							%>
 
 							<td class="table-cell-expand">
-								<aui:input checked="<%= isPerpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
+								<aui:input checked="<%= perpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
 							</td>
 
 							<%
@@ -184,7 +183,7 @@ if (productPurchase != null) {
 								<liferay-ui:input-date
 									dayParam="startDateDay"
 									dayValue="<%= startCal.get(Calendar.DATE) %>"
-									disabled="<%= isPerpetual %>"
+									disabled="<%= perpetual %>"
 									monthParam="startDateMonth"
 									monthValue="<%= startCal.get(Calendar.MONTH) %>"
 									name="startDate"
@@ -205,7 +204,7 @@ if (productPurchase != null) {
 								<liferay-ui:input-date
 									dayParam="endDateDay"
 									dayValue="<%= endCal.get(Calendar.DATE) %>"
-									disabled="<%= isPerpetual %>"
+									disabled="<%= perpetual %>"
 									monthParam="endDateMonth"
 									monthValue="<%= endCal.get(Calendar.MONTH) %>"
 									name="endDate"
@@ -214,19 +213,6 @@ if (productPurchase != null) {
 								/>
 							</td>
 							<td class="table-cell-expand">
-
-								<%
-								int sizing = 0;
-
-								if (productPurchase != null) {
-									Map<String, String> properties = productPurchase.getProperties();
-
-									if (properties != null) {
-										sizing = GetterUtil.getInteger(properties.get("sizing"));
-									}
-								}
-								%>
-
 								<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= sizing %>" />
 							</td>
 
@@ -244,7 +230,7 @@ if (productPurchase != null) {
 									<liferay-ui:input-date
 										dayParam="gracePeriodEndDateDay"
 										dayValue="<%= originalEndCal.get(Calendar.DATE) %>"
-										disabled="<%= isPerpetual %>"
+										disabled="<%= perpetual %>"
 										monthParam="gracePeriodEndDateMonth"
 										monthValue="<%= originalEndCal.get(Calendar.MONTH) %>"
 										name="gracePeriodEndDate"
@@ -284,7 +270,7 @@ if (productPurchase != null) {
 			</div>
 
 			<aui:button-row>
-				<aui:button disabled="<%= isDisabled %>" name="submit" type="submit" />
+				<aui:button disabled="<%= productPurchase == null %>" name="submit" type="submit" />
 
 				<aui:button href="<%= redirect %>" type="cancel" />
 			</aui:button-row>
@@ -293,6 +279,91 @@ if (productPurchase != null) {
 </div>
 
 <aui:script>
+	Liferay.provide(
+		window,
+		'<portlet:namespace />selectProduct',
+		function() {
+			<portlet:renderURL var="selectProductURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+				<portlet:param name="mvcRenderCommandName" value="/accounts/select_product_purchase_product" />
+				<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
+			</portlet:renderURL>
+
+			var url = Liferay.Util.PortletURL.createPortletURL(
+				'<%= selectProductURL.toString() %>',
+				{
+					productKey: document.getElementById(
+						'<portlet:namespace />productKey'
+					).value
+				}
+			);
+
+			var A = AUI();
+
+			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
+				eventName: '<portlet:namespace />selectProduct',
+				title: '<liferay-ui:message key="select-subscription" />',
+				url: url.toString()
+			});
+
+			itemSelectorDialog.on('selectedItemChange', function(event) {
+				var selectedItem = event.newVal;
+
+				if (selectedItem) {
+					<portlet:namespace />toggleContent(selectedItem);
+				}
+			});
+
+			itemSelectorDialog.open();
+		},
+		['aui-base', 'liferay-item-selector-dialog']
+	);
+
+	Liferay.provide(
+		window,
+		'<portlet:namespace />toggleContent',
+		function(selectedItem) {
+			var emptyContent = document.getElementById(
+				'<portlet:namespace />emptyContent'
+			);
+
+			if (emptyContent) {
+				emptyContent.setAttribute('hidden', true);
+			}
+
+			var subscriptionContent = document.getElementById(
+				'<portlet:namespace />subscriptionContent'
+			);
+
+			if (subscriptionContent) {
+				subscriptionContent.removeAttribute('hidden');
+			}
+
+			var productName = document.getElementById(
+				'<portlet:namespace />productName'
+			);
+
+			if (productName) {
+				productName.innerHTML = selectedItem.name;
+			}
+
+			var productKey = document.getElementById(
+				'<portlet:namespace />productKey'
+			);
+
+			if (productKey) {
+				productKey.value = selectedItem.key;
+			}
+
+			var submit = document.getElementById('<portlet:namespace />submit');
+
+			if (submit) {
+				submit.removeAttribute('disabled');
+				submit.classList.remove('disabled');
+			}
+		},
+		['aui-base']
+	);
+
 	Liferay.provide(
 		window,
 		'<portlet:namespace />toggleDate',
@@ -339,84 +410,6 @@ if (productPurchase != null) {
 		},
 		['aui-base']
 	);
-
-	Liferay.provide(
-		window,
-		'<portlet:namespace />selectProduct',
-		function() {
-			<portlet:renderURL var="selectProductURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="mvcRenderCommandName" value="/accounts/select_product_purchase_product" />
-				<portlet:param name="accountKey" value="<%= editProductPurchaseDisplayContext.getAccountKey() %>" />
-			</portlet:renderURL>
-
-			var url = Liferay.Util.PortletURL.createPortletURL(
-				'<%= selectProductURL.toString() %>',
-				{
-					productKey: document.getElementById(
-						'<portlet:namespace />productKey'
-					).value
-				}
-			);
-
-			var A = AUI();
-
-			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
-				eventName: '<portlet:namespace />selectProduct',
-				title: '<liferay-ui:message key="select-subscription" />',
-				url: url.toString()
-			});
-
-			itemSelectorDialog.on('selectedItemChange', function(event) {
-				var selectedItem = event.newVal;
-
-				if (selectedItem) {
-					toggleContent(selectedItem);
-				}
-			});
-
-			itemSelectorDialog.open();
-		},
-		['aui-base', 'liferay-item-selector-dialog']
-	);
-
-	function toggleContent(selectedItem) {
-		var emptyContent = document.getElementById(
-			'<portlet:namespace />emptyContent'
-		);
-
-		if (emptyContent) {
-			emptyContent.setAttribute('hidden', true);
-		}
-
-		var subscriptionContent = document.getElementById(
-			'<portlet:namespace />subscriptionContent'
-		);
-
-		if (subscriptionContent) {
-			subscriptionContent.removeAttribute('hidden');
-		}
-
-		var productName = document.getElementById(
-			'<portlet:namespace />productName'
-		);
-
-		if (productName) {
-			productName.innerHTML = selectedItem.name;
-		}
-
-		var productKey = document.getElementById('<portlet:namespace />productKey');
-
-		if (productKey) {
-			productKey.value = selectedItem.key;
-		}
-
-		var submit = document.getElementById('<portlet:namespace />submit');
-
-		if (submit) {
-			submit.removeAttribute('disabled');
-			submit.classList.remove('disabled');
-		}
-	}
 
 	var emptyContent = document.getElementById('<portlet:namespace />emptyContent');
 
