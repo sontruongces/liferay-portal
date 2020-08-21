@@ -140,7 +140,7 @@ class RuleList extends Component {
 						};
 					}),
 					logicalOperator,
-					rulesCardOptions: this._getRulesCardOptions()
+					rulesCardOptions: this._getRulesCardOptions(rule)
 				};
 			})
 		};
