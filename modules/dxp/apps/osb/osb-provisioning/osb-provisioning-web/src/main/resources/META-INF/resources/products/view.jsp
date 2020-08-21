@@ -24,7 +24,7 @@ ProductSearchDisplayContext productSearchDisplayContext = ProvisioningWebCompone
 ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplayContext = new ViewProductsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, productSearchDisplayContext.getSearchContainer());
 %>
 
-<div class="container-fluid container-fluid-max-xl">
+<div class="container-fluid home">
 	<portlet:actionURL name="/search" var="searchURL" />
 
 	<liferay-ui:error key="<%= RequiredProductException.class.getName() %>" message="please-remove-the-product-from-all-product-bundles-before-deleting" />
@@ -40,6 +40,7 @@ ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplay
 
 	<clay:management-toolbar
 		displayContext="<%= viewProductsManagementToolbarDisplayContext %>"
+		elementClasses="full-width"
 	/>
 
 	<liferay-ui:search-container

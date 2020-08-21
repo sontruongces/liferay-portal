@@ -26,6 +26,10 @@
 	src: url(../fonts/SourceSansPro-Bold.ttf) format('truetype');
 }
 
+#wrapper {
+	padding-top: 0;
+}
+
 table {
 	th {
 		font-size: $h5-font-size;
