@@ -22,6 +22,8 @@
 ViewSubscriptionDisplayContext viewSubscriptionDisplayContext = ProvisioningWebComponentProvider.getViewSubscriptionDisplayContext(renderRequest, renderResponse, request);
 
 String productPurchaseKey = ParamUtil.getString(request, "productPurchaseKey");
+
+ProductPurchaseViewDisplay productPurchaseViewDisplay = viewSubscriptionDisplayContext.getProductPurchaseViewDisplay();
 %>
 
 <div class="details-table table-striped">
@@ -50,7 +52,14 @@ String productPurchaseKey = ParamUtil.getString(request, "productPurchaseKey");
 				value="<%= productPurchaseDisplay.getGracePeriod() %>"
 			/>
 
+			<%
+			String licenseManagerHREF = StringUtil.replace(provisioningWebConfiguration.licenseManagerHREF(), "[$ACCOUNT_KEY$]", productPurchaseViewDisplay.getAccountKey());
+
+			licenseManagerHREF = StringUtil.replace(licenseManagerHREF, "[$PRODUCT_KEY$]", productPurchaseViewDisplay.getProductKey());
+			%>
+
 			<liferay-ui:search-container-column-text
+				href="<%= licenseManagerHREF %>"
 				name="provisioned"
 				value="<%= productPurchaseDisplay.getProvisionedCount() %>"
 			/>
