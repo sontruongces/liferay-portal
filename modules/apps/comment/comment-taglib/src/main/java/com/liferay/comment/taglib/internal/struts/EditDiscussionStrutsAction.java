@@ -200,8 +200,6 @@ public class EditDiscussionStrutsAction implements StrutsAction {
 
 		String className = ParamUtil.getString(httpServletRequest, "className");
 		long classPK = ParamUtil.getLong(httpServletRequest, "classPK");
-		long parentCommentId = ParamUtil.getLong(
-			httpServletRequest, "parentCommentId");
 		String subject = ParamUtil.getString(httpServletRequest, "subject");
 		String body = ParamUtil.getString(httpServletRequest, "body");
 
@@ -235,6 +233,9 @@ public class EditDiscussionStrutsAction implements StrutsAction {
 					return 0;
 				}
 			}
+
+			long parentCommentId = ParamUtil.getLong(
+				httpServletRequest, "parentCommentId");
 
 			String name = PrincipalThreadLocal.getName();
 
