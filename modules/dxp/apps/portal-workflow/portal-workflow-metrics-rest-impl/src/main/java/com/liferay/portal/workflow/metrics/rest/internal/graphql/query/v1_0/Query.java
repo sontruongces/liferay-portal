@@ -21,6 +21,8 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.aggregation.Aggregation;
+import com.liferay.portal.vulcan.aggregation.Facet;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
@@ -46,6 +48,7 @@ import com.liferay.portal.workflow.metrics.rest.resource.v1_0.TaskResource;
 import com.liferay.portal.workflow.metrics.rest.resource.v1_0.TimeRangeResource;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -409,6 +412,7 @@ public class Query {
 
 		public AssigneeUserPage(Page assigneeUserPage) {
 			actions = assigneeUserPage.getActions();
+			facets = assigneeUserPage.getFacets();
 			items = assigneeUserPage.getItems();
 			lastPage = assigneeUserPage.getLastPage();
 			page = assigneeUserPage.getPage();
@@ -418,6 +422,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<AssigneeUser> items;
@@ -441,6 +448,7 @@ public class Query {
 
 		public CalendarPage(Page calendarPage) {
 			actions = calendarPage.getActions();
+			facets = calendarPage.getFacets();
 			items = calendarPage.getItems();
 			lastPage = calendarPage.getLastPage();
 			page = calendarPage.getPage();
@@ -450,6 +458,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Calendar> items;
@@ -473,6 +484,7 @@ public class Query {
 
 		public InstancePage(Page instancePage) {
 			actions = instancePage.getActions();
+			facets = instancePage.getFacets();
 			items = instancePage.getItems();
 			lastPage = instancePage.getLastPage();
 			page = instancePage.getPage();
@@ -482,6 +494,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Instance> items;
@@ -505,6 +520,7 @@ public class Query {
 
 		public MetricPage(Page metricPage) {
 			actions = metricPage.getActions();
+			facets = metricPage.getFacets();
 			items = metricPage.getItems();
 			lastPage = metricPage.getLastPage();
 			page = metricPage.getPage();
@@ -514,6 +530,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Metric> items;
@@ -537,6 +556,7 @@ public class Query {
 
 		public NodePage(Page nodePage) {
 			actions = nodePage.getActions();
+			facets = nodePage.getFacets();
 			items = nodePage.getItems();
 			lastPage = nodePage.getLastPage();
 			page = nodePage.getPage();
@@ -546,6 +566,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Node> items;
@@ -569,6 +592,7 @@ public class Query {
 
 		public ProcessPage(Page processPage) {
 			actions = processPage.getActions();
+			facets = processPage.getFacets();
 			items = processPage.getItems();
 			lastPage = processPage.getLastPage();
 			page = processPage.getPage();
@@ -578,6 +602,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Process> items;
@@ -601,6 +628,7 @@ public class Query {
 
 		public SLAPage(Page slaPage) {
 			actions = slaPage.getActions();
+			facets = slaPage.getFacets();
 			items = slaPage.getItems();
 			lastPage = slaPage.getLastPage();
 			page = slaPage.getPage();
@@ -610,6 +638,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<SLA> items;
@@ -633,6 +664,7 @@ public class Query {
 
 		public TaskPage(Page taskPage) {
 			actions = taskPage.getActions();
+			facets = taskPage.getFacets();
 			items = taskPage.getItems();
 			lastPage = taskPage.getLastPage();
 			page = taskPage.getPage();
@@ -642,6 +674,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Task> items;
@@ -665,6 +700,7 @@ public class Query {
 
 		public TimeRangePage(Page timeRangePage) {
 			actions = timeRangePage.getActions();
+			facets = timeRangePage.getFacets();
 			items = timeRangePage.getItems();
 			lastPage = timeRangePage.getLastPage();
 			page = timeRangePage.getPage();
@@ -674,6 +710,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<TimeRange> items;
@@ -850,6 +889,8 @@ public class Query {
 		_timeRangeResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
+	private BiFunction<Object, List<String>, Aggregation>
+		_aggregationBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
 	private BiFunction<Object, String, Filter> _filterBiFunction;
 	private GroupLocalService _groupLocalService;

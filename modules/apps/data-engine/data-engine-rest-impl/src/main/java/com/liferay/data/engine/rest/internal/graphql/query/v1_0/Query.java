@@ -32,12 +32,15 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
+import com.liferay.portal.vulcan.aggregation.Aggregation;
+import com.liferay.portal.vulcan.aggregation.Facet;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -685,6 +688,7 @@ public class Query {
 
 		public DataDefinitionPage(Page dataDefinitionPage) {
 			actions = dataDefinitionPage.getActions();
+			facets = dataDefinitionPage.getFacets();
 			items = dataDefinitionPage.getItems();
 			lastPage = dataDefinitionPage.getLastPage();
 			page = dataDefinitionPage.getPage();
@@ -694,6 +698,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<DataDefinition> items;
@@ -717,6 +724,7 @@ public class Query {
 
 		public DataLayoutPage(Page dataLayoutPage) {
 			actions = dataLayoutPage.getActions();
+			facets = dataLayoutPage.getFacets();
 			items = dataLayoutPage.getItems();
 			lastPage = dataLayoutPage.getLastPage();
 			page = dataLayoutPage.getPage();
@@ -726,6 +734,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<DataLayout> items;
@@ -749,6 +760,7 @@ public class Query {
 
 		public DataListViewPage(Page dataListViewPage) {
 			actions = dataListViewPage.getActions();
+			facets = dataListViewPage.getFacets();
 			items = dataListViewPage.getItems();
 			lastPage = dataListViewPage.getLastPage();
 			page = dataListViewPage.getPage();
@@ -758,6 +770,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<DataListView> items;
@@ -781,6 +796,7 @@ public class Query {
 
 		public DataRecordPage(Page dataRecordPage) {
 			actions = dataRecordPage.getActions();
+			facets = dataRecordPage.getFacets();
 			items = dataRecordPage.getItems();
 			lastPage = dataRecordPage.getLastPage();
 			page = dataRecordPage.getPage();
@@ -790,6 +806,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<DataRecord> items;
@@ -813,6 +832,7 @@ public class Query {
 
 		public DataRecordCollectionPage(Page dataRecordCollectionPage) {
 			actions = dataRecordCollectionPage.getActions();
+			facets = dataRecordCollectionPage.getFacets();
 			items = dataRecordCollectionPage.getItems();
 			lastPage = dataRecordCollectionPage.getLastPage();
 			page = dataRecordCollectionPage.getPage();
@@ -822,6 +842,9 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<DataRecordCollection> items;
@@ -944,6 +967,8 @@ public class Query {
 		_dataRecordCollectionResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
+	private BiFunction<Object, List<String>, Aggregation>
+		_aggregationBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
 	private BiFunction<Object, String, Filter> _filterBiFunction;
 	private GroupLocalService _groupLocalService;
