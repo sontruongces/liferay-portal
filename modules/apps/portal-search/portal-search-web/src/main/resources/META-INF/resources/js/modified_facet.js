@@ -141,9 +141,6 @@ AUI.add(
 				var param = ModifiedFacetFilterUtil.getParameterName();
 				var paramFrom = param + 'From';
 				var paramTo = param + 'To';
-				var startParameterName = document.getElementById(
-					this.namespace + 'start-parameter-name'
-				).value;
 
 				var parameterArray = document.location.search
 					.substr(1)
@@ -164,10 +161,16 @@ AUI.add(
 					parameterArray
 				);
 
-				parameterArray = FacetUtil.removeURLParameters(
-					startParameterName,
-					parameterArray
+				var startParameterNameElement = document.getElementById(
+					instance.namespace + 'start-parameter-name'
 				);
+
+				if (startParameterNameElement) {
+					parameterArray = FacetUtil.removeURLParameters(
+						startParameterNameElement.value,
+						parameterArray
+					);
+				}
 
 				parameterArray = FacetUtil.addURLParameter(
 					paramFrom,
