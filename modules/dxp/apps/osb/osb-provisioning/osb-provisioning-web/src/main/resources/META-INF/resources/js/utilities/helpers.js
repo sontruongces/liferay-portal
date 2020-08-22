@@ -22,15 +22,14 @@ import {NAMESPACE} from '../utilities/constants';
  * @returns {Promise} A Promise of the object that results from the Request
  */
 export function request(endpoint, params, encoding = 'json', method = 'get') {
-	let namespacedParams = {};
+	const namespacedParams = {};
 
 	if (encoding === 'json') {
-		namespacedParams = Object.fromEntries(
-			Object.entries(params).map(([key, value]) => [
-				`${NAMESPACE}${key}`,
-				value
-			])
-		);
+		Object.entries(params)
+			.map(([key, value]) => [`${NAMESPACE}${key}`, value])
+			.forEach(([key, value]) => {
+				namespacedParams[key] = value;
+			});
 	}
 
 	let namespacedData = null;
