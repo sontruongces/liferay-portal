@@ -54,9 +54,14 @@ const _handleFieldEdited = function(properties) {
 				.then(evaluatedPages => {
 					if (REVALIDATE_UPDATES.length > 0) {
 						REVALIDATE_UPDATES.forEach(item => {
+							const {evaluatorContext, properties} = item;
+
 							evaluatedPages = handleFieldEdited(
-								item.evaluatorContext,
-								item.properties
+								{
+									...evaluatorContext,
+									pages: evaluatedPages
+								},
+								properties
 							);
 						});
 
