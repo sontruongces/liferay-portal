@@ -48,7 +48,7 @@ function InlineEdit({
 	}
 
 	function handleClick() {
-		save();
+		save(value);
 		setFieldEditable(false);
 		setShowEditor(false);
 	}
@@ -61,11 +61,6 @@ function InlineEdit({
 		setFieldEditable(false);
 		setShowEditor(false);
 		setValue(fieldValue);
-	}
-
-	function handleSave() {
-		save(value);
-		setFieldEditable(false);
 	}
 
 	function getDisplayValue() {
@@ -122,7 +117,7 @@ function InlineEdit({
 
 							<button
 								className="btn btn-icon btn-sm"
-								onClick={handleSave}
+								onClick={handleClick}
 								role="button"
 								title={Liferay.Language.get('delete')}
 								type="button"
@@ -224,7 +219,7 @@ function InlineEdit({
 							disabled={
 								fieldValue !== '-' && value === fieldValue
 							}
-							onClick={handleSave}
+							onClick={handleClick}
 							role="button"
 							type="button"
 						>

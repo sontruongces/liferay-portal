@@ -44,14 +44,11 @@ function DetailField({
 	useEffect(() => {
 		if (formRef.current && data[fieldName] !== formData[fieldName]) {
 			if (
+				(type === FIELD_TYPE_SELECT && data[fieldName] !== '') ||
 				type === FIELD_TYPE_TEXT ||
 				type === FIELD_TYPE_TEXTAREA ||
 				type === FIELD_TYPE_TOGGLE
 			) {
-				formRef.current.submit();
-			}
-
-			if (type === FIELD_TYPE_SELECT && data[fieldName] !== '') {
 				formRef.current.submit();
 			}
 		}
@@ -78,9 +75,10 @@ function DetailField({
 					{type === FIELD_TYPE_EXTERNAL && (
 						<>
 							<HiddenForm
-								fields={formData}
+								fields={data}
 								formAction={formAction}
 								formName={externalData.formName}
+								ref={formRef}
 							/>
 
 							<InlineEdit
