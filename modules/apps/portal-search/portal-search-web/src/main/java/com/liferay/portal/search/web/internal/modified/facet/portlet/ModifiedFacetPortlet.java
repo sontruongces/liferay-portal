@@ -119,13 +119,13 @@ public class ModifiedFacetPortlet extends MVCPortlet {
 			portal.getCurrentURL(renderRequest));
 		modifiedFacetDisplayBuilder.setFacet(
 			portletSharedSearchResponse.getFacet(getFieldName()));
-		modifiedFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
 
 		ThemeDisplay themeDisplay = getThemeDisplay(renderRequest);
 
 		modifiedFacetDisplayBuilder.setLocale(themeDisplay.getLocale());
-		modifiedFacetDisplayBuilder.setTimeZone(themeDisplay.getTimeZone());
+
+		modifiedFacetDisplayBuilder.setPaginationStartParameterName(
+			getPaginationStartParameterName(portletSharedSearchResponse));
 
 		String parameterName =
 			modifiedFacetPortletPreferences.getParameterName();
@@ -150,6 +150,7 @@ public class ModifiedFacetPortlet extends MVCPortlet {
 		SearchResponse searchResponse =
 			portletSharedSearchResponse.getSearchResponse();
 
+		modifiedFacetDisplayBuilder.setTimeZone(themeDisplay.getTimeZone());
 		modifiedFacetDisplayBuilder.setTotalHits(searchResponse.getTotalHits());
 
 		return modifiedFacetDisplayBuilder.build();
