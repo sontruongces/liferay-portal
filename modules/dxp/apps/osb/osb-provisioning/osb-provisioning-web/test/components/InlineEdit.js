@@ -144,15 +144,16 @@ describe('InlineEdit', () => {
 		expect(mockSubmitFn).toHaveBeenCalled();
 	});
 
-	it('displays an external field type as a disabled input and a Select button', () => {
+	it('displays an external field type as a disabled input, a Select button, and a Delete icon', () => {
 		const {container} = renderInlineEdit({type: FIELD_TYPE_EXTERNAL});
-		const {getByText} = within(container);
+		const {getByLabelText, getByText} = within(container);
 
 		fireEvent.click(getByText('test'));
 
 		expect(container.querySelector('input').disabled).toBeTruthy();
 		getByText('select');
 		expect(getByText('select').type).toBe('button');
+		getByLabelText('delete-field-icon');
 	});
 
 	it('displays an editable select input correctly', () => {

@@ -114,9 +114,28 @@ function InlineEdit({
 								className="btn btn-secondary btn-sm"
 								onClick={handleClick}
 								role="button"
+								title={Liferay.Language.get('select')}
 								type="button"
 							>
 								{Liferay.Language.get('select')}
+							</button>
+
+							<button
+								className="btn btn-icon btn-sm"
+								onClick={handleSave}
+								role="button"
+								title={Liferay.Language.get('delete')}
+								type="button"
+							>
+								<svg
+									aria-label={Liferay.Language.get(
+										'delete-field-icon'
+									)}
+									className="delete-icon"
+									role="img"
+								>
+									<use xlinkHref="#trash" />
+								</svg>
 							</button>
 						</div>
 					)}

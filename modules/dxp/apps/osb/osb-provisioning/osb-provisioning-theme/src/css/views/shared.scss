@@ -185,6 +185,11 @@
 		display: block;
 	}
 
+	.delete-icon {
+		height: auto;
+		width: $spacing-sm;
+	}
+
 	.editable-field {
 		border: 1px solid $primary-l2;
 		border-radius: $border-radius;
