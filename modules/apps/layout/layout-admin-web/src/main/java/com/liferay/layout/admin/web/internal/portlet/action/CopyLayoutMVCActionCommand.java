@@ -161,7 +161,7 @@ public class CopyLayoutMVCActionCommand extends BaseMVCActionCommand {
 			hideDefaultErrorMessage(actionRequest);
 
 			_layoutExceptionRequestHandler.handlePortalException(
-				actionRequest, actionResponse, pe);
+				actionRequest, actionResponse, portalException);
 		}
 	}
 
