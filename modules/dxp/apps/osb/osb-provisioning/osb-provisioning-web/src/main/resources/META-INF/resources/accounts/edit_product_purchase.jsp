@@ -16,6 +16,8 @@
 
 <%@ include file="/init.jsp" %>
 
+<liferay-util:include page="/common/view_account_search_header.jsp" servletContext="<%= application %>" />
+
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
@@ -40,7 +42,7 @@ if (productPurchase != null) {
 }
 %>
 
-<div class="account-add-items nav provisioning-accounts">
+<div class="account-add-items provisioning-accounts">
 	<liferay-ui:header
 		backURL="<%= redirect %>"
 		cssClass="add-items-header"
