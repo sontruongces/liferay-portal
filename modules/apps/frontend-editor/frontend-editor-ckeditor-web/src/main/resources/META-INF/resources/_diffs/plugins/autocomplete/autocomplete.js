@@ -375,7 +375,7 @@
 
 			newElement.replace(replaceContainer);
 
-			var nextElement = newElement.getNext(function () {
+			var nextElement = newElement.getNext(function() {
 				return (
 					this.type !== CKEDITOR.NODE_TEXT || this.getText().trim()
 				);
