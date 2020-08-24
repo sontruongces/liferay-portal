@@ -306,7 +306,8 @@ public class ProductPurchaseViewIndexer
 
 			if ((productPurchase.getStatus() ==
 					WorkflowConstants.STATUS_APPROVED) &&
-				((endDate == null) || curEndDate.after(endDate))) {
+				((endDate == null) ||
+				 ((curEndDate != null) && curEndDate.after(endDate)))) {
 
 				endDate = curEndDate;
 			}
@@ -426,7 +427,8 @@ public class ProductPurchaseViewIndexer
 
 			if ((productPurchase.getStatus() ==
 					WorkflowConstants.STATUS_APPROVED) &&
-				((startDate == null) || curStartDate.before(startDate))) {
+				((startDate == null) ||
+				 ((curStartDate != null) && curStartDate.before(startDate)))) {
 
 				startDate = curStartDate;
 			}
