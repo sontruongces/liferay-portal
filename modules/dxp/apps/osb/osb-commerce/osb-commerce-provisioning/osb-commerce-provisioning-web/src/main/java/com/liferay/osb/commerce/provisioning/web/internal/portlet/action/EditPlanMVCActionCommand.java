@@ -46,12 +46,12 @@ public class EditPlanMVCActionCommand extends BaseMVCActionCommand {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		long commerceSubscriptionEntryId = ParamUtil.getLong(
-			actionRequest, "commerceSubscriptionEntryId");
-
 		String cmd = GetterUtil.getString(actionRequest);
 
 		if (cmd.equals(Constants.DELETE)) {
+			long commerceSubscriptionEntryId = ParamUtil.getLong(
+				actionRequest, "commerceSubscriptionEntryId");
+
 			_cancelPlanSubscription(actionRequest, commerceSubscriptionEntryId);
 		}
 	}
