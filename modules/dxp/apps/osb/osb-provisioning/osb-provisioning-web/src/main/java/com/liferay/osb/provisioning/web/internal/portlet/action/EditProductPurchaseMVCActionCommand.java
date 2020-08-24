@@ -29,12 +29,14 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -123,24 +125,33 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 				startDateMonth, startDateDay, startDateYear,
 				themeDisplay.getTimeZone(), null);
 
-			int endDateMonth = ParamUtil.getInteger(
+			int originalEndMonth = ParamUtil.getInteger(
 				actionRequest, "endDateMonth");
-			int endDateDay = ParamUtil.getInteger(actionRequest, "endDateDay");
-			int endDateYear = ParamUtil.getInteger(
+			int originalEndDay = ParamUtil.getInteger(
+				actionRequest, "endDateDay");
+			int originalEndYear = ParamUtil.getInteger(
 				actionRequest, "endDateYear");
 
-			Date endDate = _portal.getDate(
-				endDateMonth, endDateDay, endDateYear,
+			Date originalEndDate = _portal.getDate(
+				originalEndMonth, originalEndDay, originalEndYear,
 				themeDisplay.getTimeZone(), null);
 
-			int gracePeriodEndDateMonth = ParamUtil.getInteger(
-				actionRequest, "gracePeriodEndDateMonth", endDateMonth);
-			int gracePeriodEndDateDay = ParamUtil.getInteger(
-				actionRequest, "gracePeriodEndDateDay", endDateDay);
-			int gracePeriodEndDateYear = ParamUtil.getInteger(
-				actionRequest, "gracePeriodEndDateYear", endDateYear);
+			Calendar calendar = CalendarFactoryUtil.getCalendar();
 
-			Date originalEndDate = _portal.getDate(
+			calendar.setTime(originalEndDate);
+			calendar.add(Calendar.DATE, 30);
+
+			int gracePeriodEndDateMonth = ParamUtil.getInteger(
+				actionRequest, "gracePeriodEndDateMonth",
+				calendar.get(Calendar.MONTH));
+			int gracePeriodEndDateDay = ParamUtil.getInteger(
+				actionRequest, "gracePeriodEndDateDay",
+				calendar.get(Calendar.DATE));
+			int gracePeriodEndDateYear = ParamUtil.getInteger(
+				actionRequest, "gracePeriodEndDateYear",
+				calendar.get(Calendar.YEAR));
+
+			Date endDate = _portal.getDate(
 				gracePeriodEndDateMonth, gracePeriodEndDateDay,
 				gracePeriodEndDateYear, themeDisplay.getTimeZone(), null);
 
@@ -175,7 +186,7 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 
 		productPurchase.setProperties(properties);
 
-		if (Validator.isNotNull(productPurchaseKey) &&
+		if (Validator.isNull(productPurchaseKey) &&
 			Validator.isNotNull(salesforceOpportunityKey)) {
 
 			ExternalLink externalLink = new ExternalLink();

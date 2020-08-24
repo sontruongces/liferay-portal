@@ -76,24 +76,15 @@ public class ProductPurchaseDisplay {
 	}
 
 	public String getGracePeriod() {
-		if ((_productPurchase.getStartDate() == null) ||
-			(_productPurchase.getOriginalEndDate() == null)) {
-
-			return LanguageUtil.get(_httpServletRequest, "perpetual");
+		if (_productPurchase.getPerpetual()) {
+			return StringPool.DASH;
 		}
 
 		StringBundler sb = new StringBundler(3);
 
-		sb.append(_dateFormat.format(_productPurchase.getStartDate()));
+		sb.append(_dateFormat.format(_productPurchase.getOriginalEndDate()));
 		sb.append(" - ");
-
-		if (_productPurchase.getEndDate() != null) {
-			sb.append(
-				_dateFormat.format(_productPurchase.getOriginalEndDate()));
-		}
-		else {
-			sb.append(LanguageUtil.get(_httpServletRequest, "perpetual"));
-		}
+		sb.append(_dateFormat.format(_productPurchase.getEndDate()));
 
 		return sb.toString();
 	}

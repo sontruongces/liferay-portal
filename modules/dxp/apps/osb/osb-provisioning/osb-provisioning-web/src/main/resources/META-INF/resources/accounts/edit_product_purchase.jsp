@@ -195,8 +195,8 @@ if (productPurchase != null) {
 							<%
 							Calendar endCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
-							if ((productPurchase != null) && (productPurchase.getEndDate() != null)) {
-								endCal.setTime(productPurchase.getEndDate());
+							if ((productPurchase != null) && (productPurchase.getOriginalEndDate() != null)) {
+								endCal.setTime(productPurchase.getOriginalEndDate());
 							}
 							%>
 
@@ -219,23 +219,23 @@ if (productPurchase != null) {
 							<c:if test="<%= productPurchase != null %>">
 
 								<%
-								Calendar originalEndCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
+								Calendar gracePeriodEndCal = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
-								if (productPurchase.getOriginalEndDate() != null) {
-									originalEndCal.setTime(productPurchase.getOriginalEndDate());
+								if (productPurchase.getEndDate() != null) {
+									gracePeriodEndCal.setTime(productPurchase.getEndDate());
 								}
 								%>
 
 								<td class="table-cell-expand">
 									<liferay-ui:input-date
 										dayParam="gracePeriodEndDateDay"
-										dayValue="<%= originalEndCal.get(Calendar.DATE) %>"
+										dayValue="<%= gracePeriodEndCal.get(Calendar.DATE) %>"
 										disabled="<%= perpetual %>"
 										monthParam="gracePeriodEndDateMonth"
-										monthValue="<%= originalEndCal.get(Calendar.MONTH) %>"
+										monthValue="<%= gracePeriodEndCal.get(Calendar.MONTH) %>"
 										name="gracePeriodEndDate"
 										yearParam="gracePeriodEndDateYear"
-										yearValue="<%= originalEndCal.get(Calendar.YEAR) %>"
+										yearValue="<%= gracePeriodEndCal.get(Calendar.YEAR) %>"
 									/>
 								</td>
 								<td class="table-cell-expand">
