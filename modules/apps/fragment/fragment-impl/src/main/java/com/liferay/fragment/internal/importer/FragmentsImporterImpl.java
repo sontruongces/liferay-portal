@@ -81,8 +81,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 	@Override
 	public List<String> importFile(
-			long userId, long groupId, long fragmentCollectionId, File file,
-			boolean overwrite)
+		long userId, long groupId, long fragmentCollectionId, File file,
+		boolean overwrite)
 		throws Exception {
 
 		_invalidFragmentEntriesNames = new ArrayList<>();
@@ -98,7 +98,7 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 				zipFile, groupId, orphanFragmentEntries);
 
 		for (Map.Entry<String, FragmentCollectionFolder> entry :
-				fragmentCollectionFolderMap.entrySet()) {
+			fragmentCollectionFolderMap.entrySet()) {
 
 			FragmentCollectionFolder fragmentCollectionFolder =
 				entry.getValue();
@@ -165,8 +165,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private FragmentCollection _addFragmentCollection(
-			long groupId, String fragmentCollectionKey, String name,
-			String description, boolean overwrite)
+		long groupId, String fragmentCollectionKey, String name,
+		String description, boolean overwrite)
 		throws Exception {
 
 		FragmentCollection fragmentCollection =
@@ -194,9 +194,9 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private FragmentEntry _addFragmentEntry(
-			long fragmentCollectionId, String fragmentEntryKey, String name,
-			String css, String html, String js, String configuration,
-			String typeLabel, boolean overwrite)
+		long fragmentCollectionId, String fragmentEntryKey, String name,
+		String css, String html, String js, String configuration,
+		String typeLabel, boolean overwrite)
 		throws Exception {
 
 		FragmentCollection fragmentCollection =
@@ -240,7 +240,7 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 		}
 
 		return _fragmentEntryService.updateFragmentEntry(
-			fragmentEntry.getFragmentEntryId(), name, css, html, js,
+			fragmentEntry.getFragmentEntryId(), fragmentCollectionId, name, css, html, js,
 			configuration, fragmentEntry.getPreviewFileEntryId(), status);
 	}
 
@@ -267,9 +267,9 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private Map<String, FragmentCollectionFolder>
-			_getFragmentCollectionFolderMap(
-				ZipFile zipFile, long groupId,
-				Map<String, String> orphanFragmentEntries)
+	_getFragmentCollectionFolderMap(
+		ZipFile zipFile, long groupId,
+		Map<String, String> orphanFragmentEntries)
 		throws Exception {
 
 		Map<String, FragmentCollectionFolder> fragmentCollectionFolderMap =
@@ -321,8 +321,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 				String fragmentCollectionFileName =
 					fragmentCollectionPath +
-						FragmentExportImportConstants.
-							FILE_NAME_COLLECTION_CONFIG;
+					FragmentExportImportConstants.
+						FILE_NAME_COLLECTION_CONFIG;
 
 				ZipEntry fragmentCollectionZipEntry = zipFile.getEntry(
 					fragmentCollectionFileName);
@@ -367,7 +367,7 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private String _getFragmentEntryContent(
-			ZipFile zipFile, String fileName, String contentPath)
+		ZipFile zipFile, String fileName, String contentPath)
 		throws Exception {
 
 		InputStream inputStream = _getFragmentEntryInputStream(
@@ -381,7 +381,7 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private InputStream _getFragmentEntryInputStream(
-			ZipFile zipFile, String fileName, String contentPath)
+		ZipFile zipFile, String fileName, String contentPath)
 		throws Exception {
 
 		if (contentPath.startsWith(StringPool.SLASH)) {
@@ -422,8 +422,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 			key = path.substring(path.lastIndexOf(CharPool.SLASH) + 1);
 		}
 		else if (fileName.equals(
-					FragmentExportImportConstants.
-						FILE_NAME_COLLECTION_CONFIG)) {
+			FragmentExportImportConstants.
+				FILE_NAME_COLLECTION_CONFIG)) {
 
 			JSONObject collectionJSONObject = JSONFactoryUtil.createJSONObject(
 				StringUtil.read(
@@ -433,7 +433,7 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 				groupId, collectionJSONObject.getString("name"));
 		}
 		else if (fileName.equals(
-					FragmentExportImportConstants.FILE_NAME_FRAGMENT_CONFIG)) {
+			FragmentExportImportConstants.FILE_NAME_FRAGMENT_CONFIG)) {
 
 			JSONObject fragmentJSONObject = JSONFactoryUtil.createJSONObject(
 				StringUtil.read(
@@ -451,8 +451,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private long _getPreviewFileEntryId(
-			long userId, long groupId, ZipFile zipFile, long fragmentEntryId,
-			String fileName, String contentPath)
+		long userId, long groupId, ZipFile zipFile, long fragmentEntryId,
+		String fileName, String contentPath)
 		throws Exception {
 
 		InputStream inputStream = _getFragmentEntryInputStream(
@@ -487,9 +487,9 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private void _importFragmentEntries(
-			long userId, long groupId, ZipFile zipFile,
-			long fragmentCollectionId, Map<String, String> fragmentEntries,
-			boolean overwrite)
+		long userId, long groupId, ZipFile zipFile,
+		long fragmentCollectionId, Map<String, String> fragmentEntries,
+		boolean overwrite)
 		throws Exception {
 
 		for (Map.Entry<String, String> entry : fragmentEntries.entrySet()) {
@@ -549,8 +549,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private void _importResources(
-			long userId, long groupId, long fragmentCollectionId, long folderId,
-			ZipFile zipFile)
+		long userId, long groupId, long fragmentCollectionId, long folderId,
+		ZipFile zipFile)
 		throws Exception {
 
 		Enumeration<? extends ZipEntry> enumeration = zipFile.entries();
@@ -578,8 +578,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 					0, name.lastIndexOf(StringPool.SLASH) + 1);
 
 				if (name.endsWith(
-						FragmentExportImportConstants.
-							FILE_NAME_COLLECTION_CONFIG)) {
+					FragmentExportImportConstants.
+						FILE_NAME_COLLECTION_CONFIG)) {
 
 					return Arrays.stream(new String[] {name});
 				}
@@ -647,8 +647,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 	private boolean _isFragmentCollection(String fileName) {
 		if (Objects.equals(
-				_getFileName(fileName),
-				FragmentExportImportConstants.FILE_NAME_COLLECTION_CONFIG)) {
+			_getFileName(fileName),
+			FragmentExportImportConstants.FILE_NAME_COLLECTION_CONFIG)) {
 
 			return true;
 		}
@@ -658,8 +658,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 	private boolean _isFragmentEntry(String fileName) {
 		if (Objects.equals(
-				_getFileName(fileName),
-				FragmentExportImportConstants.FILE_NAME_FRAGMENT_CONFIG)) {
+			_getFileName(fileName),
+			FragmentExportImportConstants.FILE_NAME_FRAGMENT_CONFIG)) {
 
 			return true;
 		}
