@@ -27,7 +27,7 @@ function renderInlineEdit(props) {
 		<InlineEdit
 			fieldName="field1"
 			fieldValue="test"
-			save={mockSubmitFn}
+			saveFn={mockSubmitFn}
 			{...props}
 		/>
 	);

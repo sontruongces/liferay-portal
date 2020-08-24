@@ -54,6 +54,12 @@ function DetailField({
 		}
 	}, [data, fieldName, formData, type]);
 
+	function handleDeleteExternal() {
+		if (formRef.current) {
+			formRef.current.submit();
+		}
+	}
+
 	function handleOpenExternal() {
 		itemSelectorDialogWrapper(externalData);
 	}
@@ -82,13 +88,14 @@ function DetailField({
 							/>
 
 							<InlineEdit
+								deleteFn={handleDeleteExternal}
 								displayAs={displayAs}
 								displayValue={displayValue}
 								fieldName={fieldName}
 								fieldValue={value}
 								inputStyle={inputStyle}
 								options={options}
-								save={handleOpenExternal}
+								saveFn={handleOpenExternal}
 								type={type}
 							/>
 						</>
@@ -110,7 +117,7 @@ function DetailField({
 									fieldValue={value}
 									inputStyle={inputStyle}
 									options={options}
-									save={handleSubmit}
+									saveFn={handleSubmit}
 									type={type}
 								/>
 							</>

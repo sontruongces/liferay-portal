@@ -60,7 +60,7 @@ function LiveUpdateableField({
 						fieldValue={value}
 						inputStyle={inputStyle}
 						options={options}
-						save={handleSave}
+						saveFn={handleSave}
 						type={type}
 					/>
 				</div>

@@ -24,13 +24,14 @@ import {convertDashToEmptyString} from '../utilities/helpers';
 import EditableField from './EditableField';
 
 function InlineEdit({
+	deleteFn,
 	displayAs = 'text',
 	displayValue,
 	fieldName,
 	fieldValue,
 	inputStyle = '',
 	options = [{label: '', value: ''}],
-	save,
+	saveFn,
 	type = FIELD_TYPE_TEXT
 }) {
 	const [fieldEditable, setFieldEditable] = useState(false);
@@ -48,9 +49,14 @@ function InlineEdit({
 	}
 
 	function handleClick() {
-		save(value);
+		saveFn(value);
+
 		setFieldEditable(false);
 		setShowEditor(false);
+	}
+
+	function handleDelete() {
+		deleteFn();
 	}
 
 	function handleToggle() {
@@ -117,7 +123,7 @@ function InlineEdit({
 
 							<button
 								className="btn btn-icon btn-sm"
-								onClick={handleClick}
+								onClick={handleDelete}
 								role="button"
 								title={Liferay.Language.get('delete')}
 								type="button"
@@ -246,6 +252,7 @@ function Label({inputStyle, value}) {
 }
 
 InlineEdit.propTypes = {
+	deleteFn: PropTypes.func,
 	displayAs: PropTypes.oneOf(['label', 'text']),
 	displayValue: PropTypes.string,
 	fieldName: PropTypes.string,
@@ -257,7 +264,7 @@ InlineEdit.propTypes = {
 			value: PropTypes.string
 		})
 	),
-	save: PropTypes.func.isRequired,
+	saveFn: PropTypes.func.isRequired,
 	type: PropTypes.oneOf([
 		FIELD_TYPE_EXTERNAL,
 		FIELD_TYPE_SELECT,
