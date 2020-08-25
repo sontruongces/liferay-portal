@@ -123,7 +123,7 @@ public class PlanManagementDisplayContext {
 
 		PortletURL portletURL = _renderResponse.createActionURL();
 
-		portletURL.setParameter(ActionRequest.ACTION_NAME, "editPlan");
+		portletURL.setParameter(ActionRequest.ACTION_NAME, "updatePlan");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
 		portletURL.setParameter(
 			"commerceSubscriptionEntryId",
