@@ -43,15 +43,12 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.aggregation.Aggregation;
-import com.liferay.portal.vulcan.aggregation.Facet;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -1111,7 +1108,7 @@ public class Query {
 
 		public EmailAddressPage(Page emailAddressPage) {
 			actions = emailAddressPage.getActions();
-			facets = emailAddressPage.getFacets();
+
 			items = emailAddressPage.getItems();
 			lastPage = emailAddressPage.getLastPage();
 			page = emailAddressPage.getPage();
@@ -1121,9 +1118,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<EmailAddress> items;
@@ -1147,7 +1141,7 @@ public class Query {
 
 		public OrganizationPage(Page organizationPage) {
 			actions = organizationPage.getActions();
-			facets = organizationPage.getFacets();
+
 			items = organizationPage.getItems();
 			lastPage = organizationPage.getLastPage();
 			page = organizationPage.getPage();
@@ -1157,9 +1151,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Organization> items;
@@ -1183,7 +1174,7 @@ public class Query {
 
 		public PhonePage(Page phonePage) {
 			actions = phonePage.getActions();
-			facets = phonePage.getFacets();
+
 			items = phonePage.getItems();
 			lastPage = phonePage.getLastPage();
 			page = phonePage.getPage();
@@ -1193,9 +1184,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Phone> items;
@@ -1219,7 +1207,7 @@ public class Query {
 
 		public PostalAddressPage(Page postalAddressPage) {
 			actions = postalAddressPage.getActions();
-			facets = postalAddressPage.getFacets();
+
 			items = postalAddressPage.getItems();
 			lastPage = postalAddressPage.getLastPage();
 			page = postalAddressPage.getPage();
@@ -1229,9 +1217,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<PostalAddress> items;
@@ -1255,7 +1240,7 @@ public class Query {
 
 		public RolePage(Page rolePage) {
 			actions = rolePage.getActions();
-			facets = rolePage.getFacets();
+
 			items = rolePage.getItems();
 			lastPage = rolePage.getLastPage();
 			page = rolePage.getPage();
@@ -1265,9 +1250,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Role> items;
@@ -1291,7 +1273,7 @@ public class Query {
 
 		public SegmentPage(Page segmentPage) {
 			actions = segmentPage.getActions();
-			facets = segmentPage.getFacets();
+
 			items = segmentPage.getItems();
 			lastPage = segmentPage.getLastPage();
 			page = segmentPage.getPage();
@@ -1301,9 +1283,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Segment> items;
@@ -1327,7 +1306,7 @@ public class Query {
 
 		public SegmentUserPage(Page segmentUserPage) {
 			actions = segmentUserPage.getActions();
-			facets = segmentUserPage.getFacets();
+
 			items = segmentUserPage.getItems();
 			lastPage = segmentUserPage.getLastPage();
 			page = segmentUserPage.getPage();
@@ -1337,9 +1316,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<SegmentUser> items;
@@ -1363,7 +1339,7 @@ public class Query {
 
 		public SitePage(Page sitePage) {
 			actions = sitePage.getActions();
-			facets = sitePage.getFacets();
+
 			items = sitePage.getItems();
 			lastPage = sitePage.getLastPage();
 			page = sitePage.getPage();
@@ -1373,9 +1349,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Site> items;
@@ -1399,7 +1372,7 @@ public class Query {
 
 		public SubscriptionPage(Page subscriptionPage) {
 			actions = subscriptionPage.getActions();
-			facets = subscriptionPage.getFacets();
+
 			items = subscriptionPage.getItems();
 			lastPage = subscriptionPage.getLastPage();
 			page = subscriptionPage.getPage();
@@ -1409,9 +1382,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Subscription> items;
@@ -1435,7 +1405,7 @@ public class Query {
 
 		public UserAccountPage(Page userAccountPage) {
 			actions = userAccountPage.getActions();
-			facets = userAccountPage.getFacets();
+
 			items = userAccountPage.getItems();
 			lastPage = userAccountPage.getLastPage();
 			page = userAccountPage.getPage();
@@ -1445,9 +1415,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<UserAccount> items;
@@ -1471,7 +1438,7 @@ public class Query {
 
 		public WebUrlPage(Page webUrlPage) {
 			actions = webUrlPage.getActions();
-			facets = webUrlPage.getFacets();
+
 			items = webUrlPage.getItems();
 			lastPage = webUrlPage.getLastPage();
 			page = webUrlPage.getPage();
@@ -1481,9 +1448,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<WebUrl> items;
@@ -1698,8 +1662,6 @@ public class Query {
 		_webUrlResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, List<String>, Aggregation>
-		_aggregationBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
 	private BiFunction<Object, String, Filter> _filterBiFunction;
 	private GroupLocalService _groupLocalService;
