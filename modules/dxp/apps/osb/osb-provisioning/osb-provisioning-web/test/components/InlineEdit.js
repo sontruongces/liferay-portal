@@ -156,6 +156,20 @@ describe('InlineEdit', () => {
 		getByLabelText('delete-field-icon');
 	});
 
+	it('calls the delete function when the Delete icon on an external field is clicked', () => {
+		const deleteFn = jest.fn();
+		const {container} = renderInlineEdit({
+			deleteFn,
+			type: FIELD_TYPE_EXTERNAL
+		});
+		const {getByLabelText, getByText} = within(container);
+
+		fireEvent.click(getByText('test'));
+		fireEvent.click(getByLabelText('delete-field-icon'));
+
+		expect(deleteFn).toHaveBeenCalled();
+	});
+
 	it('displays an editable select input correctly', () => {
 		const {container} = renderInlineEdit({
 			options: [
