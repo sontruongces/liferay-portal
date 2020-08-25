@@ -19,6 +19,8 @@
 	var KeyMap = A.Event.KeyMap;
 	var Lang = A.Lang;
 
+	var BR_TAG = 'BR';
+
 	var CSS_LFR_AC_CONTENT = 'lfr-ac-content';
 
 	var STR_EDITOR = 'editor';
@@ -273,6 +275,16 @@
 			var prevTriggerPosition = instance._getPrevTriggerPosition();
 
 			var query = prevTriggerPosition.query;
+
+			if (
+				query &&
+				prevTriggerPosition.container.$.lastElementChild &&
+				prevTriggerPosition.container.$.lastElementChild.nodeName ===
+					BR_TAG
+			) {
+				query = null;
+			}
+
 			var trigger = prevTriggerPosition.value;
 
 			var res = instance._getRegExp().exec(query);
@@ -404,7 +416,7 @@
 				);
 			});
 
-			if (nextElement && nextElement.$.nodeName === 'BR') {
+			if (nextElement && nextElement.$.nodeName === BR_TAG) {
 				nextElement = null;
 			}
 
