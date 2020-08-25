@@ -76,15 +76,20 @@ public class ProductPurchaseDisplay {
 	}
 
 	public String getGracePeriod() {
-		if (_productPurchase.getPerpetual()) {
+		Date originalEndDate = _productPurchase.getOriginalEndDate();
+		Date endDate = _productPurchase.getEndDate();
+
+		if ((originalEndDate == null) || (endDate == null) ||
+			_productPurchase.getPerpetual() || originalEndDate.after(endDate)) {
+
 			return StringPool.DASH;
 		}
 
 		StringBundler sb = new StringBundler(3);
 
-		sb.append(_dateFormat.format(_productPurchase.getOriginalEndDate()));
+		sb.append(_dateFormat.format(originalEndDate));
 		sb.append(" - ");
-		sb.append(_dateFormat.format(_productPurchase.getEndDate()));
+		sb.append(_dateFormat.format(endDate));
 
 		return sb.toString();
 	}

@@ -136,9 +136,11 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 				originalEndMonth, originalEndDay, originalEndYear,
 				themeDisplay.getTimeZone(), null);
 
-			Calendar calendar = CalendarFactoryUtil.getCalendar();
+			Calendar calendar = CalendarFactoryUtil.getCalendar(
+				themeDisplay.getTimeZone());
 
 			calendar.setTime(originalEndDate);
+
 			calendar.add(Calendar.DATE, 30);
 
 			int gracePeriodEndDateMonth = ParamUtil.getInteger(
