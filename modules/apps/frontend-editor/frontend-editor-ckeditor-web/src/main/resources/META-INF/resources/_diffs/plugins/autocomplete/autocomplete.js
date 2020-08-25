@@ -25,6 +25,8 @@
 
 	var STR_SPACE = ' ';
 
+	var BR_TAG = 'BR';
+
 	var TPL_REPLACE_HTML =
 		'<span class="' + CSS_LFR_AC_CONTENT + '">{html}</span>';
 
@@ -271,6 +273,16 @@
 			var prevTriggerPosition = instance._getPrevTriggerPosition();
 
 			var query = prevTriggerPosition.query;
+
+			if (
+				query &&
+				prevTriggerPosition.container.$.lastElementChild &&
+				prevTriggerPosition.container.$.lastElementChild.nodeName ===
+					BR_TAG
+			) {
+				query = null;
+			}
+
 			var trigger = prevTriggerPosition.value;
 
 			var res = instance._getRegExp().exec(query);
@@ -405,7 +417,7 @@
 				);
 			});
 
-			if (nextElement && nextElement.$.nodeName === 'BR') {
+			if (nextElement && nextElement.$.nodeName === BR_TAG) {
 				nextElement = null;
 			}
 
