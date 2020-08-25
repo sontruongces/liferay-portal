@@ -35,11 +35,11 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.PLAN_MANAGEMENT,
-		"mvc.command.name=editPlan"
+		"mvc.command.name=updatePlan"
 	},
 	service = {}
 )
-public class EditPlanMVCActionCommand extends BaseMVCActionCommand {
+public class UpdatePlanMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(

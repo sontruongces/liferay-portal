@@ -35,11 +35,11 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + OSBCommerceProvisioningPortletKeys.TRIAL_REGISTRATION,
-		"mvc.command.name=editPortalInstanceFeature"
+		"mvc.command.name=updatePortalInstanceFeature"
 	},
 	service = MVCResourceCommand.class
 )
-public class EditPortalInstanceFeatureMVCResourceCommand
+public class UpdatePortalInstanceFeatureMVCResourceCommand
 	extends BaseMVCResourceCommand {
 
 	@Override
