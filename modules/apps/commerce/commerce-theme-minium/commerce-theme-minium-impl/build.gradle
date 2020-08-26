@@ -28,6 +28,6 @@ dependencies {
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-string")
 
-	jsCompile group: "com.liferay", name: "com.liferay.frontend.taglib.soy", version: "2.0.0"
 	jsCompile project(":apps:commerce:commerce-frontend-taglib")
+	jsCompile project(":apps:frontend-taglib:frontend-taglib-soy")
 }
