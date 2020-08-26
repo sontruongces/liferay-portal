@@ -27,6 +27,7 @@ import com.liferay.portal.search.elasticsearch7.internal.util.ResourceUtil;
 import com.liferay.portal.search.elasticsearch7.settings.IndexSettingsHelper;
 import com.liferay.portal.search.elasticsearch7.settings.TypeMappingsHelper;
 import com.liferay.portal.search.spi.model.index.contributor.IndexContributor;
+import com.liferay.portal.search.spi.settings.IndexSettingsContributor;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -107,7 +108,18 @@ public class CompanyIndexFactoryTest {
 
 	@Test
 	public void testAdditionalTypeMappingsFromContributor() throws Exception {
-		addIndexSettingsContributor(loadAdditionalTypeMappings());
+		_companyIndexFactory.addElasticsearchIndexSettingsContributor(
+			new BaseIndexSettingsContributor(1) {
+
+				@Override
+				public void contribute(
+					String indexName, TypeMappingsHelper typeMappingsHelper) {
+
+					typeMappingsHelper.addTypeMappings(
+						indexName, loadAdditionalTypeMappings());
+				}
+
+			});
 
 		assertAdditionalTypeMappings();
 	}
@@ -124,7 +136,18 @@ public class CompanyIndexFactoryTest {
 	public void testAdditionalTypeMappingsWithRootTypeFromContributor()
 		throws Exception {
 
-		addIndexSettingsContributor(loadAdditionalTypeMappingsWithRootType());
+		_companyIndexFactory.addElasticsearchIndexSettingsContributor(
+			new BaseIndexSettingsContributor(1) {
+
+				@Override
+				public void contribute(
+					String indexName, TypeMappingsHelper typeMappingsHelper) {
+
+					typeMappingsHelper.addTypeMappings(
+						indexName, loadAdditionalTypeMappingsWithRootType());
+				}
+
+			});
 
 		assertAdditionalTypeMappings();
 	}
@@ -170,6 +193,61 @@ public class CompanyIndexFactoryTest {
 		createIndices();
 
 		assertIndicesExist(LiferayTypeMappingsConstants.LIFERAY_DOCUMENT_TYPE);
+	}
+
+	@Test
+	public void testElasticsearchIndexSettingsContributor() throws Exception {
+		_companyIndexFactory.addElasticsearchIndexSettingsContributor(
+			new BaseIndexSettingsContributor(1) {
+
+				@Override
+				public void populate(IndexSettingsHelper indexSettingsHelper) {
+					indexSettingsHelper.put("index.number_of_replicas", "2");
+					indexSettingsHelper.put("index.number_of_shards", "3");
+				}
+
+			});
+
+		_companyIndexFactory.setAdditionalIndexConfigurations(
+			"index.number_of_replicas: 0\nindex.number_of_shards: 0");
+
+		createIndices();
+
+		Settings settings = getIndexSettings();
+
+		Assert.assertEquals("2", settings.get("index.number_of_replicas"));
+		Assert.assertEquals("3", settings.get("index.number_of_shards"));
+	}
+
+	@Test
+	public void testElasticsearchIndexSettingsContributorTypeMappings()
+		throws Exception {
+
+		final String mappings = loadAdditionalTypeMappings();
+
+		_companyIndexFactory.addElasticsearchIndexSettingsContributor(
+			new BaseIndexSettingsContributor(1) {
+
+				@Override
+				public void contribute(
+					String indexName, TypeMappingsHelper typeMappingsHelper) {
+
+					typeMappingsHelper.addTypeMappings(
+						indexName, replaceAnalyzer(mappings, "brazilian"));
+				}
+
+			});
+
+		_companyIndexFactory.setAdditionalTypeMappings(
+			replaceAnalyzer(mappings, "portuguese"));
+
+		createIndices();
+
+		String field = RandomTestUtil.randomString() + "_ja";
+
+		indexOneDocument(field);
+
+		assertAnalyzer(field, "brazilian");
 	}
 
 	@Test
@@ -237,15 +315,26 @@ public class CompanyIndexFactoryTest {
 	@Test
 	public void testIndexSettingsContributor() throws Exception {
 		_companyIndexFactory.addIndexSettingsContributor(
-			new BaseIndexSettingsContributor(1) {
+			new IndexSettingsContributor() {
 
 				@Override
-				public void populate(IndexSettingsHelper indexSettingsHelper) {
+				public void contribute(
+					String indexName,
+					com.liferay.portal.search.spi.settings.TypeMappingsHelper
+						typeMappingsHelper) {
+				}
+
+				@Override
+				public void populate(
+					com.liferay.portal.search.spi.settings.IndexSettingsHelper
+						indexSettingsHelper) {
+
 					indexSettingsHelper.put("index.number_of_replicas", "2");
 					indexSettingsHelper.put("index.number_of_shards", "3");
 				}
 
 			});
+
 		_companyIndexFactory.setAdditionalIndexConfigurations(
 			"index.number_of_replicas: 0\nindex.number_of_shards: 0");
 
@@ -261,7 +350,26 @@ public class CompanyIndexFactoryTest {
 	public void testIndexSettingsContributorTypeMappings() throws Exception {
 		final String mappings = loadAdditionalTypeMappings();
 
-		addIndexSettingsContributor(replaceAnalyzer(mappings, "brazilian"));
+		_companyIndexFactory.addIndexSettingsContributor(
+			new IndexSettingsContributor() {
+
+				@Override
+				public void contribute(
+					String indexName,
+					com.liferay.portal.search.spi.settings.TypeMappingsHelper
+						typeMappingsHelper) {
+
+					typeMappingsHelper.addTypeMappings(
+						indexName, replaceAnalyzer(mappings, "brazilian"));
+				}
+
+				@Override
+				public void populate(
+					com.liferay.portal.search.spi.settings.IndexSettingsHelper
+						indexSettingsHelper) {
+				}
+
+			});
 
 		_companyIndexFactory.setAdditionalTypeMappings(
 			replaceAnalyzer(mappings, "portuguese"));
@@ -334,7 +442,17 @@ public class CompanyIndexFactoryTest {
 		String mappings = replaceAnalyzer(
 			loadAdditionalTypeMappings(), RandomTestUtil.randomString());
 
-		addIndexSettingsContributor(mappings);
+		_companyIndexFactory.addElasticsearchIndexSettingsContributor(
+			new BaseIndexSettingsContributor(1) {
+
+				@Override
+				public void contribute(
+					String indexName, TypeMappingsHelper typeMappingsHelper) {
+
+					typeMappingsHelper.addTypeMappings(indexName, mappings);
+				}
+
+			});
 
 		_companyIndexFactory.setAdditionalIndexConfigurations(
 			loadAdditionalAnalyzers());
@@ -356,20 +474,6 @@ public class CompanyIndexFactoryTest {
 
 	protected void addIndexContributor(IndexContributor indexContributor) {
 		_companyIndexFactory.addIndexContributor(indexContributor);
-	}
-
-	protected void addIndexSettingsContributor(String mappings) {
-		_companyIndexFactory.addIndexSettingsContributor(
-			new BaseIndexSettingsContributor(1) {
-
-				@Override
-				public void contribute(
-					String indexName, TypeMappingsHelper typeMappingsHelper) {
-
-					typeMappingsHelper.addTypeMappings(indexName, mappings);
-				}
-
-			});
 	}
 
 	protected void assertAdditionalTypeMappings() throws Exception {
@@ -509,12 +613,12 @@ public class CompanyIndexFactoryTest {
 			getClass(), "CompanyIndexFactoryTest-additionalAnalyzers.json");
 	}
 
-	protected String loadAdditionalTypeMappings() throws Exception {
+	protected String loadAdditionalTypeMappings() {
 		return ResourceUtil.getResourceAsString(
 			getClass(), "CompanyIndexFactoryTest-additionalTypeMappings.json");
 	}
 
-	protected String loadAdditionalTypeMappingsWithRootType() throws Exception {
+	protected String loadAdditionalTypeMappingsWithRootType() {
 		return ResourceUtil.getResourceAsString(
 			getClass(),
 			"CompanyIndexFactoryTest-additionalTypeMappings-with-root-type." +
