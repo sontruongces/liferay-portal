@@ -12,7 +12,8 @@
 export function liferayNavigate(url) {
 	if (Liferay.SPA) {
 		Liferay.SPA.app.navigate(url);
-	} else {
+	}
+	else {
 		window.location.href = url;
 	}
 }

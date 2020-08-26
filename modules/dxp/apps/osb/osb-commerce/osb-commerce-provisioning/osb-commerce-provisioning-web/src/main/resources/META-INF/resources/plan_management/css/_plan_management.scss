@@ -4,7 +4,7 @@
 	}
 
 	.osb-commerce-active-plan .panel-secondary {
-		box-shadow: 0 40px 20px -20px rgba(19, 65, 148, .2);
+		box-shadow: 0 40px 20px -20px rgba(19, 65, 148, 0.2);
 
 		.active-plan {
 			&-details {
@@ -30,10 +30,10 @@
 	}
 
 	.osb-commerce-plan-features .panel-secondary {
-		margin-bottom: .3rem;
+		margin-bottom: 0.3rem;
 
 		.toggle-switch {
-			transform: scale3d(.9, .9, 1);
+			transform: scale3d(0.9, 0.9, 1);
 		}
 	}
 }

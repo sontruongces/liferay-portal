@@ -85,19 +85,19 @@ String userFirstName = ParamUtil.getString(request, "userFirstName");
 				headers: new Headers({'x-csrf-token': Liferay.authToken}),
 				method: 'post'
 			})
-			.then(function(res) {
-				return res.json();
-			})
-			.then(function(payload) {
-				if (payload.status === 0) {
-					window.location = "<%= portalInstanceInitializedURL %>";
-				}
-				else {
-					setTimeout(function() {
-						callOnTimeOut();
-					}, 5000);
-				}
-			});
+				.then(function(res) {
+					return res.json();
+				})
+				.then(function(payload) {
+					if (payload.status === 0) {
+						window.location = '<%= portalInstanceInitializedURL %>';
+					}
+					else {
+						setTimeout(function() {
+							callOnTimeOut();
+						}, 5000);
+					}
+				});
 		}
 
 		callOnTimeOut();

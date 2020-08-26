@@ -11,17 +11,13 @@
 
 import React from 'react';
 
+import {getDataMock} from '../../js/utilities/mocks';
 import ActivePlan from './views/ActivePlan';
-import {getDataMock} from "../../js/utilities/mocks";
 
-function PlanManagement({
-	mockData = false,
-	...props
-}) {
-	const {
-		activePlan,
-		spritemap
-	} = mockData ? getDataMock(PlanManagement.name) : props;
+function PlanManagement({mockData = false, ...props}) {
+	const {activePlan, spritemap} = mockData
+		? getDataMock(PlanManagement.name)
+		: props;
 
 	return (
 		<>

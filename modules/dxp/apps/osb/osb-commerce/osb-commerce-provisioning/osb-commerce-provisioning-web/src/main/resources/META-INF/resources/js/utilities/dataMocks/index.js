@@ -9,4 +9,4 @@
  * distribution rights of the Software.
  */
 
-export { default as PlanManagement } from './planManagement';
+export {default as PlanManagement} from './planManagement';

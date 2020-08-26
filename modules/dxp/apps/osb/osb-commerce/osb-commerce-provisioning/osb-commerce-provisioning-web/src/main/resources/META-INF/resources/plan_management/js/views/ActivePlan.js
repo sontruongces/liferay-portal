@@ -9,20 +9,19 @@
  * distribution rights of the Software.
  */
 
-import PropTypes from 'prop-types';
 import ClayPanel from '@clayui/panel';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 function ActivePlan({
 	cancelPlanURL,
-	currency,
 	endDate,
 	planName,
 	planPrice,
 	recurrence,
-	startDate,
 	spritemap,
-	switchBillingURL,
+	startDate,
+	switchBillingURL
 }) {
 	return (
 		<div className={'col-12 osb-commerce-active-plan py-5'}>
@@ -32,14 +31,18 @@ function ActivePlan({
 				spritemap={spritemap}
 			>
 				<ClayPanel.Body>
-					<div className={'row py-4'}>
-						<div className={'active-plan d-flex flex-column align-items-center justify-content-center col-5'}>
-							<p className={'name'}>
-								{planName}
-							</p>
+					<div className={'py-4 row'}>
+						<div
+							className={
+								'active-plan align-items-center col-5 d-flex flex-column justify-content-center'
+							}
+						>
+							<p className={'name'}>{planName}</p>
 							<p className={'price'}>
-								<span className={'value'}>{planPrice}</span>
-								/<span className={'recurrence'}>{recurrence}</span>
+								<span className={'value'}>{planPrice}</span>/
+								<span className={'recurrence'}>
+									{recurrence}
+								</span>
 							</p>
 						</div>
 						<div className={'active-plan-details col-7'}>
@@ -48,7 +51,9 @@ function ActivePlan({
 									<small>
 										{Liferay.Language.get('switch-to')}
 										<a href={switchBillingURL}>
-											{` ${Liferay.Language.get('monthly')}`}
+											{` ${Liferay.Language.get(
+												'monthly'
+											)}`}
 										</a>
 									</small>
 								</p>
@@ -67,7 +72,9 @@ function ActivePlan({
 								<p>
 									<small>
 										<a href={cancelPlanURL}>
-											{Liferay.Language.get('cancel-your-subscription')}
+											{Liferay.Language.get(
+												'cancel-your-subscription'
+											)}
 										</a>
 									</small>
 								</p>
@@ -82,13 +89,12 @@ function ActivePlan({
 
 ActivePlan.propTypes = {
 	cancelPlanLink: PropTypes.string,
-	switchBillingLink: PropTypes.string,
 	endDate: PropTypes.string,
 	planName: PropTypes.string,
 	planPrice: PropTypes.string,
+	spritemap: PropTypes.string,
 	startDate: PropTypes.string,
-	spritemap: PropTypes.string
-
+	switchBillingLink: PropTypes.string
 };
 
 export default ActivePlan;
