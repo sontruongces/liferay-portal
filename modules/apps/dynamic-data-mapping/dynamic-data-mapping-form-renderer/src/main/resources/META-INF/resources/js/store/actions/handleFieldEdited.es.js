@@ -36,7 +36,7 @@ const getEditedPages = (pages, editingLanguageId, name, value) => {
 			field = {
 				...field,
 				nestedFields: field.nestedFields.map(nestedField => {
-					if (field.name === name) {
+					if (nestedField.name === name) {
 						nestedField = getEditedField(
 							nestedField,
 							editingLanguageId,
