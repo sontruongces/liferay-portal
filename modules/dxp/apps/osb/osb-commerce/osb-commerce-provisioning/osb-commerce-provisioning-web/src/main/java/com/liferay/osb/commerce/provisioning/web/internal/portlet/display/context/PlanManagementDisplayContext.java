@@ -117,10 +117,8 @@ public class PlanManagementDisplayContext {
 
 		portletURL.setParameter(ActionRequest.ACTION_NAME, "updatePlan");
 		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-
 		portletURL.setParameter(
 			"redirect", _portal.getCurrentURL(_renderRequest));
-
 		portletURL.setParameter(
 			"commerceSubscriptionEntryId",
 			String.valueOf(
