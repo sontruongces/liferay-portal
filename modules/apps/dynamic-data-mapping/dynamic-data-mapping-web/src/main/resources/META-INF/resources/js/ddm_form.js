@@ -4066,7 +4066,7 @@ AUI.add(
 								instance._afterFormRegistered,
 								instance
 							),
-							Liferay.after(
+							Liferay.on(
 								'inputLocalized:defaultLocaleChanged',
 								A.bind('_onDefaultLocaleChanged', instance)
 							)

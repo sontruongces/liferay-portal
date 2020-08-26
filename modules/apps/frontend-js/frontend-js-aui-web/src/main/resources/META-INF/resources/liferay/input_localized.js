@@ -506,7 +506,7 @@ AUI.add(
 							instance._onSelectFlag,
 							instance
 						),
-						Liferay.on(
+						Liferay.after(
 							'inputLocalized:defaultLocaleChanged',
 							A.bind('_onDefaultLocaleChanged', instance)
 						),
