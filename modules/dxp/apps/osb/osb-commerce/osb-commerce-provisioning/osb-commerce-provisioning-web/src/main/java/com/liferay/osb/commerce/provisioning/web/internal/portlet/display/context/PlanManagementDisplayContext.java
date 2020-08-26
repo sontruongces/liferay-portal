@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.text.Format;
@@ -83,39 +84,30 @@ public class PlanManagementDisplayContext {
 			return Collections.emptyMap();
 		}
 
-		Map<String, Object> activePlanData = new HashMap<>();
-
-		activePlanData.put(
-			"cancelPlanURL",
-			_getCancelSubscriptionURL(commerceSubscriptionEntry));
-
 		Format format = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMMM d, yyyy", themeDisplay.getLocale());
-
-		activePlanData.put(
-			"endDate",
-			format.format(commerceSubscriptionEntry.getNextIterationDate()));
 
 		CommerceOrderItem commerceOrderItem =
 			_commerceOrderItemLocalService.getCommerceOrderItem(
 				commerceSubscriptionEntry.getCommerceOrderItemId());
 
-		activePlanData.put(
-			"planName", commerceOrderItem.getName(themeDisplay.getLocale()));
-
 		CommerceMoney commerceMoney = commerceOrderItem.getFinalPriceMoney();
 
-		activePlanData.put(
-			"planPrice", commerceMoney.format(themeDisplay.getLocale()));
-
-		activePlanData.put(
-			"recurrence", commerceSubscriptionEntry.getSubscriptionType());
-
-		activePlanData.put(
-			"startDate",
-			format.format(commerceSubscriptionEntry.getStartDate()));
-
-		return activePlanData;
+		return HashMapBuilder.<String, Object>put(
+			"cancelPlanURL",
+			_getCancelSubscriptionURL(commerceSubscriptionEntry)
+		).put(
+			"endDate",
+			format.format(commerceSubscriptionEntry.getNextIterationDate())
+		).put(
+			"planName", commerceOrderItem.getName(themeDisplay.getLocale())
+		).put(
+			"planPrice", commerceMoney.format(themeDisplay.getLocale())
+		).put(
+			"recurrence", commerceSubscriptionEntry.getSubscriptionType()
+		).put(
+			"startDate", format.format(commerceSubscriptionEntry.getStartDate())
+		).build();
 	}
 
 	private String _getCancelSubscriptionURL(
