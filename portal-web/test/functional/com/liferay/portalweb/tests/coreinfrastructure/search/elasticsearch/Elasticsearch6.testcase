@@ -130,10 +130,22 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		SearchAdministration.assertEngineVendorAndVersions(
-			clientVersion = "6.8.6",
-			engineVendor = "Elasticsearch",
-			serverVersion = "6.8.6");
+		Panel.expandPanel(panel = "Index Actions");
+
+		var searchEngineVendor = selenium.getText("//div[contains(@class,'alert alert-info')]//strong[1]");
+
+		if (contains("${searchEngineVendor}", "Elasticsearch (Embedded)")) {
+			SearchAdministration.assertEngineVendorAndVersions(
+				clientVersion = "6.8.6",
+				engineVendor = "Elasticsearch",
+				serverVersion = "6.8.6");
+		}
+		else {
+			SearchAdministration.assertEngineVendorAndVersions(
+				clientVersion = "6.8.6",
+				engineVendor = "Elasticsearch",
+				serverVersion = "6.8.7");
+		}
 
 		Navigator.gotoNavItem(navItem = "Field Mappings");
 
