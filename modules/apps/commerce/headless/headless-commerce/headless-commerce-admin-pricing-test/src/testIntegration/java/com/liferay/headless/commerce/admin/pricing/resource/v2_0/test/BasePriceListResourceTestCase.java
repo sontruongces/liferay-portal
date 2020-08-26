@@ -626,7 +626,7 @@ public abstract class BasePriceListResourceTestCase {
 
 		PriceList patchPriceList =
 			priceListResource.patchPriceListByExternalReferenceCode(
-				postPriceList.getId(), randomPatchPriceList);
+				String.valueOf(postPriceList.getId()), randomPatchPriceList);
 
 		PriceList expectedPatchPriceList = postPriceList.clone();
 

@@ -619,7 +619,7 @@ public abstract class BaseDiscountResourceTestCase {
 
 		Discount patchDiscount =
 			discountResource.patchDiscountByExternalReferenceCode(
-				postDiscount.getId(), randomPatchDiscount);
+				String.valueOf(postDiscount.getId()), randomPatchDiscount);
 
 		Discount expectedPatchDiscount = postDiscount.clone();
 
