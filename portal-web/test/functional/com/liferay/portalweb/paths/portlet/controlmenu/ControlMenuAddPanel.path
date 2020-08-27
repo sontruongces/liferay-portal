@@ -76,6 +76,11 @@
 	<td></td>
 </tr>
 <tr>
+  <td>SIDEBAR_HEADER</td>
+  <td>//div[contains(@class,'sidebar-header')]/*[normalize-space(text())='Add']</td>
+  <td></td>
+</tr>
+<tr>
 	<td>ASSET_ITEM</td>
 	<td>//div[contains(@class,'open') or contains(@class,'show')]//*[normalize-space(text())='${key_assetItem}']/..</td>
 	<td></td>
