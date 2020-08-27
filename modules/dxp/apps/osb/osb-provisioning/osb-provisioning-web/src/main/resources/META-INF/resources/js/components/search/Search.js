@@ -79,9 +79,11 @@ function Search({accountsHomeURL = '', resourceURL}) {
 
 			<ClayAutocomplete.DropDown active={keywords}>
 				{error && (
-					<ClayDropDown.Item className="disabled">
-						{Liferay.Language.get('no-results-were-found')}
-					</ClayDropDown.Item>
+					<ul className="list-unstyled">
+						<ClayDropDown.Item className="disabled">
+							{Liferay.Language.get('no-results-were-found')}
+						</ClayDropDown.Item>
+					</ul>
 				)}
 
 				{!error && (
