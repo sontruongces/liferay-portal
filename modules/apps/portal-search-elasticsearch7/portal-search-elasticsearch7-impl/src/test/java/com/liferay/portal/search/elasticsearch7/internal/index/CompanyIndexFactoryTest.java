@@ -223,7 +223,7 @@ public class CompanyIndexFactoryTest {
 	public void testElasticsearchIndexSettingsContributorTypeMappings()
 		throws Exception {
 
-		final String mappings = loadAdditionalTypeMappings();
+		String mappings = loadAdditionalTypeMappings();
 
 		_companyIndexFactory.addElasticsearchIndexSettingsContributor(
 			new BaseIndexSettingsContributor(1) {
@@ -348,7 +348,7 @@ public class CompanyIndexFactoryTest {
 
 	@Test
 	public void testIndexSettingsContributorTypeMappings() throws Exception {
-		final String mappings = loadAdditionalTypeMappings();
+		String mappings = loadAdditionalTypeMappings();
 
 		_companyIndexFactory.addIndexSettingsContributor(
 			new IndexSettingsContributor() {
