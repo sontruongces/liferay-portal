@@ -16,14 +16,12 @@ package com.liferay.osb.distributed.messaging.publishing;
 
 import com.liferay.osb.distributed.messaging.Message;
 
-import java.util.List;
-
 /**
  * @author Amos Fong
  */
 public interface MessagePublisher {
 
-	public void publish(String topic, List<Message> messages) throws Exception;
+	public void flushQueuedMessages() throws Exception;
 
 	public void publish(String topic, Message message) throws Exception;
 

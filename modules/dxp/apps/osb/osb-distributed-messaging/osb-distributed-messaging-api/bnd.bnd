@@ -1,4 +1,9 @@
 Bundle-Name: Liferay OSB Distributed Messaging API
 Bundle-SymbolicName: com.liferay.osb.distributed.messaging.api
 Bundle-Version: 1.0.0
-Export-Package: com.liferay.osb.distributed.messaging
+Export-Package:\
+	com.liferay.osb.distributed.messaging,\
+	com.liferay.osb.distributed.messaging.exception,\
+	com.liferay.osb.distributed.messaging.model,\
+	com.liferay.osb.distributed.messaging.service,\
+	com.liferay.osb.distributed.messaging.service.persistence

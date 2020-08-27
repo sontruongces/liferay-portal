@@ -12,15 +12,24 @@
  *
  */
 
-package com.liferay.osb.distributed.messaging.publishing.broker;
+package com.liferay.osb.distributed.messaging.model.impl;
 
 import com.liferay.osb.distributed.messaging.Message;
+
+import java.sql.Blob;
 
 /**
  * @author Amos Fong
  */
-public interface MessageBroker {
+public class QueuedMessageImpl extends QueuedMessageBaseImpl {
 
-	public void publish(String topic, Message message) throws Exception;
+	public QueuedMessageImpl() {
+	}
+
+	public Message getMessage() throws Exception {
+		Blob blob = getMessageObject();
+
+		return Message.fromInputStream(blob.getBinaryStream());
+	}
 
 }

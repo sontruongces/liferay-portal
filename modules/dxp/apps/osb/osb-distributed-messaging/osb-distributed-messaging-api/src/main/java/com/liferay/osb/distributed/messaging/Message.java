@@ -15,7 +15,13 @@
 package com.liferay.osb.distributed.messaging;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.io.Deserializer;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.MapUtil;
+
+import java.io.InputStream;
+
+import java.nio.ByteBuffer;
 
 import java.util.Map;
 
@@ -23,6 +29,16 @@ import java.util.Map;
  * @author Amos Fong
  */
 public class Message extends com.liferay.portal.kernel.messaging.Message {
+
+	public static Message fromInputStream(InputStream inputStream)
+		throws Exception {
+
+		byte[] bytes = FileUtil.getBytes(inputStream);
+
+		Deserializer deserializer = new Deserializer(ByteBuffer.wrap(bytes));
+
+		return deserializer.readObject();
+	}
 
 	public Message(Map<String, Object> attributes, Object payload) {
 		setAttributes(attributes);

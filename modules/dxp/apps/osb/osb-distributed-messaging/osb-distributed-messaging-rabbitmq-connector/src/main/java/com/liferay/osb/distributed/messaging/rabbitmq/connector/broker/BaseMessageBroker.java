@@ -28,7 +28,6 @@ import com.rabbitmq.client.Channel;
 import java.io.IOException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
@@ -38,32 +37,6 @@ import org.osgi.service.component.annotations.Deactivate;
  * @author Amos Fong
  */
 public abstract class BaseMessageBroker implements MessageBroker {
-
-	@Override
-	public void publish(String topic, List<Message> messages)
-		throws IOException {
-
-		Channel channel = getChannel();
-
-		for (Message message : messages) {
-			try {
-				_publish(channel, topic, message);
-			}
-			catch (IOException ioException) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Unable to publish. Resetting channel and retrying.",
-						ioException);
-				}
-
-				closeChannel();
-
-				channel = getChannel();
-
-				_publish(channel, topic, message);
-			}
-		}
-	}
 
 	@Override
 	public void publish(String topic, Message message) throws IOException {
