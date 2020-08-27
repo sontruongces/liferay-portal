@@ -15,8 +15,8 @@
 }
 
 .navbar-commerce {
-	@import "navigation/site_navigation";
-	@import "navigation/trial_navigation";
+	@import 'navigation/site_navigation';
+	@import 'navigation/trial_navigation';
 
 	$navbar-margin-left: calc(100vw / 2);
 
@@ -46,7 +46,6 @@
 		margin-left: -#{$navbar-margin-left};
 		position: absolute;
 		top: 0;
-
 	}
 
 	&.navbar-light {

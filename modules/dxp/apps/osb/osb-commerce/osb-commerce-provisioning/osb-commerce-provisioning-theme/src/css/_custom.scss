@@ -1,15 +1,18 @@
-@import "fonts";
+@import 'fonts';
 
 body {
 	background: linear-gradient(
-			0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)
-	), $gray-400;
+			0deg,
+			rgba(255, 255, 255, 0.5),
+			rgba(255, 255, 255, 0.5)
+		),
+		$gray-400;
 }
 
 #wrapper {
-	@import "components/commerce_accounts_portlet";
-	@import "components/navbars";
-	@import "components/sign_in";
+	@import 'components/commerce_accounts_portlet';
+	@import 'components/navbars';
+	@import 'components/sign_in';
 
 	padding: 0;
 
@@ -17,14 +20,14 @@ body {
 	.btn-outline-primary,
 	.btn-secondary,
 	.btn-outline-secondary {
-		font-size: .8rem;
+		font-size: 0.8rem;
 		font-weight: 700;
-		letter-spacing: .1rem;
+		letter-spacing: 0.1rem;
 		text-transform: uppercase;
 	}
 
 	.btn-link {
-		font-size: .9em;
+		font-size: 0.9em;
 	}
 
 	.btn-outline-primary {

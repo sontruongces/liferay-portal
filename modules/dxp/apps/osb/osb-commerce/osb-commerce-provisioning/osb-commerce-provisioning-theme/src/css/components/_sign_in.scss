@@ -34,7 +34,7 @@
 			display: none;
 		}
 
-		.btn-primary[type="submit"] {
+		.btn-primary[type='submit'] {
 			width: 100%;
 		}
 
@@ -50,7 +50,7 @@
 
 		.modal {
 			&-body {
-				padding: 1.5rem 2.5rem .3rem;
+				padding: 1.5rem 2.5rem 0.3rem;
 			}
 
 			&-content {
@@ -69,14 +69,14 @@
 
 	.modal-dialog {
 		&::before {
-			background: #FFF;
+			background: #fff;
 			content: '';
-			height: .8rem;
-			margin-top: -.35rem;
+			height: 0.8rem;
+			margin-top: -0.35rem;
 			position: absolute;
 			right: 30px;
 			transform: rotate(45deg);
-			width: .8rem;
+			width: 0.8rem;
 		}
 	}
 }

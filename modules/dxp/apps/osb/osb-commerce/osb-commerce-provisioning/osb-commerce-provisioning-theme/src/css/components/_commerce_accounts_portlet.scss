@@ -12,7 +12,7 @@
 		justify-content: center;
 
 		.btn {
-			flex: .9;
+			flex: 0.9;
 			font-weight: bold;
 
 			@media screen and (max-width: $bp-small) {
@@ -31,13 +31,12 @@
 	}
 
 	.form-control {
-		background-color: #FFF;
+		background-color: #fff;
 		width: 100%;
 	}
 
 	.logoselector {
 		display: none;
-
 	}
 
 	.panel {
