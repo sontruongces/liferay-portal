@@ -13,13 +13,24 @@ body {
 }
 
 .autocomplete-dropdown-menu {
+	max-height: unset;
+
+	.all-results,
+	.main-item {
+		font-weight: $font-weight-semi-bold;
+	}
+
 	.all-results {
 		color: $primary;
 	}
 
-	.dropdown-item {
+	.main-item {
+		color: $dark;
 		font-size: $mid-font-size;
-		font-weight: $font-weight-semi-bold;
+	}
+
+	.secondary-information {
+		font-size: $small-font-size;
 	}
 }
 
