@@ -11,8 +11,9 @@
 
 import ClayAutocomplete from '@clayui/autocomplete';
 import ClayDropDown from '@clayui/drop-down';
+import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import {NAMESPACE} from '../../utilities/constants';
 import {request} from '../../utilities/helpers';
@@ -24,33 +25,37 @@ function Search({accountsHomeURL = '', resourceURL}) {
 	const [keywords, setKeywords] = useState('');
 	const [results, setResults] = useState([]);
 
+	const {current: requestSearchResults} = useRef(
+		debounce(value => {
+			request(resourceURL, {
+				autocompleteKeywords: value,
+				maxResults: MAX_RESULTS
+			})
+				.then(({data}) => {
+					if (data.length === 0) {
+						setError(true);
+					}
+					else {
+						setError(false);
+						setResults(data);
+					}
+				})
+				.catch(err => {
+					setError(true);
+
+					console.error(err);
+				});
+		}, 200)
+	);
+
 	function buildSearchResultsURL() {
 		return `${accountsHomeURL}&${NAMESPACE}keywords=${keywords}`;
 	}
 
 	function handleOnChange(event) {
-		const newValue = event.target.value;
+		setKeywords(event.target.value);
 
-		setKeywords(newValue);
-
-		request(resourceURL, {
-			autocompleteKeywords: newValue,
-			maxResults: MAX_RESULTS
-		})
-			.then(({data}) => {
-				if (data.length === 0) {
-					setError(true);
-				}
-				else {
-					setError(false);
-					setResults(data);
-				}
-			})
-			.catch(err => {
-				setError(true);
-
-				console.error(err);
-			});
+		requestSearchResults(event.target.value);
 	}
 
 	return (
