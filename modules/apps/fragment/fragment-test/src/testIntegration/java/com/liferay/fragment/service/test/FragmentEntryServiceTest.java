@@ -81,7 +81,7 @@ public class FragmentEntryServiceTest {
 		_fragmentCollection = FragmentTestUtil.addFragmentCollection(
 			_group.getGroupId());
 
-		_fragmentCollectionAlter = FragmentTestUtil.addFragmentCollection(
+		_updatedFragmentCollection = FragmentTestUtil.addFragmentCollection(
 			_group.getGroupId());
 	}
 
@@ -1220,11 +1220,9 @@ public class FragmentEntryServiceTest {
 		FragmentEntry fragmentEntry = FragmentEntryTestUtil.addFragmentEntry(
 			_fragmentCollection.getFragmentCollectionId());
 
-		long alterFragmentCollectionId =
-			_fragmentCollectionAlter.getFragmentCollectionId();
-
 		_fragmentEntryService.updateFragmentEntry(
-			fragmentEntry.getFragmentEntryId(), alterFragmentCollectionId,
+			fragmentEntry.getFragmentEntryId(),
+			_updatedFragmentCollection.getFragmentCollectionId(),
 			"Fragment Entry Updated", "div {\ncolor: red;\n}",
 			"<div>Updated</div>", "alert(\"test\");",
 			"{\n\t\"fieldSets\": [\n\t]\n}", 1,
@@ -1236,7 +1234,7 @@ public class FragmentEntryServiceTest {
 
 		Assert.assertEquals(
 			persistedFragmentEntry.getFragmentCollectionId(),
-			alterFragmentCollectionId);
+			_updatedFragmentCollection.getFragmentCollectionId());
 		Assert.assertEquals(
 			"Fragment Entry Updated", persistedFragmentEntry.getName());
 		Assert.assertEquals(
@@ -1387,7 +1385,6 @@ public class FragmentEntryServiceTest {
 	}
 
 	private FragmentCollection _fragmentCollection;
-	private FragmentCollection _fragmentCollectionAlter;
 
 	@Inject
 	private FragmentEntryPersistence _fragmentEntryPersistence;
@@ -1397,5 +1394,7 @@ public class FragmentEntryServiceTest {
 
 	@DeleteAfterTestRun
 	private Group _group;
+
+	private FragmentCollection _updatedFragmentCollection;
 
 }
