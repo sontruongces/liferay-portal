@@ -34,8 +34,6 @@ body {
 		border-color: $border-color;
 	}
 
-	// FIXME Temporarily hide the B2B add account modal
-	// FIXME Temporarily hide the B2B invite user modal
 	#addAccountModal,
 	#userInvitationModal {
 		display: none;
