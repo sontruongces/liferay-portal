@@ -868,11 +868,11 @@ xpack.monitoring.collection.enabled: true</echo>
 						<property name="reindex.temporary.index.request.body">
 							<![CDATA[
 								{
-									"source": {
-										"index": "@{index.name}"
-									},
 									"dest": {
 										"index": "temp_index"
+									},
+									"source": {
+										"index": "@{index.name}"
 									}
 								}
 							]]>
@@ -936,11 +936,11 @@ xpack.monitoring.collection.enabled: true</echo>
 						<property name="reindex.recreated.index.request.body">
 							<![CDATA[
 								{
-									"source": {
-										"index": "temp_index"
-									},
 									"dest": {
 										"index": "@{index.name}"
+									},
+									"source": {
+										"index": "temp_index"
 									}
 								}
 							]]>
@@ -1160,8 +1160,8 @@ xpack.monitoring.collection.enabled: true</echo>
 			<![CDATA[
 				{
 					"ignore_unavailable": true,
-					"indices": "${backup.index}",
 					"include_global_state": true,
+					"indices": "${backup.index}",
 					"rename_pattern": "index_(.+)",
 					"rename_replacement": "restored_index_$1"
 				}
