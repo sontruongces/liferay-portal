@@ -45,6 +45,7 @@
 	<exceptions>
 		<exception>ContactRequired</exception>
 		<exception>ProductBundleName</exception>
+		<exception>ProductPurchaseQuantity</exception>
 		<exception>RequiredProduct</exception>
 	</exceptions>
 </service-builder>

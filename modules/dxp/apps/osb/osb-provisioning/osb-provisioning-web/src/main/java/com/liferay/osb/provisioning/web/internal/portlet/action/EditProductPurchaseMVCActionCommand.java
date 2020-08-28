@@ -19,6 +19,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntity
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
 import com.liferay.osb.provisioning.constants.ProvisioningPortletKeys;
+import com.liferay.osb.provisioning.exception.ProductPurchaseQuantityException;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.exception.HttpException;
@@ -92,7 +93,13 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "productPurchaseKey");
 
 		boolean perpetual = ParamUtil.getBoolean(actionRequest, "perpetual");
+
 		int quantity = ParamUtil.getInteger(actionRequest, "quantity");
+
+		if (quantity <= 0) {
+			throw new ProductPurchaseQuantityException();
+		}
+
 		String status = ParamUtil.getString(
 			actionRequest, "status",
 			ProductPurchase.Status.APPROVED.toString());

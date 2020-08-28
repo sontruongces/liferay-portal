@@ -31,7 +31,7 @@ String productPurchaseKey = BeanParamUtil.getString(productPurchase, request, "k
 long quantity = BeanParamUtil.getLong(productPurchase, request, "quantity", 1);
 boolean perpetual = BeanParamUtil.getBoolean(productPurchase, request, "perpetual");
 
-int sizing = 0;
+int sizing = 1;
 
 if (productPurchase != null) {
 	Map<String, String> properties = productPurchase.getProperties();
@@ -57,6 +57,8 @@ if (productPurchase != null) {
 
 		<%= httpException.getMessage() %>
 	</liferay-ui:error>
+
+	<liferay-ui:error exception="<%= ProductPurchaseQuantityException.class %>" message="to-remove-a-subscription-change-the-status-to-cancelled-instead" />
 
 	<div class="main-content-body">
 		<c:if test="<%= productPurchase == null %>">
@@ -114,7 +116,7 @@ if (productPurchase != null) {
 								<liferay-ui:message key="purchased" />
 							</th>
 							<th class="table-cell-expand">
-								<liferay-ui:message key="perpetual" />
+								<liferay-ui:message key="perpetual-subscription" />
 							</th>
 							<th class="table-cell-expand">
 								<liferay-ui:message key="start-date" />
@@ -200,6 +202,9 @@ if (productPurchase != null) {
 							if ((productPurchase != null) && (productPurchase.getOriginalEndDate() != null)) {
 								endCal.setTime(productPurchase.getOriginalEndDate());
 							}
+							else {
+								endCal.add(Calendar.YEAR, 1);
+							}
 							%>
 
 							<td class="table-cell-expand">
@@ -215,7 +220,19 @@ if (productPurchase != null) {
 								/>
 							</td>
 							<td class="table-cell-expand">
-								<aui:input cssClass="account-edit-subscription" label="" name="sizing" value="<%= sizing %>" />
+								<aui:select cssClass="account-edit-subscription" label="" name="sizing">
+
+									<%
+									for (int i = 1; i <= 4; i++) {
+									%>
+
+										<aui:option label="<%= i %>" selected="<%= sizing == i %>" value="<%= i %>" />
+
+									<%
+									}
+									%>
+
+								</aui:select>
 							</td>
 
 							<c:if test="<%= productPurchase != null %>">
@@ -225,6 +242,10 @@ if (productPurchase != null) {
 
 								if (productPurchase.getEndDate() != null) {
 									gracePeriodEndCal.setTime(productPurchase.getEndDate());
+								}
+								else {
+									gracePeriodEndCal.add(Calendar.YEAR, 1);
+									gracePeriodEndCal.add(Calendar.DATE, 30);
 								}
 								%>
 
