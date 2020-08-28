@@ -403,13 +403,17 @@ public class ProductBundleProductsModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		_originalProductBundleId = _productBundleId;
+		ProductBundleProductsModelImpl productBundleProductsModelImpl = this;
 
-		_setOriginalProductBundleId = false;
+		productBundleProductsModelImpl._originalProductBundleId =
+			productBundleProductsModelImpl._productBundleId;
 
-		_originalProductKey = _productKey;
+		productBundleProductsModelImpl._setOriginalProductBundleId = false;
 
-		_columnBitmask = 0;
+		productBundleProductsModelImpl._originalProductKey =
+			productBundleProductsModelImpl._productKey;
+
+		productBundleProductsModelImpl._columnBitmask = 0;
 	}
 
 	@Override

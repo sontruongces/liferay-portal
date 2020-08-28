@@ -1778,7 +1778,7 @@ public class ProductBundlePersistenceImpl
 		try {
 			session = openSession();
 
-			if (isNew) {
+			if (productBundle.isNew()) {
 				session.save(productBundle);
 
 				productBundle.setNew(false);
@@ -2214,7 +2214,6 @@ public class ProductBundlePersistenceImpl
 	@Deactivate
 	public void deactivate() {
 		entityCache.removeCache(ProductBundleImpl.class.getName());
-
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

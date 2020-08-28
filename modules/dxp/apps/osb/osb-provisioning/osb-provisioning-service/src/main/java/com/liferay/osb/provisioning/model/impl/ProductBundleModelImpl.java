@@ -545,16 +545,20 @@ public class ProductBundleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		_originalUuid = _uuid;
+		ProductBundleModelImpl productBundleModelImpl = this;
 
-		_originalCompanyId = _companyId;
+		productBundleModelImpl._originalUuid = productBundleModelImpl._uuid;
 
-		_setOriginalCompanyId = false;
+		productBundleModelImpl._originalCompanyId =
+			productBundleModelImpl._companyId;
 
-		_setModifiedDate = false;
-		_originalName = _name;
+		productBundleModelImpl._setOriginalCompanyId = false;
 
-		_columnBitmask = 0;
+		productBundleModelImpl._setModifiedDate = false;
+
+		productBundleModelImpl._originalName = productBundleModelImpl._name;
+
+		productBundleModelImpl._columnBitmask = 0;
 	}
 
 	@Override
