@@ -1,0 +1,1 @@
+create index IX_5E3629FB on DM_QueuedMessage (messageBrokerClassName[$COLUMN_LENGTH:255$]);

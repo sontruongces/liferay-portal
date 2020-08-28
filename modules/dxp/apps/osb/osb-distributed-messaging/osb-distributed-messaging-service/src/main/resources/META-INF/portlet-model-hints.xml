@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.osb.distributed.messaging.model.QueuedMessage">
+		<field name="mvccVersion" type="long" />
+		<field name="queuedMessageId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="messageBrokerClassName" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="topic" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="messageObject" type="Blob" />
+	</model>
+</model-hints>
