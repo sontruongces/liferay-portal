@@ -33,6 +33,9 @@ import com.liferay.osb.koroneiki.taproot.service.ContactTeamRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
+import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -45,6 +48,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -147,6 +151,15 @@ public class PartnerMigration {
 	private void _migratePartnerEntries(Connection connection, long userId)
 		throws Exception {
 
+		ProductEntry productEntry =
+			_productEntryLocalService.fetchProductEntryByName(
+				"Service Partnership");
+
+		if (productEntry == null) {
+			productEntry = _productEntryLocalService.addProductEntry(
+				userId, "Service Partnership", new ArrayList<>());
+		}
+
 		StringBundler sb = new StringBundler(2);
 
 		sb.append("select dossieraAccountKey, code_, notes, partnerEntryId ");
@@ -168,6 +181,11 @@ public class PartnerMigration {
 
 					continue;
 				}
+
+				_productPurchaseLocalService.addProductPurchase(
+					userId, account.getAccountId(),
+					productEntry.getProductEntryId(), null, null, null, 1, 0,
+					new ArrayList<>());
 
 				_accountLocalService.updateAccount(account);
 
@@ -291,6 +309,12 @@ public class PartnerMigration {
 
 	private long _flsTeamRoleId;
 	private long _partnerTeamRoleId;
+
+	@Reference
+	private ProductEntryLocalService _productEntryLocalService;
+
+	@Reference
+	private ProductPurchaseLocalService _productPurchaseLocalService;
 
 	@Reference
 	private RoleMigration _roleMigration;
