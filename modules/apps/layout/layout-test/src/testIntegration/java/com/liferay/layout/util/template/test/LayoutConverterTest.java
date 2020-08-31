@@ -101,8 +101,7 @@ public class LayoutConverterTest {
 				put(
 					"column-1",
 					new String[] {
-						"com_liferay_hello_velocity_web_portlet_" +
-							"HelloVelocityPortlet",
+						"com_liferay_clay_sample_web_portlet_ClaySamplePortlet",
 						"com_liferay_hello_world_web_portlet_HelloWorldPortlet",
 						"com_liferay_announcements_web_portlet_" +
 							"AnnouncementsPortlet"
@@ -167,7 +166,7 @@ public class LayoutConverterTest {
 		Map<String, String[]> portletIdsMap = TreeMapBuilder.put(
 			"column-1",
 			new String[] {
-				"com_liferay_hello_velocity_web_portlet_HelloVelocityPortlet",
+				"com_liferay_clay_sample_web_portlet_ClaySamplePortlet",
 				"com_liferay_chart_sample_web_portlet_ChartSamplePortlet"
 			}
 		).put(
@@ -197,7 +196,7 @@ public class LayoutConverterTest {
 		Map<String, String[]> portletIdsMap = TreeMapBuilder.put(
 			"column-1",
 			new String[] {
-				"com_liferay_hello_velocity_web_portlet_HelloVelocityPortlet"
+				"com_liferay_clay_sample_web_portlet_ClaySamplePortlet"
 			}
 		).put(
 			"column-2",
@@ -488,8 +487,7 @@ public class LayoutConverterTest {
 				put(
 					"column-1",
 					new String[] {
-						"com_liferay_hello_velocity_web_portlet_" +
-							"HelloVelocityPortlet",
+						"com_liferay_clay_sample_web_portlet_ClaySamplePortlet",
 						"com_liferay_chart_sample_web_portlet_" +
 							"ChartSamplePortlet"
 					});
@@ -532,8 +530,7 @@ public class LayoutConverterTest {
 				put(
 					"column-1",
 					new String[] {
-						"com_liferay_hello_velocity_web_portlet_" +
-							"HelloVelocityPortlet"
+						"com_liferay_clay_sample_web_portlet_ClaySamplePortlet"
 					});
 				put(
 					"column-2",
@@ -562,8 +559,7 @@ public class LayoutConverterTest {
 				put(
 					"column-1",
 					new String[] {
-						"com_liferay_hello_velocity_web_portlet_" +
-							"HelloVelocityPortlet",
+						"com_liferay_clay_sample_web_portlet_ClaySamplePortlet",
 						"com_liferay_chart_sample_web_portlet_" +
 							"ChartSamplePortlet"
 					});
@@ -595,8 +591,7 @@ public class LayoutConverterTest {
 				put(
 					"column-1",
 					new String[] {
-						"com_liferay_hello_velocity_web_portlet_" +
-							"HelloVelocityPortlet"
+						"com_liferay_clay_sample_web_portlet_ClaySamplePortlet"
 					});
 				put(
 					"column-2",
