@@ -234,14 +234,14 @@ public abstract class BaseUpgradePortletId extends UpgradeProcess {
 				"update PortletPreferences set portletId = '", newRootPortletId,
 				"' where portletId = '", oldRootPortletId, "'"));
 
-		DBTypeToSQLMap updatePortletIdCSS = new DBTypeToSQLMap(
+		DBTypeToSQLMap cssDBTypeToSQLMap = new DBTypeToSQLMap(
 			StringBundler.concat(
 				"update PortletPreferences set preferences = replace(",
 				"preferences, '#portlet_", oldRootPortletId, "', '#portlet_",
 				newRootPortletId, "') where portletId = '", newRootPortletId,
 				"'"));
 
-		updatePortletIdCSS.add(
+		cssDBTypeToSQLMap.add(
 			DBType.SYBASE,
 			StringBundler.concat(
 				"update PortletPreferences set preferences = replace(",
@@ -249,7 +249,7 @@ public abstract class BaseUpgradePortletId extends UpgradeProcess {
 				"', '#portlet_", newRootPortletId, "') where portletId = '",
 				newRootPortletId, "'"));
 
-		runSQL(updatePortletIdCSS);
+		runSQL(cssDBTypeToSQLMap);
 
 		if (!newRootPortletId.contains("_INSTANCE_")) {
 			runSQL(
@@ -259,14 +259,14 @@ public abstract class BaseUpgradePortletId extends UpgradeProcess {
 					newRootPortletId, "_INSTANCE_') where portletId like '",
 					oldRootPortletId, "_INSTANCE_%'"));
 
-			DBTypeToSQLMap updatePortletIdInstanceCSS = new DBTypeToSQLMap(
+			DBTypeToSQLMap instanceCSSDBTypeToSQLMap = new DBTypeToSQLMap(
 				StringBundler.concat(
 					"update PortletPreferences set preferences = replace(",
 					"preferences, '#portlet_", oldRootPortletId, "_INSTANCE_',",
 					"'#portlet_", newRootPortletId, "_INSTANCE_') where ",
 					"portletId like '", newRootPortletId, "_INSTANCE_%'"));
 
-			updatePortletIdInstanceCSS.add(
+			instanceCSSDBTypeToSQLMap.add(
 				DBType.SYBASE,
 				StringBundler.concat(
 					"update PortletPreferences set preferences = replace(",
@@ -275,7 +275,7 @@ public abstract class BaseUpgradePortletId extends UpgradeProcess {
 					"_INSTANCE_') where portletId like '", newRootPortletId,
 					"_INSTANCE_%'"));
 
-			runSQL(updatePortletIdInstanceCSS);
+			runSQL(instanceCSSDBTypeToSQLMap);
 		}
 
 		runSQL(
@@ -285,14 +285,14 @@ public abstract class BaseUpgradePortletId extends UpgradeProcess {
 				"_USER_') where portletId like '", oldRootPortletId,
 				"_USER_%'"));
 
-		DBTypeToSQLMap updatePortletIdUserCSS = new DBTypeToSQLMap(
+		DBTypeToSQLMap userCSSDBTypeToSQLMap = new DBTypeToSQLMap(
 			StringBundler.concat(
 				"update PortletPreferences set preferences = replace(",
 				"preferences, '#portlet_", oldRootPortletId, "_USER_', ",
 				"'#portlet_", newRootPortletId, "_USER_') where portletId ",
 				"like '", newRootPortletId, "_USER_%'"));
 
-		updatePortletIdUserCSS.add(
+		userCSSDBTypeToSQLMap.add(
 			DBType.SYBASE,
 			StringBundler.concat(
 				"update PortletPreferences set preferences = replace(",
@@ -300,7 +300,7 @@ public abstract class BaseUpgradePortletId extends UpgradeProcess {
 				"_USER_', '#portlet_", newRootPortletId, "_USER_') where ",
 				"portletId like '", newRootPortletId, "_USER_%'"));
 
-		runSQL(updatePortletIdUserCSS);
+		runSQL(userCSSDBTypeToSQLMap);
 	}
 
 	protected void updateLayout(long plid, String typeSettings)
