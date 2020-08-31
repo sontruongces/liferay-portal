@@ -130,8 +130,8 @@ portletURL.setParameter("eventName", eventName);
 </div>
 
 <aui:script use="aui-base">
-	A.on('domready', function (event) {
-		A.all('.selector-button').each(function () {
+	A.on('domready', function(event) {
+		A.all('.selector-button').each(function() {
 			var selectorButton = this;
 
 			Liferay.component(
