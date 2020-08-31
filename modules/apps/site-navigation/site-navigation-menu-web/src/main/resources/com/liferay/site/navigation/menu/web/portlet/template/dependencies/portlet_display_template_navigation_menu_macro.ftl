@@ -17,7 +17,7 @@
 					<#assign nav_item_css_class = "${nav_item_css_class} open" />
 				</#if>
 
-				<#if navItem.isSelected()>
+				<#if navItem.isSelected() || navItem.isChildSelected()>
 					<#assign
 						nav_item_css_class = "${nav_item_css_class} selected active"
 					/>
