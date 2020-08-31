@@ -49,12 +49,14 @@ import com.liferay.site.navigation.constants.SiteNavigationWebKeys;
 import com.liferay.site.navigation.menu.item.layout.constants.SiteNavigationMenuItemTypeConstants;
 import com.liferay.site.navigation.menu.item.layout.internal.constants.SiteNavigationMenuItemTypeLayoutWebKeys;
 import com.liferay.site.navigation.model.SiteNavigationMenuItem;
+import com.liferay.site.navigation.service.SiteNavigationMenuItemLocalService;
 import com.liferay.site.navigation.type.SiteNavigationMenuItemType;
 
 import java.io.IOException;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Stack;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
@@ -361,9 +363,33 @@ public class LayoutSiteNavigationMenuItemType
 			Layout curLayout)
 		throws PortalException {
 
-		Layout layout = _fetchLayout(siteNavigationMenuItem);
+		if (!selectable) {
+			return false;
+		}
 
-		return layout.isChildSelected(selectable, curLayout);
+		Stack<SiteNavigationMenuItem> descendants = new Stack<>();
+
+		descendants.addAll(
+			_siteNavigationMenuItemLocalService.getSiteNavigationMenuItems(
+				siteNavigationMenuItem.getSiteNavigationMenuId(),
+				siteNavigationMenuItem.getSiteNavigationMenuItemId()));
+
+		while (!descendants.isEmpty()) {
+			SiteNavigationMenuItem descendant = descendants.pop();
+
+			Layout descendantLayout = _fetchLayout(descendant);
+
+			if (descendantLayout.getPlid() == curLayout.getPlid()) {
+				return true;
+			}
+
+			descendants.addAll(
+				_siteNavigationMenuItemLocalService.getSiteNavigationMenuItems(
+					descendant.getSiteNavigationMenuId(),
+					descendant.getSiteNavigationMenuItemId()));
+		}
+
+		return false;
 	}
 
 	@Override
@@ -372,10 +398,17 @@ public class LayoutSiteNavigationMenuItemType
 			Layout curLayout)
 		throws Exception {
 
+		if (!selectable) {
+			return false;
+		}
+
 		Layout layout = _fetchLayout(siteNavigationMenuItem);
 
-		return layout.isSelected(
-			selectable, curLayout, curLayout.getAncestorPlid());
+		if (layout.getPlid() == curLayout.getPlid()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
@@ -519,5 +552,9 @@ public class LayoutSiteNavigationMenuItemType
 		unbind = "-"
 	)
 	private ServletContext _servletContext;
+
+	@Reference
+	private SiteNavigationMenuItemLocalService
+		_siteNavigationMenuItemLocalService;
 
 }
