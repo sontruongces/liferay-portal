@@ -447,8 +447,10 @@ public class LayoutConverterTest {
 					fragmentEntryLinkIdsInColumn, StringPool.COMMA_AND_SPACE);
 
 				expectedLayoutData = StringUtil.replaceFirst(
-					expectedLayoutData, "[]",
-					String.format("[%s]", fragmentEntryLinkIdsJoined));
+					expectedLayoutData, "\"fragmentEntryLinkIds\": [",
+					String.format(
+						"\"fragmentEntryLinkIds\":[%s",
+						fragmentEntryLinkIdsJoined));
 			}
 		}
 
