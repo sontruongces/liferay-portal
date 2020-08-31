@@ -512,7 +512,7 @@ public class EditAssetListDisplayContext {
 				getAssetRendererFactoryByClassNameId(classNameIds[0]));
 
 		long classTypeId = GetterUtil.getLong(
-			_unicodeProperties.getProperty("anyClassType" + className));
+			_properties.getProperty("anyClassType" + className));
 
 		if (classTypeId > 0) {
 			return new long[] {classTypeId};
