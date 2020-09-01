@@ -1,8 +1,8 @@
 <#assign
-	is_trial_started = false
 	show_footer = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-footer"))
 	show_header = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-header"))
 	show_header_search = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-header-search"))
+	trial_started = false
 	wrap_widget_page_content = getterUtil.getBoolean(themeDisplay.getThemeSetting("wrap-widget-page-content"))
 />
 

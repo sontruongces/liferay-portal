@@ -1,4 +1,4 @@
-<#if !is_trial_started>
+<#if !trial_started>
 	<#assign
 		trial_navigation_preferences = freeMarkerPortletPreferences.getPreferences({
 			"portletSetupPortletDecoratorId": "barebone",
