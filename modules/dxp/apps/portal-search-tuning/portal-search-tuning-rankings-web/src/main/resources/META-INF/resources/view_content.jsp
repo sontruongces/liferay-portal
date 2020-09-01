@@ -29,9 +29,6 @@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.search.tuning.rankings.web.internal.display.context.RankingResultContentDisplayBuilder" %><%@
 page import="com.liferay.portal.search.tuning.rankings.web.internal.display.context.RankingResultContentDisplayContext" %>
 
-<%@ page import="java.util.HashMap" %><%@
-page import="java.util.Map" %>
-
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
@@ -65,25 +62,14 @@ RankingResultContentDisplayContext rankingResultContentDisplayContext = rankingR
 					<div class="autofit-col visible-interaction">
 						<c:if test="<%= rankingResultContentDisplayContext.hasEditPermission() %>">
 							<div class="asset-actions lfr-meta-actions">
-
-								<%
-								Map<String, Object> data = new HashMap<String, Object>();
-
-								data.put("destroyOnHide", true);
-								data.put("id", HtmlUtil.escape(portletDisplay.getNamespace()) + "editAsset");
-								data.put("title", LanguageUtil.format(request, "edit-x", HtmlUtil.escape(rankingResultContentDisplayContext.getIconEditTarget()), false));
-								%>
-
 								<liferay-ui:icon
 									cssClass="visible-interaction"
-									data="<%= data %>"
 									icon="pencil"
 									label="<%= false %>"
 									markupView="lexicon"
 									message='<%= LanguageUtil.format(request, "edit-x-x", new Object[] {"hide-accessible", HtmlUtil.escape(rankingResultContentDisplayContext.getIconEditTarget())}, false) %>'
 									method="get"
 									url="<%= rankingResultContentDisplayContext.getIconURLString() %>"
-									useDialog="<%= true %>"
 								/>
 							</div>
 						</c:if>
