@@ -90,6 +90,7 @@ definition {
 			searchTerm = "Apple");
 	}
 
+	@ignore = "true"
 	test BreakWorkflowSLA {
 		property test.name.skip.portal.instance = "CrossClusterReplicationES7#BreakWorkflowSLA";
 
