@@ -153,33 +153,6 @@ public class DisplayPageLayoutTypeController
 				ContentPageEditorWebKeys.ITEM_SELECTOR, _itemSelector);
 		}
 
-		Object object = httpServletRequest.getAttribute(
-			WebKeys.LAYOUT_ASSET_ENTRY);
-
-		if ((object != null) && (object instanceof AssetEntry)) {
-			AssetEntry assetEntry = (AssetEntry)object;
-
-			AssetRendererFactory<?> assetRendererFactory =
-				AssetRendererFactoryRegistryUtil.
-					getAssetRendererFactoryByClassNameId(
-						assetEntry.getClassNameId());
-
-			if ((assetRendererFactory != null) &&
-				!assetRendererFactory.hasPermission(
-					themeDisplay.getPermissionChecker(),
-					assetEntry.getClassPK(), ActionKeys.VIEW)) {
-
-				if (themeDisplay.isSignedIn()) {
-					httpServletResponse.setStatus(
-						HttpServletResponse.SC_FORBIDDEN);
-				}
-				else {
-					httpServletResponse.setStatus(
-						HttpServletResponse.SC_UNAUTHORIZED);
-				}
-			}
-		}
-
 		httpServletRequest.setAttribute(
 			FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER,
 			_fragmentRendererController);
@@ -248,6 +221,33 @@ public class DisplayPageLayoutTypeController
 
 		httpServletRequest.setAttribute(
 			WebKeys.LAYOUT_CONTENT, unsyncStringWriter.getStringBundler());
+
+		Object object = httpServletRequest.getAttribute(
+			WebKeys.LAYOUT_ASSET_ENTRY);
+
+		if ((object != null) && (object instanceof AssetEntry)) {
+			AssetEntry assetEntry = (AssetEntry)object;
+
+			AssetRendererFactory<?> assetRendererFactory =
+				AssetRendererFactoryRegistryUtil.
+					getAssetRendererFactoryByClassNameId(
+						assetEntry.getClassNameId());
+
+			if ((assetRendererFactory != null) &&
+				!assetRendererFactory.hasPermission(
+					themeDisplay.getPermissionChecker(),
+					assetEntry.getClassPK(), ActionKeys.VIEW)) {
+
+				if (themeDisplay.isSignedIn()) {
+					httpServletResponse.setStatus(
+						HttpServletResponse.SC_FORBIDDEN);
+				}
+				else {
+					httpServletResponse.setStatus(
+						HttpServletResponse.SC_UNAUTHORIZED);
+				}
+			}
+		}
 
 		return false;
 	}
