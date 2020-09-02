@@ -210,7 +210,7 @@ AUI.add(
 
 				if (dataAssignments.address) {
 					dataAssignments.address.forEach(item => {
-						if (isValue(item)) {
+						if (isNotEmptyValue(item)) {
 							buffer.push(XMLUtil.create('address', item));
 						}
 					});
@@ -307,15 +307,15 @@ AUI.add(
 				else if (assignmentType === 'user') {
 					if (
 						isArray(dataAssignments.emailAddress) &&
-						dataAssignments.emailAddress.filter(isValue).length !==
-							0
+						dataAssignments.emailAddress.filter(isNotEmptyValue)
+							.length !== 0
 					) {
 						const xmlUser = XMLUtil.createObj('user');
 
-						dataAssignments.emailAddress.forEach((item, index) => {
+						dataAssignments.emailAddress.forEach(item => {
 							buffer.push(xmlUser.open);
 
-							if (isValue(item)) {
+							if (isNotEmptyValue(item)) {
 								buffer.push(
 									XMLUtil.create('emailAddress', item)
 								);
@@ -326,14 +326,15 @@ AUI.add(
 					}
 					else if (
 						isArray(dataAssignments.screenName) &&
-						dataAssignments.screenName.filter(isValue).length !== 0
+						dataAssignments.screenName.filter(isNotEmptyValue)
+							.length !== 0
 					) {
 						const xmlUser = XMLUtil.createObj('user');
 
-						dataAssignments.screenName.forEach((item, index) => {
+						dataAssignments.screenName.forEach(item => {
 							buffer.push(xmlUser.open);
 
-							if (isValue(item)) {
+							if (isNotEmptyValue(item)) {
 								buffer.push(XMLUtil.create('screenName', item));
 							}
 
@@ -342,14 +343,15 @@ AUI.add(
 					}
 					else if (
 						isArray(dataAssignments.userId) &&
-						dataAssignments.userId.filter(isValue).length !== 0
+						dataAssignments.userId.filter(isNotEmptyValue)
+							.length !== 0
 					) {
 						const xmlUser = XMLUtil.createObj('user');
 
-						dataAssignments.userId.forEach((item, index) => {
+						dataAssignments.userId.forEach(item => {
 							buffer.push(xmlUser.open);
 
-							if (isValue(item)) {
+							if (isNotEmptyValue(item)) {
 								buffer.push(XMLUtil.create('userId', item));
 							}
 
@@ -365,7 +367,7 @@ AUI.add(
 				}
 				else if (
 					!dataAssignments.address ||
-					dataAssignments.address.filter(isValue).length === 0
+					dataAssignments.address.filter(isNotEmptyValue).length === 0
 				) {
 					buffer.push('<user/>');
 				}
@@ -524,7 +526,7 @@ AUI.add(
 						buffer.push(xmlRecurrence.close);
 					}
 
-					if (blocking && isValue(blocking[index])) {
+					if (blocking && isNotEmptyValue(blocking[index])) {
 						buffer.push(
 							XMLUtil.create('blocking', blocking[index])
 						);
