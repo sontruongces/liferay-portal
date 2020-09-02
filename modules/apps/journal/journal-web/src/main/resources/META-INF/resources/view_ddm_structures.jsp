@@ -31,9 +31,7 @@ JournalDDMStructuresManagementToolbarDisplayContext journalDDMStructuresManageme
 	displayContext="<%= journalDDMStructuresManagementToolbarDisplayContext %>"
 />
 
-<portlet:actionURL copyCurrentRenderParameters="<%= true %>" name="/journal/delete_ddm_structure" var="deleteDDMStructureURL">
-	<portlet:param name="mvcPath" value="/view_ddm_structures.jsp" />
-</portlet:actionURL>
+<portlet:actionURL copyCurrentRenderParameters="<%= true %>" name="/journal/delete_ddm_structure" var="deleteDDMStructureURL" />
 
 <aui:form action="<%= deleteDDMStructureURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
