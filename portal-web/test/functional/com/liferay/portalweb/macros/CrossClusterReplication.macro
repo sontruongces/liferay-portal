@@ -17,6 +17,12 @@ definition {
 			fieldName = "ccrLocalClusterConnectionConfigurations",
 			fieldValue = "localhost:8080,ccr");
 
+		// Workaround for LPS-119745
+
+		FormFields.editTextMultiline(
+			fieldName = "excludedIndexes",
+			fieldValue = "ilm-history-2-000001");
+
 		SystemSettings.saveConfiguration();
 	}
 
