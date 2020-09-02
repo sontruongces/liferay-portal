@@ -254,6 +254,13 @@ definition {
 
 		CrossClusterReplication.setupCrossClusterReplication();
 
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all spell check indexes.");
+
 		JSONWebcontent.addWebContent(
 			content = "",
 			groupName = "Guest",
