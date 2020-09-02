@@ -320,22 +320,6 @@ AUI.add(
 									XMLUtil.create('emailAddress', item)
 								);
 							}
-							else if (isValue(dataAssignments.screenName[index])) {
-								buffer.push(
-									XMLUtil.create(
-										'screenName',
-										dataAssignments.screenName[index]
-									)
-								);
-							}
-							else if (isValue(dataAssignments.userId[index])) {
-								buffer.push(
-									XMLUtil.create(
-										'userId',
-										dataAssignments.userId[index]
-									)
-								);
-							}
 
 							buffer.push(xmlUser.close);
 						});
@@ -352,23 +336,6 @@ AUI.add(
 							if (isValue(item)) {
 								buffer.push(XMLUtil.create('screenName', item));
 							}
-							else if (isValue(dataAssignments.emailAddress[index])) {
-								buffer.push(
-									XMLUtil.create(
-										'emailAddress',
-										dataAssignments.emailAddress[index]
-									)
-								);
-							}
-
-							else if (isValue(dataAssignments.userId[index])) {
-								buffer.push(
-									XMLUtil.create(
-										'userId',
-										dataAssignments.userId[index]
-									)
-								);
-							}
 
 							buffer.push(xmlUser.close);
 						});
@@ -384,22 +351,6 @@ AUI.add(
 
 							if (isValue(item)) {
 								buffer.push(XMLUtil.create('userId', item));
-							}
-							else if (isValue(dataAssignments.emailAddress[index])) {
-								buffer.push(
-									XMLUtil.create(
-										'emailAddress',
-										dataAssignments.emailAddress[index]
-									)
-								);
-							}
-							else if (isValue(dataAssignments.screenName[index])) {
-								buffer.push(
-									XMLUtil.create(
-										'screenName',
-										dataAssignments.screenName[index]
-									)
-								);
 							}
 
 							buffer.push(xmlUser.close);
