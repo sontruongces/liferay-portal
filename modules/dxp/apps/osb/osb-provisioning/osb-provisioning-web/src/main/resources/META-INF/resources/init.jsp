@@ -33,6 +33,7 @@ page import="com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLink
 page import="com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact" %><%@
+page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Entitlement" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product" %><%@
@@ -99,6 +100,7 @@ page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.vulcan.util.TransformUtil" %>
 
 <%@ page import="java.util.ArrayList" %><%@
+page import="java.util.Arrays" %><%@
 page import="java.util.Calendar" %><%@
 page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
