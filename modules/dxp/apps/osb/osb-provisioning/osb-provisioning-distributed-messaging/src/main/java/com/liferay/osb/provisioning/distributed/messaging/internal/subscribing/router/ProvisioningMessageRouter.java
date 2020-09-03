@@ -17,6 +17,7 @@ package com.liferay.osb.provisioning.distributed.messaging.internal.subscribing.
 import com.liferay.osb.distributed.messaging.subscribing.router.BaseMessageRouter;
 import com.liferay.osb.distributed.messaging.subscribing.router.MessageRouter;
 import com.liferay.osb.provisioning.distributed.messaging.internal.subscribing.DossieraCreateMessageSubscriber;
+import com.liferay.osb.provisioning.distributed.messaging.internal.subscribing.ProductMessageSubscriber;
 import com.liferay.osb.provisioning.distributed.messaging.internal.subscribing.ProductPurchaseMessageSubscriber;
 
 import java.util.Map;
@@ -36,6 +37,14 @@ public class ProvisioningMessageRouter extends BaseMessageRouter {
 		Map<String, Object> properties) {
 
 		addRoute(dossieraCreateMessageSubscriber, properties);
+	}
+
+	@Reference(unbind = "-")
+	protected void setProductMessageSubscriber(
+		ProductMessageSubscriber productMessageSubscriber,
+		Map<String, Object> properties) {
+
+		addRoute(productMessageSubscriber, properties);
 	}
 
 	@Reference(unbind = "-")

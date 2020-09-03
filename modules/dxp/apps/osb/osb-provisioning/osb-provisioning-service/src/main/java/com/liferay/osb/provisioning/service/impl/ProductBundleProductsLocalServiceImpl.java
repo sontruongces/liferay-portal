@@ -109,6 +109,17 @@ public class ProductBundleProductsLocalServiceImpl
 			productBundleId);
 	}
 
+	public List<ProductBundleProducts> getProductBundleProducts(
+		String productKey) {
+
+		return productBundleProductsPersistence.findByProductKey(productKey);
+	}
+
+	public int getProductBundleProductsCount(long productBundleId) {
+		return productBundleProductsPersistence.countByProductBundleId(
+			productBundleId);
+	}
+
 	public int getProductBundleProductsCount(String productKey) {
 		return productBundleProductsPersistence.countByProductKey(productKey);
 	}
