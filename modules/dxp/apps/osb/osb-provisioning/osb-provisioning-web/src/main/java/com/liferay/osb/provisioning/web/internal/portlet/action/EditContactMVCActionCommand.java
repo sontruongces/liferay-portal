@@ -81,9 +81,10 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		String emailAddress = ParamUtil.getString(
-			actionRequest, "contactEmailAddress");
-		String oktaId = ParamUtil.getString(actionRequest, "oktaId");
+			actionRequest, "emailAddress");
+
 		String uuid = ParamUtil.getString(actionRequest, "uuid");
+		String oktaId = ParamUtil.getString(actionRequest, "oktaId");
 		String firstName = ParamUtil.getString(actionRequest, "firstName");
 		String middleName = ParamUtil.getString(actionRequest, "middleName");
 		String lastName = ParamUtil.getString(actionRequest, "lastName");

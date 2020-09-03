@@ -17,13 +17,13 @@
 <%@ include file="/init.jsp" %>
 
 <%
-Contact curContact = (Contact)renderRequest.getAttribute(ProvisioningWebKeys.CONTACT);
+Contact koroneikiContact = (Contact)renderRequest.getAttribute(ProvisioningWebKeys.CONTACT);
 %>
 
 <portlet:actionURL name="/users/edit_contact" var="editContactURL">
 	<portlet:param name="mvcRenderCommandName" value="/users/view_contact" />
 	<portlet:param name="tabs1" value="general" />
-	<portlet:param name="contactEmailAddress" value="<%= curContact.getEmailAddress() %>" />
+	<portlet:param name="emailAddress" value="<%= koroneikiContact.getEmailAddress() %>" />
 </portlet:actionURL>
 
 <liferay-ui:error exception="<%= HttpException.class %>">
@@ -38,23 +38,23 @@ Contact curContact = (Contact)renderRequest.getAttribute(ProvisioningWebKeys.CON
 <aui:form action="<%= editContactURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:fieldset-group>
 		<aui:fieldset>
-			<aui:input name="key" type="resource" value="<%= curContact.getKey() %>" />
+			<aui:input name="key" type="resource" value="<%= koroneikiContact.getKey() %>" />
 
-			<aui:input name="emailAddress" type="resource" value="<%= curContact.getEmailAddress() %>" />
+			<aui:input name="emailAddress" type="resource" value="<%= koroneikiContact.getEmailAddress() %>" />
 
-			<aui:input name="languageId" type="resource" value="<%= curContact.getLanguageId() %>" />
+			<aui:input name="languageId" type="resource" value="<%= koroneikiContact.getLanguageId() %>" />
 
-			<aui:input name="uuid" value="<%= curContact.getUuid() %>" />
+			<aui:input name="uuid" value="<%= koroneikiContact.getUuid() %>" />
 
-			<aui:input name="oktaId" value="<%= curContact.getOktaId() %>" />
+			<aui:input name="oktaId" value="<%= koroneikiContact.getOktaId() %>" />
 
-			<aui:input name="firstName" value="<%= curContact.getFirstName() %>" />
+			<aui:input name="firstName" value="<%= koroneikiContact.getFirstName() %>" />
 
-			<aui:input name="middleName" value="<%= curContact.getMiddleName() %>" />
+			<aui:input name="middleName" value="<%= koroneikiContact.getMiddleName() %>" />
 
-			<aui:input name="lastName" value="<%= curContact.getLastName() %>" />
+			<aui:input name="lastName" value="<%= koroneikiContact.getLastName() %>" />
 
-			<aui:input checked="<%= curContact.getEmailAddressVerified() %>" name="emailAddressVerified" type="checkbox" />
+			<aui:input checked="<%= koroneikiContact.getEmailAddressVerified() %>" name="emailAddressVerified" type="checkbox" />
 		</aui:fieldset>
 	</aui:fieldset-group>
 
