@@ -118,7 +118,13 @@ function ContactRoleSelect({
 											'name'
 										]
 									}
-									removeRole={() => removeKey(roleKey)}
+									removeRole={event => {
+										// Stops the click event on the label's close button from propagating up and triggering the dropdown.
+
+										event.stopPropagation();
+
+										removeKey(roleKey);
+									}}
 								/>
 							)
 					)}
