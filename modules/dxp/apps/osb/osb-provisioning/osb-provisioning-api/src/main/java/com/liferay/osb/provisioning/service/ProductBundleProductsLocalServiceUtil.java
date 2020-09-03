@@ -292,6 +292,17 @@ public class ProductBundleProductsLocalServiceUtil {
 		return getService().getProductBundleProducts(productBundleProductsPK);
 	}
 
+	public static java.util.List
+		<com.liferay.osb.provisioning.model.ProductBundleProducts>
+			getProductBundleProducts(String productKey) {
+
+		return getService().getProductBundleProducts(productKey);
+	}
+
+	public static int getProductBundleProductsCount(long productBundleId) {
+		return getService().getProductBundleProductsCount(productBundleId);
+	}
+
 	public static int getProductBundleProductsCount(String productKey) {
 		return getService().getProductBundleProductsCount(productKey);
 	}

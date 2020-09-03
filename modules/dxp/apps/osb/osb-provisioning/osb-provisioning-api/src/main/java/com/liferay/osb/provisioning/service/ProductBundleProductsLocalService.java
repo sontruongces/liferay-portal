@@ -243,6 +243,13 @@ public interface ProductBundleProductsLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<ProductBundleProducts> getProductBundleProducts(
+		String productKey);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getProductBundleProductsCount(long productBundleId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getProductBundleProductsCount(String productKey);
 
 	/**

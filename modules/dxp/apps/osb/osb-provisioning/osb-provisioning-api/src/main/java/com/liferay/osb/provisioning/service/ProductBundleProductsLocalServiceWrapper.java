@@ -318,6 +318,21 @@ public class ProductBundleProductsLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.osb.provisioning.model.ProductBundleProducts>
+			getProductBundleProducts(String productKey) {
+
+		return _productBundleProductsLocalService.getProductBundleProducts(
+			productKey);
+	}
+
+	@Override
+	public int getProductBundleProductsCount(long productBundleId) {
+		return _productBundleProductsLocalService.getProductBundleProductsCount(
+			productBundleId);
+	}
+
+	@Override
 	public int getProductBundleProductsCount(String productKey) {
 		return _productBundleProductsLocalService.getProductBundleProductsCount(
 			productKey);
