@@ -62,7 +62,7 @@ if (productPurchase != null) {
 
 	<div class="main-content-body">
 		<c:if test="<%= productPurchase == null %>">
-			<table class="table table-autofit table-list table-nowrap">
+			<table class="table table-autofit table-list table-responsive">
 				<thead>
 					<tr>
 						<th class="table-cell-expand">
@@ -99,7 +99,7 @@ if (productPurchase != null) {
 			<aui:input name="productKey" type="hidden" />
 
 			<div id="<portlet:namespace />subscriptionContent" hidden>
-				<table class="table table-autofit table-list table-nowrap">
+				<table class="table table-autofit table-hover table-list">
 					<thead>
 						<tr>
 							<th class="table-cell-expand">
