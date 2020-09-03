@@ -51,7 +51,7 @@ public class OSBCommerceThemeHttpHelper {
 			commerceSubscriptionEntry.getSubscriptionTypeSettingsProperties();
 
 		OSBCommercePortalInstanceStatus portalInstanceStatus =
-			OSBCommercePortalInstanceStatus.toEnum(
+			OSBCommercePortalInstanceStatus.parse(
 				subscriptionTypeSettingsProperties.get(
 					OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_STATUS));
 

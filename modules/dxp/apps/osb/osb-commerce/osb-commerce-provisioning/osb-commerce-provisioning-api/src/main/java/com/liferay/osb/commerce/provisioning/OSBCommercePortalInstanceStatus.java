@@ -25,7 +25,7 @@ public enum OSBCommercePortalInstanceStatus {
 	ACTIVE(WorkflowConstants.STATUS_APPROVED), CANCELLED(1),
 	IN_PROGRESS(WorkflowConstants.STATUS_INCOMPLETE);
 
-	public static OSBCommercePortalInstanceStatus toEnum(String statusString) {
+	public static OSBCommercePortalInstanceStatus parse(String statusString) {
 		if (statusString == null) {
 			return null;
 		}
