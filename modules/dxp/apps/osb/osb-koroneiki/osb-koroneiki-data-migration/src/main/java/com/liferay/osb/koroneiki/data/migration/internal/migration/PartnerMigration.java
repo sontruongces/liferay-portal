@@ -34,7 +34,9 @@ import com.liferay.osb.koroneiki.taproot.service.TeamAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
 import com.liferay.osb.koroneiki.taproot.service.TeamRoleLocalService;
 import com.liferay.osb.koroneiki.trunk.model.ProductEntry;
+import com.liferay.osb.koroneiki.trunk.model.ProductField;
 import com.liferay.osb.koroneiki.trunk.service.ProductEntryLocalService;
+import com.liferay.osb.koroneiki.trunk.service.ProductFieldLocalService;
 import com.liferay.osb.koroneiki.trunk.service.ProductPurchaseLocalService;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -49,6 +51,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -156,8 +159,18 @@ public class PartnerMigration {
 				"Service Partnership");
 
 		if (productEntry == null) {
+			List<ProductField> productFields = new ArrayList<>();
+
+			ProductField productField =
+				_productFieldLocalService.createProductField(0);
+
+			productField.setName("type");
+			productField.setValue("regular");
+
+			productFields.add(productField);
+
 			productEntry = _productEntryLocalService.addProductEntry(
-				userId, "Service Partnership", new ArrayList<>());
+				userId, "Service Partnership", productFields);
 		}
 
 		StringBundler sb = new StringBundler(2);
@@ -168,6 +181,10 @@ public class PartnerMigration {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
 			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			Date startDate = new Date(1577865600000L);
+			Date endDate = new Date(1614585600000L);
+			Date originalEndDate = new Date(1609401600000L);
 
 			while (resultSet.next()) {
 				String dossieraAccountKey = resultSet.getString(1);
@@ -184,8 +201,8 @@ public class PartnerMigration {
 
 				_productPurchaseLocalService.addProductPurchase(
 					userId, account.getAccountId(),
-					productEntry.getProductEntryId(), null, null, null, 1, 0,
-					new ArrayList<>());
+					productEntry.getProductEntryId(), startDate, endDate,
+					originalEndDate, 1, 0, new ArrayList<>());
 
 				_accountLocalService.updateAccount(account);
 
@@ -312,6 +329,9 @@ public class PartnerMigration {
 
 	@Reference
 	private ProductEntryLocalService _productEntryLocalService;
+
+	@Reference
+	private ProductFieldLocalService _productFieldLocalService;
 
 	@Reference
 	private ProductPurchaseLocalService _productPurchaseLocalService;
