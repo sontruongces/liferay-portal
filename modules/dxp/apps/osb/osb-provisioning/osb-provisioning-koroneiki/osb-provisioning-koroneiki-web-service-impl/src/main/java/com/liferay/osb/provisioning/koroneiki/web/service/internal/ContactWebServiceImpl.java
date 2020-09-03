@@ -42,7 +42,8 @@ import org.osgi.service.component.annotations.Component;
 	configurationPid = "com.liferay.osb.provisioning.koroneiki.web.service.internal.configuration.KoroneikiConfiguration",
 	immediate = true, service = ContactWebService.class
 )
-public class ContactWebServiceImpl implements ContactWebService {
+public class ContactWebServiceImpl
+	extends BaseWebService implements ContactWebService {
 
 	public Contact addContact(
 			String agentName, String agentUID, Contact contact)
@@ -102,6 +103,18 @@ public class ContactWebServiceImpl implements ContactWebService {
 		}
 
 		return 0;
+	}
+
+	public Contact updateContact(
+			String agentName, String agentUID, String emailAddress,
+			Contact contact)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			_contactResource.putContactByEmailAddresEmailAddressHttpResponse(
+				agentName, agentUID, emailAddress, contact);
+
+		return processDTO(httpResponse, ContactSerDes::toDTO);
 	}
 
 	@Activate

@@ -22,6 +22,8 @@
 ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentProvider.getViewContactDisplayContext(renderRequest, renderResponse, request);
 
 viewContactDisplayContext.addPortletBreadcrumbEntries();
+
+String tabs1 = ParamUtil.getString(request, "tabs1");
 %>
 
 <liferay-util:include page="/users/view_contact_header.jsp" servletContext="<%= application %>" />
@@ -29,10 +31,17 @@ viewContactDisplayContext.addPortletBreadcrumbEntries();
 <div class="contact" id="contact">
 	<div class="contact-content">
 		<liferay-ui:tabs
-			names="accounts"
+			names="accounts,general"
 			portletURL="<%= viewContactDisplayContext.getPortletURL() %>"
 		/>
 
-		<liferay-util:include page="/users/view_contact_accounts.jsp" servletContext="<%= application %>" />
+		<c:choose>
+			<c:when test='<%= tabs1.equals("general") %>'>
+				<liferay-util:include page="/users/edit_contact.jsp" servletContext="<%= application %>" />
+			</c:when>
+			<c:otherwise>
+				<liferay-util:include page="/users/view_contact_accounts.jsp" servletContext="<%= application %>" />
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>

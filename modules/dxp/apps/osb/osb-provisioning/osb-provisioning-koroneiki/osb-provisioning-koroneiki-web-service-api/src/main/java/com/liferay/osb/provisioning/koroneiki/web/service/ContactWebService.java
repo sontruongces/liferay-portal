@@ -41,4 +41,9 @@ public interface ContactWebService {
 	public long searchCount(String search, String filterString)
 		throws Exception;
 
+	public Contact updateContact(
+			String agentName, String agentUID, String emailAddress,
+			Contact contact)
+		throws Exception;
+
 }

@@ -32,6 +32,7 @@ page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPNavigationI
 page import="com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkDomain" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.constants.ExternalLinkEntityName" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account" %><%@
+page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note" %><%@
 page import="com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product" %><%@
