@@ -92,10 +92,10 @@ public class InheritedFragmentEntryActionDropdownItemsProvider {
 		return dropdownItem -> {
 			dropdownItem.putData("action", "copyToFragmentEntry");
 			dropdownItem.putData(
+				"copyFragmentEntryURL", copyFragmentEntryURL.toString());
+			dropdownItem.putData(
 				"fragmentEntryId",
 				String.valueOf(_fragmentEntry.getFragmentEntryId()));
-			dropdownItem.putData(
-				"copyFragmentEntryURL", copyFragmentEntryURL.toString());
 			dropdownItem.putData(
 				"selectFragmentCollectionURL",
 				selectFragmentCollectionURL.toString());

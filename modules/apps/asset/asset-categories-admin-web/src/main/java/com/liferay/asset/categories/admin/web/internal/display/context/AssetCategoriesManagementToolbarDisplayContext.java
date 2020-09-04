@@ -209,13 +209,13 @@ public class AssetCategoriesManagementToolbarDisplayContext
 
 					add(
 						dropdownItem -> {
-							dropdownItem.setActive(_isNavigationCategory());
 							dropdownItem.putData("action", "selectCategory");
 							dropdownItem.putData(
 								"categoriesSelectorURL",
 								_getCategoriesSelectorURL());
 							dropdownItem.putData(
 								"viewCategoriesURL", _getViewCategoriesURL());
+							dropdownItem.setActive(_isNavigationCategory());
 							dropdownItem.setLabel(
 								LanguageUtil.get(request, "category"));
 						});
