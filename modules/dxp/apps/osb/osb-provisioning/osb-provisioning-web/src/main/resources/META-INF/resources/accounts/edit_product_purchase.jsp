@@ -60,7 +60,7 @@ if (productPurchase != null) {
 
 	<liferay-ui:error exception="<%= ProductPurchaseQuantityException.class %>" message="to-remove-a-subscription-change-the-status-to-cancelled-instead" />
 
-	<div class="main-content-body">
+	<div class="page-content">
 		<c:if test="<%= productPurchase == null %>">
 			<table class="table table-autofit table-list table-responsive">
 				<thead>
