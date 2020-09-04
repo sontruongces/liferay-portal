@@ -38,6 +38,7 @@
 .subscription-header,
 .team-header {
 	border-bottom: 1px solid $secondary-l3;
+	padding-top: $spacing-default;
 
 	.account-code,
 	.email-address {

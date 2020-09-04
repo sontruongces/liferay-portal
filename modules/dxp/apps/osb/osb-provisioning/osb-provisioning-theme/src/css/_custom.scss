@@ -36,12 +36,6 @@ table {
 	}
 }
 
-.accounts-portlet {
-	.portlet-content-container {
-		padding-top: $spacing-default;
-	}
-}
-
 .breadcrumb {
 	.active {
 		color: $secondary;
@@ -87,6 +81,10 @@ table {
 		padding-bottom: $spacing-md;
 		padding-top: $spacing-md;
 	}
+}
+
+.portlet-body {
+	margin-top: $header-height;
 }
 
 .secondary-information {
