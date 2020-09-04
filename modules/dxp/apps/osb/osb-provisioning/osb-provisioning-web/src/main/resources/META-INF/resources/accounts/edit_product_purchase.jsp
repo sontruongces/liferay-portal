@@ -104,38 +104,38 @@ if (productPurchase != null) {
 							</th>
 
 							<c:if test="<%= productPurchase == null %>">
-								<th class="table-cell-expand">
+								<th class="table-cell-expand-small">
 									<liferay-ui:message key="salesforce-opportunity-key" />
 								</th>
 							</c:if>
 
-							<th class="table-cell-expand">
+							<th class="table-cell-expand-smallest">
 								<liferay-ui:message key="purchased" />
 							</th>
-							<th class="table-cell-expand">
+							<th class="table-cell-expand-smallest">
 								<liferay-ui:message key="perpetual-subscription" />
 							</th>
-							<th class="table-cell-expand">
+							<th class="table-cell-expand-small">
 								<liferay-ui:message key="start-date" />
 							</th>
-							<th class="table-cell-expand">
+							<th class="table-cell-expand-small">
 								<liferay-ui:message key="end-date" />
 							</th>
-							<th class="table-cell-expand">
+							<th class="table-cell-expand-smallest">
 								<liferay-ui:message key="instance-size" />
 							</th>
 
 							<c:if test="<%= productPurchase != null %>">
-								<th class="table-cell-expand">
+								<th class="table-cell-expand-small">
 									<liferay-ui:message key="grace-period-end-date" />
 								</th>
-								<th class="table-cell-expand">
+								<th class="table-cell-expand-small">
 									<liferay-ui:message key="status" />
 								</th>
-								<th class="table-cell-expand">
+								<th class="table-cell-expand-small">
 									<liferay-ui:message key="subscription-term" />
 								</th>
-								<th class="table-cell-expand">
+								<th class="table-cell-expand-small">
 									<liferay-ui:message key="salesforce-opportunity-key" />
 								</th>
 							</c:if>
@@ -153,14 +153,14 @@ if (productPurchase != null) {
 							</td>
 
 							<c:if test="<%= productPurchase == null %>">
-								<td class="table-cell-expand">
+								<td class="table-cell-expand-small">
 									<aui:input cssClass="account-edit-subscription" label="" name="salesforceOpportunityKey">
 										<aui:validator name="required" />
 									</aui:input>
 								</td>
 							</c:if>
 
-							<td class="table-cell-expand">
+							<td class="table-cell-expand-smallest">
 								<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= quantity %>" />
 							</td>
 
@@ -168,7 +168,7 @@ if (productPurchase != null) {
 							String taglibOnClick = renderResponse.getNamespace() + "toggleDate(this.checked, 'startDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'endDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'gracePeriodEndDate');";
 							%>
 
-							<td class="table-cell-expand">
+							<td class="table-cell-expand-smallest">
 								<aui:input checked="<%= perpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
 							</td>
 
@@ -180,7 +180,7 @@ if (productPurchase != null) {
 							}
 							%>
 
-							<td class="table-cell-expand">
+							<td class="table-cell-expand-small">
 								<liferay-ui:input-date
 									dayParam="startDateDay"
 									dayValue="<%= startCal.get(Calendar.DATE) %>"
@@ -204,7 +204,7 @@ if (productPurchase != null) {
 							}
 							%>
 
-							<td class="table-cell-expand">
+							<td class="table-cell-expand-small">
 								<liferay-ui:input-date
 									dayParam="endDateDay"
 									dayValue="<%= endCal.get(Calendar.DATE) %>"
@@ -216,7 +216,7 @@ if (productPurchase != null) {
 									yearValue="<%= endCal.get(Calendar.YEAR) %>"
 								/>
 							</td>
-							<td class="table-cell-expand">
+							<td class="table-cell-expand-smallest">
 								<aui:select cssClass="account-edit-subscription" label="" name="sizing">
 
 									<%
@@ -246,7 +246,7 @@ if (productPurchase != null) {
 								}
 								%>
 
-								<td class="table-cell-expand">
+								<td class="table-cell-expand-small">
 									<liferay-ui:input-date
 										dayParam="gracePeriodEndDateDay"
 										dayValue="<%= gracePeriodEndCal.get(Calendar.DATE) %>"
@@ -258,7 +258,7 @@ if (productPurchase != null) {
 										yearValue="<%= gracePeriodEndCal.get(Calendar.YEAR) %>"
 									/>
 								</td>
-								<td class="table-cell-expand">
+								<td class="table-cell-expand-small">
 									<aui:select cssClass="account-edit-subscription" label="" name="status">
 
 										<%
@@ -273,10 +273,10 @@ if (productPurchase != null) {
 
 									</aui:select>
 								</td>
-								<td class="table-cell-expand">
+								<td class="table-cell-expand-small">
 									<%= productPurchaseDisplay.getSupportLife() %>
 								</td>
-								<td class="table-cell-expand">
+								<td class="table-cell-expand-small">
 									<%= productPurchaseDisplay.getSalesforceOpportunityKey() %>
 								</td>
 							</c:if>
