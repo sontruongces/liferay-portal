@@ -164,12 +164,8 @@ if (productPurchase != null) {
 								<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= quantity %>" />
 							</td>
 
-							<%
-							String taglibOnClick = renderResponse.getNamespace() + "toggleDate(this.checked, 'startDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'endDate');" + renderResponse.getNamespace() + "toggleDate(this.checked, 'gracePeriodEndDate');";
-							%>
-
 							<td class="table-cell-expand-smallest">
-								<aui:input checked="<%= perpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onClick="<%= taglibOnClick %>" type="checkbox" />
+								<aui:input checked="<%= perpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onChange='<%= renderResponse.getNamespace() + "toggleDate(event.target.checked);" %>' type="checkbox" />
 							</td>
 
 							<%
@@ -385,53 +381,6 @@ if (productPurchase != null) {
 		['aui-base']
 	);
 
-	Liferay.provide(
-		window,
-		'<portlet:namespace />toggleDate',
-		function(checked, dateParam) {
-			var A = AUI();
-
-			if (checked) {
-				A.one('#<portlet:namespace />perpetual').val(true);
-			}
-			else {
-				A.one('#<portlet:namespace />perpetual').val(false);
-			}
-
-			var dayField = A.one('#<portlet:namespace />' + dateParam + 'Day');
-
-			if (dayField) {
-				dayField.attr('disabled', checked);
-			}
-
-			var inputDateField = A.one('#<portlet:namespace />' + dateParam);
-
-			if (inputDateField) {
-				inputDateField.attr('disabled', checked);
-
-				if (checked) {
-					inputDateField.addClass('disabled');
-				}
-				else {
-					inputDateField.removeClass('disabled');
-				}
-			}
-
-			var monthField = A.one('#<portlet:namespace />' + dateParam + 'Month');
-
-			if (monthField) {
-				monthField.attr('disabled', checked);
-			}
-
-			var yearField = A.one('#<portlet:namespace />' + dateParam + 'Year');
-
-			if (yearField) {
-				yearField.attr('disabled', checked);
-			}
-		},
-		['aui-base']
-	);
-
 	var emptyContent = document.getElementById('<portlet:namespace />emptyContent');
 
 	if (!emptyContent) {
@@ -442,5 +391,19 @@ if (productPurchase != null) {
 		if (subscriptionContent) {
 			subscriptionContent.removeAttribute('hidden');
 		}
+	}
+
+	function <portlet:namespace />toggleDate(checked) {
+		var dateInputs = document.querySelectorAll('.lfr-input-date input');
+
+		dateInputs.forEach(
+			function(input) {
+				if (checked) {
+					input.setAttribute('disabled', checked);
+				} else {
+					input.removeAttribute('disabled');
+				}
+			}
+		)
 	}
 </aui:script>
