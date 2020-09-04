@@ -17,9 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-Contact curContact = (Contact)renderRequest.getAttribute(ProvisioningWebKeys.CONTACT);
+Contact koroneikiContact = (Contact)renderRequest.getAttribute(ProvisioningWebKeys.CONTACT);
 
-List<Entitlement> entitlements = Arrays.asList(curContact.getEntitlements());
+List<Entitlement> entitlements = Arrays.asList(koroneikiContact.getEntitlements());
 %>
 
 <div class="main-content-body">
