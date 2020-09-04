@@ -219,7 +219,10 @@ function InlineEdit({
 						</label>
 					)}
 
-					<div className="button-row" role="group">
+					<div
+						className="button-holder button-holder-sm"
+						role="group"
+					>
 						<button
 							className="btn btn-primary btn-sm save-btn"
 							disabled={

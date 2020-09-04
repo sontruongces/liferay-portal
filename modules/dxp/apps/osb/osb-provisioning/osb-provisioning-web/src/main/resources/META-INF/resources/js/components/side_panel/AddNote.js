@@ -137,7 +137,7 @@ function AddNote({
 			</label>
 
 			{showButtons && (
-				<div className="button-row">
+				<div className="button-holder button-holder-sm" role="group">
 					<button
 						className="btn btn-secondary cancel-btn"
 						disabled={savingNote}

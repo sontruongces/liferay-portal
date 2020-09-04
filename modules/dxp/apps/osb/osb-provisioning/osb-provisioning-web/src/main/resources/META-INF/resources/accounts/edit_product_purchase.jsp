@@ -292,7 +292,7 @@ if (productPurchase != null) {
 				</table>
 			</div>
 
-			<aui:button-row>
+			<aui:button-row cssClass="button-holder-lg">
 				<aui:button disabled="<%= productPurchase == null %>" name="submit" type="submit" />
 
 				<aui:button href="<%= redirect %>" type="cancel" />

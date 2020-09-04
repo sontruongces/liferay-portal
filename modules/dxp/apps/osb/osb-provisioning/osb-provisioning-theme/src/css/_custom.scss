@@ -49,11 +49,13 @@ table {
 	}
 }
 
-.button-row {
-	margin-top: $spacing-sm;
+.button-holder {
+	&.button-holder-lg {
+		margin: $spacing-default 0;
+	}
 
-	.btn {
-		margin-right: $spacing-sm;
+	&.button-holder-sm {
+		margin: $spacing-sm 0;
 	}
 }
 

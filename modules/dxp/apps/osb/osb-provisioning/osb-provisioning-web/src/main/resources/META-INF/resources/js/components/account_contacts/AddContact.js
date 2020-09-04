@@ -118,7 +118,7 @@ export default function AddContact({
 				</tbody>
 			</table>
 
-			<div className="button-row">
+			<div className="button-holder button-holder-lg" role="group">
 				<button
 					className="btn btn-primary save-btn"
 					disabled={!(addContactRoleKeys.length > 0 && emailAddress)}
