@@ -546,8 +546,8 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			_addLayoutPageTemplateCollection(serviceContext);
 
 		_addLayout(
-			fragmentCollection, layoutPageTemplateCollection, "Home",
-			"home", false, serviceContext);
+			fragmentCollection, layoutPageTemplateCollection, "Home", "home",
+			false, serviceContext);
 
 		_addLayout(
 			fragmentCollection, layoutPageTemplateCollection, "Start Trial",
@@ -562,8 +562,8 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			"plan_management", true, serviceContext);
 
 		_addLayout(
-			fragmentCollection, layoutPageTemplateCollection, "OSB Commerce Checkout",
-			"checkout", true, serviceContext);
+			fragmentCollection, layoutPageTemplateCollection,
+			"OSB Commerce Checkout", "checkout", true, serviceContext);
 	}
 
 	private void _updateLogo(ServiceContext serviceContext) throws Exception {

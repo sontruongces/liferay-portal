@@ -13,8 +13,8 @@
 	left: 0;
 	opacity: 0.5;
 	position: absolute;
-	width: 100%;
 	top: 0;
+	width: 100%;
 	z-index: 1;
 }
 
@@ -48,8 +48,8 @@
 	content: '';
 	height: 100%;
 	position: absolute;
-	width: 100%;
 	top: -7rem;
+	width: 100%;
 }
 
 .osb-commerce-rep {
