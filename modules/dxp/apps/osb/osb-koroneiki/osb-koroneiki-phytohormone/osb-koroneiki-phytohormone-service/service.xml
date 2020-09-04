@@ -86,6 +86,7 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>EntitlementDefinitionDefinition</exception>
 		<exception>EntitlementDefinitionName</exception>
 	</exceptions>
 </service-builder>

@@ -15,6 +15,7 @@
 package com.liferay.osb.koroneiki.phytohormone.web.internal.portlet.action;
 
 import com.liferay.osb.koroneiki.phytohormone.constants.PhytohormonePortletKeys;
+import com.liferay.osb.koroneiki.phytohormone.exception.EntitlementDefinitionDefinitionException;
 import com.liferay.osb.koroneiki.phytohormone.exception.EntitlementDefinitionNameException;
 import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phytohormone.service.EntitlementDefinitionLocalService;
@@ -79,8 +80,11 @@ public class EditEntitlementDefinitionMVCActionCommand
 			sendRedirect(actionRequest, actionResponse);
 		}
 		catch (Exception exception) {
-			if (exception instanceof EntitlementDefinitionNameException) {
-				SessionErrors.add(actionRequest, exception.getClass());
+			if (exception instanceof EntitlementDefinitionDefinitionException ||
+				exception instanceof EntitlementDefinitionNameException) {
+
+				SessionErrors.add(
+					actionRequest, exception.getClass(), exception);
 
 				actionResponse.setRenderParameter(
 					"mvcRenderCommandName",

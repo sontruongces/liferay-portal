@@ -14,6 +14,7 @@
 
 package com.liferay.osb.koroneiki.phytohormone.service.impl;
 
+import com.liferay.osb.koroneiki.phytohormone.exception.EntitlementDefinitionDefinitionException;
 import com.liferay.osb.koroneiki.phytohormone.exception.EntitlementDefinitionNameException;
 import com.liferay.osb.koroneiki.phytohormone.model.EntitlementDefinition;
 import com.liferay.osb.koroneiki.phytohormone.service.base.EntitlementDefinitionLocalServiceBaseImpl;
@@ -45,7 +46,7 @@ public class EntitlementDefinitionLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		validate(classNameId, name);
+		validate(classNameId, 0, definition, name);
 
 		long entitlementDefinitionId = counterLocalService.increment();
 
@@ -145,6 +146,10 @@ public class EntitlementDefinitionLocalServiceImpl
 			entitlementDefinitionPersistence.findByPrimaryKey(
 				entitlementDefinitionId);
 
+		validate(
+			entitlementDefinition.getClassNameId(), entitlementDefinitionId,
+			definition, entitlementDefinition.getName());
+
 		entitlementDefinition.setDescription(description);
 		entitlementDefinition.setDefinition(definition);
 		entitlementDefinition.setStatus(status);
@@ -152,8 +157,14 @@ public class EntitlementDefinitionLocalServiceImpl
 		return entitlementDefinitionPersistence.update(entitlementDefinition);
 	}
 
-	protected void validate(long classNameId, String name)
+	protected void validate(
+			long classNameId, long entitlementDefinitionId, String definition,
+			String name)
 		throws PortalException {
+
+		if (Validator.isNull(definition)) {
+			throw new EntitlementDefinitionDefinitionException();
+		}
 
 		if (Validator.isNull(name)) {
 			throw new EntitlementDefinitionNameException();
@@ -162,7 +173,10 @@ public class EntitlementDefinitionLocalServiceImpl
 		EntitlementDefinition entitlementDefinition =
 			entitlementDefinitionPersistence.fetchByC_N(classNameId, name);
 
-		if (entitlementDefinition != null) {
+		if ((entitlementDefinition != null) &&
+			(entitlementDefinition.getEntitlementDefinitionId() !=
+				entitlementDefinitionId)) {
+
 			throw new EntitlementDefinitionNameException.MustNotBeDuplicate(
 				classNameId, name);
 		}

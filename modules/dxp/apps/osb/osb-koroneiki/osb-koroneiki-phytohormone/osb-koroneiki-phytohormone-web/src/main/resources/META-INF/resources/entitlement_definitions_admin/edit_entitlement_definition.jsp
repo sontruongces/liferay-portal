@@ -37,6 +37,17 @@ renderResponse.setTitle((entitlementDefinition == null) ? LanguageUtil.get(reque
 
 	<liferay-ui:error exception="<%= EntitlementDefinitionNameException.class %>" message="please-enter-a-valid-name" />
 
+	<liferay-ui:error exception="<%= EntitlementDefinitionNameException.MustNotBeDuplicate.class %>">
+
+		<%
+		EntitlementDefinitionNameException.MustNotBeDuplicate mustNotBeDuplicateException = (EntitlementDefinitionNameException.MustNotBeDuplicate)errorException;
+		%>
+
+		<%= mustNotBeDuplicateException.getMessage() %>
+	</liferay-ui:error>
+
+	<liferay-ui:error exception="<%= EntitlementDefinitionDefinitionException.class %>" message="please-enter-a-valid-definition" />
+
 	<aui:model-context bean="<%= entitlementDefinition %>" model="<%= EntitlementDefinition.class %>" />
 
 	<aui:fieldset-group>
