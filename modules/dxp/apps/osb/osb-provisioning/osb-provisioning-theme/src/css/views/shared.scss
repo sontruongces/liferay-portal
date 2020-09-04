@@ -226,4 +226,16 @@
 
 .page-content {
 	margin: $spacing-default;
+
+	.sheet-header {
+		align-items: center;
+		border-bottom: 1px solid $divider;
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: $spacing-md;
+
+		&:after {
+			content: unset;
+		}
+	}
 }

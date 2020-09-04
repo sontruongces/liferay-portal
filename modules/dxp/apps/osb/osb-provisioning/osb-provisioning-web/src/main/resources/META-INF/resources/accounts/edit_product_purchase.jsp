@@ -62,28 +62,25 @@ if (productPurchase != null) {
 
 	<div class="page-content">
 		<c:if test="<%= productPurchase == null %>">
-			<table class="table table-autofit table-list table-responsive">
-				<thead>
-					<tr>
-						<th class="table-cell-expand">
-							<h4>
-								<liferay-ui:message key="subscription" />
-							</h4>
-						</th>
-						<th>
-							<aui:button onClick='<%= renderResponse.getNamespace() + "selectProduct();" %>' value="select" />
-						</th>
-					</tr>
-				</thead>
-			</table>
-
-			<div class="sheet taglib-empty-result-message" id="<portlet:namespace />emptyContent">
-				<div class="taglib-empty-result-message-header"></div>
-
-				<div class="sheet-text text-center">
-					<liferay-ui:message key="select-subscription-to-fill-in-details" /><br /> <br />
+			<div class="sheet">
+				<div class="sheet-header">
+					<h4>
+						<liferay-ui:message key="subscription" />
+					</h4>
 
 					<aui:button onClick='<%= renderResponse.getNamespace() + "selectProduct();" %>' value="select" />
+				</div>
+
+				<div class="taglib-empty-result-message" id="<portlet:namespace />emptyContent">
+					<div class="taglib-empty-result-message-header"></div>
+
+					<div class="sheet-text text-center">
+						<liferay-ui:message key="select-subscription-to-fill-in-details" />
+					</div>
+
+					<div class="sheet-text text-center">
+						<aui:button onClick='<%= renderResponse.getNamespace() + "selectProduct();" %>' value="select" />
+					</div>
 				</div>
 			</div>
 		</c:if>
