@@ -44,7 +44,7 @@ public class DataRuleFunctionTestUtil {
 		DataDefinitionField dataDefinitionField = _randomDataDefinitionField(
 			fieldType);
 
-		Map<String, Object> dataRecordValues = getDataRecordValues();
+		Map<String, Object> dataRecordValues = dataRecord.getDataRecordValues();
 
 		return dataRuleFunction.validate(
 			dataDefinitionRuleParameters,
