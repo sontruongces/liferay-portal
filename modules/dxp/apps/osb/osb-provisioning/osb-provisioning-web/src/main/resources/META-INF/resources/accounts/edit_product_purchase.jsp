@@ -321,16 +321,17 @@ if (productPurchase != null) {
 
 			var itemSelectorDialog = new A.LiferayItemSelectorDialog({
 				eventName: '<portlet:namespace />selectProduct',
+				on: {
+					selectedItemChange: function(event) {
+						var selectedItem = event.newVal;
+
+						if (selectedItem) {
+							<portlet:namespace />toggleContent(selectedItem);
+						}
+					}
+				},
 				title: '<liferay-ui:message key="select-subscription" />',
 				url: url.toString()
-			});
-
-			itemSelectorDialog.on('selectedItemChange', function(event) {
-				var selectedItem = event.newVal;
-
-				if (selectedItem) {
-					<portlet:namespace />toggleContent(selectedItem);
-				}
 			});
 
 			itemSelectorDialog.open();
