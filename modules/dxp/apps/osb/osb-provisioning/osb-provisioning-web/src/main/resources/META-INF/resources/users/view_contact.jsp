@@ -36,11 +36,11 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 		/>
 
 		<c:choose>
-			<c:when test='<%= tabs1.equals("general") %>'>
-				<liferay-util:include page="/users/edit_contact.jsp" servletContext="<%= application %>" />
-			</c:when>
 			<c:when test='<%= tabs1.equals("entitlements") %>'>
 				<liferay-util:include page="/users/view_contact_entitlements.jsp" servletContext="<%= application %>" />
+			</c:when>
+			<c:when test='<%= tabs1.equals("general") %>'>
+				<liferay-util:include page="/users/edit_contact.jsp" servletContext="<%= application %>" />
 			</c:when>
 			<c:otherwise>
 				<liferay-util:include page="/users/view_contact_accounts.jsp" servletContext="<%= application %>" />
