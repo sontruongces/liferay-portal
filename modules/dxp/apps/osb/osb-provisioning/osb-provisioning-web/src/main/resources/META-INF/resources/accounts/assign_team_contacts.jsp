@@ -66,7 +66,7 @@ SearchContainer searchContainer = assignTeamContactsDisplayContext.getSearchCont
 			<liferay-ui:search-container-column-text
 				name="status"
 			>
-				<span class="label"><%= contactDisplay.getStatus() %></span>
+				<span class="label <%= contactDisplay.getStatusStyle() %>"><%= contactDisplay.getStatus() %></span>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 
@@ -86,7 +86,7 @@ SearchContainer searchContainer = assignTeamContactsDisplayContext.getSearchCont
 
 		var data = [];
 
-		if (selectedItems.size() > 0) {
+		if (selectedItems && selectedItems.size() > 0) {
 			data = selectedItems.attr('value');
 		}
 
