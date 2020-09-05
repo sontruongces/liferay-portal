@@ -163,7 +163,6 @@ if (productPurchase != null) {
 							<td class="table-cell-expand-smallest">
 								<aui:input cssClass="account-edit-subscription" label="" name="quantity" value="<%= quantity %>" />
 							</td>
-
 							<td class="table-cell-expand-smallest">
 								<aui:input checked="<%= perpetual %>" cssClass="account-edit-subscription" label="" name="perpetual" onChange='<%= renderResponse.getNamespace() + "toggleDate(event.target.checked);" %>' type="checkbox" />
 							</td>
@@ -295,6 +294,59 @@ if (productPurchase != null) {
 </div>
 
 <aui:script>
+	var emptyContent = document.getElementById('<portlet:namespace />emptyContent');
+	var subscriptionContent = document.getElementById(
+		'<portlet:namespace />subscriptionContent'
+	);
+
+	if (!emptyContent && subscriptionContent) {
+		subscriptionContent.removeAttribute('hidden');
+	}
+
+	function <portlet:namespace />toggleContent(selectedItem) {
+		if (emptyContent) {
+			emptyContent.setAttribute('hidden', true);
+		}
+
+		if (subscriptionContent) {
+			subscriptionContent.removeAttribute('hidden');
+		}
+
+		var productName = document.getElementById(
+			'<portlet:namespace />productName'
+		);
+
+		if (productName) {
+			productName.innerHTML = selectedItem.name;
+		}
+
+		var productKey = document.getElementById('<portlet:namespace />productKey');
+
+		if (productKey) {
+			productKey.value = selectedItem.key;
+		}
+
+		var submit = document.getElementById('<portlet:namespace />submit');
+
+		if (submit) {
+			submit.removeAttribute('disabled');
+			submit.classList.remove('disabled');
+		}
+	}
+
+	function <portlet:namespace />toggleDate(checked) {
+		var dateInputs = document.querySelectorAll('.lfr-input-date input');
+
+		dateInputs.forEach(function(input) {
+			if (checked) {
+				input.setAttribute('disabled', checked);
+			}
+			else {
+				input.removeAttribute('disabled');
+			}
+		});
+	}
+
 	Liferay.provide(
 		window,
 		'<portlet:namespace />selectProduct',
@@ -334,58 +386,4 @@ if (productPurchase != null) {
 		},
 		['aui-base', 'liferay-item-selector-dialog']
 	);
-
-	var emptyContent = document.getElementById('<portlet:namespace />emptyContent');
-	var subscriptionContent = document.getElementById('<portlet:namespace />subscriptionContent');
-
-	if (!emptyContent && subscriptionContent) {
-		subscriptionContent.removeAttribute('hidden');
-	}
-
-	function <portlet:namespace />toggleContent(selectedItem) {
-		if (emptyContent) {
-			emptyContent.setAttribute('hidden', true);
-		}
-
-		if (subscriptionContent) {
-			subscriptionContent.removeAttribute('hidden');
-		}
-
-		var productName = document.getElementById(
-			'<portlet:namespace />productName'
-		);
-
-		if (productName) {
-			productName.innerHTML = selectedItem.name;
-		}
-
-		var productKey = document.getElementById(
-			'<portlet:namespace />productKey'
-		);
-
-		if (productKey) {
-			productKey.value = selectedItem.key;
-		}
-
-		var submit = document.getElementById('<portlet:namespace />submit');
-
-		if (submit) {
-			submit.removeAttribute('disabled');
-			submit.classList.remove('disabled');
-		}
-	}
-
-	function <portlet:namespace />toggleDate(checked) {
-		var dateInputs = document.querySelectorAll('.lfr-input-date input');
-
-		dateInputs.forEach(
-			function(input) {
-				if (checked) {
-					input.setAttribute('disabled', checked);
-				} else {
-					input.removeAttribute('disabled');
-				}
-			}
-		)
-	}
 </aui:script>
