@@ -851,6 +851,11 @@ public class FragmentEntryLocalServiceWrapper
 			status);
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x),, replaced by {@link
+	 #updateFragmentEntry(long, long, long, String, String, String, String, String, long, int)}
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.fragment.model.FragmentEntry updateFragmentEntry(
 			long userId, long fragmentEntryId, String name, String css,
