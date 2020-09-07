@@ -576,6 +576,18 @@ public class FragmentEntryServiceWrapper
 
 	@Override
 	public com.liferay.fragment.model.FragmentEntry updateFragmentEntry(
+			long fragmentEntryId, long fragmentCollectionId, String name,
+			String css, String html, String js, String configuration,
+			long previewFileEntryId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _fragmentEntryService.updateFragmentEntry(
+			fragmentEntryId, fragmentCollectionId, name, css, html, js,
+			configuration, previewFileEntryId, status);
+	}
+
+	@Override
+	public com.liferay.fragment.model.FragmentEntry updateFragmentEntry(
 			long fragmentEntryId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

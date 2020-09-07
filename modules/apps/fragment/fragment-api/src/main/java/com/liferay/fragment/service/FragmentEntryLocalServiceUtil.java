@@ -740,6 +740,17 @@ public class FragmentEntryLocalServiceUtil {
 			fragmentEntryId, previewFileEntryId);
 	}
 
+	public static com.liferay.fragment.model.FragmentEntry updateFragmentEntry(
+			long userId, long fragmentEntryId, long fragmentCollectionId,
+			String name, String css, String html, String js,
+			String configuration, long previewFileEntryId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateFragmentEntry(
+			userId, fragmentEntryId, fragmentCollectionId, name, css, html, js,
+			configuration, previewFileEntryId, status);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 #updateFragmentEntry(long, long, String, String, String,

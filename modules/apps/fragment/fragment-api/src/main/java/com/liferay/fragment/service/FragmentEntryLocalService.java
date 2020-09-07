@@ -556,6 +556,12 @@ public interface FragmentEntryLocalService
 			long fragmentEntryId, long previewFileEntryId)
 		throws PortalException;
 
+	public FragmentEntry updateFragmentEntry(
+			long userId, long fragmentEntryId, long fragmentCollectionId,
+			String name, String css, String html, String js,
+			String configuration, long previewFileEntryId, int status)
+		throws PortalException;
+
 	/**
 	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 #updateFragmentEntry(long, long, String, String, String,
