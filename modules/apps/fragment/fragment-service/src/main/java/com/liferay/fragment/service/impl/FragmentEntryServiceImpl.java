@@ -673,8 +673,8 @@ public class FragmentEntryServiceImpl extends FragmentEntryServiceBaseImpl {
 	@Override
 	public FragmentEntry updateFragmentEntry(
 			long fragmentEntryId, long fragmentCollectionId, String name,
-			String css, String html, String js,
-			String configuration, long previewFileEntryId, int status)
+			String css, String html, String js, String configuration,
+			long previewFileEntryId, int status)
 		throws PortalException {
 
 		FragmentEntry fragmentEntry =
