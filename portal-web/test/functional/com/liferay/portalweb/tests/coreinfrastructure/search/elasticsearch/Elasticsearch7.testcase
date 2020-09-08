@@ -133,11 +133,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		Panel.expandPanel(panel = "Index Actions");
-
-		var searchEngineVendor = selenium.getText("SearchAdmin#SEARCH_ENGINE_VENDOR");
-
-		if (contains("${searchEngineVendor}", "Elasticsearch (Embedded)")) {
+		if (IsTextEqual.isPartialText(locator1 = "SearchAdmin#SEARCH_ENGINE_VENDOR", value1 = "Embedded")) {
 			SearchAdministration.assertEngineVendorAndVersions(
 				clientVersion = "7.3.0",
 				engineVendor = "Elasticsearch",
@@ -347,11 +343,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		Panel.expandPanel(panel = "Index Actions");
-
-		var searchEngineVendor = selenium.getText("SearchAdmin#SEARCH_ENGINE_VENDOR");
-
-		if (contains("${searchEngineVendor}", "Elasticsearch (Embedded)")) {
+		if (IsTextEqual.isPartialText(locator1 = "SearchAdmin#SEARCH_ENGINE_VENDOR", value1 = "Embedded")) {
 			SearchAdministration.assertEngineVendorAndVersions(
 				clientVersion = "7.3.0",
 				engineVendor = "Elasticsearch",
