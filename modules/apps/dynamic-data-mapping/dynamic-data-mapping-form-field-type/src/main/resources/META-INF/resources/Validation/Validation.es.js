@@ -132,12 +132,14 @@ class Validation extends Component {
 		const {defaultLanguageId, editingLanguageId} = this;
 
 		const errorMessage =
-			this.value.errorMessage[editingLanguageId] ||
-			this.value.errorMessage[defaultLanguageId];
+			this.value.errorMessage[editingLanguageId] !== undefined
+				? this.value.errorMessage[editingLanguageId]
+				: this.value.errorMessage[defaultLanguageId];
 
 		const parameter =
-			this.value.parameter[editingLanguageId] ||
-			this.value.parameter[defaultLanguageId];
+			this.value.parameter[editingLanguageId] !== undefined
+				? this.value.parameter[editingLanguageId]
+				: this.value.parameter[defaultLanguageId];
 
 		return {
 			enableValidation,
