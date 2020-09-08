@@ -701,6 +701,20 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			return Collections.emptyList();
 		}
 
+		String salesforceOpportunityKey = jsonObject.getString(
+			"_salesforceOpportunityKey");
+
+		ExternalLink externalLink = null;
+
+		if (Validator.isNotNull(salesforceOpportunityKey)) {
+			externalLink = new ExternalLink();
+
+			externalLink.setDomain(ExternalLinkDomain.SALESFORCE);
+			externalLink.setEntityName(
+				ExternalLinkEntityName.SALESFORCE_OPPORTUNITY);
+			externalLink.setEntityId(salesforceOpportunityKey);
+		}
+
 		List<ProductPurchase> productPurchases = new ArrayList<>();
 
 		for (int i = 0; i < bundledProductsJSONArray.length(); i++) {
@@ -765,6 +779,11 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 				if (!properties.isEmpty()) {
 					productPurchase.setProperties(properties);
+				}
+
+				if (externalLink != null) {
+					productPurchase.setExternalLinks(
+						new ExternalLink[] {externalLink});
 				}
 
 				productPurchases.add(productPurchase);
