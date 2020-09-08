@@ -311,7 +311,7 @@ public class DDMFormContextToDDMForm
 			Locale defaultLocale)
 		throws PortalException {
 
-		LocalizedValue localizedValue = new LocalizedValue();
+		LocalizedValue localizedValue = new LocalizedValue(defaultLocale);
 
 		if (jsonObject == null) {
 			return localizedValue;
