@@ -44,7 +44,6 @@ ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplay
 	/>
 
 	<liferay-ui:search-container
-		cssClass=""
 		searchContainer="<%= productSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row

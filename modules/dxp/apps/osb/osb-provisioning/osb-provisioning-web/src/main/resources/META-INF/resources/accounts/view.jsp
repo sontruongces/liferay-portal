@@ -44,7 +44,6 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 	/>
 
 	<liferay-ui:search-container
-		cssClass=""
 		searchContainer="<%= accountSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
