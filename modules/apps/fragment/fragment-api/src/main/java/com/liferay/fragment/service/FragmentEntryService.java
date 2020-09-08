@@ -393,6 +393,11 @@ public interface FragmentEntryService extends BaseService {
 			String js, String configuration, int status)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 #updateFragmentEntry(long, long, String, String, String, String, String, long, int)}
+	 */
+	@Deprecated
 	public FragmentEntry updateFragmentEntry(
 			long fragmentEntryId, String name, String css, String html,
 			String js, String configuration, long previewFileEntryId,

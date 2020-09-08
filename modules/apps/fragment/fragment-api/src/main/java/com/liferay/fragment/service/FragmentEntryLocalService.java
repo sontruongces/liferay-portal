@@ -590,7 +590,7 @@ public interface FragmentEntryLocalService
 		throws PortalException;
 
 	/**
-	 * @deprecated As of Mueller (7.2.x),, replaced by {@link
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
 	 #updateFragmentEntry(long, long, long, String, String, String, String, String, long, int)}
 	 */
 	@Deprecated
