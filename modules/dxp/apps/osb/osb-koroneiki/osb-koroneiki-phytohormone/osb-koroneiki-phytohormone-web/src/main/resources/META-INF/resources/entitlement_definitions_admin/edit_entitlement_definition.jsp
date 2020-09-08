@@ -35,6 +35,7 @@ renderResponse.setTitle((entitlementDefinition == null) ? LanguageUtil.get(reque
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="entitlementDefinitionId" type="hidden" value="<%= entitlementDefinitionId %>" />
 
+	<liferay-ui:error exception="<%= EntitlementDefinitionDefinitionException.class %>" message="please-enter-a-valid-definition" />
 	<liferay-ui:error exception="<%= EntitlementDefinitionNameException.class %>" message="please-enter-a-valid-name" />
 
 	<liferay-ui:error exception="<%= EntitlementDefinitionNameException.MustNotBeDuplicate.class %>">
@@ -45,8 +46,6 @@ renderResponse.setTitle((entitlementDefinition == null) ? LanguageUtil.get(reque
 
 		<%= mustNotBeDuplicateException.getMessage() %>
 	</liferay-ui:error>
-
-	<liferay-ui:error exception="<%= EntitlementDefinitionDefinitionException.class %>" message="please-enter-a-valid-definition" />
 
 	<aui:model-context bean="<%= entitlementDefinition %>" model="<%= EntitlementDefinition.class %>" />
 
