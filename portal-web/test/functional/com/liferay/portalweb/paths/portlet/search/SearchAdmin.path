@@ -23,6 +23,11 @@
 	<td>//div[contains(@class,'alert alert-info') and not(contains(@class,'hide'))]//strong[${position}][contains(.,'${searchInformation}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>SEARCH_ENGINE_VENDOR</td>
+	<td>//div[contains(@class,'alert alert-info')]//strong[1]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>

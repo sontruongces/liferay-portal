@@ -132,7 +132,7 @@ definition {
 
 		Panel.expandPanel(panel = "Index Actions");
 
-		var searchEngineVendor = selenium.getText("//div[contains(@class,'alert alert-info')]//strong[1]");
+		var searchEngineVendor = selenium.getText("SearchAdmin#SEARCH_ENGINE_VENDOR");
 
 		if (contains("${searchEngineVendor}", "Elasticsearch (Embedded)")) {
 			SearchAdministration.assertEngineVendorAndVersions(

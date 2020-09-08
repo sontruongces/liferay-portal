@@ -38,7 +38,7 @@ definition {
 
 			var reindexElapsedTime = "0";
 			var reindexStartTime = "0";
-			var searchEngineVendor = selenium.getText("//div[contains(@class,'alert alert-info')]//strong[1]");
+			var searchEngineVendor = selenium.getText("SearchAdmin#SEARCH_ENGINE_VENDOR");
 
 			if (contains("${searchEngineVendor}", "Elasticsearch")) {
 				echo("Current Elasticsearch Tasks:");
