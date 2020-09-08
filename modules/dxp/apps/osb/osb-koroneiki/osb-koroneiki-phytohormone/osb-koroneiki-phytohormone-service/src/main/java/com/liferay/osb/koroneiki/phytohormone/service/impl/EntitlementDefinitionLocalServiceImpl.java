@@ -46,7 +46,7 @@ public class EntitlementDefinitionLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
-		validate(classNameId, 0, definition, name);
+		validate(classNameId, 0, name, definition);
 
 		long entitlementDefinitionId = counterLocalService.increment();
 
@@ -148,7 +148,7 @@ public class EntitlementDefinitionLocalServiceImpl
 
 		validate(
 			entitlementDefinition.getClassNameId(), entitlementDefinitionId,
-			definition, entitlementDefinition.getName());
+			entitlementDefinition.getName(), definition);
 
 		entitlementDefinition.setDescription(description);
 		entitlementDefinition.setDefinition(definition);
@@ -158,16 +158,16 @@ public class EntitlementDefinitionLocalServiceImpl
 	}
 
 	protected void validate(
-			long classNameId, long entitlementDefinitionId, String definition,
-			String name)
+			long classNameId, long entitlementDefinitionId, String name,
+			String definition)
 		throws PortalException {
-
-		if (Validator.isNull(definition)) {
-			throw new EntitlementDefinitionDefinitionException();
-		}
 
 		if (Validator.isNull(name)) {
 			throw new EntitlementDefinitionNameException();
+		}
+
+		if (Validator.isNull(definition)) {
+			throw new EntitlementDefinitionDefinitionException();
 		}
 
 		EntitlementDefinition entitlementDefinition =
