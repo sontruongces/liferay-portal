@@ -49,7 +49,7 @@ public class DDMFormRendererUtil {
 		StringBundler sb = new StringBundler(ddmFormFields.size());
 
 		ddmFormFieldRenderingContext.setProperty(
-			"fieldNamespaceSet", new HashSet<String>());
+			"fieldNamespaces", new HashSet<String>());
 
 		for (DDMFormField ddmFormField : ddmFormFields) {
 			if (_isDDMFormFieldSkippable(
