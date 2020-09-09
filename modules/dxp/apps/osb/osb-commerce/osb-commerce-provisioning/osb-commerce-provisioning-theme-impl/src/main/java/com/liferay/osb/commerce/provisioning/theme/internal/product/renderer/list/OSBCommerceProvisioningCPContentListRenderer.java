@@ -113,14 +113,6 @@ public class OSBCommerceProvisioningCPContentListRenderer
 			CPCatalogEntry cpCatalogEntry, HttpServletRequest request)
 		throws PortalException {
 
-		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
-
-		CPSku cpSku = null;
-
-		if (cpSkus.size() == 1) {
-			cpSku = cpSkus.get(0);
-		}
-
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -136,6 +128,14 @@ public class OSBCommerceProvisioningCPContentListRenderer
 		cpEntryMap.put("productId", cpCatalogEntry.getCPDefinitionId());
 		cpEntryMap.put(
 			"productImageURL", cpCatalogEntry.getDefaultImageFileUrl());
+
+		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
+
+		CPSku cpSku = null;
+
+		if (cpSkus.size() == 1) {
+			cpSku = cpSkus.get(0);
+		}
 
 		if (cpSku != null) {
 			cpEntryMap.put("sku", cpSku.getSku());
