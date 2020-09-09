@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
 package com.liferay.osb.commerce.provisioning.theme.internal.product.renderer.list;
 
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
@@ -13,12 +27,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +35,24 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * @author Gianmarco Brunialti Masera
+ */
 @Component(
 	immediate = true,
 	property = {
 		"commerce.product.content.list.renderer.key=" + OSBCommerceProvisioningCPContentListRenderer.KEY,
 		"commerce.product.content.list.renderer.order=1000",
 		"commerce.product.content.list.renderer.portlet.name=" + CPPortletKeys.CP_PUBLISHER_WEB
-	}
+	},
+	service = CPContentListRenderer.class
 )
 public class OSBCommerceProvisioningCPContentListRenderer
 	implements CPContentListRenderer {
@@ -54,8 +74,9 @@ public class OSBCommerceProvisioningCPContentListRenderer
 
 	@Override
 	public void render(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse) throws Exception {
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
+		throws Exception {
 
 		httpServletRequest.setAttribute(
 			"osb-commerce-provisioning:CPContentList",
@@ -67,25 +88,31 @@ public class OSBCommerceProvisioningCPContentListRenderer
 	}
 
 	private Map<String, Object> _getCPEntriesRenderProps(
-		HttpServletRequest request) throws PortalException {
+			HttpServletRequest request)
+		throws PortalException {
 
-		CPDataSourceResult cpDataSourceResult = (CPDataSourceResult)
-			request.getAttribute(CPWebKeys.CP_DATA_SOURCE_RESULT);
+		CPDataSourceResult cpDataSourceResult =
+			(CPDataSourceResult)request.getAttribute(
+				CPWebKeys.CP_DATA_SOURCE_RESULT);
 
 		List<Map<String, Object>> cpEntriesRenderProps = new ArrayList<>();
 
-		for (CPCatalogEntry cpCatalogEntry : cpDataSourceResult.getCPCatalogEntries()) {
+		for (CPCatalogEntry cpCatalogEntry :
+				cpDataSourceResult.getCPCatalogEntries()) {
+
 			cpEntriesRenderProps.add(
 				_getCPEntryRenderProps(cpCatalogEntry, request));
 		}
 
-		return new HashMap<String, Object>() {{
-			put("CPEntries", cpEntriesRenderProps);
-		}};
+		return new HashMap<String, Object>() {
+			{
+				put("CPEntries", cpEntriesRenderProps);
+			}
+		};
 	}
 
 	private Map<String, Object> _getCPEntryRenderProps(
-		CPCatalogEntry cpCatalogEntry, HttpServletRequest request)
+			CPCatalogEntry cpCatalogEntry, HttpServletRequest request)
 		throws PortalException {
 
 		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
@@ -96,9 +123,8 @@ public class OSBCommerceProvisioningCPContentListRenderer
 			cpSku = cpSkus.get(0);
 		}
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay) request.getAttribute(
-				WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		Map<String, Object> renderProps = new HashMap<>();
 
@@ -109,9 +135,9 @@ public class OSBCommerceProvisioningCPContentListRenderer
 			_cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
 
 		renderProps.put("name", cpCatalogEntry.getName());
+		renderProps.put("productId", cpCatalogEntry.getCPDefinitionId());
 		renderProps.put(
 			"productImageURL", cpCatalogEntry.getDefaultImageFileUrl());
-		renderProps.put("productId", cpCatalogEntry.getCPDefinitionId());
 
 		if (cpSku != null) {
 			renderProps.put("sku", cpSku.getSku());
@@ -135,4 +161,5 @@ public class OSBCommerceProvisioningCPContentListRenderer
 		target = "(osgi.web.symbolicname=com.liferay.osb.commerce.provisioning.theme.impl)"
 	)
 	private ServletContext _servletContext;
+
 }
