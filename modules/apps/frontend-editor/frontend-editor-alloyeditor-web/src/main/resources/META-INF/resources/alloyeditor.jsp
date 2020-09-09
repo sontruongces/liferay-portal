@@ -239,7 +239,7 @@ name = HtmlUtil.escapeJS(name);
 
 		var plugins = [];
 
-		<c:if test="<%= Validator.isNotNull(data) && Validator.isNotNull(uploadURL) %>">
+		<c:if test="<%= (data != null) && Validator.isNotNull(uploadURL) %>">
 			plugins.push({
 				cfg: {
 					uploadItemReturnType:
