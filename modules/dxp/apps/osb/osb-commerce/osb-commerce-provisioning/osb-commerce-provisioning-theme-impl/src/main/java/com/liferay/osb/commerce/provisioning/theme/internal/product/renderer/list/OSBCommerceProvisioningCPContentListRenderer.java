@@ -25,14 +25,16 @@ import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
@@ -102,11 +104,9 @@ public class OSBCommerceProvisioningCPContentListRenderer
 			cpEntries.add(_getCPEntryMap(cpCatalogEntry, request));
 		}
 
-		return new HashMap<String, Object>() {
-			{
-				put("cpEntries", cpEntries);
-			}
-		};
+		return HashMapBuilder.<String, Object>put(
+			"cpEntries", cpEntries
+		).build();
 	}
 
 	private Map<String, Object> _getCPEntryMap(
@@ -116,37 +116,38 @@ public class OSBCommerceProvisioningCPContentListRenderer
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		Map<String, Object> cpEntryMap = new HashMap<>();
-
-		cpEntryMap.put("description", cpCatalogEntry.getShortDescription());
-
-		cpEntryMap.put(
-			"detailURL",
-			_cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay));
-
-		cpEntryMap.put("name", cpCatalogEntry.getName());
-		cpEntryMap.put("productId", cpCatalogEntry.getCPDefinitionId());
-		cpEntryMap.put(
-			"productImageURL", cpCatalogEntry.getDefaultImageFileUrl());
-
 		List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
 
-		CPSku cpSku = null;
+		return HashMapBuilder.<String, Object>put(
+			"description", cpCatalogEntry.getShortDescription()
+		).put(
+			"detailURL",
+			_cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay)
+		).put(
+			"name", cpCatalogEntry.getName()
+		).put(
+			"productId", cpCatalogEntry.getCPDefinitionId()
+		).put(
+			"productImageURL", cpCatalogEntry.getDefaultImageFileUrl()
+		).put(
+			Arrays.asList("sku", "skuId"),
+			key -> {
+				if (cpSkus.size() != 1) {
+					return null;
+				}
 
-		if (cpSkus.size() == 1) {
-			cpSku = cpSkus.get(0);
-		}
+				CPSku cpSku = cpSkus.get(0);
 
-		if (cpSku != null) {
-			cpEntryMap.put("sku", cpSku.getSku());
-			cpEntryMap.put("skuId", cpSku.getCPInstanceId());
-		}
+				if (Objects.equals(key, "sku")) {
+					return cpSku.getSku();
+				}
 
-		cpEntryMap.put(
+				return cpSku.getCPInstanceId();
+			}
+		).put(
 			"spritemap",
-			themeDisplay.getPathThemeImages() + "/lexicon/icons.svg");
-
-		return cpEntryMap;
+			themeDisplay.getPathThemeImages() + "/lexicon/icons.svg"
+		).build();
 	}
 
 	@Reference
