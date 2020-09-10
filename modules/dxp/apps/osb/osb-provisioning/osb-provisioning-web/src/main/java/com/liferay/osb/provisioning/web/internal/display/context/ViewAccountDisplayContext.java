@@ -371,7 +371,7 @@ public class ViewAccountDisplayContext {
 			"notes",
 			TransformUtil.transform(
 				noteWebService.getNotes(
-					account.getKey(), StringPool.BLANK, StringPool.BLANK, 1,
+					account.getKey(), StringPool.BLANK, 0, StringPool.BLANK, 1,
 					1000),
 				note -> new NoteDisplay(renderRequest, renderResponse, note)));
 

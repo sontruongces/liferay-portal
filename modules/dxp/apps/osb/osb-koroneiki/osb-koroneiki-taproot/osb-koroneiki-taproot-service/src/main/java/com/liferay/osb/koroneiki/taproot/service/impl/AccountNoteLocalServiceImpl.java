@@ -77,10 +77,11 @@ public class AccountNoteLocalServiceImpl
 	}
 
 	public List<AccountNote> getAccountNotes(
-		long accountId, String[] types, String[] statuses, int start, int end) {
+		long accountId, String[] types, int[] priorities, String[] statuses,
+		int start, int end) {
 
-		return accountNotePersistence.findByAI_T_S(
-			accountId, types, statuses, start, end);
+		return accountNotePersistence.findByAI_T_P_S(
+			accountId, types, priorities, statuses, start, end);
 	}
 
 	public int getAccountNotesCount(long accountId) {
@@ -88,9 +89,10 @@ public class AccountNoteLocalServiceImpl
 	}
 
 	public int getAccountNotesCount(
-		long accountId, String[] types, String[] statuses) {
+		long accountId, String[] types, int[] priorities, String[] statuses) {
 
-		return accountNotePersistence.countByAI_T_S(accountId, types, statuses);
+		return accountNotePersistence.countByAI_T_P_S(
+			accountId, types, priorities, statuses);
 	}
 
 	public AccountNote updateAccountNote(

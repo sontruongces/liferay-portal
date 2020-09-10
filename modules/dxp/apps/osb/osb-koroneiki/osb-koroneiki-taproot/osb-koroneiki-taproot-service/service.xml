@@ -91,9 +91,10 @@
 		<finder name="AccountId" return-type="Collection">
 			<finder-column name="accountId" />
 		</finder>
-		<finder name="AI_T_S" return-type="Collection">
+		<finder name="AI_T_P_S" return-type="Collection">
 			<finder-column name="accountId" />
 			<finder-column arrayable-operator="OR" name="type" />
+			<finder-column arrayable-operator="OR" name="priority" />
 			<finder-column arrayable-operator="OR" name="status" />
 		</finder>
 	</entity>

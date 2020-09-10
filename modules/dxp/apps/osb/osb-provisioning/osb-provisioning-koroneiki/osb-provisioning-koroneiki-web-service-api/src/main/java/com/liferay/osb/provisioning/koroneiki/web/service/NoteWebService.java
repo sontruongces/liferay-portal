@@ -31,8 +31,8 @@ public interface NoteWebService {
 		throws Exception;
 
 	public List<Note> getNotes(
-			String accountKey, String type, String status, int page,
-			int pageSize)
+			String accountKey, String type, int priority, String status, 
+			int page, int pageSize)
 		throws Exception;
 
 	public Note updateNote(

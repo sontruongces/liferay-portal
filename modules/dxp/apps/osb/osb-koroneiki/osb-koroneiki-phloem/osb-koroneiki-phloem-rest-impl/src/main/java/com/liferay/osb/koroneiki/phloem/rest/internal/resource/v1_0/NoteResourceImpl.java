@@ -54,7 +54,7 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 
 	@Override
 	public Page<Note> getAccountAccountKeyNotesPage(
-			String accountKey, String status, String type,
+			String accountKey, String type, Integer priority, String status,
 			Pagination pagination)
 		throws Exception {
 
@@ -72,15 +72,21 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 			statuses = new String[] {status};
 		}
 
+		int[] priorities = new int[0];
+
+		if ((priority != null) && (priority > 0)) {
+			priorities = new int[] {priority.intValue()};
+		}
+
 		return Page.of(
 			transform(
 				_accountNoteService.getAccountNotes(
-					account.getAccountId(), types, statuses,
+					account.getAccountId(), types, priorities, statuses,
 					pagination.getStartPosition(), pagination.getEndPosition()),
 				acountNote -> NoteUtil.toNote(acountNote)),
 			pagination,
 			_accountNoteService.getAccountNotesCount(
-				account.getAccountId(), types, statuses));
+				account.getAccountId(), types, priorities, statuses));
 	}
 
 	@Override

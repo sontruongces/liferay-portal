@@ -60,13 +60,14 @@ public class NoteWebServiceImpl
 	}
 
 	public List<Note> getNotes(
-			String accountKey, String type, String status, int page,
-			int pageSize)
+			String accountKey, String type, int priority, String status, 
+			int page, int pageSize)
 		throws Exception {
 
 		HttpInvoker.HttpResponse httpResponse =
 			_noteResource.getAccountAccountKeyNotesPageHttpResponse(
-				accountKey, status, type, Pagination.of(page, pageSize));
+				accountKey, type, priority, status, 
+				Pagination.of(page, pageSize));
 
 		return processDTOList(httpResponse, NoteSerDes::toDTO);
 	}
