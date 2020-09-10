@@ -20,6 +20,7 @@ import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Account;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Contact;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ContactRole;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ExternalLink;
+import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.PostalAddress;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Product;
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.ProductPurchase;
@@ -32,6 +33,7 @@ import com.liferay.osb.provisioning.koroneiki.reader.AccountReader;
 import com.liferay.osb.provisioning.koroneiki.web.service.AccountWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactRoleWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ContactWebService;
+import com.liferay.osb.provisioning.koroneiki.web.service.NoteWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductPurchaseWebService;
 import com.liferay.osb.provisioning.koroneiki.web.service.ProductWebService;
 import com.liferay.osb.provisioning.zendesk.model.ZendeskTicket;
@@ -174,7 +176,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			Account account, PostalAddress postalAddress,
 			String salesforceOpportunityTypeName,
 			String salesforceOpportunityKey)
-		throws PortalException {
+		throws Exception {
 
 		ZendeskTicket zendeskTicket = new ZendeskTicket();
 
@@ -247,6 +249,21 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			}
 
 			subject = StringUtil.insert(subject, "[Warning] ", 0);
+		}
+
+		List<Note> pinnedNotes = _noteWebService.getNotes(
+			account.getKey(), Note.Type.GENERAL.toString(), 1, StringPool.BLANK,
+			1, 1000);
+
+		if (!pinnedNotes.isEmpty()) {
+			sb.append("<br /><br />Pinned Notes:");
+
+			for (Note pinnedNote : pinnedNotes) {
+				sb.append("<br /><br />");
+				sb.append(pinnedNote.getDateCreated());
+				sb.append("<br />");
+				sb.append(pinnedNote.getContent());
+			}
 		}
 
 		zendeskTicket.setDescription(sb.toString());
@@ -1083,6 +1100,9 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 	@Reference
 	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private NoteWebService _noteWebService;
 
 	@Reference
 	private Portal _portal;
