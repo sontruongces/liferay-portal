@@ -121,7 +121,7 @@ if (productPurchase != null) {
 							<th class="table-cell-expand-small">
 								<liferay-ui:message key="end-date" />
 							</th>
-							<th class="table-cell-expand-smallest">
+							<th class="table-cell-expand-small">
 								<liferay-ui:message key="instance-size" />
 							</th>
 
@@ -129,7 +129,7 @@ if (productPurchase != null) {
 								<th class="table-cell-expand-small">
 									<liferay-ui:message key="grace-period-end-date" />
 								</th>
-								<th class="table-cell-expand-small">
+								<th class="table-cell-expand">
 									<liferay-ui:message key="status" />
 								</th>
 								<th class="table-cell-expand-small">
@@ -211,7 +211,7 @@ if (productPurchase != null) {
 									yearValue="<%= endCal.get(Calendar.YEAR) %>"
 								/>
 							</td>
-							<td class="table-cell-expand-smallest">
+							<td class="table-cell-expand-small">
 								<aui:select cssClass="account-edit-subscription" label="" name="sizing">
 
 									<%
@@ -253,7 +253,7 @@ if (productPurchase != null) {
 										yearValue="<%= gracePeriodEndCal.get(Calendar.YEAR) %>"
 									/>
 								</td>
-								<td class="table-cell-expand-small">
+								<td class="table-cell-expand">
 									<aui:select cssClass="account-edit-subscription" label="" name="status">
 
 										<%
