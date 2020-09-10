@@ -22,6 +22,7 @@ import com.liferay.commerce.product.content.render.list.CPContentListRenderer;
 import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.osb.commerce.provisioning.theme.internal.constants.OSBCommerceProvisioningThemeWebKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -81,7 +82,8 @@ public class OSBCommerceProvisioningCPContentListRenderer
 		throws Exception {
 
 		httpServletRequest.setAttribute(
-			"osb-commerce-provisioning:CPEntriesMap",
+			OSBCommerceProvisioningThemeWebKeys.
+				OSB_COMMERCE_PROVISIONING_THEME_CP_ENTRIES_MAP,
 			_getCPEntriesMap(httpServletRequest));
 
 		_jspRenderer.renderJSP(
