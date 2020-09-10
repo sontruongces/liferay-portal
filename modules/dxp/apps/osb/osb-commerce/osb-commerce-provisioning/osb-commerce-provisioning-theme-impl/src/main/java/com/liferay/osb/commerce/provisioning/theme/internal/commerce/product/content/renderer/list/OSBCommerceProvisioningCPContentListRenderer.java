@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.osb.commerce.provisioning.theme.internal.product.renderer.list;
+package com.liferay.osb.commerce.provisioning.theme.internal.commerce.product.content.renderer.list;
 
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.catalog.CPSku;
