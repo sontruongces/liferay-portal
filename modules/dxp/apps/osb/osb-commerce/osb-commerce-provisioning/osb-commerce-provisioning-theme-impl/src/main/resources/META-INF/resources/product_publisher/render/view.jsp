@@ -16,13 +16,9 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-Map<String, Object> cpEntriesMap = (Map<String, Object>)request.getAttribute(OSBCommerceProvisioningThemeWebKeys.OSB_COMMERCE_PROVISIONING_THEME_CP_ENTRIES_MAP);
-%>
-
 <div class="container product-publisher-container">
 	<react:component
-		data="<%= cpEntriesMap %>"
+		data="<%= (Map<String, Object>)request.getAttribute(OSBCommerceProvisioningThemeWebKeys.OSB_COMMERCE_PROVISIONING_THEME_CP_ENTRIES_MAP) %>"
 		module="js/components/list_renderer/ListRenderer"
 	/>
 </div>
