@@ -35,7 +35,6 @@ import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -204,7 +203,7 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 		}
 
 		return _contactLocalService.addContact(
-			jsonObject.getString("uuid"), _getDefaultUserId(), StringPool.BLANK,
+			jsonObject.getString("uuid"), _getDefaultUserId(),
 			jsonObject.getString("firstName"),
 			jsonObject.getString("middleName"),
 			jsonObject.getString("lastName"), emailAddress,
@@ -221,8 +220,7 @@ public class WebContactIdentityProvider implements ContactIdentityProvider {
 		}
 
 		return _contactLocalService.addContact(
-			uuid, _getDefaultUserId(), StringPool.BLANK,
-			jsonObject.getString("firstName"),
+			uuid, _getDefaultUserId(), jsonObject.getString("firstName"),
 			jsonObject.getString("middleName"),
 			jsonObject.getString("lastName"),
 			jsonObject.getString("emailAddress"),

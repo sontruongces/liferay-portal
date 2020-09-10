@@ -53,7 +53,6 @@ public class ContactKeywordQueryContributor implements KeywordQueryContributor {
 			booleanQuery, searchContext, "lastName", false);
 		queryHelper.addSearchTerm(
 			booleanQuery, searchContext, "middleName", false);
-		queryHelper.addSearchTerm(booleanQuery, searchContext, "oktaId", false);
 		queryHelper.addSearchTerm(booleanQuery, searchContext, "uuid", false);
 	}
 

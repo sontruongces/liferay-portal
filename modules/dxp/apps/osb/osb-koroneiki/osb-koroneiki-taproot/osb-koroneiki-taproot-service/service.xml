@@ -60,10 +60,10 @@
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
-		<column name="creatorOktaId" type="String" />
+		<column name="creatorUID" type="String" />
 		<column name="creatorName" type="String" />
 		<column name="modifiedDate" type="Date" />
-		<column name="modifierOktaId" type="String" />
+		<column name="modifierUID" type="String" />
 		<column name="modifierName" type="String" />
 
 		<!-- Other fields -->
@@ -114,7 +114,6 @@
 		<!-- Other fields -->
 
 		<column name="contactKey" type="String" />
-		<column name="oktaId" type="String" />
 		<column name="firstName" type="String" />
 		<column name="middleName" type="String" />
 		<column name="lastName" type="String" />
@@ -126,9 +125,6 @@
 
 		<finder name="ContactKey" return-type="Contact" unique="true">
 			<finder-column name="contactKey" />
-		</finder>
-		<finder name="OktaId" return-type="Contact">
-			<finder-column name="oktaId" />
 		</finder>
 		<finder name="EmailAddress" return-type="Contact">
 			<finder-column name="emailAddress" />
@@ -327,7 +323,6 @@
 		<exception>AccountName</exception>
 		<exception>AccountParent</exception>
 		<exception>ContactEmailAddress</exception>
-		<exception>ContactOktaId</exception>
 		<exception>ContactRoleName</exception>
 		<exception>ContactRoleSystem</exception>
 		<exception>ContactRoleType</exception>

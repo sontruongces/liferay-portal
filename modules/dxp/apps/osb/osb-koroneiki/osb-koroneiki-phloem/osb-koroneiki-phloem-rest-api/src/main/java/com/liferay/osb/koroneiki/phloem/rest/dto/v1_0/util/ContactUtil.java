@@ -46,7 +46,6 @@ public class ContactUtil {
 				languageId = contact.getLanguageId();
 				lastName = contact.getLastName();
 				middleName = contact.getMiddleName();
-				oktaId = contact.getOktaId();
 				teams = TransformUtil.transformToArray(
 					contact.getTeams(), TeamUtil::toTeam, Team.class);
 				uuid = contact.getUuid();

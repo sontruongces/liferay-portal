@@ -44,7 +44,6 @@ public class ContactUtil {
 				languageId = contact.getLanguageId();
 				lastName = contact.getLastName();
 				middleName = contact.getMiddleName();
-				oktaId = contact.getOktaId();
 				uuid = contact.getUuid();
 			}
 		};

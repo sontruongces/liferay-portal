@@ -48,9 +48,6 @@ public class TeamEntityModel implements EntityModel {
 					locale -> "contactEmailAddresses")),
 			new CollectionEntityField(
 				new StringEntityField(
-					"contactOktaIds", locale -> "contactOktaIds")),
-			new CollectionEntityField(
-				new StringEntityField(
 					"contactUuids", locale -> "contactUuids")),
 			new CollectionEntityField(
 				new StringEntityField(

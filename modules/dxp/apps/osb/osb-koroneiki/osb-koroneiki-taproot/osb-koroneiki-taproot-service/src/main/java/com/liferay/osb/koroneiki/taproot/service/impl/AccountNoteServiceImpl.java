@@ -39,16 +39,15 @@ import org.osgi.service.component.annotations.Reference;
 public class AccountNoteServiceImpl extends AccountNoteServiceBaseImpl {
 
 	public AccountNote addAccountNote(
-			String creatorOktaId, String creatorName, long accountId,
-			String type, int priority, String content, String format,
-			String status)
+			String creatorUID, String creatorName, long accountId, String type,
+			int priority, String content, String format, String status)
 		throws PortalException {
 
 		_accountPermission.check(
 			getPermissionChecker(), accountId, ActionKeys.UPDATE);
 
 		return accountNoteLocalService.addAccountNote(
-			getUserId(), creatorOktaId, creatorName, accountId, type, priority,
+			getUserId(), creatorUID, creatorName, accountId, type, priority,
 			content, format, status);
 	}
 
@@ -103,7 +102,7 @@ public class AccountNoteServiceImpl extends AccountNoteServiceBaseImpl {
 	}
 
 	public AccountNote updateAccountNote(
-			long accountNoteId, String modifierOktaId, String modifierName,
+			long accountNoteId, String modifierUID, String modifierName,
 			int priority, String content, String format, String status)
 		throws PortalException {
 
@@ -115,8 +114,8 @@ public class AccountNoteServiceImpl extends AccountNoteServiceBaseImpl {
 			ActionKeys.UPDATE);
 
 		return accountNoteLocalService.updateAccountNote(
-			accountNoteId, modifierOktaId, modifierName, priority, content,
-			format, status);
+			accountNoteId, modifierUID, modifierName, priority, content, format,
+			status);
 	}
 
 	@Reference

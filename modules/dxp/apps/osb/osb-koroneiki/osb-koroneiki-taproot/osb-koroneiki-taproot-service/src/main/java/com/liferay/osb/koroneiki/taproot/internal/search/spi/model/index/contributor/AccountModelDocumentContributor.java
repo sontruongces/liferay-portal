@@ -123,15 +123,11 @@ public class AccountModelDocumentContributor
 		throws PortalException {
 
 		Set<String> contactEmailAddresses = new HashSet<>();
-		Set<String> contactOktaIdContactRoleKeys = new HashSet<>();
-		Set<String> contactOktaIds = new HashSet<>();
 		Set<String> contactUuidContactRoleKeys = new HashSet<>();
 		Set<String> contactUuids = new HashSet<>();
 		Set<String> customerContactEmailAddresses = new HashSet<>();
-		Set<String> customerContactOktaIds = new HashSet<>();
 		Set<String> customerContactUuids = new HashSet<>();
 		Set<String> workerContactEmailAddresses = new HashSet<>();
-		Set<String> workerContactOktaIds = new HashSet<>();
 		Set<String> workerContactUuids = new HashSet<>();
 
 		List<ContactAccountRole> contactAccountRoles =
@@ -146,12 +142,6 @@ public class AccountModelDocumentContributor
 
 			contactEmailAddresses.add(contact.getEmailAddress());
 
-			contactOktaIdContactRoleKeys.add(
-				contact.getOktaId() + StringPool.UNDERLINE +
-					contactRole.getContactRoleKey());
-
-			contactOktaIds.add(contact.getOktaId());
-
 			contactUuidContactRoleKeys.add(
 				contact.getUuid() + StringPool.UNDERLINE +
 					contactRole.getContactRoleKey());
@@ -162,12 +152,10 @@ public class AccountModelDocumentContributor
 
 			if (type.equals(Type.ACCOUNT_CUSTOMER.toString())) {
 				customerContactEmailAddresses.add(contact.getEmailAddress());
-				customerContactOktaIds.add(contact.getOktaId());
 				customerContactUuids.add(contact.getUuid());
 			}
 			else if (type.equals(Type.ACCOUNT_WORKER.toString())) {
 				workerContactEmailAddresses.add(contact.getEmailAddress());
-				workerContactOktaIds.add(contact.getOktaId());
 				workerContactUuids.add(contact.getUuid());
 			}
 		}
@@ -175,12 +163,6 @@ public class AccountModelDocumentContributor
 		document.addKeyword(
 			"contactEmailAddresses",
 			ArrayUtil.toStringArray(contactEmailAddresses.toArray()));
-		document.addKeyword(
-			"contactOktaIdContactRoleKeys",
-			ArrayUtil.toStringArray(contactOktaIdContactRoleKeys.toArray()));
-		document.addKeyword(
-			"contactOktaIds",
-			ArrayUtil.toStringArray(contactOktaIds.toArray()));
 		document.addKeyword(
 			"contactUuidContactRoleKeys",
 			ArrayUtil.toStringArray(contactUuidContactRoleKeys.toArray()));
@@ -190,17 +172,11 @@ public class AccountModelDocumentContributor
 			"customerContactEmailAddresses",
 			ArrayUtil.toStringArray(customerContactEmailAddresses.toArray()));
 		document.addKeyword(
-			"customerContactOktaIds",
-			ArrayUtil.toStringArray(customerContactOktaIds.toArray()));
-		document.addKeyword(
 			"customerContactUuids",
 			ArrayUtil.toStringArray(customerContactUuids.toArray()));
 		document.addKeyword(
 			"workerContactEmailAddresses",
 			ArrayUtil.toStringArray(workerContactEmailAddresses.toArray()));
-		document.addKeyword(
-			"workerContactOktaIds",
-			ArrayUtil.toStringArray(workerContactOktaIds.toArray()));
 		document.addKeyword(
 			"workerContactUuids",
 			ArrayUtil.toStringArray(workerContactUuids.toArray()));

@@ -502,13 +502,9 @@ public class ProductPurchaseViewIndexer
 	private void _contributeContacts(Document document, long accountId)
 		throws PortalException {
 
-		Set<String> contactOktaIdContactRoleKeys = new HashSet<>();
-		Set<String> contactOktaIds = new HashSet<>();
 		Set<String> contactUuidContactRoleKeys = new HashSet<>();
 		Set<String> contactUuids = new HashSet<>();
-		Set<String> customerContactOktaIds = new HashSet<>();
 		Set<String> customerContactUuids = new HashSet<>();
-		Set<String> workerContactOktaIds = new HashSet<>();
 		Set<String> workerContactUuids = new HashSet<>();
 
 		List<ContactAccountRole> contactAccountRoles =
@@ -521,12 +517,6 @@ public class ProductPurchaseViewIndexer
 			ContactRole contactRole = _contactRoleLocalService.getContactRole(
 				contactAccountRole.getContactRoleId());
 
-			contactOktaIdContactRoleKeys.add(
-				contact.getOktaId() + StringPool.UNDERLINE +
-					contactRole.getContactRoleKey());
-
-			contactOktaIds.add(contact.getOktaId());
-
 			contactUuidContactRoleKeys.add(
 				contact.getUuid() + StringPool.UNDERLINE +
 					contactRole.getContactRoleKey());
@@ -536,35 +526,21 @@ public class ProductPurchaseViewIndexer
 			String type = contactRole.getType();
 
 			if (type.equals(Type.ACCOUNT_CUSTOMER.toString())) {
-				customerContactOktaIds.add(contact.getOktaId());
 				customerContactUuids.add(contact.getUuid());
 			}
 			else if (type.equals(Type.ACCOUNT_WORKER.toString())) {
-				workerContactOktaIds.add(contact.getOktaId());
 				workerContactUuids.add(contact.getUuid());
 			}
 		}
 
-		document.addKeyword(
-			"contactOktaIdContactRoleKeys",
-			ArrayUtil.toStringArray(contactOktaIdContactRoleKeys.toArray()));
-		document.addKeyword(
-			"contactOktaIds",
-			ArrayUtil.toStringArray(contactOktaIds.toArray()));
 		document.addKeyword(
 			"contactUuidContactRoleKeys",
 			ArrayUtil.toStringArray(contactUuidContactRoleKeys.toArray()));
 		document.addKeyword(
 			"contactUuids", ArrayUtil.toStringArray(contactUuids.toArray()));
 		document.addKeyword(
-			"customerContactOktaIds",
-			ArrayUtil.toStringArray(customerContactOktaIds.toArray()));
-		document.addKeyword(
 			"customerContactUuids",
 			ArrayUtil.toStringArray(customerContactUuids.toArray()));
-		document.addKeyword(
-			"workerContactOktaIds",
-			ArrayUtil.toStringArray(workerContactOktaIds.toArray()));
 		document.addKeyword(
 			"workerContactUuids",
 			ArrayUtil.toStringArray(workerContactUuids.toArray()));

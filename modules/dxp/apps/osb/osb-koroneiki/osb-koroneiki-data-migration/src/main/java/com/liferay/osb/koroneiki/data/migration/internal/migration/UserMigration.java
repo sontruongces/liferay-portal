@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -132,7 +131,7 @@ public class UserMigration {
 					boolean emailAddressVerified = resultSet.getBoolean(7);
 
 					contact = _contactLocalService.addContact(
-						contactUuid, userId, StringPool.BLANK, contactFirstName,
+						contactUuid, userId, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
 				}
@@ -206,7 +205,7 @@ public class UserMigration {
 					boolean emailAddressVerified = resultSet.getBoolean(7);
 
 					contact = _contactLocalService.addContact(
-						contactUuid, userId, StringPool.BLANK, contactFirstName,
+						contactUuid, userId, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
 				}
@@ -336,7 +335,7 @@ public class UserMigration {
 					boolean emailAddressVerified = resultSet.getBoolean(9);
 
 					contact = _contactLocalService.addContact(
-						contactUuid, userId, StringPool.BLANK, contactFirstName,
+						contactUuid, userId, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
 				}
@@ -385,7 +384,7 @@ public class UserMigration {
 					boolean emailAddressVerified = resultSet.getBoolean(9);
 
 					contact = _contactLocalService.addContact(
-						contactUuid, userId, StringPool.BLANK, contactFirstName,
+						contactUuid, userId, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
 				}

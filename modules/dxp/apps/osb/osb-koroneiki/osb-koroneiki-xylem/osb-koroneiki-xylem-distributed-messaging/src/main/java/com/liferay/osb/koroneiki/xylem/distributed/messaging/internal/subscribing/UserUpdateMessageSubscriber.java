@@ -49,7 +49,7 @@ public class UserUpdateMessageSubscriber implements MessageSubscriber {
 			}
 
 			_contactLocalService.updateContact(
-				contact.getContactId(), contact.getUuid(), contact.getOktaId(),
+				contact.getContactId(), contact.getUuid(),
 				jsonObject.getString("firstName"),
 				jsonObject.getString("middleName"),
 				jsonObject.getString("lastName"),

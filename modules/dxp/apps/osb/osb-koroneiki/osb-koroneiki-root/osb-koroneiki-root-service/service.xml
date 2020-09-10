@@ -20,7 +20,7 @@
 
 		<column name="auditEntryKey" type="String" />
 		<column name="agentName" type="String" />
-		<column name="agentOktaId" type="String" />
+		<column name="agentUID" type="String" />
 		<column name="classNameId" type="long" />
 		<column name="classPK" type="long" />
 		<column name="auditSetId" type="long" />

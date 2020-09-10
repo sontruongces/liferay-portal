@@ -123,22 +123,8 @@ public class AccountResourceImpl
 
 		_deleteAccountContactRole(
 			accountKey,
-			_oktaContactIdentityProvider.getContactByEmailAddress(
+			_webContactIdentityProvider.getContactByEmailAddress(
 				contactEmailAddress),
-			contactRoleKeys);
-	}
-
-	@Override
-	public void deleteAccountContactByOktaRole(
-			String agentName, String agentUID, String accountKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		_deleteAccountContactRole(
-			accountKey,
-			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
 			contactRoleKeys);
 	}
 
@@ -166,24 +152,8 @@ public class AccountResourceImpl
 		for (String contactEmailAddress : contactEmailAddresses) {
 			_deleteAccountContact(
 				accountKey,
-				_oktaContactIdentityProvider.getContactByEmailAddress(
+				_webContactIdentityProvider.getContactByEmailAddress(
 					contactEmailAddress),
-				ContactRole.Type.ACCOUNT_CUSTOMER.toString());
-		}
-	}
-
-	@Override
-	public void deleteAccountCustomerContactByOkta(
-			String agentName, String agentUID, String accountKey,
-			String[] oktaIds)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		for (String oktaId : oktaIds) {
-			_deleteAccountContact(
-				accountKey,
-				_oktaContactIdentityProvider.getContactByProviderId(oktaId),
 				ContactRole.Type.ACCOUNT_CUSTOMER.toString());
 		}
 	}
@@ -214,24 +184,8 @@ public class AccountResourceImpl
 		for (String contactEmailAddress : contactEmailAddresses) {
 			_deleteAccountContact(
 				accountKey,
-				_oktaContactIdentityProvider.getContactByEmailAddress(
+				_webContactIdentityProvider.getContactByEmailAddress(
 					contactEmailAddress),
-				ContactRole.Type.ACCOUNT_WORKER.toString());
-		}
-	}
-
-	@Override
-	public void deleteAccountWorkerContactByOkta(
-			String agentName, String agentUID, String accountKey,
-			String[] oktaIds)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		for (String oktaId : oktaIds) {
-			_deleteAccountContact(
-				accountKey,
-				_oktaContactIdentityProvider.getContactByProviderId(oktaId),
 				ContactRole.Type.ACCOUNT_WORKER.toString());
 		}
 	}
@@ -309,24 +263,6 @@ public class AccountResourceImpl
 				_accountLocalService.getAccount(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
 			sorts);
-	}
-
-	@Override
-	public Page<Account> getContactByOktaAccountsPage(
-			String oktaId, Pagination pagination)
-		throws Exception {
-
-		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.getContactByOktaId(oktaId);
-
-		return Page.of(
-			transform(
-				_accountService.getContactAccounts(
-					contact.getContactId(), pagination.getStartPosition(),
-					pagination.getEndPosition()),
-				account -> AccountUtil.toAccount(account)),
-			pagination,
-			_accountService.getContactAccountsCount(contact.getContactId()));
 	}
 
 	@Override
@@ -443,12 +379,7 @@ public class AccountResourceImpl
 					}
 				}
 
-				if (Validator.isNotNull(contact.getOktaId())) {
-					putAccountContactByOktaRole(
-						agentName, agentUID, curAccount.getKey(),
-						contact.getOktaId(), contactRoleKeys);
-				}
-				else if (Validator.isNotNull(contact.getUuid())) {
+				if (Validator.isNotNull(contact.getUuid())) {
 					putAccountContactByUuidContactUuidRole(
 						agentName, agentUID, curAccount.getKey(),
 						contact.getUuid(), contactRoleKeys);
@@ -605,22 +536,8 @@ public class AccountResourceImpl
 
 		_putAccountContactRole(
 			accountKey,
-			_oktaContactIdentityProvider.getContactByEmailAddress(
+			_webContactIdentityProvider.getContactByEmailAddress(
 				contactEmailAddress),
-			contactRoleKeys);
-	}
-
-	@Override
-	public void putAccountContactByOktaRole(
-			String agentName, String agentUID, String accountKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		_putAccountContactRole(
-			accountKey,
-			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
 			contactRoleKeys);
 	}
 
@@ -699,7 +616,7 @@ public class AccountResourceImpl
 		throws Exception {
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
-			_oktaContactIdentityProvider.fetchContactByEmailAddress(
+			_webContactIdentityProvider.fetchContactByEmailAddress(
 				contact.getEmailAddress());
 
 		if (curContact == null) {
@@ -807,9 +724,6 @@ public class AccountResourceImpl
 
 	@Reference
 	private ExternalLinkResource _externalLinkResource;
-
-	@Reference(target = "(provider=okta)")
-	private ContactIdentityProvider _oktaContactIdentityProvider;
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;

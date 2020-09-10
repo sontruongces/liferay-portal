@@ -72,17 +72,6 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 	}
 
 	@Override
-	public Page<ExternalLink> getContactByOktaExternalLinksPage(
-			String oktaId, Pagination pagination)
-		throws Exception {
-
-		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
-
-		return getExternalLinksPage(
-			Contact.class, contact.getContactId(), pagination);
-	}
-
-	@Override
 	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
 			String contactUuid, Pagination pagination)
 		throws Exception {
@@ -164,20 +153,6 @@ public class ExternalLinkResourceImpl extends BaseExternalLinkResourceImpl {
 
 		return postExternalLink(
 			Account.class, account.getAccountId(), externalLink);
-	}
-
-	@Override
-	public ExternalLink postContactByOktaExternalLink(
-			String agentName, String agentUID, String oktaId,
-			ExternalLink externalLink)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		Contact contact = _contactLocalService.getContactByOktaId(oktaId);
-
-		return postExternalLink(
-			Contact.class, contact.getContactId(), externalLink);
 	}
 
 	@Override

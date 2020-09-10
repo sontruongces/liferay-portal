@@ -130,8 +130,6 @@ public class TeamModelDocumentContributor
 		throws PortalException {
 
 		Set<String> contactEmailAddresses = new HashSet<>();
-		Set<String> contactOktaIdContactRoleKeys = new HashSet<>();
-		Set<String> contactOktaIds = new HashSet<>();
 		Set<String> contactUuidContactRoleKeys = new HashSet<>();
 		Set<String> contactUuids = new HashSet<>();
 
@@ -146,12 +144,6 @@ public class TeamModelDocumentContributor
 
 			contactEmailAddresses.add(contact.getEmailAddress());
 
-			contactOktaIdContactRoleKeys.add(
-				contact.getOktaId() + StringPool.UNDERLINE +
-					contactRole.getContactRoleKey());
-
-			contactOktaIds.add(contact.getOktaId());
-
 			contactUuidContactRoleKeys.add(
 				contact.getUuid() + StringPool.UNDERLINE +
 					contactRole.getContactRoleKey());
@@ -162,12 +154,6 @@ public class TeamModelDocumentContributor
 		document.addKeyword(
 			"contactEmailAddresses",
 			ArrayUtil.toStringArray(contactEmailAddresses.toArray()));
-		document.addKeyword(
-			"contactOktaIdContactRoleKeys",
-			ArrayUtil.toStringArray(contactOktaIdContactRoleKeys.toArray()));
-		document.addKeyword(
-			"contactOktaIds",
-			ArrayUtil.toStringArray(contactOktaIds.toArray()));
 		document.addKeyword(
 			"contactUuidContactRoleKeys",
 			ArrayUtil.toStringArray(contactUuidContactRoleKeys.toArray()));

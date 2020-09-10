@@ -40,22 +40,11 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 			new StringEntityField("accountKey", locale -> "accountKey"),
 			new CollectionEntityField(
 				new StringEntityField(
-					"contactOktaIdContactRoleKeys",
-					locale -> "contactOktaIdContactRoleKeys")),
-			new CollectionEntityField(
-				new StringEntityField(
-					"contactOktaIds", locale -> "contactOktaIds")),
-			new CollectionEntityField(
-				new StringEntityField(
 					"contactUuidContactRoleKeys",
 					locale -> "contactUuidContactRoleKeys")),
 			new CollectionEntityField(
 				new StringEntityField(
 					"contactUuids", locale -> "contactUuids")),
-			new CollectionEntityField(
-				new StringEntityField(
-					"customerContactOktaIds",
-					locale -> "customerContactOktaIds")),
 			new CollectionEntityField(
 				new StringEntityField(
 					"customerContactUuids", locale -> "customerContactUuids")),
@@ -79,9 +68,6 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 				"supportLifeStartDate",
 				locale -> Field.getSortableFieldName("supportLifeStartDate"),
 				locale -> "supportLifeStartDate"),
-			new CollectionEntityField(
-				new StringEntityField(
-					"workerContactOktaIds", locale -> "workerContactOktaIds")),
 			new CollectionEntityField(
 				new StringEntityField(
 					"workerContactUuids", locale -> "workerContactUuids"))

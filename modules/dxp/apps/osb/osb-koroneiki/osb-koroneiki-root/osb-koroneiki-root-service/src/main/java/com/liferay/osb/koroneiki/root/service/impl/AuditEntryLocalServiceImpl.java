@@ -53,11 +53,11 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 				serviceContext.getAttribute("agentName"), agentName);
 		}
 
-		String agentOktaId = StringPool.BLANK;
+		String agentUID = StringPool.BLANK;
 
 		if (serviceContext != null) {
-			agentOktaId = GetterUtil.getString(
-				serviceContext.getAttribute("agentUID"), agentOktaId);
+			agentUID = GetterUtil.getString(
+				serviceContext.getAttribute("agentUID"));
 		}
 
 		long auditSetId = 0;
@@ -80,7 +80,7 @@ public class AuditEntryLocalServiceImpl extends AuditEntryLocalServiceBaseImpl {
 		auditEntry.setUserId(userId);
 		auditEntry.setAuditEntryKey(ModelKeyGenerator.generate(auditEntryId));
 		auditEntry.setAgentName(agentName);
-		auditEntry.setAgentOktaId(agentOktaId);
+		auditEntry.setAgentUID(agentUID);
 		auditEntry.setClassNameId(classNameId);
 		auditEntry.setClassPK(classPK);
 		auditEntry.setAuditSetId(auditSetId);

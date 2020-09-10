@@ -41,16 +41,6 @@ public class ContactAccountViewResourceImpl
 	extends BaseContactAccountViewResourceImpl {
 
 	@Override
-	public Page<ContactAccountView> getContactByOktaContactAccountViewsPage(
-			String oktaId, Pagination pagination)
-		throws Exception {
-
-		Contact contact = _contactService.getContactByOktaId(oktaId);
-
-		return _getContactAccountViewPage(contact, pagination);
-	}
-
-	@Override
 	public Page<ContactAccountView>
 			getContactByUuidContactUuidContactAccountViewsPage(
 				String contactUuid, Pagination pagination)

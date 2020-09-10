@@ -27,13 +27,13 @@ public class NoteUtil {
 			{
 				content = accountNote.getContent();
 				creatorName = accountNote.getCreatorName();
-				creatorUID = accountNote.getCreatorOktaId();
+				creatorUID = accountNote.getCreatorUID();
 				dateCreated = accountNote.getCreateDate();
 				dateModified = accountNote.getModifiedDate();
 				format = Format.create(accountNote.getFormat());
 				key = accountNote.getAccountNoteKey();
 				modifierName = accountNote.getModifierName();
-				modifierUID = accountNote.getModifierOktaId();
+				modifierUID = accountNote.getModifierUID();
 				priority = accountNote.getPriority();
 				status = Status.create(accountNote.getStatus());
 				type = Type.create(accountNote.getType());

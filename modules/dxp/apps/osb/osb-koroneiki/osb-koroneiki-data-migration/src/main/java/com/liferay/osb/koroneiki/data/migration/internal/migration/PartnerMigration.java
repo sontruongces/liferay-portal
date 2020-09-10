@@ -271,7 +271,7 @@ public class PartnerMigration {
 					boolean emailAddressVerified = resultSet.getBoolean(9);
 
 					contact = _contactLocalService.addContact(
-						contactUuid, userId, StringPool.BLANK, contactFirstName,
+						contactUuid, userId, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
 				}

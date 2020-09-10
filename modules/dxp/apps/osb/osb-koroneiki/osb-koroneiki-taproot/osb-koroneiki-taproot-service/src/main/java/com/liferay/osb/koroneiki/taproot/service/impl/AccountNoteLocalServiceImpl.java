@@ -37,9 +37,9 @@ public class AccountNoteLocalServiceImpl
 	extends AccountNoteLocalServiceBaseImpl {
 
 	public AccountNote addAccountNote(
-			long userId, String creatorOktaId, String creatorName,
-			long accountId, String type, int priority, String content,
-			String format, String status)
+			long userId, String creatorUID, String creatorName, long accountId,
+			String type, int priority, String content, String format,
+			String status)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
@@ -50,7 +50,7 @@ public class AccountNoteLocalServiceImpl
 
 		accountNote.setCompanyId(user.getCompanyId());
 		accountNote.setUserId(userId);
-		accountNote.setCreatorOktaId(creatorOktaId);
+		accountNote.setCreatorUID(creatorUID);
 		accountNote.setCreatorName(creatorName);
 		accountNote.setAccountNoteKey(
 			ModelKeyGenerator.generate(accountNoteId));
@@ -96,7 +96,7 @@ public class AccountNoteLocalServiceImpl
 	}
 
 	public AccountNote updateAccountNote(
-			long accountNoteId, String modifierOktaId, String modifierName,
+			long accountNoteId, String modifierUID, String modifierName,
 			int priority, String content, String format, String status)
 		throws PortalException {
 
@@ -105,7 +105,7 @@ public class AccountNoteLocalServiceImpl
 
 		if (!content.equals(accountNote.getContent())) {
 			accountNote.setModifiedDate(new Date());
-			accountNote.setModifierOktaId(modifierOktaId);
+			accountNote.setModifierUID(modifierUID);
 			accountNote.setModifierName(modifierName);
 		}
 		else {

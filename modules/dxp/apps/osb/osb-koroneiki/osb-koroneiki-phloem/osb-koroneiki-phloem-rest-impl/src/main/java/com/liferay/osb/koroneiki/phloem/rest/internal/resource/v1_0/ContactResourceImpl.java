@@ -75,33 +75,6 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public void deleteContactByOkta(
-			String agentName, String agentUID, String oktaId)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.getContactByOktaId(oktaId);
-
-		_contactService.deleteContact(contact.getContactId());
-	}
-
-	@Override
-	public void deleteContactByOktaContactPermission(
-			String agentName, String agentUID, String oktaId,
-			ContactPermission contactPermission)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.fetchContactByOktaId(oktaId);
-
-		_updateContactPermission(contact, "delete", contactPermission);
-	}
-
-	@Override
 	public void deleteContactByUuidContactUuid(
 			String agentName, String agentUID, String contactUuid)
 		throws Exception {
@@ -208,12 +181,6 @@ public class ContactResourceImpl
 	}
 
 	@Override
-	public Contact getContactByOkta(String oktaId) throws Exception {
-		return ContactUtil.toContact(
-			_contactService.getContactByOktaId(oktaId));
-	}
-
-	@Override
 	public Contact getContactByUuidContactUuid(String contactUuid)
 		throws Exception {
 
@@ -280,7 +247,7 @@ public class ContactResourceImpl
 
 		return ContactUtil.toContact(
 			_contactService.addContact(
-				contact.getUuid(), contact.getOktaId(), contact.getFirstName(),
+				contact.getUuid(), contact.getFirstName(),
 				contact.getMiddleName(), contact.getLastName(),
 				contact.getEmailAddress(), contact.getLanguageId(),
 				GetterUtil.getBoolean(contact.getEmailAddressVerified())));
@@ -299,8 +266,6 @@ public class ContactResourceImpl
 
 		String uuid = GetterUtil.getString(
 			contact.getUuid(), curContact.getUuid());
-		String oktaId = GetterUtil.getString(
-			contact.getOktaId(), curContact.getOktaId());
 		String middleName = GetterUtil.getString(
 			contact.getMiddleName(), curContact.getMiddleName());
 		String languageId = GetterUtil.getString(
@@ -311,50 +276,9 @@ public class ContactResourceImpl
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
-				curContact.getContactId(), uuid, oktaId, contact.getFirstName(),
+				curContact.getContactId(), uuid, contact.getFirstName(),
 				middleName, contact.getLastName(), contact.getEmailAddress(),
 				languageId, emailAddressVerified));
-	}
-
-	@Override
-	public Contact putContactByOkta(
-			String agentName, String agentUID, String oktaId, Contact contact)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
-			_contactLocalService.getContactByOktaId(oktaId);
-
-		String uuid = GetterUtil.getString(
-			contact.getUuid(), curContact.getUuid());
-		String middleName = GetterUtil.getString(
-			contact.getMiddleName(), curContact.getMiddleName());
-		String languageId = GetterUtil.getString(
-			contact.getLanguageId(), curContact.getLanguageId());
-		boolean emailAddressVerified = GetterUtil.getBoolean(
-			contact.getEmailAddressVerified(),
-			curContact.getEmailAddressVerified());
-
-		return ContactUtil.toContact(
-			_contactService.updateContact(
-				curContact.getContactId(), uuid, curContact.getOktaId(),
-				contact.getFirstName(), middleName, contact.getLastName(),
-				contact.getEmailAddress(), languageId, emailAddressVerified));
-	}
-
-	@Override
-	public void putContactByOktaContactPermission(
-			String agentName, String agentUID, String oktaId,
-			ContactPermission contactPermission)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		com.liferay.osb.koroneiki.taproot.model.Contact contact =
-			_contactLocalService.fetchContactByOktaId(oktaId);
-
-		_updateContactPermission(contact, "add", contactPermission);
 	}
 
 	@Override
@@ -368,8 +292,6 @@ public class ContactResourceImpl
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
 			_contactLocalService.getContactByUuid(contactUuid);
 
-		String oktaId = GetterUtil.getString(
-			contact.getOktaId(), curContact.getOktaId());
 		String middleName = GetterUtil.getString(
 			contact.getMiddleName(), curContact.getMiddleName());
 		String languageId = GetterUtil.getString(
@@ -380,7 +302,7 @@ public class ContactResourceImpl
 
 		return ContactUtil.toContact(
 			_contactService.updateContact(
-				curContact.getContactId(), curContact.getUuid(), oktaId,
+				curContact.getContactId(), curContact.getUuid(),
 				contact.getFirstName(), middleName, contact.getLastName(),
 				contact.getEmailAddress(), languageId, emailAddressVerified));
 	}

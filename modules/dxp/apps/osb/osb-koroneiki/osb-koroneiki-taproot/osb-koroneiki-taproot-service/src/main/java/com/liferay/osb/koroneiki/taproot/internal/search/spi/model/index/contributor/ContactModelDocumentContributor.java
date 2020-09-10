@@ -77,7 +77,6 @@ public class ContactModelDocumentContributor
 		document.addText("firstName", contact.getFirstName());
 		document.addText("lastName", contact.getLastName());
 		document.addText("middleName", contact.getMiddleName());
-		document.addKeyword("oktaId", contact.getOktaId());
 		document.addKeyword("uuid", contact.getUuid());
 
 		document.addTextSortable("emailAddress", contact.getEmailAddress());

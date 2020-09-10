@@ -18,7 +18,6 @@ import com.liferay.osb.koroneiki.phytohormone.service.EntitlementLocalService;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.root.util.ModelKeyGenerator;
 import com.liferay.osb.koroneiki.taproot.exception.ContactEmailAddressException;
-import com.liferay.osb.koroneiki.taproot.exception.ContactOktaIdException;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
 import com.liferay.osb.koroneiki.taproot.service.base.ContactLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -56,14 +55,14 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Contact addContact(
-			String uuid, long userId, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			String uuid, long userId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException {
 
 		User user = userLocalService.getUser(userId);
 
-		validate(0, oktaId, emailAddress);
+		validate(0, emailAddress);
 
 		long contactId = counterLocalService.increment();
 
@@ -73,7 +72,6 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		contact.setCompanyId(user.getCompanyId());
 		contact.setUserId(userId);
 		contact.setContactKey(ModelKeyGenerator.generate(contactId));
-		contact.setOktaId(oktaId);
 		contact.setFirstName(firstName);
 		contact.setMiddleName(middleName);
 		contact.setLastName(lastName);
@@ -133,10 +131,6 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return contactPersistence.fetchByEmailAddress(emailAddress);
 	}
 
-	public Contact fetchContactByOktaId(String oktaId) {
-		return contactPersistence.fetchByOktaId(oktaId);
-	}
-
 	public Contact fetchContactByUuid(String uuid) {
 		return contactPersistence.fetchByUuid_First(uuid, null);
 	}
@@ -178,10 +172,6 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		throws PortalException {
 
 		return contactPersistence.findByEmailAddress(emailAddress);
-	}
-
-	public Contact getContactByOktaId(String oktaId) throws PortalException {
-		return contactPersistence.findByOktaId(oktaId);
 	}
 
 	public Contact getContactByUuid(String uuid) throws PortalException {
@@ -230,7 +220,6 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 			attributes.put("firstName", keywords);
 			attributes.put("lastName", keywords);
 			attributes.put("middleName", keywords);
-			attributes.put("oktaId", keywords);
 			attributes.put("uuid", keywords);
 
 			searchContext.setAttributes(attributes);
@@ -258,17 +247,16 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException {
 
-		validate(contactId, oktaId, emailAddress);
+		validate(contactId, emailAddress);
 
 		Contact contact = contactPersistence.findByPrimaryKey(contactId);
 
 		contact.setUuid(uuid);
-		contact.setOktaId(oktaId);
 		contact.setFirstName(firstName);
 		contact.setMiddleName(middleName);
 		contact.setLastName(lastName);
@@ -279,24 +267,14 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		return contactPersistence.update(contact);
 	}
 
-	protected void validate(long contactId, String oktaId, String emailAddress)
+	protected void validate(long contactId, String emailAddress)
 		throws PortalException {
 
 		if (Validator.isNull(emailAddress)) {
 			throw new ContactEmailAddressException();
 		}
 
-		Contact contact = null;
-
-		if (Validator.isNotNull(oktaId)) {
-			contact = contactPersistence.fetchByOktaId(oktaId);
-		}
-
-		if ((contact != null) && (contact.getContactId() != contactId)) {
-			throw new ContactOktaIdException.MustNotBeDuplicate(oktaId);
-		}
-
-		contact = contactPersistence.fetchByEmailAddress(emailAddress);
+		Contact contact = contactPersistence.fetchByEmailAddress(emailAddress);
 
 		if ((contact != null) && (contact.getContactId() != contactId)) {
 			throw new ContactEmailAddressException.MustNotBeDuplicate(

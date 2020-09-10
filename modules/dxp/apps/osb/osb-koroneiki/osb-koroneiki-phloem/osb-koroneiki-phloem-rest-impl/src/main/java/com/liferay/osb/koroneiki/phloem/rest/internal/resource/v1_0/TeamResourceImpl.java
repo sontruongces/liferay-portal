@@ -87,7 +87,7 @@ public class TeamResourceImpl
 
 		for (String emailAddress : emailAddresses) {
 			contacts.add(
-				_oktaContactIdentityProvider.getContactByEmailAddress(
+				_webContactIdentityProvider.getContactByEmailAddress(
 					emailAddress));
 		}
 
@@ -103,37 +103,7 @@ public class TeamResourceImpl
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_deleteTeamContactRole(
-			_oktaContactIdentityProvider.getContactByEmailAddress(emailAddress),
-			teamKey, contactRoleKeys);
-	}
-
-	@Override
-	public void deleteTeamContactByOkta(
-			String agentName, String agentUID, String teamKey, String[] oktaIds)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		List<Contact> contacts = new ArrayList<>();
-
-		for (String oktaId : oktaIds) {
-			contacts.add(
-				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
-		}
-
-		_deleteTeamContacts(contacts, teamKey);
-	}
-
-	@Override
-	public void deleteTeamContactByOktaRole(
-			String agentName, String agentUID, String teamKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		_deleteTeamContactRole(
-			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
+			_webContactIdentityProvider.getContactByEmailAddress(emailAddress),
 			teamKey, contactRoleKeys);
 	}
 
@@ -309,7 +279,7 @@ public class TeamResourceImpl
 
 		for (String emailAddress : emailAddresses) {
 			contacts.add(
-				_oktaContactIdentityProvider.getContactByEmailAddress(
+				_webContactIdentityProvider.getContactByEmailAddress(
 					emailAddress));
 		}
 
@@ -325,37 +295,7 @@ public class TeamResourceImpl
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_putTeamContactRole(
-			_oktaContactIdentityProvider.getContactByEmailAddress(emailAddress),
-			teamKey, contactRoleKeys);
-	}
-
-	@Override
-	public void putTeamContactByOkta(
-			String agentName, String agentUID, String teamKey, String[] oktaIds)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		List<Contact> contacts = new ArrayList<>(oktaIds.length);
-
-		for (String oktaId : oktaIds) {
-			contacts.add(
-				_oktaContactIdentityProvider.getContactByProviderId(oktaId));
-		}
-
-		_putTeamContacts(contacts, teamKey);
-	}
-
-	@Override
-	public void putTeamContactByOktaRole(
-			String agentName, String agentUID, String teamKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception {
-
-		ServiceContextUtil.setAgentFields(agentName, agentUID);
-
-		_putTeamContactRole(
-			_oktaContactIdentityProvider.getContactByProviderId(oktaId),
+			_webContactIdentityProvider.getContactByEmailAddress(emailAddress),
 			teamKey, contactRoleKeys);
 	}
 
@@ -518,9 +458,6 @@ public class TeamResourceImpl
 
 	@Reference
 	private ContactTeamRoleService _contactTeamRoleService;
-
-	@Reference(target = "(provider=okta)")
-	private ContactIdentityProvider _oktaContactIdentityProvider;
 
 	@Reference
 	private PhloemPermissionUtil _phloemPermissionUtil;

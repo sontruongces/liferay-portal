@@ -46,8 +46,8 @@ import org.osgi.service.component.annotations.Reference;
 public class ContactServiceImpl extends ContactServiceBaseImpl {
 
 	public Contact addContact(
-			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId,
+			String uuid, String firstName, String middleName, String lastName,
+			String emailAddress, String languageId,
 			boolean emailAddressVerified)
 		throws PortalException {
 
@@ -55,8 +55,8 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 			getPermissionChecker(), TaprootActionKeys.ADD_CONTACT);
 
 		return contactLocalService.addContact(
-			uuid, getUserId(), oktaId, firstName, middleName, lastName,
-			emailAddress, languageId, emailAddressVerified);
+			uuid, getUserId(), firstName, middleName, lastName, emailAddress,
+			languageId, emailAddressVerified);
 	}
 
 	public Contact deleteContact(long contactId) throws PortalException {
@@ -132,15 +132,6 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 		return contact;
 	}
 
-	public Contact getContactByOktaId(String oktaId) throws PortalException {
-		Contact contact = contactLocalService.getContactByOktaId(oktaId);
-
-		_contactPermission.check(
-			getPermissionChecker(), contact, ActionKeys.VIEW);
-
-		return contact;
-	}
-
 	public Contact getContactByUuid(String uuid) throws PortalException {
 		Contact contact = contactLocalService.getContactByUuid(uuid);
 
@@ -170,17 +161,17 @@ public class ContactServiceImpl extends ContactServiceBaseImpl {
 	}
 
 	public Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException {
 
 		_contactPermission.check(
 			getPermissionChecker(), contactId, ActionKeys.UPDATE);
 
 		return contactLocalService.updateContact(
-			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId, emailAddressVerified);
+			contactId, uuid, firstName, middleName, lastName, emailAddress,
+			languageId, emailAddressVerified);
 	}
 
 	@Reference

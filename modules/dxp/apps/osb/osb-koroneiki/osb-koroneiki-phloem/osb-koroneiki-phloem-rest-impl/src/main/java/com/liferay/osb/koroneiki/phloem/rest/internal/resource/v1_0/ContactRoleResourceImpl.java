@@ -132,21 +132,6 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
-	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception {
-
-		String[] contactRoleTypes = {
-			ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
-			ContactRole.Type.ACCOUNT_WORKER.toString()
-		};
-
-		return _getAccountContactRolesPage(
-			_contactLocalService.getContactByOktaId(oktaId), accountKey,
-			contactRoleTypes, pagination);
-	}
-
-	@Override
 	public Page<ContactRole>
 			getAccountAccountKeyContactByUuidContactUuidRolesPage(
 				String accountKey, String contactUuid, Pagination pagination)
@@ -177,17 +162,6 @@ public class ContactRoleResourceImpl
 	}
 
 	@Override
-	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception {
-
-		return _getAccountContactRolesPage(
-			_contactLocalService.getContactByOktaId(oktaId), accountKey,
-			new String[] {ContactRole.Type.ACCOUNT_CUSTOMER.toString()},
-			pagination);
-	}
-
-	@Override
 	public Page<ContactRole>
 			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
 				String accountKey, String contactUuid, Pagination pagination)
@@ -211,17 +185,6 @@ public class ContactRoleResourceImpl
 		return _getAccountContactRolesPage(
 			_contactLocalService.getContactByEmailAddress(contactEmailAddress),
 			accountKey,
-			new String[] {ContactRole.Type.ACCOUNT_WORKER.toString()},
-			pagination);
-	}
-
-	@Override
-	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception {
-
-		return _getAccountContactRolesPage(
-			_contactLocalService.getContactByOktaId(oktaId), accountKey,
 			new String[] {ContactRole.Type.ACCOUNT_WORKER.toString()},
 			pagination);
 	}
@@ -287,16 +250,6 @@ public class ContactRoleResourceImpl
 		return _getTeamContactRolesPage(
 			_contactLocalService.getContactByEmailAddress(emailAddress),
 			teamKey, pagination);
-	}
-
-	@Override
-	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
-			String teamKey, String oktaId, Pagination pagination)
-		throws Exception {
-
-		return _getTeamContactRolesPage(
-			_contactLocalService.getContactByOktaId(oktaId), teamKey,
-			pagination);
 	}
 
 	@Override

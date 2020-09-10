@@ -104,15 +104,6 @@ public class ProductConsumptionResourceImpl
 	}
 
 	@Override
-	public Page<ProductConsumption> getContactByOktaProductConsumptionsPage(
-			String oktaId, Pagination pagination)
-		throws Exception {
-
-		return _getContactProductConsumptionsPage(
-			_contactLocalService.getContactByOktaId(oktaId), pagination);
-	}
-
-	@Override
 	public Page<ProductConsumption>
 			getContactByUuidContactUuidProductConsumptionsPage(
 				String contactUuid, Pagination pagination)
