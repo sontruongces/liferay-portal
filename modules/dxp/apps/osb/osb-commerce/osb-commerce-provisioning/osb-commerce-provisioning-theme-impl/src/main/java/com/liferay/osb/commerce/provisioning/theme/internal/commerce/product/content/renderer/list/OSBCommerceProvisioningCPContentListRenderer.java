@@ -89,23 +89,26 @@ public class OSBCommerceProvisioningCPContentListRenderer
 			"/product_publisher/render/view.jsp");
 	}
 
-	private Map<String, Object> _getCPEntriesMap(HttpServletRequest request)
-		throws PortalException {
+	private Map<String, List<Map<String, Object>>> _getCPEntriesMap(
+		HttpServletRequest request) {
 
-		CPDataSourceResult cpDataSourceResult =
-			(CPDataSourceResult)request.getAttribute(
-				CPWebKeys.CP_DATA_SOURCE_RESULT);
+		return HashMapBuilder.<String, List<Map<String, Object>>>put(
+			"cpEntries",
+			() -> {
+				List<Map<String, Object>> cpEntries = new ArrayList<>();
 
-		List<Map<String, Object>> cpEntries = new ArrayList<>();
+				CPDataSourceResult cpDataSourceResult =
+					(CPDataSourceResult)request.getAttribute(
+						CPWebKeys.CP_DATA_SOURCE_RESULT);
 
-		for (CPCatalogEntry cpCatalogEntry :
-				cpDataSourceResult.getCPCatalogEntries()) {
+				for (CPCatalogEntry cpCatalogEntry :
+						cpDataSourceResult.getCPCatalogEntries()) {
 
-			cpEntries.add(_getCPEntryMap(cpCatalogEntry, request));
-		}
+					cpEntries.add(_getCPEntryMap(cpCatalogEntry, request));
+				}
 
-		return HashMapBuilder.<String, Object>put(
-			"cpEntries", cpEntries
+				return cpEntries;
+			}
 		).build();
 	}
 
