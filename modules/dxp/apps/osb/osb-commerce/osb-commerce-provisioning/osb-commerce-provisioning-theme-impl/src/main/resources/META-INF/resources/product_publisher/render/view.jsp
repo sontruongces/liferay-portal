@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-Map<String, Object> cpEntriesMap = (Map<String, Object>)request.getAttribute("osb-commerce-provisioning:CPEntriesMap");
+Map<String, Object> cpEntriesMap = (Map<String, Object>)request.getAttribute(OSBCommerceProvisioningThemeWebKeys.OSB_COMMERCE_PROVISIONING_THEME_CP_ENTRIES_MAP);
 %>
 
 <div class="container product-publisher-container">
