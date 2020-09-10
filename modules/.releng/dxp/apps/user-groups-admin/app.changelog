@@ -120,3 +120,19 @@ app.artifacts-2.0.7=\
 app.change.log-2.0.7=LPS-100448 LPS-103252 LPS-103302 LPS-105380 LPS-113325 LPS-2 LPS-77425 LPS-77699 LPS-78938 LPS-79653 LPS-79679 LPS-80332 LPS-80763 LPS-80927 LPS-81404 LPS-81704 LPS-84119 LPS-84399 LPS-85296 LPS-86732 LPS-86806 LPS-87885 LPS-90068 LPS-90144 LPS-91343 LPS-92285 LPS-95555 LPS-98032 LPS-98877 LPS-98879
 
 app.git.id-2.0.7=549078ccddf895b09d40ac38767524b1144c8b76
+
+#
+# Liferay App Version 2.0.8
+#
+
+app.artifacts-2.0.8=\
+	com.liferay.user.groups.admin.api-4.0.1.jar,\
+	com.liferay.user.groups.admin.impl-3.0.11.jar,\
+	com.liferay.user.groups.admin.item.selector.api-2.0.3.jar,\
+	com.liferay.user.groups.admin.item.selector.web-2.0.11.jar,\
+	com.liferay.user.groups.admin.uad-4.0.5.jar,\
+	com.liferay.user.groups.admin.web-3.0.26.jar
+
+app.change.log-2.0.8=LPS-100448 LPS-103252 LPS-103302 LPS-105380 LPS-117975 LPS-2 LPS-77425 LPS-77699 LPS-78938 LPS-79653 LPS-79679 LPS-80332 LPS-80763 LPS-80927 LPS-81404 LPS-81704 LPS-84119 LPS-84399 LPS-85296 LPS-86732 LPS-86806 LPS-87885 LPS-90068 LPS-90144 LPS-91343 LPS-92285 LPS-95555 LPS-98032 LPS-98877 LPS-98879
+
+app.git.id-2.0.8=296077e9d986e387718d8aa0d31f771fe8d68285
