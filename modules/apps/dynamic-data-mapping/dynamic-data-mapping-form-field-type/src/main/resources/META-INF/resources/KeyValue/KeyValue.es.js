@@ -102,8 +102,8 @@ class KeyValue extends Component {
 
 		this.setState(
 			{
-				keyword,
-				value
+				_keyword: keyword,
+				_value: value
 			},
 			() => {
 				if (generateKeyword) {
