@@ -323,12 +323,17 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			accountKey, account, contacts.size(), salesforceOpportunityTypeName,
 			salesforceOpportunityType);
 
-		String salesforceOpportunityKey = jsonObject.getString(
-			"_salesforceOpportunityKey");
+		String salesforceOpportunityProductFamily = jsonObject.getString(
+			"_salesforceOpportunityProductFamily");
 
-		createZendeskTicket(
-			account, postalAddress, salesforceOpportunityTypeName,
-			salesforceOpportunityKey);
+		if (!salesforceOpportunityProductFamily.equals("P")) {
+			String salesforceOpportunityKey = jsonObject.getString(
+				"_salesforceOpportunityKey");
+
+			createZendeskTicket(
+				account, postalAddress, salesforceOpportunityTypeName,
+				salesforceOpportunityKey);
+		}
 
 		for (Contact contact : contacts) {
 
