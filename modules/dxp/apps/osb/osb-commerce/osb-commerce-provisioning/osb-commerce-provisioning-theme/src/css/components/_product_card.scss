@@ -3,9 +3,9 @@
 	cursor: default;
 	height: 32em;
 	max-width: 25em;
-	padding: 3em 0 .8em;
+	padding: 3em 0 0.8em;
 	position: relative;
-	transform: scale3d(.95, .95, 1);
+	transform: scale3d(0.95, 0.95, 1);
 	transition: transform 400ms ease-out;
 
 	&::before {
@@ -34,8 +34,7 @@
 
 		.btn {
 			border-color: transparent !important;
-			transition: background-color 300ms ease-out,
-						border 0ms !important;
+			transition: background-color 300ms ease-out, border 0ms !important;
 		}
 	}
 
@@ -74,7 +73,7 @@
 				li {
 					align-items: center;
 					display: flex;
-					margin-bottom: .5em;
+					margin-bottom: 0.5em;
 
 					.list-icon {
 						color: $success;

@@ -11,14 +11,13 @@
 
 import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
-import React, {createRef, useEffect, useState} from 'react';
 import classnames from 'classnames';
 import {navigate} from 'frontend-js-web';
+import React, {createRef, useEffect, useState} from 'react';
 
 const PRODUCT_HIGHLIGHT = 'highlightProduct';
 
 function ProductCard({
-	description,
 	detailURL,
 	isFeatured,
 	isTrial,
@@ -28,43 +27,39 @@ function ProductCard({
 	skuId,
 	spritemap
 }) {
-
 	const [isHighlighted, setIsHighlighted] = useState(isFeatured),
-		cardRef = createRef(),
-		onProductHighlight = ({id}) => !id
-			? setIsHighlighted(isFeatured)
-			: setIsHighlighted(id === skuId);
+		cardRef = createRef();
 
 	useEffect(() => {
-		Liferay.on(
-			`${namespace}_${PRODUCT_HIGHLIGHT}`, onProductHighlight);
-	}, []);
+		Liferay.on(`${namespace}_${PRODUCT_HIGHLIGHT}`, ({id}) =>
+			!id ? setIsHighlighted(isFeatured) : setIsHighlighted(id === skuId)
+		);
+	}, [isFeatured, namespace, skuId]);
 
 	useEffect(() => {
 		const productCard = cardRef.current,
-			onHover = () => Liferay.fire(
-				`${namespace}_${PRODUCT_HIGHLIGHT}`, {id: skuId}),
-			onOut = () => Liferay.fire(
-				`${namespace}_${PRODUCT_HIGHLIGHT}`, {id: ''});
+			onHover = () =>
+				Liferay.fire(`${namespace}_${PRODUCT_HIGHLIGHT}`, {id: skuId}),
+			onOut = () =>
+				Liferay.fire(`${namespace}_${PRODUCT_HIGHLIGHT}`, {id: ''});
 
 		productCard.addEventListener('mouseover', onHover);
 		productCard.addEventListener('mouseout', onOut);
-	}, []);
+	}, [cardRef, namespace, skuId]);
 
-	return(
+	return (
 		<div
-			className={
-				classnames(
-					'card',
-					'osb-commerce-product-card',
-					'd-flex flex-column justify-content-between text-center',
-					isHighlighted && 'is-highlighted'
+			className={classnames(
+				'card',
+				'osb-commerce-product-card',
+				'd-flex flex-column justify-content-between text-center',
+				isHighlighted && 'is-highlighted'
 			)}
 			ref={cardRef}
 		>
 			<div className={'product-card-header'}>
 				<div className={'product-image'}>
-					<img alt={name} src={productImageURL}/>
+					<img alt={name} src={productImageURL} />
 				</div>
 
 				<div className={'product-name'}>
@@ -72,7 +67,9 @@ function ProductCard({
 				</div>
 
 				<div className={'product-description'}>
-					<p>number <big>1</big> <b>feature</b></p>
+					<p>
+						number <big>1</big> <b>feature</b>
+					</p>
 				</div>
 			</div>
 
@@ -80,7 +77,7 @@ function ProductCard({
 				<ul>
 					<li>
 						<div className={'list-icon'}>
-							<ClayIcon symbol={'check'} spritemap={spritemap} />
+							<ClayIcon spritemap={spritemap} symbol={'check'} />
 						</div>
 						<div className={'feature'}>
 							<span className={'text-truncate'}>
@@ -90,17 +87,18 @@ function ProductCard({
 					</li>
 					<li>
 						<div className={'list-icon'}>
-							<ClayIcon symbol={'check'} spritemap={spritemap} />
+							<ClayIcon spritemap={spritemap} symbol={'check'} />
 						</div>
 						<div className={'feature'}>
 							<span className={'text-truncate'}>
-								This is an amazing feature with a super long text
+								This is an amazing feature with a super long
+								text
 							</span>
 						</div>
 					</li>
 					<li>
 						<div className={'list-icon'}>
-							<ClayIcon symbol={'check'} spritemap={spritemap} />
+							<ClayIcon spritemap={spritemap} symbol={'check'} />
 						</div>
 						<div className={'feature'}>
 							<span className={'text-truncate'}>
@@ -110,7 +108,7 @@ function ProductCard({
 					</li>
 					<li>
 						<div className={'list-icon'}>
-							<ClayIcon symbol={'check'} spritemap={spritemap} />
+							<ClayIcon spritemap={spritemap} symbol={'check'} />
 						</div>
 						<div className={'feature'}>
 							<span className={'text-truncate'}>
@@ -129,9 +127,10 @@ function ProductCard({
 								? 'primary'
 								: 'secondary'
 						}
-					>{Liferay.Language.get(isTrial
-						? 'start-trial'
-						: 'subscribe')}
+					>
+						{Liferay.Language.get(
+							isTrial ? 'start-trial' : 'subscribe'
+						)}
 					</ClayButton>
 				</div>
 
