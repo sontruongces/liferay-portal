@@ -92,6 +92,12 @@ function Search({accountsHomeURL = '', resourceURL}) {
 		return `${accountsHomeURL}&${NAMESPACE}keywords=${keywords}`;
 	}
 
+	function handleKeyDown(event) {
+		if (event.keyCode === 13) {
+			window.location.assign(buildSearchResultsURL());
+		}
+	}
+
 	function handleOnChange(event) {
 		setKeywords(event.target.value);
 
@@ -103,6 +109,7 @@ function Search({accountsHomeURL = '', resourceURL}) {
 			<ClayAutocomplete.Input
 				className="search-input"
 				onChange={handleOnChange}
+				onKeyDown={handleKeyDown}
 				placeholder={Liferay.Language.get('search-accounts')}
 				value={keywords}
 			/>

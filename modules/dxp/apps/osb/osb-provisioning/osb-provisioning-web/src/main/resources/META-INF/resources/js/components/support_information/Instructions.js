@@ -107,7 +107,11 @@ function FileUpload({
 						value={accountKey}
 					/>
 
-					<label className="form-control-label" htmlFor={fieldName}>
+					<label
+						aria-label={fieldName}
+						className="form-control-label"
+						htmlFor={fieldName}
+					>
 						<input
 							className="form-control"
 							id={fieldName}
