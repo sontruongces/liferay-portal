@@ -453,72 +453,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Operation(
-		description = "Unassigns roles from the contact for the account."
-	)
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountContactByOktaRole(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
-				String[] contactRoleKeys)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Operation(description = "Assigns roles to the contact for the account.")
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "contactRoleKeys")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void putAccountContactByOktaRole(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@NotNull @Parameter(hidden = true) @QueryParam("contactRoleKeys")
-				String[] contactRoleKeys)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -614,35 +548,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Operation(description = "Unassigns customer contacts from the account.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
-		}
-	)
-	@Path("/accounts/{accountKey}/customer-contacts/by-okta-id")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountCustomerContactByOkta(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
-				oktaIds)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-uuid'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -701,35 +606,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Operation(description = "Unassigns customer contacts from the account.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "oktaIds")
-		}
-	)
-	@Path("/accounts/{accountKey}/worker-contacts/by-okta-id")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public void deleteAccountWorkerContactByOkta(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @QueryParam("oktaIds") String[]
-				oktaIds)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-uuid'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -754,33 +630,6 @@ public abstract class BaseAccountResourceImpl implements AccountResource {
 			@NotNull @Parameter(hidden = true) @QueryParam("contactUuids")
 				String[] contactUuids)
 		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/accounts'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrieves the contact's accounts.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}/accounts")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Account")})
-	public Page<Account> getContactByOktaAccountsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
 	}
 
 	/**

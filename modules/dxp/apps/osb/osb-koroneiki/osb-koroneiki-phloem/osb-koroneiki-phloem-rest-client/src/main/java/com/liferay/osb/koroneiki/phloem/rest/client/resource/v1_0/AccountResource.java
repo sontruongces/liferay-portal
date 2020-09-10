@@ -167,26 +167,6 @@ public interface AccountResource {
 				String contactEmailAddress, String[] contactRoleKeys)
 		throws Exception;
 
-	public void deleteAccountContactByOktaRole(
-			String agentName, String agentUID, String accountKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse deleteAccountContactByOktaRoleHttpResponse(
-			String agentName, String agentUID, String accountKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception;
-
-	public void putAccountContactByOktaRole(
-			String agentName, String agentUID, String accountKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
-			String agentName, String agentUID, String accountKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception;
-
 	public void deleteAccountContactByUuidContactUuidRole(
 			String agentName, String agentUID, String accountKey,
 			String contactUuid, String[] contactRoleKeys)
@@ -220,17 +200,6 @@ public interface AccountResource {
 				String[] contactEmailAddresses)
 		throws Exception;
 
-	public void deleteAccountCustomerContactByOkta(
-			String agentName, String agentUID, String accountKey,
-			String[] oktaIds)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			deleteAccountCustomerContactByOktaHttpResponse(
-				String agentName, String agentUID, String accountKey,
-				String[] oktaIds)
-		throws Exception;
-
 	public void deleteAccountCustomerContactByUuid(
 			String agentName, String agentUID, String accountKey,
 			String[] contactUuids)
@@ -253,17 +222,6 @@ public interface AccountResource {
 				String[] contactEmailAddresses)
 		throws Exception;
 
-	public void deleteAccountWorkerContactByOkta(
-			String agentName, String agentUID, String accountKey,
-			String[] oktaIds)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			deleteAccountWorkerContactByOktaHttpResponse(
-				String agentName, String agentUID, String accountKey,
-				String[] oktaIds)
-		throws Exception;
-
 	public void deleteAccountWorkerContactByUuid(
 			String agentName, String agentUID, String accountKey,
 			String[] contactUuids)
@@ -273,14 +231,6 @@ public interface AccountResource {
 			deleteAccountWorkerContactByUuidHttpResponse(
 				String agentName, String agentUID, String accountKey,
 				String[] contactUuids)
-		throws Exception;
-
-	public Page<Account> getContactByOktaAccountsPage(
-			String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse getContactByOktaAccountsPageHttpResponse(
-			String oktaId, Pagination pagination)
 		throws Exception;
 
 	public Page<Account> getContactByUuidContactUuidAccountsPage(
@@ -1373,181 +1323,6 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountContactByOktaRole(
-				String agentName, String agentUID, String accountKey,
-				String oktaId, String[] contactRoleKeys)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountContactByOktaRoleHttpResponse(
-					agentName, agentUID, accountKey, oktaId, contactRoleKeys);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				deleteAccountContactByOktaRoleHttpResponse(
-					String agentName, String agentUID, String accountKey,
-					String oktaId, String[] contactRoleKeys)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (contactRoleKeys != null) {
-				for (int i = 0; i < contactRoleKeys.length; i++) {
-					httpInvoker.parameter(
-						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
-				}
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles",
-				accountKey, oktaId);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void putAccountContactByOktaRole(
-				String agentName, String agentUID, String accountKey,
-				String oktaId, String[] contactRoleKeys)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				putAccountContactByOktaRoleHttpResponse(
-					agentName, agentUID, accountKey, oktaId, contactRoleKeys);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse putAccountContactByOktaRoleHttpResponse(
-				String agentName, String agentUID, String accountKey,
-				String oktaId, String[] contactRoleKeys)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(
-				Stream.of(
-					contactRoleKeys
-				).map(
-					value -> String.valueOf(value)
-				).collect(
-					Collectors.toList()
-				).toString(),
-				"application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (contactRoleKeys != null) {
-				for (int i = 0; i < contactRoleKeys.length; i++) {
-					httpInvoker.parameter(
-						"contactRoleKeys", String.valueOf(contactRoleKeys[i]));
-				}
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles",
-				accountKey, oktaId);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteAccountContactByUuidContactUuidRole(
 				String agentName, String agentUID, String accountKey,
 				String contactUuid, String[] contactRoleKeys)
@@ -1810,89 +1585,6 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountCustomerContactByOkta(
-				String agentName, String agentUID, String accountKey,
-				String[] oktaIds)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountCustomerContactByOktaHttpResponse(
-					agentName, agentUID, accountKey, oktaIds);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				deleteAccountCustomerContactByOktaHttpResponse(
-					String agentName, String agentUID, String accountKey,
-					String[] oktaIds)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (oktaIds != null) {
-				for (int i = 0; i < oktaIds.length; i++) {
-					httpInvoker.parameter(
-						"oktaIds", String.valueOf(oktaIds[i]));
-				}
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id",
-				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteAccountCustomerContactByUuid(
 				String agentName, String agentUID, String accountKey,
 				String[] contactUuids)
@@ -2060,89 +1752,6 @@ public interface AccountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteAccountWorkerContactByOkta(
-				String agentName, String agentUID, String accountKey,
-				String[] oktaIds)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				deleteAccountWorkerContactByOktaHttpResponse(
-					agentName, agentUID, accountKey, oktaIds);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return;
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				deleteAccountWorkerContactByOktaHttpResponse(
-					String agentName, String agentUID, String accountKey,
-					String[] oktaIds)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
-
-			if (agentName != null) {
-				httpInvoker.parameter("agentName", String.valueOf(agentName));
-			}
-
-			if (agentUID != null) {
-				httpInvoker.parameter("agentUID", String.valueOf(agentUID));
-			}
-
-			if (oktaIds != null) {
-				for (int i = 0; i < oktaIds.length; i++) {
-					httpInvoker.parameter(
-						"oktaIds", String.valueOf(oktaIds[i]));
-				}
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id",
-				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
 		public void deleteAccountWorkerContactByUuid(
 				String agentName, String agentUID, String accountKey,
 				String[] contactUuids)
@@ -2219,78 +1828,6 @@ public interface AccountResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-uuid",
 				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<Account> getContactByOktaAccountsPage(
-				String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getContactByOktaAccountsPageHttpResponse(oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, AccountSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getContactByOktaAccountsPageHttpResponse(
-					String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/accounts",
-				oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -800,16 +800,6 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountContactByOktaRole() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutAccountContactByOktaRole() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteAccountContactByUuidContactUuidRole()
 		throws Exception {
 
@@ -829,11 +819,6 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountCustomerContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteAccountCustomerContactByUuid() throws Exception {
 		Assert.assertTrue(false);
 	}
@@ -844,116 +829,8 @@ public abstract class BaseAccountResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteAccountWorkerContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteAccountWorkerContactByUuid() throws Exception {
 		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGetContactByOktaAccountsPage() throws Exception {
-		Page<Account> page = accountResource.getContactByOktaAccountsPage(
-			testGetContactByOktaAccountsPage_getOktaId(), Pagination.of(1, 2));
-
-		Assert.assertEquals(0, page.getTotalCount());
-
-		String oktaId = testGetContactByOktaAccountsPage_getOktaId();
-		String irrelevantOktaId =
-			testGetContactByOktaAccountsPage_getIrrelevantOktaId();
-
-		if ((irrelevantOktaId != null)) {
-			Account irrelevantAccount =
-				testGetContactByOktaAccountsPage_addAccount(
-					irrelevantOktaId, randomIrrelevantAccount());
-
-			page = accountResource.getContactByOktaAccountsPage(
-				irrelevantOktaId, Pagination.of(1, 2));
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantAccount),
-				(List<Account>)page.getItems());
-			assertValid(page);
-		}
-
-		Account account1 = testGetContactByOktaAccountsPage_addAccount(
-			oktaId, randomAccount());
-
-		Account account2 = testGetContactByOktaAccountsPage_addAccount(
-			oktaId, randomAccount());
-
-		page = accountResource.getContactByOktaAccountsPage(
-			oktaId, Pagination.of(1, 2));
-
-		Assert.assertEquals(2, page.getTotalCount());
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(account1, account2), (List<Account>)page.getItems());
-		assertValid(page);
-	}
-
-	@Test
-	public void testGetContactByOktaAccountsPageWithPagination()
-		throws Exception {
-
-		String oktaId = testGetContactByOktaAccountsPage_getOktaId();
-
-		Account account1 = testGetContactByOktaAccountsPage_addAccount(
-			oktaId, randomAccount());
-
-		Account account2 = testGetContactByOktaAccountsPage_addAccount(
-			oktaId, randomAccount());
-
-		Account account3 = testGetContactByOktaAccountsPage_addAccount(
-			oktaId, randomAccount());
-
-		Page<Account> page1 = accountResource.getContactByOktaAccountsPage(
-			oktaId, Pagination.of(1, 2));
-
-		List<Account> accounts1 = (List<Account>)page1.getItems();
-
-		Assert.assertEquals(accounts1.toString(), 2, accounts1.size());
-
-		Page<Account> page2 = accountResource.getContactByOktaAccountsPage(
-			oktaId, Pagination.of(2, 2));
-
-		Assert.assertEquals(3, page2.getTotalCount());
-
-		List<Account> accounts2 = (List<Account>)page2.getItems();
-
-		Assert.assertEquals(accounts2.toString(), 1, accounts2.size());
-
-		Page<Account> page3 = accountResource.getContactByOktaAccountsPage(
-			oktaId, Pagination.of(1, 3));
-
-		assertEqualsIgnoringOrder(
-			Arrays.asList(account1, account2, account3),
-			(List<Account>)page3.getItems());
-	}
-
-	protected Account testGetContactByOktaAccountsPage_addAccount(
-			String oktaId, Account account)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String testGetContactByOktaAccountsPage_getOktaId()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String testGetContactByOktaAccountsPage_getIrrelevantOktaId()
-		throws Exception {
-
-		return null;
 	}
 
 	@Test

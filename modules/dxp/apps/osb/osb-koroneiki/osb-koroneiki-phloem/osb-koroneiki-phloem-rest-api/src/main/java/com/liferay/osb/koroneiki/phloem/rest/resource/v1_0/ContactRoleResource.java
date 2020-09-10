@@ -55,10 +55,6 @@ public interface ContactRoleResource {
 				Pagination pagination)
 		throws Exception;
 
-	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ContactRole>
 			getAccountAccountKeyContactByUuidContactUuidRolesPage(
 				String accountKey, String contactUuid, Pagination pagination)
@@ -70,10 +66,6 @@ public interface ContactRoleResource {
 				Pagination pagination)
 		throws Exception;
 
-	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ContactRole>
 			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
 				String accountKey, String contactUuid, Pagination pagination)
@@ -83,10 +75,6 @@ public interface ContactRoleResource {
 			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
 				String accountKey, String contactEmailAddress,
 				Pagination pagination)
-		throws Exception;
-
-	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
 		throws Exception;
 
 	public Page<ContactRole>
@@ -129,10 +117,6 @@ public interface ContactRoleResource {
 
 	public Page<ContactRole> getTeamTeamKeyContactByEmailAddressRolesPage(
 			String teamKey, String emailAddress, Pagination pagination)
-		throws Exception;
-
-	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
-			String teamKey, String oktaId, Pagination pagination)
 		throws Exception;
 
 	public Page<ContactRole> getTeamTeamKeyContactByUuidContactUuidRolesPage(

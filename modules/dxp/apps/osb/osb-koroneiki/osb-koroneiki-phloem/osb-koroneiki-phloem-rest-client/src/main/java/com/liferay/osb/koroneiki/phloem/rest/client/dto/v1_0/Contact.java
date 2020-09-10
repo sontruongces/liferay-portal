@@ -283,27 +283,6 @@ public class Contact implements Cloneable {
 
 	protected String middleName;
 
-	public String getOktaId() {
-		return oktaId;
-	}
-
-	public void setOktaId(String oktaId) {
-		this.oktaId = oktaId;
-	}
-
-	public void setOktaId(
-		UnsafeSupplier<String, Exception> oktaIdUnsafeSupplier) {
-
-		try {
-			oktaId = oktaIdUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String oktaId;
-
 	public Team[] getTeams() {
 		return teams;
 	}

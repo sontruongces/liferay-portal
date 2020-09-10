@@ -58,10 +58,6 @@ public interface ProductPurchaseResource {
 			ProductPurchase productPurchase)
 		throws Exception;
 
-	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
-			String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ProductPurchase>
 			getContactByUuidContactUuidProductPurchasesPage(
 				String contactUuid, Pagination pagination)

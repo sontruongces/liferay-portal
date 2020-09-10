@@ -64,15 +64,6 @@ public interface AuditEntryResource {
 				String contactRoleKey, Pagination pagination)
 		throws Exception;
 
-	public Page<AuditEntry> getContactByOktaAuditEntriesPage(
-			String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getContactByOktaAuditEntriesPageHttpResponse(
-				String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<AuditEntry> getContactByUuidContactUuidAuditEntriesPage(
 			String contactUuid, Pagination pagination)
 		throws Exception;
@@ -354,79 +345,6 @@ public interface AuditEntryResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/contact-roles/{contactRoleKey}/audit-entries",
 				contactRoleKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<AuditEntry> getContactByOktaAuditEntriesPage(
-				String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getContactByOktaAuditEntriesPageHttpResponse(
-					oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, AuditEntrySerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getContactByOktaAuditEntriesPageHttpResponse(
-					String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/audit-entries",
-				oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

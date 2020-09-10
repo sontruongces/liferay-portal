@@ -55,15 +55,6 @@ public interface ExternalLinkResource {
 			ExternalLink externalLink)
 		throws Exception;
 
-	public Page<ExternalLink> getContactByOktaExternalLinksPage(
-			String oktaId, Pagination pagination)
-		throws Exception;
-
-	public ExternalLink postContactByOktaExternalLink(
-			String agentName, String agentUID, String oktaId,
-			ExternalLink externalLink)
-		throws Exception;
-
 	public Page<ExternalLink> getContactByUuidContactUuidExternalLinksPage(
 			String contactUuid, Pagination pagination)
 		throws Exception;

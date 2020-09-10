@@ -191,7 +191,6 @@ public abstract class BaseContactResourceTestCase {
 		contact.setLanguageId(regex);
 		contact.setLastName(regex);
 		contact.setMiddleName(regex);
-		contact.setOktaId(regex);
 		contact.setUuid(regex);
 
 		String json = ContactSerDes.toJSON(contact);
@@ -206,7 +205,6 @@ public abstract class BaseContactResourceTestCase {
 		Assert.assertEquals(regex, contact.getLanguageId());
 		Assert.assertEquals(regex, contact.getLastName());
 		Assert.assertEquals(regex, contact.getMiddleName());
-		Assert.assertEquals(regex, contact.getOktaId());
 		Assert.assertEquals(regex, contact.getUuid());
 	}
 
@@ -827,41 +825,6 @@ public abstract class BaseContactResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGetContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGraphQLGetContactByOkta() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testGraphQLGetContactByOktaNotFound() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testPutContactByOkta() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testDeleteContactByOktaContactPermission() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutContactByOktaContactPermission() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteContactByUuidContactUuid() throws Exception {
 		Assert.assertTrue(false);
 	}
@@ -1152,14 +1115,6 @@ public abstract class BaseContactResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("oktaId", additionalAssertFieldName)) {
-				if (contact.getOktaId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("teams", additionalAssertFieldName)) {
 				if (contact.getTeams() == null) {
 					valid = false;
@@ -1385,16 +1340,6 @@ public abstract class BaseContactResourceTestCase {
 			if (Objects.equals("middleName", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						contact1.getMiddleName(), contact2.getMiddleName())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("oktaId", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						contact1.getOktaId(), contact2.getOktaId())) {
 
 					return false;
 				}
@@ -1634,14 +1579,6 @@ public abstract class BaseContactResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("oktaId")) {
-			sb.append("'");
-			sb.append(String.valueOf(contact.getOktaId()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("teams")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1714,7 +1651,6 @@ public abstract class BaseContactResourceTestCase {
 					RandomTestUtil.randomString());
 				middleName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
-				oktaId = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				uuid = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};

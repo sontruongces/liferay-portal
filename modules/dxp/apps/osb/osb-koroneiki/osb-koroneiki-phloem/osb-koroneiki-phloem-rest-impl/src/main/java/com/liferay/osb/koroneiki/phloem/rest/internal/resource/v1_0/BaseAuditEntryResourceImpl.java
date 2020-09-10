@@ -140,33 +140,6 @@ public abstract class BaseAuditEntryResourceImpl implements AuditEntryResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/audit-entries'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrieves the contact's audit history.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}/audit-entries")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "AuditEntry")})
-	public Page<AuditEntry> getContactByOktaAuditEntriesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/audit-entries'  -u 'test@liferay.com:test'
 	 */
 	@Override

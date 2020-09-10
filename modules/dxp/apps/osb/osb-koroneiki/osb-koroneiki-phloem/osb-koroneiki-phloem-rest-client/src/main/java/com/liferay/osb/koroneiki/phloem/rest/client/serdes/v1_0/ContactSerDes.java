@@ -247,20 +247,6 @@ public class ContactSerDes {
 			sb.append("\"");
 		}
 
-		if (contact.getOktaId() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"oktaId\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(contact.getOktaId()));
-
-			sb.append("\"");
-		}
-
 		if (contact.getTeams() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -407,13 +393,6 @@ public class ContactSerDes {
 			map.put("middleName", String.valueOf(contact.getMiddleName()));
 		}
 
-		if (contact.getOktaId() == null) {
-			map.put("oktaId", null);
-		}
-		else {
-			map.put("oktaId", String.valueOf(contact.getOktaId()));
-		}
-
 		if (contact.getTeams() == null) {
 			map.put("teams", null);
 		}
@@ -532,11 +511,6 @@ public class ContactSerDes {
 			else if (Objects.equals(jsonParserFieldName, "middleName")) {
 				if (jsonParserFieldValue != null) {
 					contact.setMiddleName((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "oktaId")) {
-				if (jsonParserFieldValue != null) {
-					contact.setOktaId((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "teams")) {

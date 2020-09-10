@@ -335,44 +335,6 @@ public class Mutation {
 	@GraphQLField(
 		description = "Unassigns roles from the contact for the account."
 	)
-	public boolean deleteAccountContactByOktaRole(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccountContactByOktaRole(
-				agentName, agentUID, accountKey, oktaId, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField(description = "Assigns roles to the contact for the account.")
-	public boolean updateAccountContactByOktaRole(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.putAccountContactByOktaRole(
-				agentName, agentUID, accountKey, oktaId, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField(
-		description = "Unassigns roles from the contact for the account."
-	)
 	public boolean deleteAccountContactByUuidContactUuidRole(
 			@GraphQLName("agentName") String agentName,
 			@GraphQLName("agentUID") String agentUID,
@@ -431,24 +393,6 @@ public class Mutation {
 		return true;
 	}
 
-	@GraphQLField(description = "Unassigns customer contacts from the account.")
-	public boolean deleteAccountCustomerContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaIds") String[] oktaIds)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource ->
-				accountResource.deleteAccountCustomerContactByOkta(
-					agentName, agentUID, accountKey, oktaIds));
-
-		return true;
-	}
-
 	@GraphQLField(description = "Unassigns contacts from the account.")
 	public boolean deleteAccountCustomerContactByUuid(
 			@GraphQLName("agentName") String agentName,
@@ -482,23 +426,6 @@ public class Mutation {
 			accountResource ->
 				accountResource.deleteAccountWorkerContactByEmailAddres(
 					agentName, agentUID, accountKey, contactEmailAddresses));
-
-		return true;
-	}
-
-	@GraphQLField(description = "Unassigns customer contacts from the account.")
-	public boolean deleteAccountWorkerContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaIds") String[] oktaIds)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> accountResource.deleteAccountWorkerContactByOkta(
-				agentName, agentUID, accountKey, oktaIds));
 
 		return true;
 	}
@@ -565,75 +492,6 @@ public class Mutation {
 			contactResource ->
 				contactResource.putContactByEmailAddresEmailAddress(
 					agentName, agentUID, emailAddress, contact));
-	}
-
-	@GraphQLField
-	public boolean deleteContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("oktaId") String oktaId)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_contactResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactResource -> contactResource.deleteContactByOkta(
-				agentName, agentUID, oktaId));
-
-		return true;
-	}
-
-	@GraphQLField
-	public Contact updateContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contact") Contact contact)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactResource -> contactResource.putContactByOkta(
-				agentName, agentUID, oktaId, contact));
-	}
-
-	@GraphQLField
-	public boolean deleteContactByOktaContactPermission(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contactPermission") ContactPermission
-				contactPermission)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_contactResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactResource ->
-				contactResource.deleteContactByOktaContactPermission(
-					agentName, agentUID, oktaId, contactPermission));
-
-		return true;
-	}
-
-	@GraphQLField
-	public boolean updateContactByOktaContactPermission(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contactPermission") ContactPermission
-				contactPermission)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_contactResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactResource ->
-				contactResource.putContactByOktaContactPermission(
-					agentName, agentUID, oktaId, contactPermission));
-
-		return true;
 	}
 
 	@GraphQLField
@@ -875,22 +733,6 @@ public class Mutation {
 			externalLinkResource ->
 				externalLinkResource.postAccountAccountKeyExternalLink(
 					agentName, agentUID, accountKey, externalLink));
-	}
-
-	@GraphQLField(description = "Adds an external link to the contact.")
-	public ExternalLink createContactByOktaExternalLink(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("externalLink") ExternalLink externalLink)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_externalLinkResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			externalLinkResource ->
-				externalLinkResource.postContactByOktaExternalLink(
-					agentName, agentUID, oktaId, externalLink));
 	}
 
 	@GraphQLField(description = "Adds an external link to the contact.")
@@ -1471,78 +1313,6 @@ public class Mutation {
 			this::_populateResourceContext,
 			teamResource -> teamResource.putTeamContactByEmailAddressRole(
 				agentName, agentUID, teamKey, emailAddress, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField(description = "Unassigns contacts from the team.")
-	public boolean deleteTeamContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("oktaIds") String[] oktaIds)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_teamResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			teamResource -> teamResource.deleteTeamContactByOkta(
-				agentName, agentUID, teamKey, oktaIds));
-
-		return true;
-	}
-
-	@GraphQLField(description = "Assigns contacts to the team.")
-	public boolean updateTeamContactByOkta(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("oktaIds") String[] oktaIds)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_teamResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			teamResource -> teamResource.putTeamContactByOkta(
-				agentName, agentUID, teamKey, oktaIds));
-
-		return true;
-	}
-
-	@GraphQLField(
-		description = "Unassigns roles from the contact for the team."
-	)
-	public boolean deleteTeamContactByOktaRole(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_teamResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			teamResource -> teamResource.deleteTeamContactByOktaRole(
-				agentName, agentUID, teamKey, oktaId, contactRoleKeys));
-
-		return true;
-	}
-
-	@GraphQLField(description = "Assigns roles to the contact for the team.")
-	public boolean updateTeamContactByOktaRole(
-			@GraphQLName("agentName") String agentName,
-			@GraphQLName("agentUID") String agentUID,
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("contactRoleKeys") String[] contactRoleKeys)
-		throws Exception {
-
-		_applyVoidComponentServiceObjects(
-			_teamResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			teamResource -> teamResource.putTeamContactByOktaRole(
-				agentName, agentUID, teamKey, oktaId, contactRoleKeys));
 
 		return true;
 	}

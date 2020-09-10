@@ -108,38 +108,6 @@ public abstract class BaseContactRoleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(
-		description = "Retrieves the account's contact's customer and worker contact roles."
-	)
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ContactRole")})
-	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-uuid/{contactUuid}/roles'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -200,38 +168,6 @@ public abstract class BaseContactRoleResourceImpl
 				@NotNull @Parameter(hidden = true)
 				@PathParam("contactEmailAddress") String contactEmailAddress,
 				@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(
-		description = "Retrieves the account's contact's customer contact roles."
-	)
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ContactRole")})
-	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@Context Pagination pagination)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -302,38 +238,6 @@ public abstract class BaseContactRoleResourceImpl
 				@NotNull @Parameter(hidden = true)
 				@PathParam("contactEmailAddress") String contactEmailAddress,
 				@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(
-		description = "Retrieves the account's contact's customer contact roles."
-	)
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ContactRole")})
-	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
-				accountKey,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@Context Pagination pagination)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -610,36 +514,6 @@ public abstract class BaseContactRoleResourceImpl
 				teamKey,
 			@NotNull @Parameter(hidden = true) @PathParam("emailAddress") String
 				emailAddress,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrieves the team's contact's contact roles.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "teamKey"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ContactRole")})
-	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("teamKey") String
-				teamKey,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
 			@Context Pagination pagination)
 		throws Exception {
 

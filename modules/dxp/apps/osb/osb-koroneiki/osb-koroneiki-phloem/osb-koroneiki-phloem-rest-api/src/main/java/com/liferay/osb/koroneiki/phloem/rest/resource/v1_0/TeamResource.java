@@ -99,24 +99,6 @@ public interface TeamResource {
 			String emailAddress, String[] contactRoleKeys)
 		throws Exception;
 
-	public void deleteTeamContactByOkta(
-			String agentName, String agentUID, String teamKey, String[] oktaIds)
-		throws Exception;
-
-	public void putTeamContactByOkta(
-			String agentName, String agentUID, String teamKey, String[] oktaIds)
-		throws Exception;
-
-	public void deleteTeamContactByOktaRole(
-			String agentName, String agentUID, String teamKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception;
-
-	public void putTeamContactByOktaRole(
-			String agentName, String agentUID, String teamKey, String oktaId,
-			String[] contactRoleKeys)
-		throws Exception;
-
 	public void deleteTeamContactByUuid(
 			String agentName, String agentUID, String teamKey,
 			String[] contactUuids)

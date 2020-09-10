@@ -81,26 +81,6 @@ public interface ContactResource {
 			Contact contact)
 		throws Exception;
 
-	public void deleteContactByOkta(
-			String agentName, String agentUID, String oktaId)
-		throws Exception;
-
-	public Contact getContactByOkta(String oktaId) throws Exception;
-
-	public Contact putContactByOkta(
-			String agentName, String agentUID, String oktaId, Contact contact)
-		throws Exception;
-
-	public void deleteContactByOktaContactPermission(
-			String agentName, String agentUID, String oktaId,
-			ContactPermission contactPermission)
-		throws Exception;
-
-	public void putContactByOktaContactPermission(
-			String agentName, String agentUID, String oktaId,
-			ContactPermission contactPermission)
-		throws Exception;
-
 	public void deleteContactByUuidContactUuid(
 			String agentName, String agentUID, String contactUuid)
 		throws Exception;

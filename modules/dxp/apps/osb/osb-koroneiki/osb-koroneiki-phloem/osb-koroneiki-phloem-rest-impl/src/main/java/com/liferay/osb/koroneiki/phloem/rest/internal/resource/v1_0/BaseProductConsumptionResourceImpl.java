@@ -129,33 +129,6 @@ public abstract class BaseProductConsumptionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/product-consumptions'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrieves the contacts product consumptions.")
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.PATH, name = "oktaId"),
-			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}/product-consumptions")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "ProductConsumption")})
-	public Page<ProductConsumption> getContactByOktaProductConsumptionsPage(
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			@Context Pagination pagination)
-		throws Exception {
-
-		return Page.of(Collections.emptyList());
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}/product-consumptions'  -u 'test@liferay.com:test'
 	 */
 	@Override

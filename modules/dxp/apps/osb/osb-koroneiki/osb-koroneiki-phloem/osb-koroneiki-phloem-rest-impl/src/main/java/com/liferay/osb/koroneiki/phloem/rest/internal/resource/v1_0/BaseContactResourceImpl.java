@@ -186,7 +186,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -259,7 +259,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-email-address/{emailAddress}' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -283,134 +283,6 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 		throws Exception {
 
 		return new Contact();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Contact")})
-	public void deleteContactByOkta(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}'  -u 'test@liferay.com:test'
-	 */
-	@Override
-	@GET
-	@Operation(description = "Retrieves the contact.")
-	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "oktaId")})
-	@Path("/contacts/by-okta-id/{oktaId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Contact")})
-	public Contact getContactByOkta(
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId)
-		throws Exception {
-
-		return new Contact();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Contact")})
-	public Contact putContactByOkta(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			Contact contact)
-		throws Exception {
-
-		return new Contact();
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/contact-permissions' -d $'{"delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@DELETE
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Contact")})
-	public void deleteContactByOktaContactPermission(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			ContactPermission contactPermission)
-		throws Exception {
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/contact-permissions' -d $'{"delete": ___, "permissions": ___, "roleNames": ___, "update": ___, "view": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
-	 */
-	@Override
-	@Consumes({"application/json", "application/xml"})
-	@PUT
-	@Parameters(
-		value = {
-			@Parameter(in = ParameterIn.QUERY, name = "agentName"),
-			@Parameter(in = ParameterIn.QUERY, name = "agentUID"),
-			@Parameter(in = ParameterIn.PATH, name = "oktaId")
-		}
-	)
-	@Path("/contacts/by-okta-id/{oktaId}/contact-permissions")
-	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "Contact")})
-	public void putContactByOktaContactPermission(
-			@Parameter(hidden = true) @QueryParam("agentName") String agentName,
-			@Parameter(hidden = true) @QueryParam("agentUID") String agentUID,
-			@NotNull @Parameter(hidden = true) @PathParam("oktaId") String
-				oktaId,
-			ContactPermission contactPermission)
-		throws Exception {
 	}
 
 	/**
@@ -463,7 +335,7 @@ public abstract class BaseContactResourceImpl implements ContactResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "oktaId": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/koroneiki-rest/v1.0/contacts/by-uuid/{contactUuid}' -d $'{"contactRoles": ___, "emailAddress": ___, "emailAddressVerified": ___, "firstName": ___, "languageId": ___, "lastName": ___, "middleName": ___, "uuid": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

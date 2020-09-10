@@ -115,7 +115,7 @@ public class Note {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String creatorName;
 
-	@Schema(description = "The Okta ID of the user who created the note.")
+	@Schema(description = "The UUID of the user who created the note.")
 	public String getCreatorUID() {
 		return creatorUID;
 	}
@@ -139,7 +139,7 @@ public class Note {
 		}
 	}
 
-	@GraphQLField(description = "The Okta ID of the user who created the note.")
+	@GraphQLField(description = "The UUID of the user who created the note.")
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String creatorUID;
 
@@ -299,7 +299,7 @@ public class Note {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String modifierName;
 
-	@Schema(description = "The Okta ID of the user who last modified the note.")
+	@Schema(description = "The UUID of the user who last modified the note.")
 	public String getModifierUID() {
 		return modifierUID;
 	}
@@ -324,7 +324,7 @@ public class Note {
 	}
 
 	@GraphQLField(
-		description = "The Okta ID of the user who last modified the note."
+		description = "The UUID of the user who last modified the note."
 	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String modifierUID;

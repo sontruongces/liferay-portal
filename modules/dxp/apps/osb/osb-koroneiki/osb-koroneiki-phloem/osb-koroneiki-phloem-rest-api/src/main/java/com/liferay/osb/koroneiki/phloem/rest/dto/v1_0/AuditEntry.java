@@ -127,9 +127,7 @@ public class AuditEntry {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String agentName;
 
-	@Schema(
-		description = "The Okta ID of the user performing the audited action."
-	)
+	@Schema(description = "The UUID of the user performing the audited action.")
 	public String getAgentUID() {
 		return agentUID;
 	}
@@ -154,7 +152,7 @@ public class AuditEntry {
 	}
 
 	@GraphQLField(
-		description = "The Okta ID of the user performing the audited action."
+		description = "The UUID of the user performing the audited action."
 	)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String agentUID;

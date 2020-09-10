@@ -46,10 +46,6 @@ public interface ContactAccountViewResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<ContactAccountView> getContactByOktaContactAccountViewsPage(
-			String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ContactAccountView>
 			getContactByUuidContactUuidContactAccountViewsPage(
 				String contactUuid, Pagination pagination)

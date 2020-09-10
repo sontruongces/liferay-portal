@@ -53,15 +53,6 @@ public interface ContactRoleResource {
 				Pagination pagination)
 		throws Exception;
 
-	public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getAccountAccountKeyContactByOktaRolesPageHttpResponse(
-				String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ContactRole>
 			getAccountAccountKeyContactByUuidContactUuidRolesPage(
 				String accountKey, String contactUuid, Pagination pagination)
@@ -84,15 +75,6 @@ public interface ContactRoleResource {
 				Pagination pagination)
 		throws Exception;
 
-	public Page<ContactRole> getAccountAccountKeyCustomerContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getAccountAccountKeyCustomerContactByOktaRolesPageHttpResponse(
-				String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ContactRole>
 			getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
 				String accountKey, String contactUuid, Pagination pagination)
@@ -113,15 +95,6 @@ public interface ContactRoleResource {
 			getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPageHttpResponse(
 				String accountKey, String contactEmailAddress,
 				Pagination pagination)
-		throws Exception;
-
-	public Page<ContactRole> getAccountAccountKeyWorkerContactByOktaRolesPage(
-			String accountKey, String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getAccountAccountKeyWorkerContactByOktaRolesPageHttpResponse(
-				String accountKey, String oktaId, Pagination pagination)
 		throws Exception;
 
 	public Page<ContactRole>
@@ -214,15 +187,6 @@ public interface ContactRoleResource {
 	public HttpInvoker.HttpResponse
 			getTeamTeamKeyContactByEmailAddressRolesPageHttpResponse(
 				String teamKey, String emailAddress, Pagination pagination)
-		throws Exception;
-
-	public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
-			String teamKey, String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getTeamTeamKeyContactByOktaRolesPageHttpResponse(
-				String teamKey, String oktaId, Pagination pagination)
 		throws Exception;
 
 	public Page<ContactRole> getTeamTeamKeyContactByUuidContactUuidRolesPage(
@@ -358,79 +322,6 @@ public interface ContactRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-email-address/{contactEmailAddress}/roles",
 				accountKey, contactEmailAddress);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ContactRole> getAccountAccountKeyContactByOktaRolesPage(
-				String accountKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyContactByOktaRolesPageHttpResponse(
-					accountKey, oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, ContactRoleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getAccountAccountKeyContactByOktaRolesPageHttpResponse(
-					String accountKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/contacts/by-okta-id/{oktaId}/roles",
-				accountKey, oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -591,80 +482,6 @@ public interface ContactRoleResource {
 		}
 
 		public Page<ContactRole>
-				getAccountAccountKeyCustomerContactByOktaRolesPage(
-					String accountKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyCustomerContactByOktaRolesPageHttpResponse(
-					accountKey, oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, ContactRoleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getAccountAccountKeyCustomerContactByOktaRolesPageHttpResponse(
-					String accountKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/customer-contacts/by-okta-id/{oktaId}/roles",
-				accountKey, oktaId);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ContactRole>
 				getAccountAccountKeyCustomerContactByUuidContactUuidRolesPage(
 					String accountKey, String contactUuid,
 					Pagination pagination)
@@ -809,80 +626,6 @@ public interface ContactRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-email-address/{contactEmailAddress}/roles",
 				accountKey, contactEmailAddress);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ContactRole>
-				getAccountAccountKeyWorkerContactByOktaRolesPage(
-					String accountKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getAccountAccountKeyWorkerContactByOktaRolesPageHttpResponse(
-					accountKey, oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, ContactRoleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getAccountAccountKeyWorkerContactByOktaRolesPageHttpResponse(
-					String accountKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/worker-contacts/by-okta-id/{oktaId}/roles",
-				accountKey, oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -1621,79 +1364,6 @@ public interface ContactRoleResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-email-address/{emailAddress}/roles",
 				teamKey, emailAddress);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ContactRole> getTeamTeamKeyContactByOktaRolesPage(
-				String teamKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getTeamTeamKeyContactByOktaRolesPageHttpResponse(
-					teamKey, oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, ContactRoleSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getTeamTeamKeyContactByOktaRolesPageHttpResponse(
-					String teamKey, String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/teams/{teamKey}/contacts/by-okta-id/{oktaId}/roles",
-				teamKey, oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -61,15 +61,6 @@ public interface ProductPurchaseResource {
 				ProductPurchase productPurchase)
 		throws Exception;
 
-	public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
-			String oktaId, Pagination pagination)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			getContactByOktaProductPurchasesPageHttpResponse(
-				String oktaId, Pagination pagination)
-		throws Exception;
-
 	public Page<ProductPurchase>
 			getContactByUuidContactUuidProductPurchasesPage(
 				String contactUuid, Pagination pagination)
@@ -349,79 +340,6 @@ public interface ProductPurchaseResource {
 					_builder._port +
 						"/o/koroneiki-rest/v1.0/accounts/{accountKey}/product-purchases",
 				accountKey);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<ProductPurchase> getContactByOktaProductPurchasesPage(
-				String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getContactByOktaProductPurchasesPageHttpResponse(
-					oktaId, pagination);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-
-			try {
-				return Page.of(content, ProductPurchaseSerDes::toDTO);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				getContactByOktaProductPurchasesPageHttpResponse(
-					String oktaId, Pagination pagination)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
-
-			if (pagination != null) {
-				httpInvoker.parameter(
-					"page", String.valueOf(pagination.getPage()));
-				httpInvoker.parameter(
-					"pageSize", String.valueOf(pagination.getPageSize()));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/koroneiki-rest/v1.0/contacts/by-okta-id/{oktaId}/product-purchases",
-				oktaId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

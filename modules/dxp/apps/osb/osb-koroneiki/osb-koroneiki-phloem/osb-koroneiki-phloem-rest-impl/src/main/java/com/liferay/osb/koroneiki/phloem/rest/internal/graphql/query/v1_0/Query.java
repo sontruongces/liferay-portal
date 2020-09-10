@@ -283,26 +283,6 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaAccounts(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the contact's accounts.")
-	public AccountPage contactByOktaAccounts(
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_accountResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			accountResource -> new AccountPage(
-				accountResource.getContactByOktaAccountsPage(
-					oktaId, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuidAccounts(contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the contact's accounts.")
@@ -395,26 +375,6 @@ public class Query {
 			auditEntryResource -> new AuditEntryPage(
 				auditEntryResource.getContactRoleContactRoleKeyAuditEntriesPage(
 					contactRoleKey, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaAuditEntries(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the contact's audit history.")
-	public AuditEntryPage contactByOktaAuditEntries(
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_auditEntryResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			auditEntryResource -> new AuditEntryPage(
-				auditEntryResource.getContactByOktaAuditEntriesPage(
-					oktaId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -569,7 +529,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByEmailAddresEmailAddress(emailAddress: ___){contactRoles, dateCreated, dateModified, emailAddress, emailAddressVerified, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, oktaId, teams, uuid}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByEmailAddresEmailAddress(emailAddress: ___){contactRoles, dateCreated, dateModified, emailAddress, emailAddressVerified, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, teams, uuid}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the contact.")
 	public Contact contactByEmailAddresEmailAddress(
@@ -587,22 +547,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOkta(oktaId: ___){contactRoles, dateCreated, dateModified, emailAddress, emailAddressVerified, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, oktaId, teams, uuid}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the contact.")
-	public Contact contactByOkta(@GraphQLName("oktaId") String oktaId)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactResource -> contactResource.getContactByOkta(oktaId));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuid(contactUuid: ___){contactRoles, dateCreated, dateModified, emailAddress, emailAddressVerified, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, oktaId, teams, uuid}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuid(contactUuid: ___){contactRoles, dateCreated, dateModified, emailAddress, emailAddressVerified, entitlements, externalLinks, firstName, key, languageId, lastName, middleName, teams, uuid}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the contact.")
 	public Contact contactByUuidContactUuid(
@@ -634,29 +579,6 @@ public class Query {
 			contactResource -> new ContactPage(
 				contactResource.getTeamTeamKeyContactsPage(
 					teamKey, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaContactAccountViews(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(
-		description = "Retrieves the contact's accounts and associated contact roles."
-	)
-	public ContactAccountViewPage contactByOktaContactAccountViews(
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactAccountViewResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactAccountViewResource -> new ContactAccountViewPage(
-				contactAccountViewResource.
-					getContactByOktaContactAccountViewsPage(
-						oktaId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -706,29 +628,6 @@ public class Query {
 					getAccountAccountKeyContactByEmailAddresContactEmailAddressRolesPage(
 						accountKey, contactEmailAddress,
 						Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyContactByOktaRoles(accountKey: ___, oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(
-		description = "Retrieves the account's contact's customer and worker contact roles."
-	)
-	public ContactRolePage accountAccountKeyContactByOktaRoles(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactRoleResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactRoleResource -> new ContactRolePage(
-				contactRoleResource.getAccountAccountKeyContactByOktaRolesPage(
-					accountKey, oktaId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -785,30 +684,6 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyCustomerContactByOktaRoles(accountKey: ___, oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(
-		description = "Retrieves the account's contact's customer contact roles."
-	)
-	public ContactRolePage accountAccountKeyCustomerContactByOktaRoles(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactRoleResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactRoleResource -> new ContactRolePage(
-				contactRoleResource.
-					getAccountAccountKeyCustomerContactByOktaRolesPage(
-						accountKey, oktaId, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyCustomerContactByUuidContactUuidRoles(accountKey: ___, contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(
@@ -856,30 +731,6 @@ public class Query {
 					getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
 						accountKey, contactEmailAddress,
 						Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyWorkerContactByOktaRoles(accountKey: ___, oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(
-		description = "Retrieves the account's contact's customer contact roles."
-	)
-	public ContactRolePage accountAccountKeyWorkerContactByOktaRoles(
-			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactRoleResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactRoleResource -> new ContactRolePage(
-				contactRoleResource.
-					getAccountAccountKeyWorkerContactByOktaRolesPage(
-						accountKey, oktaId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -996,27 +847,6 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByOktaRoles(oktaId: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the team's contact's contact roles.")
-	public ContactRolePage teamTeamKeyContactByOktaRoles(
-			@GraphQLName("teamKey") String teamKey,
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_contactRoleResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			contactRoleResource -> new ContactRolePage(
-				contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
-					teamKey, oktaId, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {teamTeamKeyContactByUuidContactUuidRoles(contactUuid: ___, page: ___, pageSize: ___, teamKey: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the team's contact's contact roles.")
@@ -1119,26 +949,6 @@ public class Query {
 			externalLinkResource -> new ExternalLinkPage(
 				externalLinkResource.getAccountAccountKeyExternalLinksPage(
 					accountKey, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaExternalLinks(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the contact's external links.")
-	public ExternalLinkPage contactByOktaExternalLinks(
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_externalLinkResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			externalLinkResource -> new ExternalLinkPage(
-				externalLinkResource.getContactByOktaExternalLinksPage(
-					oktaId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -1446,27 +1256,6 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaProductConsumptions(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the contacts product consumptions.")
-	public ProductConsumptionPage contactByOktaProductConsumptions(
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productConsumptionResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productConsumptionResource -> new ProductConsumptionPage(
-				productConsumptionResource.
-					getContactByOktaProductConsumptionsPage(
-						oktaId, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByUuidContactUuidProductConsumptions(contactUuid: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the contacts product consumptions.")
@@ -1578,26 +1367,6 @@ public class Query {
 				productPurchaseResource.
 					getAccountAccountKeyProductPurchasesPage(
 						accountKey, Pagination.of(page, pageSize))));
-	}
-
-	/**
-	 * Invoke this method with the command line:
-	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {contactByOktaProductPurchases(oktaId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
-	 */
-	@GraphQLField(description = "Retrieves the contacts product purchases.")
-	public ProductPurchasePage contactByOktaProductPurchases(
-			@GraphQLName("oktaId") String oktaId,
-			@GraphQLName("pageSize") int pageSize,
-			@GraphQLName("page") int page)
-		throws Exception {
-
-		return _applyComponentServiceObjects(
-			_productPurchaseResourceComponentServiceObjects,
-			this::_populateResourceContext,
-			productPurchaseResource -> new ProductPurchasePage(
-				productPurchaseResource.getContactByOktaProductPurchasesPage(
-					oktaId, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -1934,38 +1703,6 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(Account.class)
-	public class GetAccountAccountKeyWorkerContactByOktaRolesPageTypeExtension {
-
-		public GetAccountAccountKeyWorkerContactByOktaRolesPageTypeExtension(
-			Account account) {
-
-			_account = account;
-		}
-
-		@GraphQLField(
-			description = "Retrieves the account's contact's customer contact roles."
-		)
-		public ContactRolePage accountKeyWorkerContactByOktaRoles(
-				@GraphQLName("oktaId") String oktaId,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_contactRoleResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				contactRoleResource -> new ContactRolePage(
-					contactRoleResource.
-						getAccountAccountKeyWorkerContactByOktaRolesPage(
-							_account.getKey(), oktaId,
-							Pagination.of(page, pageSize))));
-		}
-
-		private Account _account;
-
-	}
-
-	@GraphQLTypeExtension(Account.class)
 	public class GetAccountAccountKeyCustomerContactsPageTypeExtension {
 
 		public GetAccountAccountKeyCustomerContactsPageTypeExtension(
@@ -1991,31 +1728,6 @@ public class Query {
 		}
 
 		private Account _account;
-
-	}
-
-	@GraphQLTypeExtension(Contact.class)
-	public class GetContactByOktaAuditEntriesPageTypeExtension {
-
-		public GetContactByOktaAuditEntriesPageTypeExtension(Contact contact) {
-			_contact = contact;
-		}
-
-		@GraphQLField(description = "Retrieves the contact's audit history.")
-		public AuditEntryPage byOktaAuditEntries(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_auditEntryResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				auditEntryResource -> new AuditEntryPage(
-					auditEntryResource.getContactByOktaAuditEntriesPage(
-						_contact.getOktaId(), Pagination.of(page, pageSize))));
-		}
-
-		private Contact _contact;
 
 	}
 
@@ -2303,31 +2015,6 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(Contact.class)
-	public class GetContactByOktaAccountsPageTypeExtension {
-
-		public GetContactByOktaAccountsPageTypeExtension(Contact contact) {
-			_contact = contact;
-		}
-
-		@GraphQLField(description = "Retrieves the contact's accounts.")
-		public AccountPage byOktaAccounts(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_accountResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				accountResource -> new AccountPage(
-					accountResource.getContactByOktaAccountsPage(
-						_contact.getOktaId(), Pagination.of(page, pageSize))));
-		}
-
-		private Contact _contact;
-
-	}
-
-	@GraphQLTypeExtension(Contact.class)
 	public class GetContactByUuidContactUuidAccountsPageTypeExtension {
 
 		public GetContactByUuidContactUuidAccountsPageTypeExtension(
@@ -2348,37 +2035,6 @@ public class Query {
 				accountResource -> new AccountPage(
 					accountResource.getContactByUuidContactUuidAccountsPage(
 						_contact.getUuid(), Pagination.of(page, pageSize))));
-		}
-
-		private Contact _contact;
-
-	}
-
-	@GraphQLTypeExtension(Contact.class)
-	public class GetContactByOktaProductConsumptionsPageTypeExtension {
-
-		public GetContactByOktaProductConsumptionsPageTypeExtension(
-			Contact contact) {
-
-			_contact = contact;
-		}
-
-		@GraphQLField(
-			description = "Retrieves the contacts product consumptions."
-		)
-		public ProductConsumptionPage byOktaProductConsumptions(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_productConsumptionResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				productConsumptionResource -> new ProductConsumptionPage(
-					productConsumptionResource.
-						getContactByOktaProductConsumptionsPage(
-							_contact.getOktaId(),
-							Pagination.of(page, pageSize))));
 		}
 
 		private Contact _contact;
@@ -2413,39 +2069,6 @@ public class Query {
 					contactRoleResource.
 						getAccountAccountKeyWorkerContactByEmailAddresContactEmailAddressRolesPage(
 							_account.getKey(), contactEmailAddress,
-							Pagination.of(page, pageSize))));
-		}
-
-		private Account _account;
-
-	}
-
-	@GraphQLTypeExtension(Account.class)
-	public class
-		GetAccountAccountKeyCustomerContactByOktaRolesPageTypeExtension {
-
-		public GetAccountAccountKeyCustomerContactByOktaRolesPageTypeExtension(
-			Account account) {
-
-			_account = account;
-		}
-
-		@GraphQLField(
-			description = "Retrieves the account's contact's customer contact roles."
-		)
-		public ContactRolePage accountKeyCustomerContactByOktaRoles(
-				@GraphQLName("oktaId") String oktaId,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_contactRoleResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				contactRoleResource -> new ContactRolePage(
-					contactRoleResource.
-						getAccountAccountKeyCustomerContactByOktaRolesPage(
-							_account.getKey(), oktaId,
 							Pagination.of(page, pageSize))));
 		}
 
@@ -2510,37 +2133,6 @@ public class Query {
 		}
 
 		private Account _account;
-
-	}
-
-	@GraphQLTypeExtension(Contact.class)
-	public class GetContactByOktaContactAccountViewsPageTypeExtension {
-
-		public GetContactByOktaContactAccountViewsPageTypeExtension(
-			Contact contact) {
-
-			_contact = contact;
-		}
-
-		@GraphQLField(
-			description = "Retrieves the contact's accounts and associated contact roles."
-		)
-		public ContactAccountViewPage byOktaContactAccountViews(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_contactAccountViewResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				contactAccountViewResource -> new ContactAccountViewPage(
-					contactAccountViewResource.
-						getContactByOktaContactAccountViewsPage(
-							_contact.getOktaId(),
-							Pagination.of(page, pageSize))));
-		}
-
-		private Contact _contact;
 
 	}
 
@@ -2774,31 +2366,6 @@ public class Query {
 
 	}
 
-	@GraphQLTypeExtension(Contact.class)
-	public class GetContactByOktaExternalLinksPageTypeExtension {
-
-		public GetContactByOktaExternalLinksPageTypeExtension(Contact contact) {
-			_contact = contact;
-		}
-
-		@GraphQLField(description = "Retrieves the contact's external links.")
-		public ExternalLinkPage byOktaExternalLinks(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_externalLinkResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				externalLinkResource -> new ExternalLinkPage(
-					externalLinkResource.getContactByOktaExternalLinksPage(
-						_contact.getOktaId(), Pagination.of(page, pageSize))));
-		}
-
-		private Contact _contact;
-
-	}
-
 	@GraphQLTypeExtension(TeamRole.class)
 	public class GetTeamRoleTeamRoleKeyAuditEntriesPageTypeExtension {
 
@@ -2922,38 +2489,6 @@ public class Query {
 
 	}
 
-	@GraphQLTypeExtension(Account.class)
-	public class GetAccountAccountKeyContactByOktaRolesPageTypeExtension {
-
-		public GetAccountAccountKeyContactByOktaRolesPageTypeExtension(
-			Account account) {
-
-			_account = account;
-		}
-
-		@GraphQLField(
-			description = "Retrieves the account's contact's customer and worker contact roles."
-		)
-		public ContactRolePage accountKeyContactByOktaRoles(
-				@GraphQLName("oktaId") String oktaId,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_contactRoleResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				contactRoleResource -> new ContactRolePage(
-					contactRoleResource.
-						getAccountAccountKeyContactByOktaRolesPage(
-							_account.getKey(), oktaId,
-							Pagination.of(page, pageSize))));
-		}
-
-		private Account _account;
-
-	}
-
 	@GraphQLTypeExtension(Team.class)
 	public class GetTeamTeamKeyAuditEntriesPageTypeExtension {
 
@@ -3027,35 +2562,6 @@ public class Query {
 				contactResource -> new ContactPage(
 					contactResource.getTeamTeamKeyContactsPage(
 						_team.getKey(), Pagination.of(page, pageSize))));
-		}
-
-		private Team _team;
-
-	}
-
-	@GraphQLTypeExtension(Team.class)
-	public class GetTeamTeamKeyContactByOktaRolesPageTypeExtension {
-
-		public GetTeamTeamKeyContactByOktaRolesPageTypeExtension(Team team) {
-			_team = team;
-		}
-
-		@GraphQLField(
-			description = "Retrieves the team's contact's contact roles."
-		)
-		public ContactRolePage teamKeyContactByOktaRoles(
-				@GraphQLName("oktaId") String oktaId,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_contactRoleResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				contactRoleResource -> new ContactRolePage(
-					contactRoleResource.getTeamTeamKeyContactByOktaRolesPage(
-						_team.getKey(), oktaId,
-						Pagination.of(page, pageSize))));
 		}
 
 		private Team _team;
@@ -3218,35 +2724,6 @@ public class Query {
 		}
 
 		private Team _team;
-
-	}
-
-	@GraphQLTypeExtension(Contact.class)
-	public class GetContactByOktaProductPurchasesPageTypeExtension {
-
-		public GetContactByOktaProductPurchasesPageTypeExtension(
-			Contact contact) {
-
-			_contact = contact;
-		}
-
-		@GraphQLField(description = "Retrieves the contacts product purchases.")
-		public ProductPurchasePage byOktaProductPurchases(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_productPurchaseResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				productPurchaseResource -> new ProductPurchasePage(
-					productPurchaseResource.
-						getContactByOktaProductPurchasesPage(
-							_contact.getOktaId(),
-							Pagination.of(page, pageSize))));
-		}
-
-		private Contact _contact;
 
 	}
 
