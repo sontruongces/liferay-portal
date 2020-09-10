@@ -32,14 +32,13 @@ public class AccountNoteServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.AccountNote addAccountNote(
-			String creatorOktaId, String creatorName, long accountId,
-			String type, int priority, String content, String format,
-			String status)
+			String creatorUID, String creatorName, long accountId, String type,
+			int priority, String content, String format, String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountNoteService.addAccountNote(
-			creatorOktaId, creatorName, accountId, type, priority, content,
-			format, status);
+			creatorUID, creatorName, accountId, type, priority, content, format,
+			status);
 	}
 
 	@Override
@@ -91,13 +90,13 @@ public class AccountNoteServiceWrapper
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.AccountNote
 			updateAccountNote(
-				long accountNoteId, String modifierOktaId, String modifierName,
+				long accountNoteId, String modifierUID, String modifierName,
 				int priority, String content, String format, String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _accountNoteService.updateAccountNote(
-			accountNoteId, modifierOktaId, modifierName, priority, content,
-			format, status);
+			accountNoteId, modifierUID, modifierName, priority, content, format,
+			status);
 	}
 
 	@Override

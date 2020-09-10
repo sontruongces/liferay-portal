@@ -167,19 +167,19 @@ public interface AccountNoteModel
 	public void setCreateDate(Date createDate);
 
 	/**
-	 * Returns the creator okta ID of this account note.
+	 * Returns the creator uid of this account note.
 	 *
-	 * @return the creator okta ID of this account note
+	 * @return the creator uid of this account note
 	 */
 	@AutoEscape
-	public String getCreatorOktaId();
+	public String getCreatorUID();
 
 	/**
-	 * Sets the creator okta ID of this account note.
+	 * Sets the creator uid of this account note.
 	 *
-	 * @param creatorOktaId the creator okta ID of this account note
+	 * @param creatorUID the creator uid of this account note
 	 */
-	public void setCreatorOktaId(String creatorOktaId);
+	public void setCreatorUID(String creatorUID);
 
 	/**
 	 * Returns the creator name of this account note.
@@ -213,19 +213,19 @@ public interface AccountNoteModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the modifier okta ID of this account note.
+	 * Returns the modifier uid of this account note.
 	 *
-	 * @return the modifier okta ID of this account note
+	 * @return the modifier uid of this account note
 	 */
 	@AutoEscape
-	public String getModifierOktaId();
+	public String getModifierUID();
 
 	/**
-	 * Sets the modifier okta ID of this account note.
+	 * Sets the modifier uid of this account note.
 	 *
-	 * @param modifierOktaId the modifier okta ID of this account note
+	 * @param modifierUID the modifier uid of this account note
 	 */
-	public void setModifierOktaId(String modifierOktaId);
+	public void setModifierUID(String modifierUID);
 
 	/**
 	 * Returns the modifier name of this account note.

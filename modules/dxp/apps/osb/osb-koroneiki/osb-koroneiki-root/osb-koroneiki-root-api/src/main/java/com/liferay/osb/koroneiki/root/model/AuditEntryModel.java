@@ -192,19 +192,19 @@ public interface AuditEntryModel
 	public void setAgentName(String agentName);
 
 	/**
-	 * Returns the agent okta ID of this audit entry.
+	 * Returns the agent uid of this audit entry.
 	 *
-	 * @return the agent okta ID of this audit entry
+	 * @return the agent uid of this audit entry
 	 */
 	@AutoEscape
-	public String getAgentOktaId();
+	public String getAgentUID();
 
 	/**
-	 * Sets the agent okta ID of this audit entry.
+	 * Sets the agent uid of this audit entry.
 	 *
-	 * @param agentOktaId the agent okta ID of this audit entry
+	 * @param agentUID the agent uid of this audit entry
 	 */
-	public void setAgentOktaId(String agentOktaId);
+	public void setAgentUID(String agentUID);
 
 	/**
 	 * Returns the fully qualified class name of this audit entry.

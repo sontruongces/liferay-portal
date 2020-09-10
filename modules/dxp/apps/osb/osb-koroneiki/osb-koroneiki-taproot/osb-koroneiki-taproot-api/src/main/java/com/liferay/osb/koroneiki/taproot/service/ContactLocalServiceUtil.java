@@ -55,13 +55,13 @@ public class ContactLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact addContact(
-			String uuid, long userId, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			String uuid, long userId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addContact(
-			uuid, userId, oktaId, firstName, middleName, lastName, emailAddress,
+			uuid, userId, firstName, middleName, lastName, emailAddress,
 			languageId, emailAddressVerified);
 	}
 
@@ -222,12 +222,6 @@ public class ContactLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
-		fetchContactByOktaId(String oktaId) {
-
-		return getService().fetchContactByOktaId(oktaId);
-	}
-
-	public static com.liferay.osb.koroneiki.taproot.model.Contact
 		fetchContactByUuid(String uuid) {
 
 		return getService().fetchContactByUuid(uuid);
@@ -292,13 +286,6 @@ public class ContactLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getContactByEmailAddress(emailAddress);
-	}
-
-	public static com.liferay.osb.koroneiki.taproot.model.Contact
-			getContactByOktaId(String oktaId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getContactByOktaId(oktaId);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
@@ -427,14 +414,14 @@ public class ContactLocalServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateContact(
-			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId, emailAddressVerified);
+			contactId, uuid, firstName, middleName, lastName, emailAddress,
+			languageId, emailAddressVerified);
 	}
 
 	public static ContactLocalService getService() {

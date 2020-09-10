@@ -52,8 +52,8 @@ public interface ContactService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the contact remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ContactServiceUtil} if injection and service tracking are not available.
 	 */
 	public Contact addContact(
-			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId,
+			String uuid, String firstName, String middleName, String lastName,
+			String emailAddress, String languageId,
 			boolean emailAddressVerified)
 		throws PortalException;
 
@@ -86,9 +86,6 @@ public interface ContactService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Contact getContactByOktaId(String oktaId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Contact getContactByUuid(String uuid) throws PortalException;
 
 	/**
@@ -106,9 +103,9 @@ public interface ContactService extends BaseService {
 	public int getTeamContactsCount(String teamKey) throws PortalException;
 
 	public Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException;
 
 }

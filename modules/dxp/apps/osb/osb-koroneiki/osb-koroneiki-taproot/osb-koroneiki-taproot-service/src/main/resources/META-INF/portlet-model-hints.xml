@@ -36,10 +36,10 @@
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
 		<field name="createDate" type="Date" />
-		<field name="creatorOktaId" type="String" />
+		<field name="creatorUID" type="String" />
 		<field name="creatorName" type="String" />
 		<field name="modifiedDate" type="Date" />
-		<field name="modifierOktaId" type="String" />
+		<field name="modifierUID" type="String" />
 		<field name="modifierName" type="String" />
 		<field name="accountNoteKey" type="String" />
 		<field name="accountId" type="long" />
@@ -60,7 +60,6 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="contactKey" type="String" />
-		<field name="oktaId" type="String" />
 		<field name="firstName" type="String" />
 		<field name="middleName" type="String" />
 		<field name="lastName" type="String" />

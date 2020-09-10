@@ -37,10 +37,10 @@ public class AccountNoteSoap implements Serializable {
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setCreateDate(model.getCreateDate());
-		soapModel.setCreatorOktaId(model.getCreatorOktaId());
+		soapModel.setCreatorUID(model.getCreatorUID());
 		soapModel.setCreatorName(model.getCreatorName());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setModifierOktaId(model.getModifierOktaId());
+		soapModel.setModifierUID(model.getModifierUID());
 		soapModel.setModifierName(model.getModifierName());
 		soapModel.setAccountNoteKey(model.getAccountNoteKey());
 		soapModel.setAccountId(model.getAccountId());
@@ -150,12 +150,12 @@ public class AccountNoteSoap implements Serializable {
 		_createDate = createDate;
 	}
 
-	public String getCreatorOktaId() {
-		return _creatorOktaId;
+	public String getCreatorUID() {
+		return _creatorUID;
 	}
 
-	public void setCreatorOktaId(String creatorOktaId) {
-		_creatorOktaId = creatorOktaId;
+	public void setCreatorUID(String creatorUID) {
+		_creatorUID = creatorUID;
 	}
 
 	public String getCreatorName() {
@@ -174,12 +174,12 @@ public class AccountNoteSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public String getModifierOktaId() {
-		return _modifierOktaId;
+	public String getModifierUID() {
+		return _modifierUID;
 	}
 
-	public void setModifierOktaId(String modifierOktaId) {
-		_modifierOktaId = modifierOktaId;
+	public void setModifierUID(String modifierUID) {
+		_modifierUID = modifierUID;
 	}
 
 	public String getModifierName() {
@@ -252,10 +252,10 @@ public class AccountNoteSoap implements Serializable {
 	private long _companyId;
 	private long _userId;
 	private Date _createDate;
-	private String _creatorOktaId;
+	private String _creatorUID;
 	private String _creatorName;
 	private Date _modifiedDate;
-	private String _modifierOktaId;
+	private String _modifierUID;
 	private String _modifierName;
 	private String _accountNoteKey;
 	private long _accountId;

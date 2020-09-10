@@ -78,8 +78,8 @@ public class AccountNoteModelImpl
 		{"mvccVersion", Types.BIGINT}, {"uuid_", Types.VARCHAR},
 		{"accountNoteId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"creatorOktaId", Types.VARCHAR}, {"creatorName", Types.VARCHAR},
-		{"modifiedDate", Types.TIMESTAMP}, {"modifierOktaId", Types.VARCHAR},
+		{"creatorUID", Types.VARCHAR}, {"creatorName", Types.VARCHAR},
+		{"modifiedDate", Types.TIMESTAMP}, {"modifierUID", Types.VARCHAR},
 		{"modifierName", Types.VARCHAR}, {"accountNoteKey", Types.VARCHAR},
 		{"accountId", Types.BIGINT}, {"type_", Types.VARCHAR},
 		{"priority", Types.INTEGER}, {"content", Types.VARCHAR},
@@ -96,10 +96,10 @@ public class AccountNoteModelImpl
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("creatorOktaId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("creatorUID", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("creatorName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("modifierOktaId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("modifierUID", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("modifierName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("accountNoteKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("accountId", Types.BIGINT);
@@ -111,7 +111,7 @@ public class AccountNoteModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_AccountNote (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountNoteId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,creatorOktaId VARCHAR(75) null,creatorName VARCHAR(75) null,modifiedDate DATE null,modifierOktaId VARCHAR(75) null,modifierName VARCHAR(75) null,accountNoteKey VARCHAR(75) null,accountId LONG,type_ VARCHAR(75) null,priority INTEGER,content STRING null,format VARCHAR(75) null,status VARCHAR(75) null)";
+		"create table Koroneiki_AccountNote (mvccVersion LONG default 0 not null,uuid_ VARCHAR(75) null,accountNoteId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,creatorUID VARCHAR(75) null,creatorName VARCHAR(75) null,modifiedDate DATE null,modifierUID VARCHAR(75) null,modifierName VARCHAR(75) null,accountNoteKey VARCHAR(75) null,accountId LONG,type_ VARCHAR(75) null,priority INTEGER,content STRING null,format VARCHAR(75) null,status VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_AccountNote";
@@ -171,10 +171,10 @@ public class AccountNoteModelImpl
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setCreateDate(soapModel.getCreateDate());
-		model.setCreatorOktaId(soapModel.getCreatorOktaId());
+		model.setCreatorUID(soapModel.getCreatorUID());
 		model.setCreatorName(soapModel.getCreatorName());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setModifierOktaId(soapModel.getModifierOktaId());
+		model.setModifierUID(soapModel.getModifierUID());
 		model.setModifierName(soapModel.getModifierName());
 		model.setAccountNoteKey(soapModel.getAccountNoteKey());
 		model.setAccountId(soapModel.getAccountId());
@@ -359,11 +359,10 @@ public class AccountNoteModelImpl
 		attributeSetterBiConsumers.put(
 			"createDate",
 			(BiConsumer<AccountNote, Date>)AccountNote::setCreateDate);
-		attributeGetterFunctions.put(
-			"creatorOktaId", AccountNote::getCreatorOktaId);
+		attributeGetterFunctions.put("creatorUID", AccountNote::getCreatorUID);
 		attributeSetterBiConsumers.put(
-			"creatorOktaId",
-			(BiConsumer<AccountNote, String>)AccountNote::setCreatorOktaId);
+			"creatorUID",
+			(BiConsumer<AccountNote, String>)AccountNote::setCreatorUID);
 		attributeGetterFunctions.put(
 			"creatorName", AccountNote::getCreatorName);
 		attributeSetterBiConsumers.put(
@@ -375,10 +374,10 @@ public class AccountNoteModelImpl
 			"modifiedDate",
 			(BiConsumer<AccountNote, Date>)AccountNote::setModifiedDate);
 		attributeGetterFunctions.put(
-			"modifierOktaId", AccountNote::getModifierOktaId);
+			"modifierUID", AccountNote::getModifierUID);
 		attributeSetterBiConsumers.put(
-			"modifierOktaId",
-			(BiConsumer<AccountNote, String>)AccountNote::setModifierOktaId);
+			"modifierUID",
+			(BiConsumer<AccountNote, String>)AccountNote::setModifierUID);
 		attributeGetterFunctions.put(
 			"modifierName", AccountNote::getModifierName);
 		attributeSetterBiConsumers.put(
@@ -528,18 +527,18 @@ public class AccountNoteModelImpl
 
 	@JSON
 	@Override
-	public String getCreatorOktaId() {
-		if (_creatorOktaId == null) {
+	public String getCreatorUID() {
+		if (_creatorUID == null) {
 			return "";
 		}
 		else {
-			return _creatorOktaId;
+			return _creatorUID;
 		}
 	}
 
 	@Override
-	public void setCreatorOktaId(String creatorOktaId) {
-		_creatorOktaId = creatorOktaId;
+	public void setCreatorUID(String creatorUID) {
+		_creatorUID = creatorUID;
 	}
 
 	@JSON
@@ -577,18 +576,18 @@ public class AccountNoteModelImpl
 
 	@JSON
 	@Override
-	public String getModifierOktaId() {
-		if (_modifierOktaId == null) {
+	public String getModifierUID() {
+		if (_modifierUID == null) {
 			return "";
 		}
 		else {
-			return _modifierOktaId;
+			return _modifierUID;
 		}
 	}
 
 	@Override
-	public void setModifierOktaId(String modifierOktaId) {
-		_modifierOktaId = modifierOktaId;
+	public void setModifierUID(String modifierUID) {
+		_modifierUID = modifierUID;
 	}
 
 	@JSON
@@ -811,10 +810,10 @@ public class AccountNoteModelImpl
 		accountNoteImpl.setCompanyId(getCompanyId());
 		accountNoteImpl.setUserId(getUserId());
 		accountNoteImpl.setCreateDate(getCreateDate());
-		accountNoteImpl.setCreatorOktaId(getCreatorOktaId());
+		accountNoteImpl.setCreatorUID(getCreatorUID());
 		accountNoteImpl.setCreatorName(getCreatorName());
 		accountNoteImpl.setModifiedDate(getModifiedDate());
-		accountNoteImpl.setModifierOktaId(getModifierOktaId());
+		accountNoteImpl.setModifierUID(getModifierUID());
 		accountNoteImpl.setModifierName(getModifierName());
 		accountNoteImpl.setAccountNoteKey(getAccountNoteKey());
 		accountNoteImpl.setAccountId(getAccountId());
@@ -953,12 +952,12 @@ public class AccountNoteModelImpl
 			accountNoteCacheModel.createDate = Long.MIN_VALUE;
 		}
 
-		accountNoteCacheModel.creatorOktaId = getCreatorOktaId();
+		accountNoteCacheModel.creatorUID = getCreatorUID();
 
-		String creatorOktaId = accountNoteCacheModel.creatorOktaId;
+		String creatorUID = accountNoteCacheModel.creatorUID;
 
-		if ((creatorOktaId != null) && (creatorOktaId.length() == 0)) {
-			accountNoteCacheModel.creatorOktaId = null;
+		if ((creatorUID != null) && (creatorUID.length() == 0)) {
+			accountNoteCacheModel.creatorUID = null;
 		}
 
 		accountNoteCacheModel.creatorName = getCreatorName();
@@ -978,12 +977,12 @@ public class AccountNoteModelImpl
 			accountNoteCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		accountNoteCacheModel.modifierOktaId = getModifierOktaId();
+		accountNoteCacheModel.modifierUID = getModifierUID();
 
-		String modifierOktaId = accountNoteCacheModel.modifierOktaId;
+		String modifierUID = accountNoteCacheModel.modifierUID;
 
-		if ((modifierOktaId != null) && (modifierOktaId.length() == 0)) {
-			accountNoteCacheModel.modifierOktaId = null;
+		if ((modifierUID != null) && (modifierUID.length() == 0)) {
+			accountNoteCacheModel.modifierUID = null;
 		}
 
 		accountNoteCacheModel.modifierName = getModifierName();
@@ -1123,11 +1122,11 @@ public class AccountNoteModelImpl
 	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private Date _createDate;
-	private String _creatorOktaId;
+	private String _creatorUID;
 	private String _creatorName;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private String _modifierOktaId;
+	private String _modifierUID;
 	private String _modifierName;
 	private String _accountNoteKey;
 	private String _originalAccountNoteKey;

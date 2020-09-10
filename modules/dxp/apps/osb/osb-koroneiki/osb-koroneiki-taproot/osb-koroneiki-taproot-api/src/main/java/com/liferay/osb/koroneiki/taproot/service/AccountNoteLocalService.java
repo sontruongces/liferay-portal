@@ -77,9 +77,9 @@ public interface AccountNoteLocalService
 	public AccountNote addAccountNote(AccountNote accountNote);
 
 	public AccountNote addAccountNote(
-			long userId, String creatorOktaId, String creatorName,
-			long accountId, String type, int priority, String content,
-			String format, String status)
+			long userId, String creatorUID, String creatorName, long accountId,
+			String type, int priority, String content, String format,
+			String status)
 		throws PortalException;
 
 	/**
@@ -311,7 +311,7 @@ public interface AccountNoteLocalService
 	public AccountNote updateAccountNote(AccountNote accountNote);
 
 	public AccountNote updateAccountNote(
-			long accountNoteId, String modifierOktaId, String modifierName,
+			long accountNoteId, String modifierUID, String modifierName,
 			int priority, String content, String format, String status)
 		throws PortalException;
 

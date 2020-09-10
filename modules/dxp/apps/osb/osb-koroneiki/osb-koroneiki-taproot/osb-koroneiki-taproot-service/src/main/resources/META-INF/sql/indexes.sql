@@ -11,7 +11,6 @@ create index IX_ABD56E69 on Koroneiki_AccountNote (uuid_[$COLUMN_LENGTH:75$], co
 
 create unique index IX_F83C6BA9 on Koroneiki_Contact (contactKey[$COLUMN_LENGTH:75$]);
 create index IX_875E5602 on Koroneiki_Contact (emailAddress[$COLUMN_LENGTH:75$]);
-create index IX_4D40248E on Koroneiki_Contact (oktaId[$COLUMN_LENGTH:75$]);
 create index IX_23B9404A on Koroneiki_Contact (uuid_[$COLUMN_LENGTH:75$], companyId);
 
 create index IX_309F9F1F on Koroneiki_ContactAccountRole (accountId);

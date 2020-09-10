@@ -38,14 +38,14 @@ public class ContactServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.osb.koroneiki.taproot.service.impl.ContactServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.osb.koroneiki.taproot.model.Contact addContact(
-			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId,
+			String uuid, String firstName, String middleName, String lastName,
+			String emailAddress, String languageId,
 			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addContact(
-			uuid, oktaId, firstName, middleName, lastName, emailAddress,
-			languageId, emailAddressVerified);
+			uuid, firstName, middleName, lastName, emailAddress, languageId,
+			emailAddressVerified);
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact deleteContact(
@@ -103,13 +103,6 @@ public class ContactServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact
-			getContactByOktaId(String oktaId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().getContactByOktaId(oktaId);
-	}
-
-	public static com.liferay.osb.koroneiki.taproot.model.Contact
 			getContactByUuid(String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -140,14 +133,14 @@ public class ContactServiceUtil {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateContact(
-			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId, emailAddressVerified);
+			contactId, uuid, firstName, middleName, lastName, emailAddress,
+			languageId, emailAddressVerified);
 	}
 
 	public static ContactService getService() {

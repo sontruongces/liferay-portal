@@ -63,7 +63,7 @@ public class ContactServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			addContact(
-				String uuid, String oktaId, String firstName, String middleName,
+				String uuid, String firstName, String middleName,
 				String lastName, String emailAddress, String languageId,
 				boolean emailAddressVerified)
 		throws RemoteException {
@@ -71,7 +71,7 @@ public class ContactServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.addContact(
-					uuid, oktaId, firstName, middleName, lastName, emailAddress,
+					uuid, firstName, middleName, lastName, emailAddress,
 					languageId, emailAddressVerified);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
@@ -213,24 +213,6 @@ public class ContactServiceSoap {
 	}
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
-			getContactByOktaId(String oktaId)
-		throws RemoteException {
-
-		try {
-			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
-				ContactServiceUtil.getContactByOktaId(oktaId);
-
-			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.
-				toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			getContactByUuid(String uuid)
 		throws RemoteException {
 
@@ -284,7 +266,7 @@ public class ContactServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.ContactSoap
 			updateContact(
-				long contactId, String uuid, String oktaId, String firstName,
+				long contactId, String uuid, String firstName,
 				String middleName, String lastName, String emailAddress,
 				String languageId, boolean emailAddressVerified)
 		throws RemoteException {
@@ -292,7 +274,7 @@ public class ContactServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.taproot.model.Contact returnValue =
 				ContactServiceUtil.updateContact(
-					contactId, uuid, oktaId, firstName, middleName, lastName,
+					contactId, uuid, firstName, middleName, lastName,
 					emailAddress, languageId, emailAddressVerified);
 
 			return com.liferay.osb.koroneiki.taproot.model.ContactSoap.

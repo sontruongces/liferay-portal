@@ -57,14 +57,14 @@ public class AccountNoteLocalServiceUtil {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNote
 			addAccountNote(
-				long userId, String creatorOktaId, String creatorName,
+				long userId, String creatorUID, String creatorName,
 				long accountId, String type, int priority, String content,
 				String format, String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addAccountNote(
-			userId, creatorOktaId, creatorName, accountId, type, priority,
-			content, format, status);
+			userId, creatorUID, creatorName, accountId, type, priority, content,
+			format, status);
 	}
 
 	/**
@@ -378,13 +378,13 @@ public class AccountNoteLocalServiceUtil {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNote
 			updateAccountNote(
-				long accountNoteId, String modifierOktaId, String modifierName,
+				long accountNoteId, String modifierUID, String modifierName,
 				int priority, String content, String format, String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateAccountNote(
-			accountNoteId, modifierOktaId, modifierName, priority, content,
-			format, status);
+			accountNoteId, modifierUID, modifierName, priority, content, format,
+			status);
 	}
 
 	public static AccountNoteLocalService getService() {

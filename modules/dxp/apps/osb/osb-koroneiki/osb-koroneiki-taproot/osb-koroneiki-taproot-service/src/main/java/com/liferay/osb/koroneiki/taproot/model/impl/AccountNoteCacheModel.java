@@ -91,14 +91,14 @@ public class AccountNoteCacheModel
 		sb.append(userId);
 		sb.append(", createDate=");
 		sb.append(createDate);
-		sb.append(", creatorOktaId=");
-		sb.append(creatorOktaId);
+		sb.append(", creatorUID=");
+		sb.append(creatorUID);
 		sb.append(", creatorName=");
 		sb.append(creatorName);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", modifierOktaId=");
-		sb.append(modifierOktaId);
+		sb.append(", modifierUID=");
+		sb.append(modifierUID);
 		sb.append(", modifierName=");
 		sb.append(modifierName);
 		sb.append(", accountNoteKey=");
@@ -144,11 +144,11 @@ public class AccountNoteCacheModel
 			accountNoteImpl.setCreateDate(new Date(createDate));
 		}
 
-		if (creatorOktaId == null) {
-			accountNoteImpl.setCreatorOktaId("");
+		if (creatorUID == null) {
+			accountNoteImpl.setCreatorUID("");
 		}
 		else {
-			accountNoteImpl.setCreatorOktaId(creatorOktaId);
+			accountNoteImpl.setCreatorUID(creatorUID);
 		}
 
 		if (creatorName == null) {
@@ -165,11 +165,11 @@ public class AccountNoteCacheModel
 			accountNoteImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (modifierOktaId == null) {
-			accountNoteImpl.setModifierOktaId("");
+		if (modifierUID == null) {
+			accountNoteImpl.setModifierUID("");
 		}
 		else {
-			accountNoteImpl.setModifierOktaId(modifierOktaId);
+			accountNoteImpl.setModifierUID(modifierUID);
 		}
 
 		if (modifierName == null) {
@@ -234,10 +234,10 @@ public class AccountNoteCacheModel
 
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
-		creatorOktaId = objectInput.readUTF();
+		creatorUID = objectInput.readUTF();
 		creatorName = objectInput.readUTF();
 		modifiedDate = objectInput.readLong();
-		modifierOktaId = objectInput.readUTF();
+		modifierUID = objectInput.readUTF();
 		modifierName = objectInput.readUTF();
 		accountNoteKey = objectInput.readUTF();
 
@@ -268,11 +268,11 @@ public class AccountNoteCacheModel
 		objectOutput.writeLong(userId);
 		objectOutput.writeLong(createDate);
 
-		if (creatorOktaId == null) {
+		if (creatorUID == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(creatorOktaId);
+			objectOutput.writeUTF(creatorUID);
 		}
 
 		if (creatorName == null) {
@@ -284,11 +284,11 @@ public class AccountNoteCacheModel
 
 		objectOutput.writeLong(modifiedDate);
 
-		if (modifierOktaId == null) {
+		if (modifierUID == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(modifierOktaId);
+			objectOutput.writeUTF(modifierUID);
 		}
 
 		if (modifierName == null) {
@@ -344,10 +344,10 @@ public class AccountNoteCacheModel
 	public long companyId;
 	public long userId;
 	public long createDate;
-	public String creatorOktaId;
+	public String creatorUID;
 	public String creatorName;
 	public long modifiedDate;
-	public String modifierOktaId;
+	public String modifierUID;
 	public String modifierName;
 	public String accountNoteKey;
 	public long accountId;

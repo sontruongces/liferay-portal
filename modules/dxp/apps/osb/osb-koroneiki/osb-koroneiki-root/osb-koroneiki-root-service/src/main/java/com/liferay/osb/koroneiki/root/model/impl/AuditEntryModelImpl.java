@@ -78,7 +78,7 @@ public class AuditEntryModelImpl
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"auditEntryKey", Types.VARCHAR}, {"agentName", Types.VARCHAR},
-		{"agentOktaId", Types.VARCHAR}, {"classNameId", Types.BIGINT},
+		{"agentUID", Types.VARCHAR}, {"classNameId", Types.BIGINT},
 		{"classPK", Types.BIGINT}, {"auditSetId", Types.BIGINT},
 		{"fieldClassNameId", Types.BIGINT}, {"fieldClassPK", Types.BIGINT},
 		{"action", Types.VARCHAR}, {"field", Types.VARCHAR},
@@ -99,7 +99,7 @@ public class AuditEntryModelImpl
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("auditEntryKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("agentName", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("agentOktaId", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("agentUID", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("classNameId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("classPK", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("auditSetId", Types.BIGINT);
@@ -115,7 +115,7 @@ public class AuditEntryModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Koroneiki_AuditEntry (mvccVersion LONG default 0 not null,auditEntryId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,auditEntryKey VARCHAR(75) null,agentName VARCHAR(75) null,agentOktaId VARCHAR(75) null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action VARCHAR(75) null,field VARCHAR(75) null,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
+		"create table Koroneiki_AuditEntry (mvccVersion LONG default 0 not null,auditEntryId LONG not null primary key,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,auditEntryKey VARCHAR(75) null,agentName VARCHAR(75) null,agentUID VARCHAR(75) null,classNameId LONG,classPK LONG,auditSetId LONG,fieldClassNameId LONG,fieldClassPK LONG,action VARCHAR(75) null,field VARCHAR(75) null,oldLabel VARCHAR(255) null,oldValue STRING null,newLabel VARCHAR(255) null,newValue STRING null,description STRING null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table Koroneiki_AuditEntry";
@@ -173,7 +173,7 @@ public class AuditEntryModelImpl
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setAuditEntryKey(soapModel.getAuditEntryKey());
 		model.setAgentName(soapModel.getAgentName());
-		model.setAgentOktaId(soapModel.getAgentOktaId());
+		model.setAgentUID(soapModel.getAgentUID());
 		model.setClassNameId(soapModel.getClassNameId());
 		model.setClassPK(soapModel.getClassPK());
 		model.setAuditSetId(soapModel.getAuditSetId());
@@ -370,10 +370,10 @@ public class AuditEntryModelImpl
 		attributeSetterBiConsumers.put(
 			"agentName",
 			(BiConsumer<AuditEntry, String>)AuditEntry::setAgentName);
-		attributeGetterFunctions.put("agentOktaId", AuditEntry::getAgentOktaId);
+		attributeGetterFunctions.put("agentUID", AuditEntry::getAgentUID);
 		attributeSetterBiConsumers.put(
-			"agentOktaId",
-			(BiConsumer<AuditEntry, String>)AuditEntry::setAgentOktaId);
+			"agentUID",
+			(BiConsumer<AuditEntry, String>)AuditEntry::setAgentUID);
 		attributeGetterFunctions.put("classNameId", AuditEntry::getClassNameId);
 		attributeSetterBiConsumers.put(
 			"classNameId",
@@ -560,18 +560,18 @@ public class AuditEntryModelImpl
 
 	@JSON
 	@Override
-	public String getAgentOktaId() {
-		if (_agentOktaId == null) {
+	public String getAgentUID() {
+		if (_agentUID == null) {
 			return "";
 		}
 		else {
-			return _agentOktaId;
+			return _agentUID;
 		}
 	}
 
 	@Override
-	public void setAgentOktaId(String agentOktaId) {
-		_agentOktaId = agentOktaId;
+	public void setAgentUID(String agentUID) {
+		_agentUID = agentUID;
 	}
 
 	@Override
@@ -853,7 +853,7 @@ public class AuditEntryModelImpl
 		auditEntryImpl.setModifiedDate(getModifiedDate());
 		auditEntryImpl.setAuditEntryKey(getAuditEntryKey());
 		auditEntryImpl.setAgentName(getAgentName());
-		auditEntryImpl.setAgentOktaId(getAgentOktaId());
+		auditEntryImpl.setAgentUID(getAgentUID());
 		auditEntryImpl.setClassNameId(getClassNameId());
 		auditEntryImpl.setClassPK(getClassPK());
 		auditEntryImpl.setAuditSetId(getAuditSetId());
@@ -994,12 +994,12 @@ public class AuditEntryModelImpl
 			auditEntryCacheModel.agentName = null;
 		}
 
-		auditEntryCacheModel.agentOktaId = getAgentOktaId();
+		auditEntryCacheModel.agentUID = getAgentUID();
 
-		String agentOktaId = auditEntryCacheModel.agentOktaId;
+		String agentUID = auditEntryCacheModel.agentUID;
 
-		if ((agentOktaId != null) && (agentOktaId.length() == 0)) {
-			auditEntryCacheModel.agentOktaId = null;
+		if ((agentUID != null) && (agentUID.length() == 0)) {
+			auditEntryCacheModel.agentUID = null;
 		}
 
 		auditEntryCacheModel.classNameId = getClassNameId();
@@ -1154,7 +1154,7 @@ public class AuditEntryModelImpl
 	private String _auditEntryKey;
 	private String _originalAuditEntryKey;
 	private String _agentName;
-	private String _agentOktaId;
+	private String _agentUID;
 	private long _classNameId;
 	private long _originalClassNameId;
 	private boolean _setOriginalClassNameId;

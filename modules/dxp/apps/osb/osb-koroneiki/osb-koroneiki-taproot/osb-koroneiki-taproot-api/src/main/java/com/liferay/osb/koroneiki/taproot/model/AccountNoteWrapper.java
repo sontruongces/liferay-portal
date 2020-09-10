@@ -49,10 +49,10 @@ public class AccountNoteWrapper
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
-		attributes.put("creatorOktaId", getCreatorOktaId());
+		attributes.put("creatorUID", getCreatorUID());
 		attributes.put("creatorName", getCreatorName());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("modifierOktaId", getModifierOktaId());
+		attributes.put("modifierUID", getModifierUID());
 		attributes.put("modifierName", getModifierName());
 		attributes.put("accountNoteKey", getAccountNoteKey());
 		attributes.put("accountId", getAccountId());
@@ -103,10 +103,10 @@ public class AccountNoteWrapper
 			setCreateDate(createDate);
 		}
 
-		String creatorOktaId = (String)attributes.get("creatorOktaId");
+		String creatorUID = (String)attributes.get("creatorUID");
 
-		if (creatorOktaId != null) {
-			setCreatorOktaId(creatorOktaId);
+		if (creatorUID != null) {
+			setCreatorUID(creatorUID);
 		}
 
 		String creatorName = (String)attributes.get("creatorName");
@@ -121,10 +121,10 @@ public class AccountNoteWrapper
 			setModifiedDate(modifiedDate);
 		}
 
-		String modifierOktaId = (String)attributes.get("modifierOktaId");
+		String modifierUID = (String)attributes.get("modifierUID");
 
-		if (modifierOktaId != null) {
-			setModifierOktaId(modifierOktaId);
+		if (modifierUID != null) {
+			setModifierUID(modifierUID);
 		}
 
 		String modifierName = (String)attributes.get("modifierName");
@@ -247,13 +247,13 @@ public class AccountNoteWrapper
 	}
 
 	/**
-	 * Returns the creator okta ID of this account note.
+	 * Returns the creator uid of this account note.
 	 *
-	 * @return the creator okta ID of this account note
+	 * @return the creator uid of this account note
 	 */
 	@Override
-	public String getCreatorOktaId() {
-		return model.getCreatorOktaId();
+	public String getCreatorUID() {
+		return model.getCreatorUID();
 	}
 
 	/**
@@ -287,13 +287,13 @@ public class AccountNoteWrapper
 	}
 
 	/**
-	 * Returns the modifier okta ID of this account note.
+	 * Returns the modifier uid of this account note.
 	 *
-	 * @return the modifier okta ID of this account note
+	 * @return the modifier uid of this account note
 	 */
 	@Override
-	public String getModifierOktaId() {
-		return model.getModifierOktaId();
+	public String getModifierUID() {
+		return model.getModifierUID();
 	}
 
 	/**
@@ -452,13 +452,13 @@ public class AccountNoteWrapper
 	}
 
 	/**
-	 * Sets the creator okta ID of this account note.
+	 * Sets the creator uid of this account note.
 	 *
-	 * @param creatorOktaId the creator okta ID of this account note
+	 * @param creatorUID the creator uid of this account note
 	 */
 	@Override
-	public void setCreatorOktaId(String creatorOktaId) {
-		model.setCreatorOktaId(creatorOktaId);
+	public void setCreatorUID(String creatorUID) {
+		model.setCreatorUID(creatorUID);
 	}
 
 	/**
@@ -492,13 +492,13 @@ public class AccountNoteWrapper
 	}
 
 	/**
-	 * Sets the modifier okta ID of this account note.
+	 * Sets the modifier uid of this account note.
 	 *
-	 * @param modifierOktaId the modifier okta ID of this account note
+	 * @param modifierUID the modifier uid of this account note
 	 */
 	@Override
-	public void setModifierOktaId(String modifierOktaId) {
-		model.setModifierOktaId(modifierOktaId);
+	public void setModifierUID(String modifierUID) {
+		model.setModifierUID(modifierUID);
 	}
 
 	/**

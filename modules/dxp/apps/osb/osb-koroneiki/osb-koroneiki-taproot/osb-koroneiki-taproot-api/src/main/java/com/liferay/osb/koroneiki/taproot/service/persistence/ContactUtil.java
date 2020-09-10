@@ -697,64 +697,6 @@ public class ContactUtil {
 	}
 
 	/**
-	 * Returns the contact where oktaId = &#63; or throws a <code>NoSuchContactException</code> if it could not be found.
-	 *
-	 * @param oktaId the okta ID
-	 * @return the matching contact
-	 * @throws NoSuchContactException if a matching contact could not be found
-	 */
-	public static Contact findByOktaId(String oktaId)
-		throws com.liferay.osb.koroneiki.taproot.exception.
-			NoSuchContactException {
-
-		return getPersistence().findByOktaId(oktaId);
-	}
-
-	/**
-	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param oktaId the okta ID
-	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
-	 */
-	public static Contact fetchByOktaId(String oktaId) {
-		return getPersistence().fetchByOktaId(oktaId);
-	}
-
-	/**
-	 * Returns the contact where oktaId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param oktaId the okta ID
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the matching contact, or <code>null</code> if a matching contact could not be found
-	 */
-	public static Contact fetchByOktaId(String oktaId, boolean useFinderCache) {
-		return getPersistence().fetchByOktaId(oktaId, useFinderCache);
-	}
-
-	/**
-	 * Removes the contact where oktaId = &#63; from the database.
-	 *
-	 * @param oktaId the okta ID
-	 * @return the contact that was removed
-	 */
-	public static Contact removeByOktaId(String oktaId)
-		throws com.liferay.osb.koroneiki.taproot.exception.
-			NoSuchContactException {
-
-		return getPersistence().removeByOktaId(oktaId);
-	}
-
-	/**
-	 * Returns the number of contacts where oktaId = &#63;.
-	 *
-	 * @param oktaId the okta ID
-	 * @return the number of matching contacts
-	 */
-	public static int countByOktaId(String oktaId) {
-		return getPersistence().countByOktaId(oktaId);
-	}
-
-	/**
 	 * Returns the contact where emailAddress = &#63; or throws a <code>NoSuchContactException</code> if it could not be found.
 	 *
 	 * @param emailAddress the email address

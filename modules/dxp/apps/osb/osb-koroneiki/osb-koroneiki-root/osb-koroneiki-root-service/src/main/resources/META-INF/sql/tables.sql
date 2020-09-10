@@ -7,7 +7,7 @@ create table Koroneiki_AuditEntry (
 	modifiedDate DATE null,
 	auditEntryKey VARCHAR(75) null,
 	agentName VARCHAR(75) null,
-	agentOktaId VARCHAR(75) null,
+	agentUID VARCHAR(75) null,
 	classNameId LONG,
 	classPK LONG,
 	auditSetId LONG,

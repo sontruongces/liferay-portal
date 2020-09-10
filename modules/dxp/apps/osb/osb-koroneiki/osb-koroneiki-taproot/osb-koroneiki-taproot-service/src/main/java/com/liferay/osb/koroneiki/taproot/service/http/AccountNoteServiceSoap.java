@@ -63,7 +63,7 @@ public class AccountNoteServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNoteSoap
 			addAccountNote(
-				String creatorOktaId, String creatorName, long accountId,
+				String creatorUID, String creatorName, long accountId,
 				String type, int priority, String content, String format,
 				String status)
 		throws RemoteException {
@@ -71,8 +71,8 @@ public class AccountNoteServiceSoap {
 		try {
 			com.liferay.osb.koroneiki.taproot.model.AccountNote returnValue =
 				AccountNoteServiceUtil.addAccountNote(
-					creatorOktaId, creatorName, accountId, type, priority,
-					content, format, status);
+					creatorUID, creatorName, accountId, type, priority, content,
+					format, status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountNoteSoap.
 				toSoapModel(returnValue);
@@ -160,15 +160,15 @@ public class AccountNoteServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNoteSoap
 			updateAccountNote(
-				long accountNoteId, String modifierOktaId, String modifierName,
+				long accountNoteId, String modifierUID, String modifierName,
 				int priority, String content, String format, String status)
 		throws RemoteException {
 
 		try {
 			com.liferay.osb.koroneiki.taproot.model.AccountNote returnValue =
 				AccountNoteServiceUtil.updateAccountNote(
-					accountNoteId, modifierOktaId, modifierName, priority,
-					content, format, status);
+					accountNoteId, modifierUID, modifierName, priority, content,
+					format, status);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountNoteSoap.
 				toSoapModel(returnValue);

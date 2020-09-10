@@ -95,8 +95,8 @@ public class AuditEntryCacheModel
 		sb.append(auditEntryKey);
 		sb.append(", agentName=");
 		sb.append(agentName);
-		sb.append(", agentOktaId=");
-		sb.append(agentOktaId);
+		sb.append(", agentUID=");
+		sb.append(agentUID);
 		sb.append(", classNameId=");
 		sb.append(classNameId);
 		sb.append(", classPK=");
@@ -163,11 +163,11 @@ public class AuditEntryCacheModel
 			auditEntryImpl.setAgentName(agentName);
 		}
 
-		if (agentOktaId == null) {
-			auditEntryImpl.setAgentOktaId("");
+		if (agentUID == null) {
+			auditEntryImpl.setAgentUID("");
 		}
 		else {
-			auditEntryImpl.setAgentOktaId(agentOktaId);
+			auditEntryImpl.setAgentUID(agentUID);
 		}
 
 		auditEntryImpl.setClassNameId(classNameId);
@@ -243,7 +243,7 @@ public class AuditEntryCacheModel
 		modifiedDate = objectInput.readLong();
 		auditEntryKey = objectInput.readUTF();
 		agentName = objectInput.readUTF();
-		agentOktaId = objectInput.readUTF();
+		agentUID = objectInput.readUTF();
 
 		classNameId = objectInput.readLong();
 
@@ -289,11 +289,11 @@ public class AuditEntryCacheModel
 			objectOutput.writeUTF(agentName);
 		}
 
-		if (agentOktaId == null) {
+		if (agentUID == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(agentOktaId);
+			objectOutput.writeUTF(agentUID);
 		}
 
 		objectOutput.writeLong(classNameId);
@@ -364,7 +364,7 @@ public class AuditEntryCacheModel
 	public long modifiedDate;
 	public String auditEntryKey;
 	public String agentName;
-	public String agentOktaId;
+	public String agentUID;
 	public long classNameId;
 	public long classPK;
 	public long auditSetId;

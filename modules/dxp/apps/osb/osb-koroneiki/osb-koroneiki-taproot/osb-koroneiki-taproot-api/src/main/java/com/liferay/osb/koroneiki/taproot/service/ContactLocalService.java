@@ -80,9 +80,9 @@ public interface ContactLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Contact addContact(
-			String uuid, long userId, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			String uuid, long userId, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException;
 
 	/**
@@ -202,9 +202,6 @@ public interface ContactLocalService
 	public Contact fetchContactByEmailAddress(String emailAddress);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Contact fetchContactByOktaId(String oktaId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Contact fetchContactByUuid(String uuid);
 
 	/**
@@ -244,9 +241,6 @@ public interface ContactLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Contact getContactByEmailAddress(String emailAddress)
 		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Contact getContactByOktaId(String oktaId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Contact getContactByUuid(String uuid) throws PortalException;
@@ -337,9 +331,9 @@ public interface ContactLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws PortalException;
 
 }

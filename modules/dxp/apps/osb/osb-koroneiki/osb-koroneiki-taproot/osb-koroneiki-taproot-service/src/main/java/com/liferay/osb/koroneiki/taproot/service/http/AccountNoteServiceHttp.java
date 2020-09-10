@@ -53,7 +53,7 @@ public class AccountNoteServiceHttp {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNote
 			addAccountNote(
-				HttpPrincipal httpPrincipal, String creatorOktaId,
+				HttpPrincipal httpPrincipal, String creatorUID,
 				String creatorName, long accountId, String type, int priority,
 				String content, String format, String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -64,8 +64,8 @@ public class AccountNoteServiceHttp {
 				_addAccountNoteParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, creatorOktaId, creatorName, accountId, type,
-				priority, content, format, status);
+				methodKey, creatorUID, creatorName, accountId, type, priority,
+				content, format, status);
 
 			Object returnObj = null;
 
@@ -266,7 +266,7 @@ public class AccountNoteServiceHttp {
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNote
 			updateAccountNote(
 				HttpPrincipal httpPrincipal, long accountNoteId,
-				String modifierOktaId, String modifierName, int priority,
+				String modifierUID, String modifierName, int priority,
 				String content, String format, String status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -276,8 +276,8 @@ public class AccountNoteServiceHttp {
 				_updateAccountNoteParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountNoteId, modifierOktaId, modifierName,
-				priority, content, format, status);
+				methodKey, accountNoteId, modifierUID, modifierName, priority,
+				content, format, status);
 
 			Object returnObj = null;
 

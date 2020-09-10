@@ -198,21 +198,6 @@ public interface ContactModel
 	public void setContactKey(String contactKey);
 
 	/**
-	 * Returns the okta ID of this contact.
-	 *
-	 * @return the okta ID of this contact
-	 */
-	@AutoEscape
-	public String getOktaId();
-
-	/**
-	 * Sets the okta ID of this contact.
-	 *
-	 * @param oktaId the okta ID of this contact
-	 */
-	public void setOktaId(String oktaId);
-
-	/**
 	 * Returns the first name of this contact.
 	 *
 	 * @return the first name of this contact

@@ -76,7 +76,7 @@ public class ContactCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -94,8 +94,6 @@ public class ContactCacheModel
 		sb.append(modifiedDate);
 		sb.append(", contactKey=");
 		sb.append(contactKey);
-		sb.append(", oktaId=");
-		sb.append(oktaId);
 		sb.append(", firstName=");
 		sb.append(firstName);
 		sb.append(", middleName=");
@@ -149,13 +147,6 @@ public class ContactCacheModel
 		}
 		else {
 			contactImpl.setContactKey(contactKey);
-		}
-
-		if (oktaId == null) {
-			contactImpl.setOktaId("");
-		}
-		else {
-			contactImpl.setOktaId(oktaId);
 		}
 
 		if (firstName == null) {
@@ -213,7 +204,6 @@ public class ContactCacheModel
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		contactKey = objectInput.readUTF();
-		oktaId = objectInput.readUTF();
 		firstName = objectInput.readUTF();
 		middleName = objectInput.readUTF();
 		lastName = objectInput.readUTF();
@@ -247,13 +237,6 @@ public class ContactCacheModel
 		}
 		else {
 			objectOutput.writeUTF(contactKey);
-		}
-
-		if (oktaId == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(oktaId);
 		}
 
 		if (firstName == null) {
@@ -302,7 +285,6 @@ public class ContactCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public String contactKey;
-	public String oktaId;
 	public String firstName;
 	public String middleName;
 	public String lastName;

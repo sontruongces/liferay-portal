@@ -10,7 +10,7 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="auditEntryKey" type="String" />
 		<field name="agentName" type="String" />
-		<field name="agentOktaId" type="String" />
+		<field name="agentUID" type="String" />
 		<field name="classNameId" type="long" />
 		<field name="classPK" type="long" />
 		<field name="auditSetId" type="long" />

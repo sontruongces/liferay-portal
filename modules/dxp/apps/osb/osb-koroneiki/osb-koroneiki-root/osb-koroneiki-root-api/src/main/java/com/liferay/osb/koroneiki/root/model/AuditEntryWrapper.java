@@ -50,7 +50,7 @@ public class AuditEntryWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("auditEntryKey", getAuditEntryKey());
 		attributes.put("agentName", getAgentName());
-		attributes.put("agentOktaId", getAgentOktaId());
+		attributes.put("agentUID", getAgentUID());
 		attributes.put("classNameId", getClassNameId());
 		attributes.put("classPK", getClassPK());
 		attributes.put("auditSetId", getAuditSetId());
@@ -117,10 +117,10 @@ public class AuditEntryWrapper
 			setAgentName(agentName);
 		}
 
-		String agentOktaId = (String)attributes.get("agentOktaId");
+		String agentUID = (String)attributes.get("agentUID");
 
-		if (agentOktaId != null) {
-			setAgentOktaId(agentOktaId);
+		if (agentUID != null) {
+			setAgentUID(agentUID);
 		}
 
 		Long classNameId = (Long)attributes.get("classNameId");
@@ -217,13 +217,13 @@ public class AuditEntryWrapper
 	}
 
 	/**
-	 * Returns the agent okta ID of this audit entry.
+	 * Returns the agent uid of this audit entry.
 	 *
-	 * @return the agent okta ID of this audit entry
+	 * @return the agent uid of this audit entry
 	 */
 	@Override
-	public String getAgentOktaId() {
-		return model.getAgentOktaId();
+	public String getAgentUID() {
+		return model.getAgentUID();
 	}
 
 	/**
@@ -462,13 +462,13 @@ public class AuditEntryWrapper
 	}
 
 	/**
-	 * Sets the agent okta ID of this audit entry.
+	 * Sets the agent uid of this audit entry.
 	 *
-	 * @param agentOktaId the agent okta ID of this audit entry
+	 * @param agentUID the agent uid of this audit entry
 	 */
 	@Override
-	public void setAgentOktaId(String agentOktaId) {
-		model.setAgentOktaId(agentOktaId);
+	public void setAgentUID(String agentUID) {
+		model.setAgentUID(agentUID);
 	}
 
 	/**

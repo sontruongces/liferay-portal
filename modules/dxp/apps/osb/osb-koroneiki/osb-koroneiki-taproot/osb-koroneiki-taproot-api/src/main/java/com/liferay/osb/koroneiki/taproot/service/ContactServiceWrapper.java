@@ -32,14 +32,14 @@ public class ContactServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact addContact(
-			String uuid, String oktaId, String firstName, String middleName,
-			String lastName, String emailAddress, String languageId,
+			String uuid, String firstName, String middleName, String lastName,
+			String emailAddress, String languageId,
 			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.addContact(
-			uuid, oktaId, firstName, middleName, lastName, emailAddress,
-			languageId, emailAddressVerified);
+			uuid, firstName, middleName, lastName, emailAddress, languageId,
+			emailAddressVerified);
 	}
 
 	@Override
@@ -104,14 +104,6 @@ public class ContactServiceWrapper
 	}
 
 	@Override
-	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByOktaId(
-			String oktaId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _contactService.getContactByOktaId(oktaId);
-	}
-
-	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact getContactByUuid(
 			String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -146,14 +138,14 @@ public class ContactServiceWrapper
 
 	@Override
 	public com.liferay.osb.koroneiki.taproot.model.Contact updateContact(
-			long contactId, String uuid, String oktaId, String firstName,
-			String middleName, String lastName, String emailAddress,
-			String languageId, boolean emailAddressVerified)
+			long contactId, String uuid, String firstName, String middleName,
+			String lastName, String emailAddress, String languageId,
+			boolean emailAddressVerified)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _contactService.updateContact(
-			contactId, uuid, oktaId, firstName, middleName, lastName,
-			emailAddress, languageId, emailAddressVerified);
+			contactId, uuid, firstName, middleName, lastName, emailAddress,
+			languageId, emailAddressVerified);
 	}
 
 	@Override
