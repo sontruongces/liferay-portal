@@ -1968,30 +1968,31 @@ public class AccountNotePersistenceImpl
 	private static final String _FINDER_COLUMN_ACCOUNTID_ACCOUNTID_2 =
 		"accountNote.accountId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByAI_T_S;
-	private FinderPath _finderPathWithoutPaginationFindByAI_T_S;
-	private FinderPath _finderPathCountByAI_T_S;
-	private FinderPath _finderPathWithPaginationCountByAI_T_S;
+	private FinderPath _finderPathWithPaginationFindByAI_T_P_S;
+	private FinderPath _finderPathWithoutPaginationFindByAI_T_P_S;
+	private FinderPath _finderPathCountByAI_T_P_S;
+	private FinderPath _finderPathWithPaginationCountByAI_T_P_S;
 
 	/**
-	 * Returns all the account notes where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns all the account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @return the matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String type, String status) {
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String type, int priority, String status) {
 
-		return findByAI_T_S(
-			accountId, type, status, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findByAI_T_P_S(
+			accountId, type, priority, status, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the account notes where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns a range of all the account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -1999,20 +2000,23 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param start the lower bound of the range of account notes
 	 * @param end the upper bound of the range of account notes (not inclusive)
 	 * @return the range of matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String type, String status, int start, int end) {
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String type, int priority, String status, int start,
+		int end) {
 
-		return findByAI_T_S(accountId, type, status, start, end, null);
+		return findByAI_T_P_S(
+			accountId, type, priority, status, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -2020,6 +2024,7 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param start the lower bound of the range of account notes
 	 * @param end the upper bound of the range of account notes (not inclusive)
@@ -2027,16 +2032,17 @@ public class AccountNotePersistenceImpl
 	 * @return the ordered range of matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String type, String status, int start, int end,
-		OrderByComparator<AccountNote> orderByComparator) {
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String type, int priority, String status, int start,
+		int end, OrderByComparator<AccountNote> orderByComparator) {
 
-		return findByAI_T_S(
-			accountId, type, status, start, end, orderByComparator, true);
+		return findByAI_T_P_S(
+			accountId, type, priority, status, start, end, orderByComparator,
+			true);
 	}
 
 	/**
-	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -2044,6 +2050,7 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param start the lower bound of the range of account notes
 	 * @param end the upper bound of the range of account notes (not inclusive)
@@ -2052,9 +2059,9 @@ public class AccountNotePersistenceImpl
 	 * @return the ordered range of matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String type, String status, int start, int end,
-		OrderByComparator<AccountNote> orderByComparator,
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String type, int priority, String status, int start,
+		int end, OrderByComparator<AccountNote> orderByComparator,
 		boolean useFinderCache) {
 
 		type = Objects.toString(type, "");
@@ -2067,14 +2074,14 @@ public class AccountNotePersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByAI_T_S;
-				finderArgs = new Object[] {accountId, type, status};
+				finderPath = _finderPathWithoutPaginationFindByAI_T_P_S;
+				finderArgs = new Object[] {accountId, type, priority, status};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByAI_T_S;
+			finderPath = _finderPathWithPaginationFindByAI_T_P_S;
 			finderArgs = new Object[] {
-				accountId, type, status, start, end, orderByComparator
+				accountId, type, priority, status, start, end, orderByComparator
 			};
 		}
 
@@ -2088,6 +2095,7 @@ public class AccountNotePersistenceImpl
 				for (AccountNote accountNote : list) {
 					if ((accountId != accountNote.getAccountId()) ||
 						!type.equals(accountNote.getType()) ||
+						(priority != accountNote.getPriority()) ||
 						!status.equals(accountNote.getStatus())) {
 
 						list = null;
@@ -2103,36 +2111,38 @@ public class AccountNotePersistenceImpl
 
 			if (orderByComparator != null) {
 				sb = new StringBundler(
-					5 + (orderByComparator.getOrderByFields().length * 2));
+					6 + (orderByComparator.getOrderByFields().length * 2));
 			}
 			else {
-				sb = new StringBundler(5);
+				sb = new StringBundler(6);
 			}
 
 			sb.append(_SQL_SELECT_ACCOUNTNOTE_WHERE);
 
-			sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_ACCOUNTID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_AI_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_AI_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_2);
 			}
+
+			sb.append(_FINDER_COLUMN_AI_T_P_S_PRIORITY_2);
 
 			boolean bindStatus = false;
 
 			if (status.isEmpty()) {
-				sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_3);
 			}
 			else {
 				bindStatus = true;
 
-				sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_2);
 			}
 
 			if (orderByComparator != null) {
@@ -2159,6 +2169,8 @@ public class AccountNotePersistenceImpl
 				if (bindType) {
 					queryPos.add(type);
 				}
+
+				queryPos.add(priority);
 
 				if (bindStatus) {
 					queryPos.add(status);
@@ -2189,29 +2201,30 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the first account note in the ordered set where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the first account note in the ordered set where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching account note
 	 * @throws NoSuchAccountNoteException if a matching account note could not be found
 	 */
 	@Override
-	public AccountNote findByAI_T_S_First(
-			long accountId, String type, String status,
+	public AccountNote findByAI_T_P_S_First(
+			long accountId, String type, int priority, String status,
 			OrderByComparator<AccountNote> orderByComparator)
 		throws NoSuchAccountNoteException {
 
-		AccountNote accountNote = fetchByAI_T_S_First(
-			accountId, type, status, orderByComparator);
+		AccountNote accountNote = fetchByAI_T_P_S_First(
+			accountId, type, priority, status, orderByComparator);
 
 		if (accountNote != null) {
 			return accountNote;
 		}
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler(10);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
@@ -2220,6 +2233,9 @@ public class AccountNotePersistenceImpl
 
 		sb.append(", type=");
 		sb.append(type);
+
+		sb.append(", priority=");
+		sb.append(priority);
 
 		sb.append(", status=");
 		sb.append(status);
@@ -2230,21 +2246,22 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the first account note in the ordered set where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the first account note in the ordered set where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching account note, or <code>null</code> if a matching account note could not be found
 	 */
 	@Override
-	public AccountNote fetchByAI_T_S_First(
-		long accountId, String type, String status,
+	public AccountNote fetchByAI_T_P_S_First(
+		long accountId, String type, int priority, String status,
 		OrderByComparator<AccountNote> orderByComparator) {
 
-		List<AccountNote> list = findByAI_T_S(
-			accountId, type, status, 0, 1, orderByComparator);
+		List<AccountNote> list = findByAI_T_P_S(
+			accountId, type, priority, status, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -2254,29 +2271,30 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the last account note in the ordered set where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the last account note in the ordered set where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching account note
 	 * @throws NoSuchAccountNoteException if a matching account note could not be found
 	 */
 	@Override
-	public AccountNote findByAI_T_S_Last(
-			long accountId, String type, String status,
+	public AccountNote findByAI_T_P_S_Last(
+			long accountId, String type, int priority, String status,
 			OrderByComparator<AccountNote> orderByComparator)
 		throws NoSuchAccountNoteException {
 
-		AccountNote accountNote = fetchByAI_T_S_Last(
-			accountId, type, status, orderByComparator);
+		AccountNote accountNote = fetchByAI_T_P_S_Last(
+			accountId, type, priority, status, orderByComparator);
 
 		if (accountNote != null) {
 			return accountNote;
 		}
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler(10);
 
 		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
 
@@ -2285,6 +2303,9 @@ public class AccountNotePersistenceImpl
 
 		sb.append(", type=");
 		sb.append(type);
+
+		sb.append(", priority=");
+		sb.append(priority);
 
 		sb.append(", status=");
 		sb.append(status);
@@ -2295,27 +2316,29 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the last account note in the ordered set where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the last account note in the ordered set where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching account note, or <code>null</code> if a matching account note could not be found
 	 */
 	@Override
-	public AccountNote fetchByAI_T_S_Last(
-		long accountId, String type, String status,
+	public AccountNote fetchByAI_T_P_S_Last(
+		long accountId, String type, int priority, String status,
 		OrderByComparator<AccountNote> orderByComparator) {
 
-		int count = countByAI_T_S(accountId, type, status);
+		int count = countByAI_T_P_S(accountId, type, priority, status);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<AccountNote> list = findByAI_T_S(
-			accountId, type, status, count - 1, count, orderByComparator);
+		List<AccountNote> list = findByAI_T_P_S(
+			accountId, type, priority, status, count - 1, count,
+			orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -2325,20 +2348,21 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the account notes before and after the current account note in the ordered set where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the account notes before and after the current account note in the ordered set where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountNoteId the primary key of the current account note
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next account note
 	 * @throws NoSuchAccountNoteException if a account note with the primary key could not be found
 	 */
 	@Override
-	public AccountNote[] findByAI_T_S_PrevAndNext(
-			long accountNoteId, long accountId, String type, String status,
-			OrderByComparator<AccountNote> orderByComparator)
+	public AccountNote[] findByAI_T_P_S_PrevAndNext(
+			long accountNoteId, long accountId, String type, int priority,
+			String status, OrderByComparator<AccountNote> orderByComparator)
 		throws NoSuchAccountNoteException {
 
 		type = Objects.toString(type, "");
@@ -2353,14 +2377,14 @@ public class AccountNotePersistenceImpl
 
 			AccountNote[] array = new AccountNoteImpl[3];
 
-			array[0] = getByAI_T_S_PrevAndNext(
-				session, accountNote, accountId, type, status,
+			array[0] = getByAI_T_P_S_PrevAndNext(
+				session, accountNote, accountId, type, priority, status,
 				orderByComparator, true);
 
 			array[1] = accountNote;
 
-			array[2] = getByAI_T_S_PrevAndNext(
-				session, accountNote, accountId, type, status,
+			array[2] = getByAI_T_P_S_PrevAndNext(
+				session, accountNote, accountId, type, priority, status,
 				orderByComparator, false);
 
 			return array;
@@ -2373,46 +2397,48 @@ public class AccountNotePersistenceImpl
 		}
 	}
 
-	protected AccountNote getByAI_T_S_PrevAndNext(
+	protected AccountNote getByAI_T_P_S_PrevAndNext(
 		Session session, AccountNote accountNote, long accountId, String type,
-		String status, OrderByComparator<AccountNote> orderByComparator,
-		boolean previous) {
+		int priority, String status,
+		OrderByComparator<AccountNote> orderByComparator, boolean previous) {
 
 		StringBundler sb = null;
 
 		if (orderByComparator != null) {
 			sb = new StringBundler(
-				6 + (orderByComparator.getOrderByConditionFields().length * 3) +
+				7 + (orderByComparator.getOrderByConditionFields().length * 3) +
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			sb = new StringBundler(5);
+			sb = new StringBundler(6);
 		}
 
 		sb.append(_SQL_SELECT_ACCOUNTNOTE_WHERE);
 
-		sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+		sb.append(_FINDER_COLUMN_AI_T_P_S_ACCOUNTID_2);
 
 		boolean bindType = false;
 
 		if (type.isEmpty()) {
-			sb.append(_FINDER_COLUMN_AI_T_S_TYPE_3);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_3);
 		}
 		else {
 			bindType = true;
 
-			sb.append(_FINDER_COLUMN_AI_T_S_TYPE_2);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_2);
 		}
+
+		sb.append(_FINDER_COLUMN_AI_T_P_S_PRIORITY_2);
 
 		boolean bindStatus = false;
 
 		if (status.isEmpty()) {
-			sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_3);
 		}
 		else {
 			bindStatus = true;
 
-			sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_2);
 		}
 
 		if (orderByComparator != null) {
@@ -2490,6 +2516,8 @@ public class AccountNotePersistenceImpl
 			queryPos.add(type);
 		}
 
+		queryPos.add(priority);
+
 		if (bindStatus) {
 			queryPos.add(status);
 		}
@@ -2513,7 +2541,7 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 * Returns all the account notes where accountId = &#63; and type = any &#63; and priority = any &#63; and status = any &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -2521,20 +2549,21 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param types the types
+	 * @param priorities the priorities
 	 * @param statuses the statuses
 	 * @return the matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String[] types, String[] statuses) {
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String[] types, int[] priorities, String[] statuses) {
 
-		return findByAI_T_S(
-			accountId, types, statuses, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		return findByAI_T_P_S(
+			accountId, types, priorities, statuses, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 * Returns a range of all the account notes where accountId = &#63; and type = any &#63; and priority = any &#63; and status = any &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -2542,20 +2571,23 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param types the types
+	 * @param priorities the priorities
 	 * @param statuses the statuses
 	 * @param start the lower bound of the range of account notes
 	 * @param end the upper bound of the range of account notes (not inclusive)
 	 * @return the range of matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String[] types, String[] statuses, int start, int end) {
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String[] types, int[] priorities, String[] statuses,
+		int start, int end) {
 
-		return findByAI_T_S(accountId, types, statuses, start, end, null);
+		return findByAI_T_P_S(
+			accountId, types, priorities, statuses, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = any &#63; and priority = any &#63; and status = any &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -2563,6 +2595,7 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param types the types
+	 * @param priorities the priorities
 	 * @param statuses the statuses
 	 * @param start the lower bound of the range of account notes
 	 * @param end the upper bound of the range of account notes (not inclusive)
@@ -2570,16 +2603,17 @@ public class AccountNotePersistenceImpl
 	 * @return the ordered range of matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String[] types, String[] statuses, int start, int end,
-		OrderByComparator<AccountNote> orderByComparator) {
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String[] types, int[] priorities, String[] statuses,
+		int start, int end, OrderByComparator<AccountNote> orderByComparator) {
 
-		return findByAI_T_S(
-			accountId, types, statuses, start, end, orderByComparator, true);
+		return findByAI_T_P_S(
+			accountId, types, priorities, statuses, start, end,
+			orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and status = &#63;, optionally using the finder cache.
+	 * Returns an ordered range of all the account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;, optionally using the finder cache.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>AccountNoteModelImpl</code>.
@@ -2587,6 +2621,7 @@ public class AccountNotePersistenceImpl
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @param start the lower bound of the range of account notes
 	 * @param end the upper bound of the range of account notes (not inclusive)
@@ -2595,9 +2630,9 @@ public class AccountNotePersistenceImpl
 	 * @return the ordered range of matching account notes
 	 */
 	@Override
-	public List<AccountNote> findByAI_T_S(
-		long accountId, String[] types, String[] statuses, int start, int end,
-		OrderByComparator<AccountNote> orderByComparator,
+	public List<AccountNote> findByAI_T_P_S(
+		long accountId, String[] types, int[] priorities, String[] statuses,
+		int start, int end, OrderByComparator<AccountNote> orderByComparator,
 		boolean useFinderCache) {
 
 		if (types == null) {
@@ -2611,6 +2646,13 @@ public class AccountNotePersistenceImpl
 			types = ArrayUtil.sortedUnique(types);
 		}
 
+		if (priorities == null) {
+			priorities = new int[0];
+		}
+		else if (priorities.length > 1) {
+			priorities = ArrayUtil.sortedUnique(priorities);
+		}
+
 		if (statuses == null) {
 			statuses = new String[0];
 		}
@@ -2622,9 +2664,11 @@ public class AccountNotePersistenceImpl
 			statuses = ArrayUtil.sortedUnique(statuses);
 		}
 
-		if ((types.length == 1) && (statuses.length == 1)) {
-			return findByAI_T_S(
-				accountId, types[0], statuses[0], start, end,
+		if ((types.length == 1) && (priorities.length == 1) &&
+			(statuses.length == 1)) {
+
+			return findByAI_T_P_S(
+				accountId, types[0], priorities[0], statuses[0], start, end,
 				orderByComparator);
 		}
 
@@ -2636,14 +2680,15 @@ public class AccountNotePersistenceImpl
 			if (useFinderCache) {
 				finderArgs = new Object[] {
 					accountId, StringUtil.merge(types),
-					StringUtil.merge(statuses)
+					StringUtil.merge(priorities), StringUtil.merge(statuses)
 				};
 			}
 		}
 		else if (useFinderCache) {
 			finderArgs = new Object[] {
-				accountId, StringUtil.merge(types), StringUtil.merge(statuses),
-				start, end, orderByComparator
+				accountId, StringUtil.merge(types),
+				StringUtil.merge(priorities), StringUtil.merge(statuses), start,
+				end, orderByComparator
 			};
 		}
 
@@ -2651,12 +2696,14 @@ public class AccountNotePersistenceImpl
 
 		if (useFinderCache) {
 			list = (List<AccountNote>)finderCache.getResult(
-				_finderPathWithPaginationFindByAI_T_S, finderArgs, this);
+				_finderPathWithPaginationFindByAI_T_P_S, finderArgs, this);
 
 			if ((list != null) && !list.isEmpty()) {
 				for (AccountNote accountNote : list) {
 					if ((accountId != accountNote.getAccountId()) ||
 						!ArrayUtil.contains(types, accountNote.getType()) ||
+						!ArrayUtil.contains(
+							priorities, accountNote.getPriority()) ||
 						!ArrayUtil.contains(
 							statuses, accountNote.getStatus())) {
 
@@ -2673,7 +2720,7 @@ public class AccountNotePersistenceImpl
 
 			sb.append(_SQL_SELECT_ACCOUNTNOTE_WHERE);
 
-			sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_ACCOUNTID_2);
 
 			if (types.length > 0) {
 				sb.append("(");
@@ -2682,16 +2729,30 @@ public class AccountNotePersistenceImpl
 					String type = types[i];
 
 					if (type.isEmpty()) {
-						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_6);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_6);
 					}
 					else {
-						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_5);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_5);
 					}
 
 					if ((i + 1) < types.length) {
 						sb.append(WHERE_OR);
 					}
 				}
+
+				sb.append(")");
+
+				sb.append(WHERE_AND);
+			}
+
+			if (priorities.length > 0) {
+				sb.append("(");
+
+				sb.append(_FINDER_COLUMN_AI_T_P_S_PRIORITY_7);
+
+				sb.append(StringUtil.merge(priorities));
+
+				sb.append(")");
 
 				sb.append(")");
 
@@ -2705,10 +2766,10 @@ public class AccountNotePersistenceImpl
 					String status = statuses[i];
 
 					if (status.isEmpty()) {
-						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_3);
 					}
 					else {
-						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_2);
 					}
 
 					if ((i + 1) < statuses.length) {
@@ -2762,14 +2823,14 @@ public class AccountNotePersistenceImpl
 
 				if (useFinderCache) {
 					finderCache.putResult(
-						_finderPathWithPaginationFindByAI_T_S, finderArgs,
+						_finderPathWithPaginationFindByAI_T_P_S, finderArgs,
 						list);
 				}
 			}
 			catch (Exception exception) {
 				if (useFinderCache) {
 					finderCache.removeResult(
-						_finderPathWithPaginationFindByAI_T_S, finderArgs);
+						_finderPathWithPaginationFindByAI_T_P_S, finderArgs);
 				}
 
 				throw processException(exception);
@@ -2783,17 +2844,20 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Removes all the account notes where accountId = &#63; and type = &#63; and status = &#63; from the database.
+	 * Removes all the account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63; from the database.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 */
 	@Override
-	public void removeByAI_T_S(long accountId, String type, String status) {
+	public void removeByAI_T_P_S(
+		long accountId, String type, int priority, String status) {
+
 		for (AccountNote accountNote :
-				findByAI_T_S(
-					accountId, type, status, QueryUtil.ALL_POS,
+				findByAI_T_P_S(
+					accountId, type, priority, status, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS, null)) {
 
 			remove(accountNote);
@@ -2801,51 +2865,56 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the number of account notes where accountId = &#63; and type = &#63; and status = &#63;.
+	 * Returns the number of account notes where accountId = &#63; and type = &#63; and priority = &#63; and status = &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param type the type
+	 * @param priority the priority
 	 * @param status the status
 	 * @return the number of matching account notes
 	 */
 	@Override
-	public int countByAI_T_S(long accountId, String type, String status) {
+	public int countByAI_T_P_S(
+		long accountId, String type, int priority, String status) {
+
 		type = Objects.toString(type, "");
 		status = Objects.toString(status, "");
 
-		FinderPath finderPath = _finderPathCountByAI_T_S;
+		FinderPath finderPath = _finderPathCountByAI_T_P_S;
 
-		Object[] finderArgs = new Object[] {accountId, type, status};
+		Object[] finderArgs = new Object[] {accountId, type, priority, status};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler sb = new StringBundler(4);
+			StringBundler sb = new StringBundler(5);
 
 			sb.append(_SQL_COUNT_ACCOUNTNOTE_WHERE);
 
-			sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_ACCOUNTID_2);
 
 			boolean bindType = false;
 
 			if (type.isEmpty()) {
-				sb.append(_FINDER_COLUMN_AI_T_S_TYPE_3);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_3);
 			}
 			else {
 				bindType = true;
 
-				sb.append(_FINDER_COLUMN_AI_T_S_TYPE_2);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_2);
 			}
+
+			sb.append(_FINDER_COLUMN_AI_T_P_S_PRIORITY_2);
 
 			boolean bindStatus = false;
 
 			if (status.isEmpty()) {
-				sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_3);
 			}
 			else {
 				bindStatus = true;
 
-				sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+				sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_2);
 			}
 
 			String sql = sb.toString();
@@ -2864,6 +2933,8 @@ public class AccountNotePersistenceImpl
 				if (bindType) {
 					queryPos.add(type);
 				}
+
+				queryPos.add(priority);
 
 				if (bindStatus) {
 					queryPos.add(status);
@@ -2887,16 +2958,17 @@ public class AccountNotePersistenceImpl
 	}
 
 	/**
-	 * Returns the number of account notes where accountId = &#63; and type = any &#63; and status = any &#63;.
+	 * Returns the number of account notes where accountId = &#63; and type = any &#63; and priority = any &#63; and status = any &#63;.
 	 *
 	 * @param accountId the account ID
 	 * @param types the types
+	 * @param priorities the priorities
 	 * @param statuses the statuses
 	 * @return the number of matching account notes
 	 */
 	@Override
-	public int countByAI_T_S(
-		long accountId, String[] types, String[] statuses) {
+	public int countByAI_T_P_S(
+		long accountId, String[] types, int[] priorities, String[] statuses) {
 
 		if (types == null) {
 			types = new String[0];
@@ -2907,6 +2979,13 @@ public class AccountNotePersistenceImpl
 			}
 
 			types = ArrayUtil.sortedUnique(types);
+		}
+
+		if (priorities == null) {
+			priorities = new int[0];
+		}
+		else if (priorities.length > 1) {
+			priorities = ArrayUtil.sortedUnique(priorities);
 		}
 
 		if (statuses == null) {
@@ -2921,18 +3000,19 @@ public class AccountNotePersistenceImpl
 		}
 
 		Object[] finderArgs = new Object[] {
-			accountId, StringUtil.merge(types), StringUtil.merge(statuses)
+			accountId, StringUtil.merge(types), StringUtil.merge(priorities),
+			StringUtil.merge(statuses)
 		};
 
 		Long count = (Long)finderCache.getResult(
-			_finderPathWithPaginationCountByAI_T_S, finderArgs, this);
+			_finderPathWithPaginationCountByAI_T_P_S, finderArgs, this);
 
 		if (count == null) {
 			StringBundler sb = new StringBundler();
 
 			sb.append(_SQL_COUNT_ACCOUNTNOTE_WHERE);
 
-			sb.append(_FINDER_COLUMN_AI_T_S_ACCOUNTID_2);
+			sb.append(_FINDER_COLUMN_AI_T_P_S_ACCOUNTID_2);
 
 			if (types.length > 0) {
 				sb.append("(");
@@ -2941,16 +3021,30 @@ public class AccountNotePersistenceImpl
 					String type = types[i];
 
 					if (type.isEmpty()) {
-						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_6);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_6);
 					}
 					else {
-						sb.append(_FINDER_COLUMN_AI_T_S_TYPE_5);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_TYPE_5);
 					}
 
 					if ((i + 1) < types.length) {
 						sb.append(WHERE_OR);
 					}
 				}
+
+				sb.append(")");
+
+				sb.append(WHERE_AND);
+			}
+
+			if (priorities.length > 0) {
+				sb.append("(");
+
+				sb.append(_FINDER_COLUMN_AI_T_P_S_PRIORITY_7);
+
+				sb.append(StringUtil.merge(priorities));
+
+				sb.append(")");
 
 				sb.append(")");
 
@@ -2964,10 +3058,10 @@ public class AccountNotePersistenceImpl
 					String status = statuses[i];
 
 					if (status.isEmpty()) {
-						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_3);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_3);
 					}
 					else {
-						sb.append(_FINDER_COLUMN_AI_T_S_STATUS_2);
+						sb.append(_FINDER_COLUMN_AI_T_P_S_STATUS_2);
 					}
 
 					if ((i + 1) < statuses.length) {
@@ -3009,11 +3103,12 @@ public class AccountNotePersistenceImpl
 				count = (Long)query.uniqueResult();
 
 				finderCache.putResult(
-					_finderPathWithPaginationCountByAI_T_S, finderArgs, count);
+					_finderPathWithPaginationCountByAI_T_P_S, finderArgs,
+					count);
 			}
 			catch (Exception exception) {
 				finderCache.removeResult(
-					_finderPathWithPaginationCountByAI_T_S, finderArgs);
+					_finderPathWithPaginationCountByAI_T_P_S, finderArgs);
 
 				throw processException(exception);
 			}
@@ -3025,25 +3120,31 @@ public class AccountNotePersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_AI_T_S_ACCOUNTID_2 =
+	private static final String _FINDER_COLUMN_AI_T_P_S_ACCOUNTID_2 =
 		"accountNote.accountId = ? AND ";
 
-	private static final String _FINDER_COLUMN_AI_T_S_TYPE_2 =
+	private static final String _FINDER_COLUMN_AI_T_P_S_TYPE_2 =
 		"accountNote.type = ? AND ";
 
-	private static final String _FINDER_COLUMN_AI_T_S_TYPE_3 =
+	private static final String _FINDER_COLUMN_AI_T_P_S_TYPE_3 =
 		"(accountNote.type IS NULL OR accountNote.type = '') AND ";
 
-	private static final String _FINDER_COLUMN_AI_T_S_TYPE_5 =
-		"(" + removeConjunction(_FINDER_COLUMN_AI_T_S_TYPE_2) + ")";
+	private static final String _FINDER_COLUMN_AI_T_P_S_TYPE_5 =
+		"(" + removeConjunction(_FINDER_COLUMN_AI_T_P_S_TYPE_2) + ")";
 
-	private static final String _FINDER_COLUMN_AI_T_S_TYPE_6 =
-		"(" + removeConjunction(_FINDER_COLUMN_AI_T_S_TYPE_3) + ")";
+	private static final String _FINDER_COLUMN_AI_T_P_S_TYPE_6 =
+		"(" + removeConjunction(_FINDER_COLUMN_AI_T_P_S_TYPE_3) + ")";
 
-	private static final String _FINDER_COLUMN_AI_T_S_STATUS_2 =
+	private static final String _FINDER_COLUMN_AI_T_P_S_PRIORITY_2 =
+		"accountNote.priority = ? AND ";
+
+	private static final String _FINDER_COLUMN_AI_T_P_S_PRIORITY_7 =
+		"accountNote.priority IN (";
+
+	private static final String _FINDER_COLUMN_AI_T_P_S_STATUS_2 =
 		"accountNote.status = ?";
 
-	private static final String _FINDER_COLUMN_AI_T_S_STATUS_3 =
+	private static final String _FINDER_COLUMN_AI_T_P_S_STATUS_3 =
 		"(accountNote.status IS NULL OR accountNote.status = '')";
 
 	public AccountNotePersistenceImpl() {
@@ -3404,12 +3505,14 @@ public class AccountNotePersistenceImpl
 
 			args = new Object[] {
 				accountNoteModelImpl.getAccountId(),
-				accountNoteModelImpl.getType(), accountNoteModelImpl.getStatus()
+				accountNoteModelImpl.getType(),
+				accountNoteModelImpl.getPriority(),
+				accountNoteModelImpl.getStatus()
 			};
 
-			finderCache.removeResult(_finderPathCountByAI_T_S, args);
+			finderCache.removeResult(_finderPathCountByAI_T_P_S, args);
 			finderCache.removeResult(
-				_finderPathWithoutPaginationFindByAI_T_S, args);
+				_finderPathWithoutPaginationFindByAI_T_P_S, args);
 
 			finderCache.removeResult(_finderPathCountAll, FINDER_ARGS_EMPTY);
 			finderCache.removeResult(
@@ -3478,28 +3581,30 @@ public class AccountNotePersistenceImpl
 			}
 
 			if ((accountNoteModelImpl.getColumnBitmask() &
-				 _finderPathWithoutPaginationFindByAI_T_S.getColumnBitmask()) !=
-					 0) {
+				 _finderPathWithoutPaginationFindByAI_T_P_S.
+					 getColumnBitmask()) != 0) {
 
 				Object[] args = new Object[] {
 					accountNoteModelImpl.getOriginalAccountId(),
 					accountNoteModelImpl.getOriginalType(),
+					accountNoteModelImpl.getOriginalPriority(),
 					accountNoteModelImpl.getOriginalStatus()
 				};
 
-				finderCache.removeResult(_finderPathCountByAI_T_S, args);
+				finderCache.removeResult(_finderPathCountByAI_T_P_S, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByAI_T_S, args);
+					_finderPathWithoutPaginationFindByAI_T_P_S, args);
 
 				args = new Object[] {
 					accountNoteModelImpl.getAccountId(),
 					accountNoteModelImpl.getType(),
+					accountNoteModelImpl.getPriority(),
 					accountNoteModelImpl.getStatus()
 				};
 
-				finderCache.removeResult(_finderPathCountByAI_T_S, args);
+				finderCache.removeResult(_finderPathCountByAI_T_P_S, args);
 				finderCache.removeResult(
-					_finderPathWithoutPaginationFindByAI_T_S, args);
+					_finderPathWithoutPaginationFindByAI_T_P_S, args);
 			}
 		}
 
@@ -3874,42 +3979,43 @@ public class AccountNotePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAccountId",
 			new String[] {Long.class.getName()});
 
-		_finderPathWithPaginationFindByAI_T_S = new FinderPath(
+		_finderPathWithPaginationFindByAI_T_P_S = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, AccountNoteImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAI_T_S",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByAI_T_P_S",
 			new String[] {
 				Long.class.getName(), String.class.getName(),
-				String.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), OrderByComparator.class.getName()
+				Integer.class.getName(), String.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
 			});
 
-		_finderPathWithoutPaginationFindByAI_T_S = new FinderPath(
+		_finderPathWithoutPaginationFindByAI_T_P_S = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, AccountNoteImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAI_T_S",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByAI_T_P_S",
 			new String[] {
 				Long.class.getName(), String.class.getName(),
-				String.class.getName()
+				Integer.class.getName(), String.class.getName()
 			},
 			AccountNoteModelImpl.ACCOUNTID_COLUMN_BITMASK |
 			AccountNoteModelImpl.TYPE_COLUMN_BITMASK |
-			AccountNoteModelImpl.STATUS_COLUMN_BITMASK |
 			AccountNoteModelImpl.PRIORITY_COLUMN_BITMASK |
+			AccountNoteModelImpl.STATUS_COLUMN_BITMASK |
 			AccountNoteModelImpl.CREATEDATE_COLUMN_BITMASK);
 
-		_finderPathCountByAI_T_S = new FinderPath(
+		_finderPathCountByAI_T_P_S = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAI_T_S",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAI_T_P_S",
 			new String[] {
 				Long.class.getName(), String.class.getName(),
-				String.class.getName()
+				Integer.class.getName(), String.class.getName()
 			});
 
-		_finderPathWithPaginationCountByAI_T_S = new FinderPath(
+		_finderPathWithPaginationCountByAI_T_P_S = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByAI_T_S",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByAI_T_P_S",
 			new String[] {
 				Long.class.getName(), String.class.getName(),
-				String.class.getName()
+				Integer.class.getName(), String.class.getName()
 			});
 	}
 

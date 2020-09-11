@@ -182,7 +182,7 @@ public class AccountNoteServiceHttp {
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.AccountNote> getAccountNotes(
 				HttpPrincipal httpPrincipal, long accountId, String[] types,
-				String[] statuses, int start, int end)
+				int[] priorities, String[] statuses, int start, int end)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -191,7 +191,7 @@ public class AccountNoteServiceHttp {
 				_getAccountNotesParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, types, statuses, start, end);
+				methodKey, accountId, types, priorities, statuses, start, end);
 
 			Object returnObj = null;
 
@@ -224,7 +224,7 @@ public class AccountNoteServiceHttp {
 
 	public static int getAccountNotesCount(
 			HttpPrincipal httpPrincipal, long accountId, String[] types,
-			String[] statuses)
+			int[] priorities, String[] statuses)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -233,7 +233,7 @@ public class AccountNoteServiceHttp {
 				_getAccountNotesCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, accountId, types, statuses);
+				methodKey, accountId, types, priorities, statuses);
 
 			Object returnObj = null;
 
@@ -322,10 +322,11 @@ public class AccountNoteServiceHttp {
 		new Class[] {String.class};
 	private static final Class<?>[] _getAccountNotesParameterTypes3 =
 		new Class[] {
-			long.class, String[].class, String[].class, int.class, int.class
+			long.class, String[].class, int[].class, String[].class, int.class,
+			int.class
 		};
 	private static final Class<?>[] _getAccountNotesCountParameterTypes4 =
-		new Class[] {long.class, String[].class, String[].class};
+		new Class[] {long.class, String[].class, int[].class, String[].class};
 	private static final Class<?>[] _updateAccountNoteParameterTypes5 =
 		new Class[] {
 			long.class, String.class, String.class, int.class, String.class,

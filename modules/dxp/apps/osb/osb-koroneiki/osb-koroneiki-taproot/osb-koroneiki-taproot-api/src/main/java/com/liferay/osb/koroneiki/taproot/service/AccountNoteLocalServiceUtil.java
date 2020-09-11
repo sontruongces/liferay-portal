@@ -292,11 +292,11 @@ public class AccountNoteLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.osb.koroneiki.taproot.model.AccountNote> getAccountNotes(
-			long accountId, String[] types, String[] statuses, int start,
-			int end) {
+			long accountId, String[] types, int[] priorities, String[] statuses,
+			int start, int end) {
 
 		return getService().getAccountNotes(
-			accountId, types, statuses, start, end);
+			accountId, types, priorities, statuses, start, end);
 	}
 
 	/**
@@ -313,9 +313,10 @@ public class AccountNoteLocalServiceUtil {
 	}
 
 	public static int getAccountNotesCount(
-		long accountId, String[] types, String[] statuses) {
+		long accountId, String[] types, int[] priorities, String[] statuses) {
 
-		return getService().getAccountNotesCount(accountId, types, statuses);
+		return getService().getAccountNotesCount(
+			accountId, types, priorities, statuses);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

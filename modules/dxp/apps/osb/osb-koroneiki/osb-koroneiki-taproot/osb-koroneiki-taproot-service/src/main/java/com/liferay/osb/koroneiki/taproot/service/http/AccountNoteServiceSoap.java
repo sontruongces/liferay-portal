@@ -122,14 +122,14 @@ public class AccountNoteServiceSoap {
 
 	public static com.liferay.osb.koroneiki.taproot.model.AccountNoteSoap[]
 			getAccountNotes(
-				long accountId, String[] types, String[] statuses, int start,
-				int end)
+				long accountId, String[] types, int[] priorities,
+				String[] statuses, int start, int end)
 		throws RemoteException {
 
 		try {
 			java.util.List<com.liferay.osb.koroneiki.taproot.model.AccountNote>
 				returnValue = AccountNoteServiceUtil.getAccountNotes(
-					accountId, types, statuses, start, end);
+					accountId, types, priorities, statuses, start, end);
 
 			return com.liferay.osb.koroneiki.taproot.model.AccountNoteSoap.
 				toSoapModels(returnValue);
@@ -142,12 +142,12 @@ public class AccountNoteServiceSoap {
 	}
 
 	public static int getAccountNotesCount(
-			long accountId, String[] types, String[] statuses)
+			long accountId, String[] types, int[] priorities, String[] statuses)
 		throws RemoteException {
 
 		try {
 			int returnValue = AccountNoteServiceUtil.getAccountNotesCount(
-				accountId, types, statuses);
+				accountId, types, priorities, statuses);
 
 			return returnValue;
 		}

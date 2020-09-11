@@ -134,13 +134,13 @@ public class AccountNoteModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 4L;
 
-	public static final long STATUS_COLUMN_BITMASK = 8L;
+	public static final long PRIORITY_COLUMN_BITMASK = 8L;
 
-	public static final long TYPE_COLUMN_BITMASK = 16L;
+	public static final long STATUS_COLUMN_BITMASK = 16L;
 
-	public static final long UUID_COLUMN_BITMASK = 32L;
+	public static final long TYPE_COLUMN_BITMASK = 32L;
 
-	public static final long PRIORITY_COLUMN_BITMASK = 64L;
+	public static final long UUID_COLUMN_BITMASK = 64L;
 
 	public static final long CREATEDATE_COLUMN_BITMASK = 128L;
 
@@ -690,7 +690,19 @@ public class AccountNoteModelImpl
 
 	@Override
 	public void setPriority(int priority) {
+		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
+
+		if (!_setOriginalPriority) {
+			_setOriginalPriority = true;
+
+			_originalPriority = _priority;
+		}
+
 		_priority = priority;
+	}
+
+	public int getOriginalPriority() {
+		return _originalPriority;
 	}
 
 	@JSON
@@ -901,6 +913,10 @@ public class AccountNoteModelImpl
 		_setOriginalAccountId = false;
 
 		_originalType = _type;
+
+		_originalPriority = _priority;
+
+		_setOriginalPriority = false;
 
 		_originalStatus = _status;
 
@@ -1121,6 +1137,8 @@ public class AccountNoteModelImpl
 	private String _type;
 	private String _originalType;
 	private int _priority;
+	private int _originalPriority;
+	private boolean _setOriginalPriority;
 	private String _content;
 	private String _format;
 	private String _status;

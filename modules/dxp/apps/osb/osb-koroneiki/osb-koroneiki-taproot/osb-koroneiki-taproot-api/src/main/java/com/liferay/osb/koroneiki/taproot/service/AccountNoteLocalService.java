@@ -254,7 +254,8 @@ public interface AccountNoteLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<AccountNote> getAccountNotes(
-		long accountId, String[] types, String[] statuses, int start, int end);
+		long accountId, String[] types, int[] priorities, String[] statuses,
+		int start, int end);
 
 	/**
 	 * Returns the number of account notes.
@@ -269,7 +270,7 @@ public interface AccountNoteLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getAccountNotesCount(
-		long accountId, String[] types, String[] statuses);
+		long accountId, String[] types, int[] priorities, String[] statuses);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
