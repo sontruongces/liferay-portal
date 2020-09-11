@@ -204,7 +204,7 @@ public abstract class BaseNoteResourceTestCase {
 	public void testGetAccountAccountKeyNotesPage() throws Exception {
 		Page<Note> page = noteResource.getAccountAccountKeyNotesPage(
 			testGetAccountAccountKeyNotesPage_getAccountKey(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), null, RandomTestUtil.randomString(),
 			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
@@ -218,7 +218,7 @@ public abstract class BaseNoteResourceTestCase {
 				irrelevantAccountKey, randomIrrelevantNote());
 
 			page = noteResource.getAccountAccountKeyNotesPage(
-				irrelevantAccountKey, null, null, Pagination.of(1, 2));
+				irrelevantAccountKey, null, null, null, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -234,7 +234,7 @@ public abstract class BaseNoteResourceTestCase {
 			accountKey, randomNote());
 
 		page = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, null, null, Pagination.of(1, 2));
+			accountKey, null, null, null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -259,14 +259,14 @@ public abstract class BaseNoteResourceTestCase {
 			accountKey, randomNote());
 
 		Page<Note> page1 = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, null, null, Pagination.of(1, 2));
+			accountKey, null, null, null, Pagination.of(1, 2));
 
 		List<Note> notes1 = (List<Note>)page1.getItems();
 
 		Assert.assertEquals(notes1.toString(), 2, notes1.size());
 
 		Page<Note> page2 = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, null, null, Pagination.of(2, 2));
+			accountKey, null, null, null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -275,7 +275,7 @@ public abstract class BaseNoteResourceTestCase {
 		Assert.assertEquals(notes2.toString(), 1, notes2.size());
 
 		Page<Note> page3 = noteResource.getAccountAccountKeyNotesPage(
-			accountKey, null, null, Pagination.of(1, 3));
+			accountKey, null, null, null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(note1, note2, note3), (List<Note>)page3.getItems());

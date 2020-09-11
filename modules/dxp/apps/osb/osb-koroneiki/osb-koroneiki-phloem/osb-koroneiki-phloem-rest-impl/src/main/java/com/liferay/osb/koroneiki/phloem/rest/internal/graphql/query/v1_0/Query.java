@@ -1270,13 +1270,14 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyNotes(accountKey: ___, page: ___, pageSize: ___, status: ___, type: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {accountAccountKeyNotes(accountKey: ___, page: ___, pageSize: ___, priority: ___, status: ___, type: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the account's notes.")
 	public NotePage accountAccountKeyNotes(
 			@GraphQLName("accountKey") String accountKey,
-			@GraphQLName("status") String status,
 			@GraphQLName("type") String type,
+			@GraphQLName("priority") Integer priority,
+			@GraphQLName("status") String status,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -1286,7 +1287,8 @@ public class Query {
 			this::_populateResourceContext,
 			noteResource -> new NotePage(
 				noteResource.getAccountAccountKeyNotesPage(
-					accountKey, status, type, Pagination.of(page, pageSize))));
+					accountKey, type, priority, status,
+					Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -2144,8 +2146,9 @@ public class Query {
 
 		@GraphQLField(description = "Retrieves the account's notes.")
 		public NotePage accountKeyNotes(
-				@GraphQLName("status") String status,
 				@GraphQLName("type") String type,
+				@GraphQLName("priority") Integer priority,
+				@GraphQLName("status") String status,
 				@GraphQLName("pageSize") int pageSize,
 				@GraphQLName("page") int page)
 			throws Exception {
@@ -2155,7 +2158,7 @@ public class Query {
 				Query.this::_populateResourceContext,
 				noteResource -> new NotePage(
 					noteResource.getAccountAccountKeyNotesPage(
-						_account.getKey(), status, type,
+						_account.getKey(), type, priority, status,
 						Pagination.of(page, pageSize))));
 		}
 

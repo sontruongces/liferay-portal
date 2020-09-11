@@ -47,7 +47,7 @@ public interface NoteResource {
 	}
 
 	public Page<Note> getAccountAccountKeyNotesPage(
-			String accountKey, String status, String type,
+			String accountKey, String type, Integer priority, String status,
 			Pagination pagination)
 		throws Exception;
 
