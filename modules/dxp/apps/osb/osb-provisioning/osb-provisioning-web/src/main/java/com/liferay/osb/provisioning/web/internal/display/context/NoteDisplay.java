@@ -15,6 +15,7 @@
 package com.liferay.osb.provisioning.web.internal.display.context;
 
 import com.liferay.osb.koroneiki.phloem.rest.client.dto.v1_0.Note;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -74,8 +75,10 @@ public class NoteDisplay {
 			(ThemeDisplay)_httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		User user = themeDisplay.getUser();
+
 		return UserConstants.getPortraitURL(
-			themeDisplay.getPathImage(), true, 0, StringPool.BLANK);
+			themeDisplay.getPathImage(), true, 0, user.getUuid());
 	}
 
 	public String getDeleteNoteURL() {

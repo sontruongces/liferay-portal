@@ -74,7 +74,7 @@ public class EditAccountHierarchyMVCActionCommand extends BaseMVCActionCommand {
 			account.setParentAccountKey(parentAccountKey);
 
 			_accountWebService.updateAccount(
-				user.getFullName(), StringPool.BLANK, accountKey, account);
+				user.getFullName(), user.getUuid(), accountKey, account);
 
 			if (!ArrayUtil.isEmpty(addChildAccountKeys)) {
 				for (String childAccountKey : addChildAccountKeys) {
@@ -83,7 +83,7 @@ public class EditAccountHierarchyMVCActionCommand extends BaseMVCActionCommand {
 					childAccount.setParentAccountKey(accountKey);
 
 					_accountWebService.updateAccount(
-						user.getFullName(), StringPool.BLANK, childAccountKey,
+						user.getFullName(), user.getUuid(), childAccountKey,
 						childAccount);
 				}
 			}
@@ -95,7 +95,7 @@ public class EditAccountHierarchyMVCActionCommand extends BaseMVCActionCommand {
 					childAccount.setParentAccountKey(StringPool.BLANK);
 
 					_accountWebService.updateAccount(
-						user.getFullName(), StringPool.BLANK, childAccountKey,
+						user.getFullName(), user.getUuid(), childAccountKey,
 						childAccount);
 				}
 			}

@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -63,7 +62,7 @@ public class UnassignAccountWorkerContactMVCActionCommand
 				actionRequest, "emailAddress");
 
 			_accountWebService.unassignWorkerContact(
-				user.getFullName(), StringPool.BLANK, accountKey, emailAddress);
+				user.getFullName(), user.getUuid(), accountKey, emailAddress);
 
 			sendRedirect(actionRequest, actionResponse);
 		}

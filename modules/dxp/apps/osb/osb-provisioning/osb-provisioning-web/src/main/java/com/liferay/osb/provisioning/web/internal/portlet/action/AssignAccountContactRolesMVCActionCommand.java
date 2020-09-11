@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -71,13 +70,13 @@ public class AssignAccountContactRolesMVCActionCommand
 
 			if (!ArrayUtil.isEmpty(addContactRoleKeys)) {
 				_accountWebService.assignContactRoles(
-					user.getFullName(), StringPool.BLANK, accountKey,
+					user.getFullName(), user.getUuid(), accountKey,
 					emailAddress, addContactRoleKeys);
 			}
 
 			if (!ArrayUtil.isEmpty(deleteContactRoleKeys)) {
 				_accountWebService.unassignContactRoles(
-					user.getFullName(), StringPool.BLANK, accountKey,
+					user.getFullName(), user.getUuid(), accountKey,
 					emailAddress, deleteContactRoleKeys);
 			}
 

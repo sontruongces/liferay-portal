@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -98,12 +97,12 @@ public class EditAccountNoteMVCActionCommand extends BaseMVCActionCommand {
 			String type = ParamUtil.getString(actionRequest, "type");
 
 			_accountNoteLocalService.addAccountNote(
-				user.getUserId(), StringPool.BLANK, user.getFullName(),
-				accountId, type, priority, content, format, status);
+				user.getUserId(), user.getUuid(), user.getFullName(), accountId,
+				type, priority, content, format, status);
 		}
 		else {
 			_accountNoteLocalService.updateAccountNote(
-				accountNoteId, StringPool.BLANK, user.getFullName(), priority,
+				accountNoteId, user.getUuid(), user.getFullName(), priority,
 				content, format, status);
 		}
 	}

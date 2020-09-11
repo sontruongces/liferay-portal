@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -84,7 +83,6 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "emailAddress");
 
 		String uuid = ParamUtil.getString(actionRequest, "uuid");
-		String oktaId = ParamUtil.getString(actionRequest, "oktaId");
 		String firstName = ParamUtil.getString(actionRequest, "firstName");
 		String middleName = ParamUtil.getString(actionRequest, "middleName");
 		String lastName = ParamUtil.getString(actionRequest, "lastName");
@@ -95,14 +93,13 @@ public class EditContactMVCActionCommand extends BaseMVCActionCommand {
 
 		contact.setEmailAddress(emailAddress);
 		contact.setUuid(uuid);
-		contact.setOktaId(oktaId);
 		contact.setFirstName(firstName);
 		contact.setMiddleName(middleName);
 		contact.setLastName(lastName);
 		contact.setEmailAddressVerified(emailAddressVerified);
 
 		_contactWebservice.updateContact(
-			user.getFullName(), StringPool.BLANK, emailAddress, contact);
+			user.getFullName(), user.getUuid(), emailAddress, contact);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

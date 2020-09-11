@@ -35,7 +35,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -72,7 +71,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		if (count == 0) {
 			_productWebService.deleteProduct(
-				user.getFullName(), StringPool.BLANK, productKey);
+				user.getFullName(), user.getUuid(), productKey);
 		}
 		else {
 			throw new RequiredProductException();
@@ -150,12 +149,12 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 					if (externalLink == null) {
 						_externalLinkWebService.deleteExternalLink(
-							user.getFullName(), StringPool.BLANK,
+							user.getFullName(), user.getUuid(),
 							curExternalLink.getKey());
 					}
 					else {
 						_externalLinkWebService.updateExternalLink(
-							user.getFullName(), StringPool.BLANK,
+							user.getFullName(), user.getUuid(),
 							curExternalLink.getKey(), externalLink);
 					}
 
@@ -166,7 +165,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		if (externalLink != null) {
 			_externalLinkWebService.addProductExternalLink(
-				user.getFullName(), StringPool.BLANK, productKey, externalLink);
+				user.getFullName(), user.getUuid(), productKey, externalLink);
 		}
 	}
 
@@ -206,7 +205,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 
 		if (Validator.isNull(productKey)) {
 			product = _productWebService.addProduct(
-				user.getFullName(), StringPool.BLANK, product);
+				user.getFullName(), user.getUuid(), product);
 
 			productKey = product.getKey();
 		}
@@ -214,7 +213,7 @@ public class EditProductMVCActionCommand extends BaseMVCActionCommand {
 			updateDossieraMapping(user, productKey, externalLink);
 
 			_productWebService.updateProduct(
-				user.getFullName(), StringPool.BLANK, productKey, product);
+				user.getFullName(), user.getUuid(), productKey, product);
 		}
 
 		return productKey;

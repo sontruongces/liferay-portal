@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -66,8 +65,7 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 
 		String noteKey = ParamUtil.getString(actionRequest, "noteKey");
 
-		_noteWebService.deleteNote(
-			user.getFullName(), StringPool.BLANK, noteKey);
+		_noteWebService.deleteNote(user.getFullName(), user.getUuid(), noteKey);
 
 		return JSONUtil.put(
 			"successMessage",
@@ -162,7 +160,7 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 
 		if (Validator.isNotNull(noteKey)) {
 			note = _noteWebService.updateNote(
-				user.getFullName(), StringPool.BLANK, noteKey, note);
+				user.getFullName(), user.getUuid(), noteKey, note);
 
 			jsonObject = JSONUtil.put(
 				"note", _createJSONObject(actionRequest, actionResponse, note)
@@ -176,7 +174,7 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			note.setType(Note.Type.create(type));
 
 			note = _noteWebService.addNote(
-				user.getFullName(), StringPool.BLANK, accountKey, note);
+				user.getFullName(), user.getUuid(), accountKey, note);
 
 			jsonObject = JSONUtil.put(
 				"note", _createJSONObject(actionRequest, actionResponse, note)

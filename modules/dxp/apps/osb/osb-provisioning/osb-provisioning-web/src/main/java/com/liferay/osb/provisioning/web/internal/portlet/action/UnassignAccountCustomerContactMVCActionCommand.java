@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.HashSet;
@@ -82,7 +81,7 @@ public class UnassignAccountCustomerContactMVCActionCommand
 				User user = themeDisplay.getUser();
 
 				_accountWebService.unassignCustomerContact(
-					user.getFullName(), StringPool.BLANK, accountKey,
+					user.getFullName(), user.getUuid(), accountKey,
 					emailAddress);
 			}
 			else {

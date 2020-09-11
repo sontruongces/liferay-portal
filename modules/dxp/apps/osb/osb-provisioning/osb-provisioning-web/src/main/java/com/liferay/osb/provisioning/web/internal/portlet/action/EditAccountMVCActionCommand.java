@@ -91,7 +91,7 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		Account newAccount = _accountWebService.addAccount(
-			user.getFullName(), StringPool.BLANK, account);
+			user.getFullName(), user.getUuid(), account);
 
 		sendRedirect(
 			actionRequest, actionResponse,
@@ -188,7 +188,7 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 			}
 
 			_accountWebService.updateAccount(
-				user.getFullName(), StringPool.BLANK, accountKey, account);
+				user.getFullName(), user.getUuid(), accountKey, account);
 		}
 
 		boolean updatePartner = ParamUtil.getBoolean(
@@ -238,13 +238,13 @@ public class EditAccountMVCActionCommand extends BaseMVCActionCommand {
 			}
 
 			_accountWebService.unassignTeamRoles(
-				user.getFullName(), StringPool.BLANK, accountKey, team.getKey(),
+				user.getFullName(), user.getUuid(), accountKey, team.getKey(),
 				new String[] {teamRole.getKey()});
 		}
 
 		if (Validator.isNotNull(teamKey)) {
 			_accountWebService.assignTeamRoles(
-				user.getFullName(), StringPool.BLANK, accountKey, teamKey,
+				user.getFullName(), user.getUuid(), accountKey, teamKey,
 				new String[] {teamRole.getKey()});
 		}
 	}

@@ -36,7 +36,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -65,7 +64,7 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "postalAddressId");
 
 		_postalAddressWebService.deletePostalAddress(
-			user.getFullName(), StringPool.BLANK, postalAddressId);
+			user.getFullName(), user.getUuid(), postalAddressId);
 	}
 
 	@Override
@@ -172,13 +171,12 @@ public class EditPostalAddressMVCActionCommand extends BaseMVCActionCommand {
 
 		if (postalAddressId > 0) {
 			_postalAddressWebService.updatePostalAddress(
-				user.getFullName(), StringPool.BLANK, postalAddressId,
+				user.getFullName(), user.getUuid(), postalAddressId,
 				postalAddress);
 		}
 		else {
 			_postalAddressWebService.addPostalAddress(
-				user.getFullName(), StringPool.BLANK, accountKey,
-				postalAddress);
+				user.getFullName(), user.getUuid(), accountKey, postalAddress);
 		}
 	}
 

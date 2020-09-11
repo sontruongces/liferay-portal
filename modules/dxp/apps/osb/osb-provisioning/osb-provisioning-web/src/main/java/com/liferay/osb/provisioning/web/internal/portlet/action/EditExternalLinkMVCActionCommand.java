@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -56,7 +55,7 @@ public class EditExternalLinkMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "externalLinkKey");
 
 		_externalLinkWebService.deleteExternalLink(
-			user.getFullName(), StringPool.BLANK, externalLinkKey);
+			user.getFullName(), user.getUuid(), externalLinkKey);
 	}
 
 	@Override
@@ -113,12 +112,12 @@ public class EditExternalLinkMVCActionCommand extends BaseMVCActionCommand {
 
 		if (Validator.isNotNull(externalLinkKey)) {
 			_externalLinkWebService.updateExternalLink(
-				user.getFullName(), StringPool.BLANK, externalLinkKey,
+				user.getFullName(), user.getUuid(), externalLinkKey,
 				externalLink);
 		}
 		else {
 			_externalLinkWebService.addAccountExternalLink(
-				user.getFullName(), StringPool.BLANK, accountKey, externalLink);
+				user.getFullName(), user.getUuid(), accountKey, externalLink);
 		}
 	}
 

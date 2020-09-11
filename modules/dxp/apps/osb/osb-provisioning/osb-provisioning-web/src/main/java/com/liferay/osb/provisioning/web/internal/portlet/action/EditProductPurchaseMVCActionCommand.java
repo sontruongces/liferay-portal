@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -213,12 +212,12 @@ public class EditProductPurchaseMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "accountKey");
 
 			_productPurchaseWebService.addProductPurchase(
-				user.getFullName(), StringPool.BLANK, accountKey,
+				user.getFullName(), user.getUuid(), accountKey,
 				productPurchase);
 		}
 		else {
 			_productPurchaseWebService.updateProductPurchase(
-				user.getFullName(), StringPool.BLANK, productPurchaseKey,
+				user.getFullName(), user.getUuid(), productPurchaseKey,
 				productPurchase);
 		}
 	}

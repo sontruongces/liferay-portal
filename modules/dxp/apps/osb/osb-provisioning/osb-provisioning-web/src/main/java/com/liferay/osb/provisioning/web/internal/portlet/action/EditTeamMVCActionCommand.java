@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -58,8 +57,7 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 		String teamKey = ParamUtil.getString(actionRequest, "teamKey");
 
-		_teamWebService.deleteTeam(
-			user.getFullName(), StringPool.BLANK, teamKey);
+		_teamWebService.deleteTeam(user.getFullName(), user.getUuid(), teamKey);
 	}
 
 	@Override
@@ -127,14 +125,14 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 			if (Validator.isNotNull(teamKey)) {
 				team = _teamWebService.updateTeam(
-					user.getFullName(), StringPool.BLANK, teamKey, team);
+					user.getFullName(), user.getUuid(), teamKey, team);
 			}
 			else {
 				String accountKey = ParamUtil.getString(
 					actionRequest, "accountKey");
 
 				team = _teamWebService.addTeam(
-					user.getFullName(), StringPool.BLANK, accountKey, team);
+					user.getFullName(), user.getUuid(), accountKey, team);
 			}
 
 			teamKey = team.getKey();
@@ -147,13 +145,12 @@ public class EditTeamMVCActionCommand extends BaseMVCActionCommand {
 
 		if (!ArrayUtil.isEmpty(addEmailAddresses)) {
 			_teamWebService.assignContacts(
-				user.getFullName(), StringPool.BLANK, teamKey,
-				addEmailAddresses);
+				user.getFullName(), user.getUuid(), teamKey, addEmailAddresses);
 		}
 
 		if (!ArrayUtil.isEmpty(deleteEmailAddresses)) {
 			_teamWebService.unassignContacts(
-				user.getFullName(), StringPool.BLANK, teamKey,
+				user.getFullName(), user.getUuid(), teamKey,
 				deleteEmailAddresses);
 		}
 
