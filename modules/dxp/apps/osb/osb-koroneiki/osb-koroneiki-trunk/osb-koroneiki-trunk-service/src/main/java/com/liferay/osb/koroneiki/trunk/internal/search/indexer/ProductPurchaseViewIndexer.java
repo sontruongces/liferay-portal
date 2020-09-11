@@ -226,6 +226,8 @@ public class ProductPurchaseViewIndexer
 		document.addDate(
 			"supportLifeStartDate", getStartDate(productPurchases));
 
+		document.addTextSortable("name", productEntry.getName());
+
 		_contributeContacts(document, account.getAccountId());
 
 		List<ProductField> productFields = productEntry.getProductFields();

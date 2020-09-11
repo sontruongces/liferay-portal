@@ -59,7 +59,8 @@ public class ProductPurchaseViewEntityModel implements EntityModel {
 			new CollectionEntityField(
 				new StringEntityField(
 					"customerContactUuids", locale -> "customerContactUuids")),
-			new StringEntityField("name", locale -> "name"),
+			new StringEntityField(
+				"name", locale -> Field.getSortableFieldName("name_String")),
 			new StringEntityField("perpetual", locale -> "perpetual"),
 			new StringEntityField("productKey", locale -> "productKey"),
 			new IntegerEntityField(
