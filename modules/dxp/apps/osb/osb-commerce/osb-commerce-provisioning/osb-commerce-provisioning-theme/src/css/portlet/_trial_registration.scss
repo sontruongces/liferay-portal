@@ -19,13 +19,13 @@
 
 	.instance-status {
 		.loading-animation-sm {
-			font-size: .8em;
+			font-size: 0.8em;
 			padding: 0;
 		}
 
 		span {
 			display: inline-block;
-			font-size: .8rem;
+			font-size: 0.8rem;
 			margin: 0 4px 0 0;
 		}
 
@@ -36,7 +36,7 @@
 	}
 
 	.form-container {
-		background-color: #FFF;
+		background-color: #fff;
 		box-shadow: $box-shadow-hover;
 		box-sizing: border-box;
 		margin: 0 auto;
@@ -47,7 +47,7 @@
 			color: $gray-900;
 			font-size: 12px;
 			font-weight: 300;
-			margin: 1em 0 1.5em 0;
+			margin: 1em 0 1.5em;
 		}
 
 		button,
@@ -76,14 +76,14 @@
 		color: $gray-900;
 		font-size: 12px;
 		font-weight: 300;
-		margin: 1em 0 1.5em 0;
+		margin: 1em 0 1.5em;
 	}
 
-	​ .form-container .success.hide {
+	.form-container .success.hide {
 		display: none;
 	}
 
-	​ .form-container .success.show {
+	.form-container .success.show {
 		display: block;
 	}
 }
