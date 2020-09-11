@@ -353,13 +353,11 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		}
 
 		for (Contact contact : contacts) {
+			Contact koroneikiContact =
+				_contactWebService.getContactByEmailAddress(
+					contact.getEmailAddress());
 
-			// TODO
-			// Okta Integration
-
-			boolean oktaContact = true;
-
-			if (!oktaContact) {
+			if (koroneikiContact == null) {
 				sendUserCreationEmail(contact, account, analyticsCloud);
 			}
 		}

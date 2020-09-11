@@ -24,6 +24,7 @@ import com.liferay.osb.koroneiki.phloem.rest.internal.odata.entity.v1_0.ContactE
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.PhloemPermissionUtil;
 import com.liferay.osb.koroneiki.phloem.rest.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.osb.koroneiki.phloem.rest.resource.v1_0.ContactResource;
+import com.liferay.osb.koroneiki.root.identity.management.provider.ContactIdentityProvider;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactService;
 import com.liferay.osb.koroneiki.taproot.service.TeamLocalService;
@@ -177,7 +178,7 @@ public class ContactResourceImpl
 		throws Exception {
 
 		return ContactUtil.toContact(
-			_contactService.getContactByEmailAddress(emailAddress));
+			_webContactIdentityProvider.getContactByEmailAddress(emailAddress));
 	}
 
 	@Override
@@ -185,7 +186,7 @@ public class ContactResourceImpl
 		throws Exception {
 
 		return ContactUtil.toContact(
-			_contactService.getContactByUuid(contactUuid));
+			_webContactIdentityProvider.getContactByProviderId(contactUuid));
 	}
 
 	@Override
@@ -376,5 +377,8 @@ public class ContactResourceImpl
 
 	@Reference
 	private TeamLocalService _teamLocalService;
+
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _webContactIdentityProvider;
 
 }
