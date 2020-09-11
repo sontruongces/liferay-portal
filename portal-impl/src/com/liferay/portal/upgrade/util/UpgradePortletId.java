@@ -168,28 +168,6 @@ public class UpgradePortletId extends UpgradeProcess {
 		return new String[0];
 	}
 
-	/**
-	 * @deprecated As of Mueller (7.2.x), with no direct replacement
-	 */
-	@Deprecated
-	protected void updateGroup(long groupId, String typeSettings)
-		throws Exception {
-
-		String sql =
-			"update Group_ set typeSettings = ? where groupId = " + groupId;
-
-		try (PreparedStatement ps = connection.prepareStatement(sql)) {
-			ps.setString(1, typeSettings);
-
-			ps.executeUpdate();
-		}
-		catch (SQLException sqlException) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(sqlException, sqlException);
-			}
-		}
-	}
-
 	protected void updateGroup(String oldRootPortletId, String newRootPortletId)
 		throws Exception {
 
