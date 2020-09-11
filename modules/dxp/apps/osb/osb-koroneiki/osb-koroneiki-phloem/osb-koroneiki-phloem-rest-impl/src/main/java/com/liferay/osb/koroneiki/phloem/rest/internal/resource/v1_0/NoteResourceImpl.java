@@ -66,16 +66,16 @@ public class NoteResourceImpl extends BaseNoteResourceImpl {
 			types = new String[] {type};
 		}
 
-		String[] statuses = new String[0];
-
-		if (Validator.isNotNull(status)) {
-			statuses = new String[] {status};
-		}
-
 		int[] priorities = new int[0];
 
 		if ((priority != null) && (priority > 0)) {
 			priorities = new int[] {priority.intValue()};
+		}
+
+		String[] statuses = new String[0];
+
+		if (Validator.isNotNull(status)) {
+			statuses = new String[] {status};
 		}
 
 		return Page.of(

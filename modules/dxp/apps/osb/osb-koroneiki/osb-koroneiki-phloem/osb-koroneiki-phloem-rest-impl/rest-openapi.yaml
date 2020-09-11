@@ -2187,15 +2187,15 @@ paths:
                   schema:
                       type: string
                 - in: query
-                  name: type
-                  schema:
-                      type: string
-                - in: query
                   name: priority
                   schema:
                       type: integer
                 - in: query
                   name: status
+                  schema:
+                      type: string
+                - in: query
+                  name: type
                   schema:
                       type: string
                 - in: query
