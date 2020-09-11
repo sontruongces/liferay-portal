@@ -46,8 +46,6 @@ Contact koroneikiContact = (Contact)renderRequest.getAttribute(ProvisioningWebKe
 
 			<aui:input name="uuid" value="<%= koroneikiContact.getUuid() %>" />
 
-			<aui:input name="oktaId" value="<%= koroneikiContact.getOktaId() %>" />
-
 			<aui:input name="firstName" value="<%= koroneikiContact.getFirstName() %>" />
 
 			<aui:input name="middleName" value="<%= koroneikiContact.getMiddleName() %>" />
