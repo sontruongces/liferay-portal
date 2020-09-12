@@ -77,9 +77,9 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "accountKey"),
-			@Parameter(in = ParameterIn.QUERY, name = "type"),
 			@Parameter(in = ParameterIn.QUERY, name = "priority"),
 			@Parameter(in = ParameterIn.QUERY, name = "status"),
+			@Parameter(in = ParameterIn.QUERY, name = "type"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
@@ -90,9 +90,9 @@ public abstract class BaseNoteResourceImpl implements NoteResource {
 	public Page<Note> getAccountAccountKeyNotesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("accountKey") String
 				accountKey,
-			@Parameter(hidden = true) @QueryParam("type") String type,
 			@Parameter(hidden = true) @QueryParam("priority") Integer priority,
 			@Parameter(hidden = true) @QueryParam("status") String status,
+			@Parameter(hidden = true) @QueryParam("type") String type,
 			@Context Pagination pagination)
 		throws Exception {
 

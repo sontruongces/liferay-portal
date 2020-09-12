@@ -41,12 +41,12 @@ public interface NoteResource {
 	}
 
 	public Page<Note> getAccountAccountKeyNotesPage(
-			String accountKey, String type, Integer priority, String status,
+			String accountKey, Integer priority, String status, String type,
 			Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getAccountAccountKeyNotesPageHttpResponse(
-			String accountKey, String type, Integer priority, String status,
+			String accountKey, Integer priority, String status, String type,
 			Pagination pagination)
 		throws Exception;
 
@@ -134,13 +134,13 @@ public interface NoteResource {
 	public static class NoteResourceImpl implements NoteResource {
 
 		public Page<Note> getAccountAccountKeyNotesPage(
-				String accountKey, String type, Integer priority, String status,
+				String accountKey, Integer priority, String status, String type,
 				Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getAccountAccountKeyNotesPageHttpResponse(
-					accountKey, type, priority, status, pagination);
+					accountKey, priority, status, type, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -164,8 +164,8 @@ public interface NoteResource {
 
 		public HttpInvoker.HttpResponse
 				getAccountAccountKeyNotesPageHttpResponse(
-					String accountKey, String type, Integer priority,
-					String status, Pagination pagination)
+					String accountKey, Integer priority, String status,
+					String type, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -189,16 +189,16 @@ public interface NoteResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
-			if (type != null) {
-				httpInvoker.parameter("type", String.valueOf(type));
-			}
-
 			if (priority != null) {
 				httpInvoker.parameter("priority", String.valueOf(priority));
 			}
 
 			if (status != null) {
 				httpInvoker.parameter("status", String.valueOf(status));
+			}
+
+			if (type != null) {
+				httpInvoker.parameter("type", String.valueOf(type));
 			}
 
 			if (pagination != null) {

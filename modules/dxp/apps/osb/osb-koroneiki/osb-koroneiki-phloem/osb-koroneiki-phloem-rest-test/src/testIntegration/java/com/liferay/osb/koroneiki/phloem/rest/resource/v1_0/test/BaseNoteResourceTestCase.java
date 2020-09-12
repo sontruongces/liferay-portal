@@ -203,8 +203,8 @@ public abstract class BaseNoteResourceTestCase {
 	@Test
 	public void testGetAccountAccountKeyNotesPage() throws Exception {
 		Page<Note> page = noteResource.getAccountAccountKeyNotesPage(
-			testGetAccountAccountKeyNotesPage_getAccountKey(),
-			RandomTestUtil.randomString(), null, RandomTestUtil.randomString(),
+			testGetAccountAccountKeyNotesPage_getAccountKey(), null,
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
 			Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
