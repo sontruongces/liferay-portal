@@ -183,8 +183,8 @@ public class LayoutModelDocumentContributor
 		searchContext.setBooleanClauses(new BooleanClause[] {booleanClause});
 
 		searchContext.setCompanyId(stagingGroup.getCompanyId());
-		searchContext.setGroupIds(new long[] {stagingGroup.getGroupId()});
 		searchContext.setEntryClassNames(new String[] {Layout.class.getName()});
+		searchContext.setGroupIds(new long[] {stagingGroup.getGroupId()});
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(
 			Layout.class.getName());

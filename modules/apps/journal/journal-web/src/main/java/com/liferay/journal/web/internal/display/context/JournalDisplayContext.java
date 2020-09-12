@@ -1101,14 +1101,14 @@ public class JournalDisplayContext {
 				"params", params
 			).build());
 
+		searchContext.setAttribute("head", !showVersions);
+		searchContext.setAttribute("latest", !showVersions);
+		searchContext.setAttribute("params", params);
 		searchContext.setCompanyId(_themeDisplay.getCompanyId());
 		searchContext.setEnd(end);
 		searchContext.setFolderIds(folderIds);
 		searchContext.setGroupIds(new long[] {_themeDisplay.getScopeGroupId()});
 		searchContext.setKeywords(getKeywords());
-		searchContext.setAttribute("head", !showVersions);
-		searchContext.setAttribute("latest", !showVersions);
-		searchContext.setAttribute("params", params);
 
 		if (!showVersions) {
 			searchContext.setAttribute("showNonindexable", Boolean.TRUE);
