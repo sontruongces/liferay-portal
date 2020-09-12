@@ -66,7 +66,7 @@ public class NoteWebServiceImpl
 
 		HttpInvoker.HttpResponse httpResponse =
 			_noteResource.getAccountAccountKeyNotesPageHttpResponse(
-				accountKey, type, priority, status,
+				accountKey, priority, status, type,
 				Pagination.of(page, pageSize));
 
 		return processDTOList(httpResponse, NoteSerDes::toDTO);
