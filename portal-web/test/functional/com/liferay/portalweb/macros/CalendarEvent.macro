@@ -1714,9 +1714,15 @@ definition {
 
 		AssertElementNotPresent(locator1 = "Calendar#SCHEDULER_EVENT_ATTENDING_ROW_OPTIONS");
 
+		Refresh();
+
 		AssertClick(
 			locator1 = "Calendar#MY_CALENDARS_CALENDAR",
 			value1 = "${userCalendarName}");
+
+		AssertElementPresent(
+			locator1 = "Calendar#CALENDAR_NAME_BUTTON_COLOUR",
+			userCalendarName = "Test Test");
 	}
 
 	macro viewSiteRSVPWithUnapprovedWorkflow {
