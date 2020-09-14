@@ -209,7 +209,7 @@ describe('Liferay.KaleoDesignerXMLDefinitionSerializer', () => {
 									assignmentType: ['user'],
 									emailAddress: [null],
 									screenName: ['test'],
-									userId: [null]
+									userId: ['']
 								}
 							]
 						},
@@ -227,6 +227,76 @@ describe('Liferay.KaleoDesignerXMLDefinitionSerializer', () => {
 			assert(
 				definition.indexOf('<screen-name') > 0,
 				'<screen-name> element not serialized.'
+			);
+
+			done();
+		});
+
+		it('test should serialize <email-address> element if given.', done => {
+			var jsonDefinition = {
+				nodes: [
+					{
+						name: 'task1',
+						notifications: {
+							name: ['notification1'],
+							recipients: [
+								{
+									assignmentType: ['user'],
+									emailAddress: ['test@liferay.com'],
+									screenName: [''],
+									userId: ['']
+								}
+							]
+						},
+						xmlType: 'task'
+					}
+				]
+			};
+
+			var definition = serializeDefinition(
+				XML_NAMESPACE,
+				METADATA,
+				jsonDefinition
+			);
+
+			assert(
+				definition.indexOf('<email-address') > 0,
+				'<email-address> element not serialized.'
+			);
+
+			done();
+		});
+
+		it('test should serialize <user-id> element if given.', done => {
+			var jsonDefinition = {
+				nodes: [
+					{
+						name: 'task1',
+						notifications: {
+							name: ['notification1'],
+							recipients: [
+								{
+									assignmentType: ['user'],
+									emailAddress: [''],
+									screenName: [null],
+									userId: ['0']
+								}
+							]
+						},
+						xmlType: 'task'
+					}
+				]
+			};
+
+			var definition = serializeDefinition(
+				XML_NAMESPACE,
+				METADATA,
+				jsonDefinition
+			);
+
+			assert(
+				definition.indexOf('<user-id') > 0,
+				'<user-id> element not serialized.'
 			);
 
 			done();
@@ -262,16 +332,6 @@ describe('Liferay.KaleoDesignerXMLDefinitionSerializer', () => {
 			assert(
 				definition.indexOf('<email-address') > 0,
 				'<email-address> element not serialized.'
-			);
-
-			assert(
-				definition.indexOf('<screen-name') > 0,
-				'<screen-name> element not serialized.'
-			);
-
-			assert(
-				definition.indexOf('<user-id') > 0,
-				'<user-id> element not serialized.'
 			);
 
 			done();
