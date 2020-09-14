@@ -1,5 +1,50 @@
 definition {
 
+	macro addAndEditPortalCORS {
+		AssertClick(
+			locator1 = "Button#ADD",
+			value1 = "Add");
+		Type(
+			key_configurationValue = "configuration.name",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${name}");
+
+		Type(
+			key_configurationValue = "filter.mapping.url.pattern",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${urlPattern}");
+
+		Click(locator1 = "SystemSettings#CORS_DELETE_URL_PATTERN");
+
+		Click(locator1 = "SystemSettings#CORS_ADD_RESPONSE_HEADERS");
+
+		Type(
+			locator1 = "SystemSettings#CORS_ADDED_RESPONSE_HEADERS",
+			value1 = "${header}");
+
+		Button.clickSave();
+	}
+
+	macro addAndEditWebContextsCORS {
+		AssertClick(
+			locator1 = "Button#ADD",
+			value1 = "Add");
+
+		Type(
+			key_configurationValue = "servlet.context.helper.select.filter",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${filter}");
+
+		Type(
+			key_configurationValue = "filter.mapping.url.patterns",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${urlPattern}");
+
+		Click(locator1 = "SystemSettings#CORS_DELETE_RESPONSE_HEADERS");
+
+		Button.clickSave();
+	}
+
 	macro configureDisplayStyle {
 		Click(locator1 = "Dropdown#TRIGGER");
 
