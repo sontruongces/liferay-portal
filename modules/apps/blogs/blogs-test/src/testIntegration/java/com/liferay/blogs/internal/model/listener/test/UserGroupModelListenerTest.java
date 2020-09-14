@@ -23,13 +23,16 @@ import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
-import com.liferay.portal.kernel.test.rule.DataGuard;
+import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserGroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.subscription.service.SubscriptionLocalService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,7 +44,6 @@ import org.junit.runner.RunWith;
 /**
  * @author Marcell Gyöpös
  */
-@DataGuard(scope = DataGuard.Scope.METHOD)
 @RunWith(Arquillian.class)
 public class UserGroupModelListenerTest {
 
@@ -188,6 +190,8 @@ public class UserGroupModelListenerTest {
 
 		_userGroupLocalService.addGroupUserGroup(groupId, userGroup);
 
+		_userGroups.add(userGroup);
+
 		return userGroup;
 	}
 
@@ -199,12 +203,15 @@ public class UserGroupModelListenerTest {
 				user.getUserId(), userGroupId);
 		}
 
+		_users.add(user);
+
 		return user;
 	}
 
 	@Inject
 	private BlogsEntryLocalService _blogsEntryLocalService;
 
+	@DeleteAfterTestRun
 	private Group _group;
 
 	@Inject
@@ -215,5 +222,11 @@ public class UserGroupModelListenerTest {
 
 	@Inject
 	private UserGroupLocalService _userGroupLocalService;
+
+	@DeleteAfterTestRun
+	private final List<UserGroup> _userGroups = new ArrayList<>();
+
+	@DeleteAfterTestRun
+	private final List<User> _users = new ArrayList<>();
 
 }
