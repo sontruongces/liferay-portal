@@ -60,13 +60,18 @@ table {
 }
 
 .full-width {
-	.management-bar .container-fluid-max-xl {
+	.management-bar .container-fluid-max-xl,
+	.subnav-tbar .container-fluid-max-xl {
 		max-width: unset;
 	}
 }
 
 .label {
 	letter-spacing: 0.04rem;
+}
+
+.management-bar {
+	margin-bottom: 0;
 }
 
 .modal-footer {

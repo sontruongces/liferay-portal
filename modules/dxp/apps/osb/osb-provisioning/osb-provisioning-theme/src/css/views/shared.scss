@@ -240,3 +240,22 @@
 		}
 	}
 }
+
+.provisioning-accounts {
+	.title-bar {
+		border-radius: $border-radius;
+	}
+}
+
+.title-bar {
+	align-items: center;
+	background-color: $body-bg;
+	border-bottom: 1px solid $divider;
+	display: flex;
+	justify-content: space-between;
+	padding: $spacing-md $spacing-xs;
+
+	h3 {
+		margin-left: $spacing-default;
+	}
+}
