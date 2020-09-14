@@ -99,7 +99,7 @@ public class ProductBundleProductsLocalServiceImpl
 		}
 
 		return _productWebService.getProducts(
-			StringPool.BLANK, sb.toString(), 1, 1000, null);
+			StringPool.BLANK, sb.toString(), 1, 1000, "name:asc");
 	}
 
 	public List<ProductBundleProducts> getProductBundleProducts(

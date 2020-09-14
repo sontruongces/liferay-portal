@@ -76,8 +76,7 @@ public class AssignProductBundleProductsDisplayContext {
 
 		List<Product> products = _productWebService.getProducts(
 			keywords, StringPool.BLANK, searchContainer.getCur(),
-			searchContainer.getEnd() - searchContainer.getStart(),
-			StringPool.BLANK);
+			searchContainer.getEnd() - searchContainer.getStart(), "name:asc");
 
 		searchContainer.setResults(
 			TransformUtil.transform(
