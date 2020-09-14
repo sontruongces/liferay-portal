@@ -24,6 +24,21 @@ ProductSearchDisplayContext productSearchDisplayContext = ProvisioningWebCompone
 ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplayContext = new ViewProductsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, productSearchDisplayContext.getSearchContainer());
 %>
 
+<portlet:renderURL var="editProductURL">
+	<portlet:param name="mvcRenderCommandName" value="/products/edit_product" />
+	<portlet:param name="redirect" value="<%= currentURL %>" />
+</portlet:renderURL>
+
+<div class="title-bar">
+	<h3><liferay-ui:message key="products" /></h3>
+
+	<a aria-label="<%= LanguageUtil.get(request, "new-product") %>" class="btn btn-primary nav-btn nav-btn-monospaced" href="<%= editProductURL %>" title="<%= LanguageUtil.get(request, "new-product") %>">
+		<svg class="lexicon-icon lexicon-icon-plus" focusable="false" role="presentation">
+			<use xlink:href="#plus" />
+		</svg>
+	</a>
+</div>
+
 <div class="container-fluid home">
 	<portlet:actionURL name="/search" var="searchURL" />
 

@@ -24,6 +24,10 @@ ContactSearchDisplayContext contactSearchDisplayContext = ProvisioningWebCompone
 ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplayContext = new ViewContactsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, contactSearchDisplayContext.getSearchContainer());
 %>
 
+<div class="title-bar">
+	<h3><liferay-ui:message key="users" /></h3>
+</div>
+
 <div class="container-fluid home">
 	<portlet:actionURL name="/search" var="searchURL" />
 
