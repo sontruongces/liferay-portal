@@ -21,8 +21,7 @@ Contact koroneikiContact = (Contact)renderRequest.getAttribute(ProvisioningWebKe
 %>
 
 <portlet:actionURL name="/users/edit_contact" var="editContactURL">
-	<portlet:param name="mvcRenderCommandName" value="/users/view_contact" />
-	<portlet:param name="tabs1" value="general" />
+	<portlet:param name="redirect" value="<%= currentURL %>" />
 	<portlet:param name="emailAddress" value="<%= koroneikiContact.getEmailAddress() %>" />
 </portlet:actionURL>
 
