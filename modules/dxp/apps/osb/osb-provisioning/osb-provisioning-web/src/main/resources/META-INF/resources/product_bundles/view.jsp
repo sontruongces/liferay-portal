@@ -18,19 +18,23 @@
 
 <liferay-util:include page="/common/view_account_search_header.jsp" servletContext="<%= application %>" />
 
+<portlet:renderURL var="editProductBundleURL">
+	<portlet:param name="mvcRenderCommandName" value="/product_bundles/edit_product_bundle" />
+	<portlet:param name="redirect" value="<%= currentURL %>" />
+</portlet:renderURL>
+
+<div class="title-bar">
+	<h3><liferay-ui:message key="product-bundles" /></h3>
+
+	<a aria-label="<%= LanguageUtil.get(request, "new-product-bundle") %>" class="btn btn-primary nav-btn nav-btn-monospaced" href="<%= editProductBundleURL %>" title="<%= LanguageUtil.get(request, "new-product-bundle") %>">
+		<svg class="lexicon-icon lexicon-icon-plus" focusable="false" role="presentation">
+			<use xlink:href="#plus" />
+		</svg>
+	</a>
+</div>
+
 <div class="container-fluid home">
 	<clay:management-toolbar
-		creationMenu='<%=
-			new JSPCreationMenu(pageContext) {
-				{
-					addDropdownItem(
-						dropdownItem -> {
-							dropdownItem.setHref(renderResponse.createRenderURL(), "mvcRenderCommandName", "/product_bundles/edit_product_bundle", "redirect", PortalUtil.getCurrentURL(request));
-							dropdownItem.setLabel(LanguageUtil.get(request, "new-product-bundle"));
-						});
-				}
-			}
-		%>'
 		elementClasses="full-width"
 		id="productBundlesManagementToolbar"
 		selectable="<%= false %>"

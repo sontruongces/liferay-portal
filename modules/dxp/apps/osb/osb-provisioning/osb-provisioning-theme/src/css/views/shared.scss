@@ -1,3 +1,10 @@
+#accountSearchManagementToolbar,
+#productBundlesManagementToolbar {
+	.management-bar {
+		display: none;
+	}
+}
+
 .account,
 .subscription {
 	display: flex;
