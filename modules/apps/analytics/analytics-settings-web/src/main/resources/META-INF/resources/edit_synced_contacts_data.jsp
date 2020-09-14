@@ -56,18 +56,16 @@ else {
 }
 %>
 
-<clay:sheet
-	cssClass="portlet-analytics-settings"
->
+<div class="pb-2 portlet-analytics-settings sheet sheet-lg">
 	<h2>
 		<liferay-ui:message key="contact-data" />
 	</h2>
 
 	<hr />
 
-	<div class="c-pb-3 form-text">
+	<p class="mt-3 text-secondary">
 		<liferay-ui:message key="select-contact-data-help" />
-	</div>
+	</p>
 
 	<fieldset <%= connected ? "" : "disabled" %>>
 		<label class="control-label">
@@ -90,11 +88,12 @@ else {
 		</c:choose>
 
 		<div class="pr-3">
-			<clay:sticker
-				cssClass="sticker-light"
-				displayType="light"
-				icon="user"
-			/>
+			<div class="bg-light sticker sticker-light sticker-rounded">
+				<liferay-ui:icon
+					icon="user"
+					markupView="lexicon"
+				/>
+			</div>
 		</div>
 
 		<div>
@@ -131,11 +130,12 @@ else {
 		</c:choose>
 
 		<div class="pr-3">
-			<clay:sticker
-				cssClass="sticker-light"
-				displayType="light"
-				icon="check-square"
-			/>
+			<div class="bg-light sticker sticker-light sticker-rounded">
+				<liferay-ui:icon
+					icon="check-square"
+					markupView="lexicon"
+				/>
+			</div>
 		</div>
 
 		<div>
@@ -157,4 +157,4 @@ else {
 			</c:otherwise>
 		</c:choose>
 	<fieldset>
-</clay:sheet>
+</div>
