@@ -2020,7 +2020,7 @@ definition {
 			password = "test",
 			userEmailAddress = "userea@liferay.com");
 
-		Portlet.gotoPortletOptions(
+		Portlet.gotoSpecificPortletOptions(
 			portletName = "Currency Converter",
 			portletOption = "Preferences");
 
