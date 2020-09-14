@@ -28,6 +28,7 @@ import com.liferay.asset.list.service.AssetListEntryLocalService;
 import com.liferay.asset.publisher.constants.AssetPublisherPortletKeys;
 import com.liferay.asset.publisher.util.AssetPublisherHelper;
 import com.liferay.asset.publisher.web.internal.configuration.AssetPublisherWebConfiguration;
+import com.liferay.asset.publisher.web.internal.display.context.AssetPublisherDisplayContext;
 import com.liferay.asset.publisher.web.internal.util.AssetPublisherWebUtil;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFileEntryType;
@@ -51,6 +52,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.NoSuchLayoutException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -315,6 +317,16 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 		assetEntryQuery.setEnablePermissions(false);
 
 		int end = _assetPublisherWebConfiguration.dynamicExportLimit();
+
+		if (_isPaginationTypeNone(portletPreferences)) {
+			int delta = GetterUtil.getInteger(
+				portletPreferences.getValue("delta", null),
+				SearchContainer.DEFAULT_DELTA);
+
+			if ((delta < end) || (end == 0)) {
+				end = delta;
+			}
+		}
 
 		if (end == 0) {
 			end = QueryUtil.ALL_POS;
@@ -1425,6 +1437,29 @@ public class AssetPublisherExportImportPortletPreferencesProcessor
 		groupIdMappingElement.addAttribute("group-key", group.getGroupKey());
 
 		return String.valueOf(groupId);
+	}
+
+	private boolean _isPaginationTypeNone(
+		PortletPreferences portletPreferences) {
+
+		String paginationType = GetterUtil.getString(
+			portletPreferences.getValue("paginationType", null));
+
+		if (!ArrayUtil.contains(
+				AssetPublisherDisplayContext.PAGINATION_TYPES,
+				paginationType)) {
+
+			return true;
+		}
+
+		if (Objects.equals(
+				paginationType,
+				AssetPublisherDisplayContext.PAGINATION_TYPE_NONE)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
