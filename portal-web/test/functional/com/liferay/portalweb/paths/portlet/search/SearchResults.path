@@ -11,7 +11,7 @@
 <!--ASSET_DETAILS-->
 <tr>
 	<td>ASSET_DETAILS_TITLE</td>
-	<td>//div[contains(@id,'SearchResultsPortlet')]//span[contains(@class,'asset-title')]</td>
+	<td>//div[contains(@id,'SearchResultsPortlet')]//span[contains(@class,'asset-title')] | //div[contains(@id,'SearchResultsPortlet')]//h3[contains(@class,'header-title')]/span</td>
 	<td></td>
 </tr>
 <!--ASSET_TYPE_FACET-->
