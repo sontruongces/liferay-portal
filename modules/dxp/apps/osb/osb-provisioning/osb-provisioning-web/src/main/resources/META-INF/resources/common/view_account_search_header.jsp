@@ -59,5 +59,20 @@ data.put("resourceURL", autocompleteAccountURL.toString());
 		if (accountSearch) {
 			accountSearch.classList.remove('hide');
 		}
+
+		var accountSearchManagementToolbar = document.getElementById(
+			'accountSearchManagementToolbar'
+		);
+		var titleBar = document.querySelector('.title-bar');
+
+		if (accountSearchManagementToolbar && titleBar) {
+			var resultsBar = accountSearchManagementToolbar.querySelector(
+				'.subnav-tbar'
+			);
+
+			if (resultsBar) {
+				titleBar.classList.add('hide');
+			}
+		}
 	}
 </aui:script>
