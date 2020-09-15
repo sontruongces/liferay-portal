@@ -142,7 +142,7 @@ ModifiedFacetCalendarDisplayContext modifiedFacetCalendarDisplayContext = modifi
 
 	<aui:script use="liferay-search-modified-facet">
 		new Liferay.Search.ModifiedFacetFilter({
-			form: A.one('#<portlet:namespace/>modifiedFacetForm'),
+			form: A.one('#<portlet:namespace />modifiedFacetForm'),
 			fromInputDatePicker: Liferay.component(
 				'<portlet:namespace />fromInputDatePicker'
 			),

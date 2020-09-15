@@ -43,7 +43,7 @@ X509Certificate x509Certificate = (X509Certificate)request.getAttribute(SamlWebK
 		stateChange
 	) {
 		Liferay.Util.getOpener().<portlet:namespace />closeDialog(
-			'<portlet:namespace/>certificateDialog',
+			'<portlet:namespace />certificateDialog',
 			stateChange
 		);
 	});

@@ -229,10 +229,10 @@ else {
 	AUI().use('liferay-item-selector-dialog', function(A) {
 		var form = document.<portlet:namespace />fm;
 
-		form.addEventListener('change', <portlet:namespace/>resetPreview);
-		form.addEventListener('select', <portlet:namespace/>resetPreview);
+		form.addEventListener('change', <portlet:namespace />resetPreview);
+		form.addEventListener('select', <portlet:namespace />resetPreview);
 
-		function <portlet:namespace/>resetPreview() {
+		function <portlet:namespace />resetPreview() {
 			var displayDepthSelect = Liferay.Util.getFormElement(
 				form,
 				'displayDepth'
@@ -354,7 +354,7 @@ else {
 								rootMenuItemNameSpan.innerText =
 									selectedItem.selectSiteNavigationMenuItemName;
 
-								<portlet:namespace/>resetPreview();
+								<portlet:namespace />resetPreview();
 							}
 						}
 					},
@@ -413,7 +413,7 @@ else {
 
 							dom.toggleClasses(removeSiteNavigationMenu, 'hide');
 
-							<portlet:namespace/>resetPreview();
+							<portlet:namespace />resetPreview();
 						}
 					}
 				);
@@ -442,7 +442,7 @@ else {
 
 				dom.toggleClasses(removeSiteNavigationMenu, 'hide');
 
-				<portlet:namespace/>resetPreview();
+				<portlet:namespace />resetPreview();
 			});
 		}
 
@@ -521,7 +521,7 @@ else {
 
 					removeSiteNavigationMenu.classList.add('hide');
 
-					<portlet:namespace/>resetPreview();
+					<portlet:namespace />resetPreview();
 				}
 			);
 		}

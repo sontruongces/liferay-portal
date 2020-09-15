@@ -179,7 +179,7 @@ long[] groupIds = viewUADEntitiesDisplay.getGroupIds();
 </aui:form>
 
 <aui:script>
-	function <portlet:namespace/>doAnonymizeMultiple() {
+	function <portlet:namespace />doAnonymizeMultiple() {
 		<portlet:namespace />doMultiple(
 			'<portlet:actionURL name='<%= Objects.equals(viewUADEntitiesDisplay.getApplicationKey(), UADConstants.ALL_APPLICATIONS) ? "/anonymize_uad_applications" : "/anonymize_uad_entities" %>' />',
 			'<liferay-ui:message key="are-you-sure-you-want-to-anonymize-the-selected-items" />',
@@ -187,7 +187,7 @@ long[] groupIds = viewUADEntitiesDisplay.getGroupIds();
 		);
 	}
 
-	function <portlet:namespace/>doDeleteMultiple() {
+	function <portlet:namespace />doDeleteMultiple() {
 		<portlet:namespace />doMultiple(
 			'<portlet:actionURL name='<%= Objects.equals(viewUADEntitiesDisplay.getApplicationKey(), UADConstants.ALL_APPLICATIONS) ? "/delete_uad_applications" : "/delete_uad_entities" %>' />',
 			'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-items" />',
@@ -195,7 +195,7 @@ long[] groupIds = viewUADEntitiesDisplay.getGroupIds();
 		);
 	}
 
-	function <portlet:namespace/>doMultiple(actionURL, message, hierarchyMessage) {
+	function <portlet:namespace />doMultiple(actionURL, message, hierarchyMessage) {
 		var userOwnedPrimaryKeys =
 			'<%= viewUADEntitiesDisplay.getUserOwnedEntityPKsString() %>';
 

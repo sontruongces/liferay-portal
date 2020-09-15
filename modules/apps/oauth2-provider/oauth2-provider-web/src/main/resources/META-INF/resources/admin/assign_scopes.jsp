@@ -352,7 +352,7 @@ AssignScopesDisplayContext assignScopesDisplayContext = (AssignScopesDisplayCont
 				scopeAliases.join(' ')
 			);
 
-			document.<portlet:namespace/>fm.submit();
+			document.<portlet:namespace />fm.submit();
 		});
 
 		A.all('#<portlet:namespace />appsAccordion .panel')
