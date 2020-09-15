@@ -106,3 +106,9 @@ table {
 		background-color: $primary-l3;
 	}
 }
+
+.table-list thead:first-child {
+	th {
+		box-shadow: none;
+	}
+}

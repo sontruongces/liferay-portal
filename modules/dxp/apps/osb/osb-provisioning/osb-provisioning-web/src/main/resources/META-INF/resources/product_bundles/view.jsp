@@ -42,6 +42,7 @@
 	/>
 
 	<liferay-ui:search-container
+		cssClass="table-hover"
 		emptyResultsMessage="no-product-bundles-were-found"
 		headerNames="name"
 		iteratorURL="<%= renderResponse.createRenderURL() %>"

@@ -37,6 +37,7 @@ ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplay
 	/>
 
 	<liferay-ui:search-container
+		cssClass="table-hover"
 		searchContainer="<%= contactSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row

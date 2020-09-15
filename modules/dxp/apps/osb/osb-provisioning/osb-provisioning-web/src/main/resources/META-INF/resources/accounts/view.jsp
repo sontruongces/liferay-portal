@@ -59,6 +59,7 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 	/>
 
 	<liferay-ui:search-container
+		cssClass="table-hover"
 		searchContainer="<%= accountSearchDisplayContext.getSearchContainer() %>"
 	>
 		<liferay-ui:search-container-row
