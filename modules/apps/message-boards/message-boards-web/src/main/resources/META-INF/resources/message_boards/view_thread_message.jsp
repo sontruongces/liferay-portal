@@ -403,13 +403,9 @@ if (message.isAnonymous() || thread.isInTrash()) {
 			<%= msgBody %>
 		</div>
 
-		<%
-		String assetTagNames = (String)request.getAttribute("edit_message.jsp-assetTagNames");
-		%>
-
 		<div class="card-row card-row-padded tags">
 			<liferay-asset:asset-tags-summary
-				assetTagNames="<%= assetTagNames %>"
+				assetTagNames='<%= (String)request.getAttribute("edit_message.jsp-assetTagNames") %>'
 				className="<%= MBMessage.class.getName() %>"
 				classPK="<%= message.getMessageId() %>"
 				portletURL="<%= liferayPortletResponse.createRenderURL() %>"
