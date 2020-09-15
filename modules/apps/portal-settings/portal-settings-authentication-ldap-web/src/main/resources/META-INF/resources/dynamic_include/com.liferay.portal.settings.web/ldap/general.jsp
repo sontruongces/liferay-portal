@@ -25,7 +25,6 @@ boolean ldapAuthEnabled = ldapAuthConfiguration.enabled();
 String ldapAuthMethod = ldapAuthConfiguration.method();
 boolean ldapAuthRequired = ldapAuthConfiguration.required();
 String ldapPasswordEncryptionAlgorithm = ldapAuthConfiguration.passwordEncryptionAlgorithm();
-boolean ldapPasswordPolicyEnabled = ldapAuthConfiguration.passwordPolicyEnabled();
 %>
 
 <aui:fieldset>
@@ -37,7 +36,7 @@ boolean ldapPasswordPolicyEnabled = ldapAuthConfiguration.passwordPolicyEnabled(
 
 	<aui:input label="required" name='<%= "ldap--" + LDAPConstants.AUTH_REQUIRED + "--" %>' type="checkbox" value="<%= ldapAuthRequired %>" />
 
-	<aui:input helpMessage="ldap-password-policy-help" label="use-ldap-password-policy" name='<%= "ldap--" + LDAPConstants.PASSWORD_POLICY_ENABLED + "--" %>' type="checkbox" value="<%= ldapPasswordPolicyEnabled %>" />
+	<aui:input helpMessage="ldap-password-policy-help" label="use-ldap-password-policy" name='<%= "ldap--" + LDAPConstants.PASSWORD_POLICY_ENABLED + "--" %>' type="checkbox" value="<%= ldapAuthConfiguration.passwordPolicyEnabled() %>" />
 
 	<aui:select label="method" name='<%= "ldap--" + LDAPConstants.AUTH_METHOD + "--" %>' value="<%= ldapAuthMethod %>">
 		<aui:option label="bind" value="<%= LDAPConstants.AUTH_METHOD_BIND %>" />
