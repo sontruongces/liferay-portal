@@ -42,6 +42,8 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
@@ -54,6 +56,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.vulcan.util.TransformUtil;
 
 import java.text.Format;
@@ -351,6 +354,9 @@ public class ViewAccountDisplayContext {
 	}
 
 	public Map<String, Object> getPanelData() throws Exception {
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		Map<String, Object> data = new HashMap<>();
 
 		PortletURL addNoteURL = renderResponse.createActionURL();
@@ -373,7 +379,10 @@ public class ViewAccountDisplayContext {
 				noteWebService.getNotes(
 					account.getKey(), StringPool.BLANK, 0, StringPool.BLANK, 1,
 					1000),
-				note -> new NoteDisplay(renderRequest, renderResponse, note)));
+				note -> new NoteDisplay(
+					renderRequest, renderResponse, note,
+					userLocalService.fetchUserByUuidAndCompanyId(
+						note.getCreatorUID(), themeDisplay.getCompanyId()))));
 
 		return data;
 	}
@@ -579,7 +588,8 @@ public class ViewAccountDisplayContext {
 			NoteWebService noteWebService,
 			ProductConsumptionWebService productConsumptionWebService,
 			ProductPurchaseViewWebService productPurchaseViewWebService,
-			ProductWebService productWebService, TeamWebService teamWebService)
+			ProductWebService productWebService, TeamWebService teamWebService,
+			UserLocalService userLocalService)
 		throws Exception {
 
 		this.renderRequest = renderRequest;
@@ -597,6 +607,7 @@ public class ViewAccountDisplayContext {
 		this.productPurchaseViewWebService = productPurchaseViewWebService;
 		this.productWebService = productWebService;
 		this.teamWebService = teamWebService;
+		this.userLocalService = userLocalService;
 
 		doInit();
 	}
@@ -633,6 +644,7 @@ public class ViewAccountDisplayContext {
 	protected RenderRequest renderRequest;
 	protected RenderResponse renderResponse;
 	protected TeamWebService teamWebService;
+	protected UserLocalService userLocalService;
 
 	private List<DropdownItem> _getFilterCustomerRoleDropdownItems()
 		throws Exception {

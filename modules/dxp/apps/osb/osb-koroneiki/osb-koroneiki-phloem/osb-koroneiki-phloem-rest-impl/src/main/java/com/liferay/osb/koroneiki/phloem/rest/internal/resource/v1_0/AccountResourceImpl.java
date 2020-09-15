@@ -123,7 +123,7 @@ public class AccountResourceImpl
 
 		_deleteAccountContactRole(
 			accountKey,
-			_webContactIdentityProvider.getContactByEmailAddress(
+			_contactIdentityProvider.getContactByEmailAddress(
 				contactEmailAddress),
 			contactRoleKeys);
 	}
@@ -138,7 +138,7 @@ public class AccountResourceImpl
 
 		_deleteAccountContactRole(
 			accountKey,
-			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			_contactIdentityProvider.getContactByProviderId(contactUuid),
 			contactRoleKeys);
 	}
 
@@ -152,7 +152,7 @@ public class AccountResourceImpl
 		for (String contactEmailAddress : contactEmailAddresses) {
 			_deleteAccountContact(
 				accountKey,
-				_webContactIdentityProvider.getContactByEmailAddress(
+				_contactIdentityProvider.getContactByEmailAddress(
 					contactEmailAddress),
 				ContactRole.Type.ACCOUNT_CUSTOMER.toString());
 		}
@@ -169,7 +169,7 @@ public class AccountResourceImpl
 		for (String contactUuid : contactUuids) {
 			_deleteAccountContact(
 				accountKey,
-				_webContactIdentityProvider.getContactByProviderId(contactUuid),
+				_contactIdentityProvider.getContactByProviderId(contactUuid),
 				ContactRole.Type.ACCOUNT_CUSTOMER.toString());
 		}
 	}
@@ -184,7 +184,7 @@ public class AccountResourceImpl
 		for (String contactEmailAddress : contactEmailAddresses) {
 			_deleteAccountContact(
 				accountKey,
-				_webContactIdentityProvider.getContactByEmailAddress(
+				_contactIdentityProvider.getContactByEmailAddress(
 					contactEmailAddress),
 				ContactRole.Type.ACCOUNT_WORKER.toString());
 		}
@@ -201,7 +201,7 @@ public class AccountResourceImpl
 		for (String contactUuid : contactUuids) {
 			_deleteAccountContact(
 				accountKey,
-				_webContactIdentityProvider.getContactByProviderId(contactUuid),
+				_contactIdentityProvider.getContactByProviderId(contactUuid),
 				ContactRole.Type.ACCOUNT_WORKER.toString());
 		}
 	}
@@ -536,7 +536,7 @@ public class AccountResourceImpl
 
 		_putAccountContactRole(
 			accountKey,
-			_webContactIdentityProvider.getContactByEmailAddress(
+			_contactIdentityProvider.getContactByEmailAddress(
 				contactEmailAddress),
 			contactRoleKeys);
 	}
@@ -551,7 +551,7 @@ public class AccountResourceImpl
 
 		_putAccountContactRole(
 			accountKey,
-			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			_contactIdentityProvider.getContactByProviderId(contactUuid),
 			contactRoleKeys);
 	}
 
@@ -616,7 +616,7 @@ public class AccountResourceImpl
 		throws Exception {
 
 		com.liferay.osb.koroneiki.taproot.model.Contact curContact =
-			_webContactIdentityProvider.fetchContactByEmailAddress(
+			_contactIdentityProvider.fetchContactByEmailAddress(
 				contact.getEmailAddress());
 
 		if (curContact == null) {
@@ -707,6 +707,9 @@ public class AccountResourceImpl
 	@Reference
 	private ContactAccountRoleService _contactAccountRoleService;
 
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _contactIdentityProvider;
+
 	@Reference
 	private ContactLocalService _contactLocalService;
 
@@ -739,8 +742,5 @@ public class AccountResourceImpl
 
 	@Reference
 	private TeamLocalService _teamLocalService;
-
-	@Reference(target = "(provider=web)")
-	private ContactIdentityProvider _webContactIdentityProvider;
 
 }

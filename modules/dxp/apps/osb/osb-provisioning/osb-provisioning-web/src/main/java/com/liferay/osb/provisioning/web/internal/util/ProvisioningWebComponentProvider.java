@@ -41,6 +41,7 @@ import com.liferay.osb.provisioning.web.internal.display.context.ViewAccountTeam
 import com.liferay.osb.provisioning.web.internal.display.context.ViewContactDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewSubscriptionDisplayContext;
 import com.liferay.osb.provisioning.web.internal.display.context.ViewTeamDisplayContext;
+import com.liferay.portal.kernel.service.UserLocalService;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -288,8 +289,8 @@ public class ProvisioningWebComponentProvider {
 			_accountEntryWebService, _accountWebService, _auditEntryWebService,
 			_contactRoleWebService, _contactWebService, _externalLinkWebService,
 			_noteWebService, _productConsumptionWebService,
-			_productPurchaseViewWebService, _productWebService,
-			_teamWebService);
+			_productPurchaseViewWebService, _productWebService, _teamWebService,
+			_userLocalService);
 
 		httpServletRequest.setAttribute(
 			clazz.getName(), viewAccountDisplayContext);
@@ -361,5 +362,8 @@ public class ProvisioningWebComponentProvider {
 
 	@Reference
 	private TeamWebService _teamWebService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

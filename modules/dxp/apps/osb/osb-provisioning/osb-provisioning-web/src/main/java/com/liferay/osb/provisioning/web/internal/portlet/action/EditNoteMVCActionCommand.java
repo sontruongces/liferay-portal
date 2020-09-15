@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -193,8 +194,14 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 			Note note)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		User user = _userLocalService.fetchUserByUuidAndCompanyId(
+			note.getCreatorUID(), themeDisplay.getCompanyId());
+
 		NoteDisplay noteDisplay = new NoteDisplay(
-			actionRequest, actionResponse, note);
+			actionRequest, actionResponse, note, user);
 
 		String jsonString = _jsonFactory.looseSerializeDeep(noteDisplay);
 
@@ -212,5 +219,8 @@ public class EditNoteMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

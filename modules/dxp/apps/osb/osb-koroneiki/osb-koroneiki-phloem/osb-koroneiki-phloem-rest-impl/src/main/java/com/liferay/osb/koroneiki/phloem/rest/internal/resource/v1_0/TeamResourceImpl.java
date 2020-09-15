@@ -87,7 +87,7 @@ public class TeamResourceImpl
 
 		for (String emailAddress : emailAddresses) {
 			contacts.add(
-				_webContactIdentityProvider.getContactByEmailAddress(
+				_contactIdentityProvider.getContactByEmailAddress(
 					emailAddress));
 		}
 
@@ -103,7 +103,7 @@ public class TeamResourceImpl
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_deleteTeamContactRole(
-			_webContactIdentityProvider.getContactByEmailAddress(emailAddress),
+			_contactIdentityProvider.getContactByEmailAddress(emailAddress),
 			teamKey, contactRoleKeys);
 	}
 
@@ -119,8 +119,7 @@ public class TeamResourceImpl
 
 		for (String contactUuid : contactUuids) {
 			contacts.add(
-				_webContactIdentityProvider.getContactByProviderId(
-					contactUuid));
+				_contactIdentityProvider.getContactByProviderId(contactUuid));
 		}
 
 		_deleteTeamContacts(contacts, teamKey);
@@ -135,7 +134,7 @@ public class TeamResourceImpl
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_deleteTeamContactRole(
-			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			_contactIdentityProvider.getContactByProviderId(contactUuid),
 			teamKey, contactRoleKeys);
 	}
 
@@ -279,7 +278,7 @@ public class TeamResourceImpl
 
 		for (String emailAddress : emailAddresses) {
 			contacts.add(
-				_webContactIdentityProvider.getContactByEmailAddress(
+				_contactIdentityProvider.getContactByEmailAddress(
 					emailAddress));
 		}
 
@@ -295,7 +294,7 @@ public class TeamResourceImpl
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_putTeamContactRole(
-			_webContactIdentityProvider.getContactByEmailAddress(emailAddress),
+			_contactIdentityProvider.getContactByEmailAddress(emailAddress),
 			teamKey, contactRoleKeys);
 	}
 
@@ -311,8 +310,7 @@ public class TeamResourceImpl
 
 		for (String contactUuid : contactUuids) {
 			contacts.add(
-				_webContactIdentityProvider.getContactByProviderId(
-					contactUuid));
+				_contactIdentityProvider.getContactByProviderId(contactUuid));
 		}
 
 		_putTeamContacts(contacts, teamKey);
@@ -327,7 +325,7 @@ public class TeamResourceImpl
 		ServiceContextUtil.setAgentFields(agentName, agentUID);
 
 		_putTeamContactRole(
-			_webContactIdentityProvider.getContactByProviderId(contactUuid),
+			_contactIdentityProvider.getContactByProviderId(contactUuid),
 			teamKey, contactRoleKeys);
 	}
 
@@ -450,6 +448,9 @@ public class TeamResourceImpl
 
 	private static final EntityModel _entityModel = new TeamEntityModel();
 
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _contactIdentityProvider;
+
 	@Reference
 	private ContactLocalService _contactLocalService;
 
@@ -471,8 +472,5 @@ public class TeamResourceImpl
 
 	@Reference
 	private TeamService _teamService;
-
-	@Reference(target = "(provider=web)")
-	private ContactIdentityProvider _webContactIdentityProvider;
 
 }

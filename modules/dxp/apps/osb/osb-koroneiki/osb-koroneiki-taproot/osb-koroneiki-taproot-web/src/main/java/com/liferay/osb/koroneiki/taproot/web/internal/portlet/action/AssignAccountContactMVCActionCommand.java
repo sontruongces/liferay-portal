@@ -55,7 +55,7 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "emailAddress");
 
 			Contact contact =
-				_webContactIdentityProvider.fetchContactByEmailAddress(
+				_contactIdentityProvider.fetchContactByEmailAddress(
 					emailAddress);
 
 			if (contact == null) {
@@ -84,6 +84,6 @@ public class AssignAccountContactMVCActionCommand extends BaseMVCActionCommand {
 	private ContactAccountRoleService _contactAccountRoleService;
 
 	@Reference(target = "(provider=web)")
-	private ContactIdentityProvider _webContactIdentityProvider;
+	private ContactIdentityProvider _contactIdentityProvider;
 
 }

@@ -178,7 +178,7 @@ public class ContactResourceImpl
 		throws Exception {
 
 		return ContactUtil.toContact(
-			_webContactIdentityProvider.getContactByEmailAddress(emailAddress));
+			_contactIdentityProvider.getContactByEmailAddress(emailAddress));
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class ContactResourceImpl
 		throws Exception {
 
 		return ContactUtil.toContact(
-			_webContactIdentityProvider.getContactByProviderId(contactUuid));
+			_contactIdentityProvider.getContactByProviderId(contactUuid));
 	}
 
 	@Override
@@ -362,6 +362,9 @@ public class ContactResourceImpl
 
 	private static final EntityModel _entityModel = new ContactEntityModel();
 
+	@Reference(target = "(provider=web)")
+	private ContactIdentityProvider _contactIdentityProvider;
+
 	@Reference
 	private ContactLocalService _contactLocalService;
 
@@ -377,8 +380,5 @@ public class ContactResourceImpl
 
 	@Reference
 	private TeamLocalService _teamLocalService;
-
-	@Reference(target = "(provider=web)")
-	private ContactIdentityProvider _webContactIdentityProvider;
 
 }

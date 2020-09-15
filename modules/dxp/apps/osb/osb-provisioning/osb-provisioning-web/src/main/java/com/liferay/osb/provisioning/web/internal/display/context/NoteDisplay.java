@@ -45,11 +45,12 @@ public class NoteDisplay {
 
 	public NoteDisplay(
 		PortletRequest portletRequest, PortletResponse portletResponse,
-		Note note) {
+		Note note, User creatorUser) {
 
 		_portletRequest = portletRequest;
 		_portletResponse = portletResponse;
 		_note = note;
+		_creatorUser = creatorUser;
 
 		_dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
 			"MMM dd, yyyy hh:mm a");
@@ -75,10 +76,14 @@ public class NoteDisplay {
 			(ThemeDisplay)_httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		User user = themeDisplay.getUser();
+		String uuid = StringPool.BLANK;
+
+		if (_creatorUser != null) {
+			uuid = _creatorUser.getUuid();
+		}
 
 		return UserConstants.getPortraitURL(
-			themeDisplay.getPathImage(), true, 0, user.getUuid());
+			themeDisplay.getPathImage(), true, 0, uuid);
 	}
 
 	public String getDeleteNoteURL() {
@@ -145,6 +150,7 @@ public class NoteDisplay {
 		return false;
 	}
 
+	private final User _creatorUser;
 	private final Format _dateFormat;
 	private final HttpServletRequest _httpServletRequest;
 	private final LiferayPortletResponse _liferayPortletResponse;
