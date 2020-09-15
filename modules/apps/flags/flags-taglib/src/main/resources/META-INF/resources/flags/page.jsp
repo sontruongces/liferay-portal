@@ -17,16 +17,13 @@
 <%@ include file="/flags/init.jsp" %>
 
 <%
-Map<String, Object> data = (Map<String, Object>)request.getAttribute("liferay-flags:flags:data");
 String elementClasses = (String)request.getAttribute("liferay-flags:flags:elementClasses");
-String id = StringUtil.randomId() + StringPool.UNDERLINE + "id";
 String message = (String)request.getAttribute("liferay-flags:flags:message");
-boolean onlyIcon = GetterUtil.getBoolean(request.getAttribute("liferay-flags:flags:onlyIcon"));
 %>
 
-<div class="taglib-flags <%= Validator.isNotNull(elementClasses) ? elementClasses : "" %>" id="<%= id %>">
+<div class="taglib-flags <%= Validator.isNotNull(elementClasses) ? elementClasses : "" %>" id="<%= StringUtil.randomId() + StringPool.UNDERLINE + "id" %>">
 	<c:choose>
-		<c:when test="<%= onlyIcon %>">
+		<c:when test='<%= GetterUtil.getBoolean(request.getAttribute("liferay-flags:flags:onlyIcon")) %>'>
 			<clay:button
 				disabled="<%= true %>"
 				elementClasses="btn-outline-borderless btn-outline-secondary lfr-portal-tooltip"
@@ -50,7 +47,7 @@ boolean onlyIcon = GetterUtil.getBoolean(request.getAttribute("liferay-flags:fla
 	</c:choose>
 
 	<react:component
-		data="<%= data %>"
+		data='<%= (Map<String, Object>)request.getAttribute("liferay-flags:flags:data") %>'
 		module="flags/js/index.es"
 	/>
 </div>
