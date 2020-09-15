@@ -307,7 +307,7 @@ public class UserMigration {
 		sb.append("select WEB_User.userId, OSB_CorpEntry.organizationId, ");
 		sb.append("WEB_User.uuid_, WEB_User.firstName, WEB_User.middleName, ");
 		sb.append("WEB_User.lastName, WEB_User.emailAddress, ");
-		sb.append("WEB_User.languageId, CUSTOMER_User.emailAddressVerified, ");
+		sb.append("WEB_User.languageId, WEB_User.emailAddressVerified, ");
 		sb.append("OSB_CorpEntry.corpEntryId from WEB_User inner join ");
 		sb.append("WEB_Users_Orgs on WEB_Users_Orgs.userId = WEB_User.userId ");
 		sb.append("inner join OSB_CorpEntry on OSB_CorpEntry.organizationId ");
@@ -355,7 +355,7 @@ public class UserMigration {
 		sb.append("select WEB_User.userId, OSB_CorpProject.organizationId, ");
 		sb.append("WEB_User.uuid_, WEB_User.firstName, WEB_User.middleName, ");
 		sb.append("WEB_User.lastName, WEB_User.emailAddress, ");
-		sb.append("WEB_User.languageId, CUSTOMER_User.emailAddressVerified, ");
+		sb.append("WEB_User.languageId, WEB_User.emailAddressVerified, ");
 		sb.append("OSB_CorpProject.uuid_ from WEB_User inner join ");
 		sb.append("WEB_Users_Orgs on WEB_Users_Orgs.userId = WEB_User.userId ");
 		sb.append("inner join OSB_CorpProject on ");
