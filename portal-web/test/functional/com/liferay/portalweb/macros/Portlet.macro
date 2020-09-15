@@ -290,6 +290,38 @@ definition {
 		}
 	}
 
+	macro gotoSpecificPortletOptions {
+		if (isSet(portletName)) {
+			var key_portletName = "${portletName}";
+			var browserType = PropsUtil.get("browser.type");
+
+			if ("${browserType}" == "internetexplorer") {
+				Click.javaScriptClick(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
+
+				AssertVisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
+			}
+			else if ("${siteTemplate}" == "true") {
+				MouseOver.mouseOverNotVisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
+
+				Click(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
+			}
+			else {
+				MouseOver.mouseOverNotVisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
+
+				Click(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
+			}
+		}
+		else {
+			MouseOver.mouseOverNotVisible(locator1 = "Portlet#OPTIONS_ICON");
+
+			Click(locator1 = "Portlet#OPTIONS_ICON");
+		}
+
+		if (isSet(portletOption)) {
+			MenuItem.click(menuItem = "${portletOption}");
+		}
+	}
+
 	macro mouseOverPortletTitle {
 		var key_portletTitleName = "${portletTitleName}";
 
