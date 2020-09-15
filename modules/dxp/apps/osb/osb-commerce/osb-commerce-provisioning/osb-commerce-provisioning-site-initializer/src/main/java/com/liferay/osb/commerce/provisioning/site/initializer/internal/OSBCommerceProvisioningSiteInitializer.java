@@ -332,7 +332,7 @@ public class OSBCommerceProvisioningSiteInitializer implements SiteInitializer {
 			LayoutAdminPortletKeys.GROUP_PAGES,
 			LayoutPageTemplateEntry.class.getName(),
 			layoutPageTemplateEntry.getLayoutPageTemplateEntryId(), path,
-			StringUtil.toLowerCase(name) + "_thumbnail.jpg", serviceContext);
+			"thumbnail.jpg", serviceContext);
 
 		return _layoutPageTemplateEntryLocalService.
 			updateLayoutPageTemplateEntry(
