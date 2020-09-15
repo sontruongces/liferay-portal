@@ -20,8 +20,6 @@
 
 <%
 ContactSearchDisplayContext contactSearchDisplayContext = ProvisioningWebComponentProvider.getContactSearchDisplayContext(renderRequest, renderResponse, request);
-
-ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplayContext = new ViewContactsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, contactSearchDisplayContext.getSearchContainer());
 %>
 
 <div class="title-bar">
@@ -32,7 +30,7 @@ ViewContactsManagementToolbarDisplayContext viewContactsManagementToolbarDisplay
 	<portlet:actionURL name="/search" var="searchURL" />
 
 	<clay:management-toolbar
-		displayContext="<%= viewContactsManagementToolbarDisplayContext %>"
+		displayContext="<%= new ViewContactsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, contactSearchDisplayContext.getSearchContainer()) %>"
 		elementClasses="full-width"
 	/>
 

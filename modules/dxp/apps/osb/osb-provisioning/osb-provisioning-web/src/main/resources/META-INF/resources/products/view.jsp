@@ -20,8 +20,6 @@
 
 <%
 ProductSearchDisplayContext productSearchDisplayContext = ProvisioningWebComponentProvider.getProductSearchDisplayContext(renderRequest, renderResponse, request);
-
-ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplayContext = new ViewProductsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, productSearchDisplayContext.getSearchContainer());
 %>
 
 <portlet:renderURL var="editProductURL">
@@ -54,7 +52,7 @@ ViewProductsManagementToolbarDisplayContext viewProductsManagementToolbarDisplay
 	</liferay-ui:error>
 
 	<clay:management-toolbar
-		displayContext="<%= viewProductsManagementToolbarDisplayContext %>"
+		displayContext="<%= new ViewProductsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, productSearchDisplayContext.getSearchContainer()) %>"
 		elementClasses="full-width"
 	/>
 

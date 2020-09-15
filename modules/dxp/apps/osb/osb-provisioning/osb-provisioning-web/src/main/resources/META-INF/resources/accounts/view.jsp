@@ -20,8 +20,6 @@
 
 <%
 AccountSearchDisplayContext accountSearchDisplayContext = ProvisioningWebComponentProvider.getAccountSearchDisplayContext(renderRequest, renderResponse, request);
-
-ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplayContext = new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountSearchDisplayContext.getSearchContainer());
 %>
 
 <div class="container-fluid home provisioning-accounts">
@@ -53,7 +51,7 @@ ViewAccountsManagementToolbarDisplayContext viewAccountsManagementToolbarDisplay
 	</div>
 
 	<clay:management-toolbar
-		displayContext="<%= viewAccountsManagementToolbarDisplayContext %>"
+		displayContext="<%= new ViewAccountsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, accountSearchDisplayContext.getSearchContainer()) %>"
 		elementClasses="full-width"
 		showSearch="<%= false %>"
 	/>
