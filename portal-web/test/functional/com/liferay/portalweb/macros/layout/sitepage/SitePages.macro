@@ -122,7 +122,7 @@ definition {
 
 		Pause(locator1 = "3000");
 
-		LexiconCard.clickCard(card = "${sitePageType}");
+		LexiconCard.clickCardTitle(card = "${sitePageType}");
 	}
 
 	macro addChildPage {
