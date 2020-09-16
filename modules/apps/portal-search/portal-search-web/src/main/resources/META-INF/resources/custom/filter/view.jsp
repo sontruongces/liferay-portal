@@ -66,6 +66,6 @@ CustomFilterDisplayContext customFilterDisplayContext = (CustomFilterDisplayCont
 	</liferay-ui:panel-container>
 
 	<aui:script use="liferay-search-custom-filter">
-		new Liferay.Search.CustomFilter(A.one('#<portlet:namespace />customFilterForm'));
+		new Liferay.Search.CustomFilter(A.one('#<portlet:namespace/>customFilterForm'));
 	</aui:script>
 </c:if>

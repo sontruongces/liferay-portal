@@ -138,7 +138,7 @@ if (Validator.isNotNull(replyTo) && !replyTo.startsWith(PortalUtil.getPortalURL(
 								if (allowButton) {
 									allowButton.addEventListener('click', function() {
 										document.getElementById('oauthDecision').value = 'allow';
-										Liferay.Util.postForm(document.<portlet:namespace />fm);
+										Liferay.Util.postForm(document.<portlet:namespace/>fm);
 									});
 								}
 
@@ -147,7 +147,7 @@ if (Validator.isNotNull(replyTo) && !replyTo.startsWith(PortalUtil.getPortalURL(
 								if (cancelButton) {
 									cancelButton.addEventListener('click', function() {
 										document.getElementById('oauthDecision').value = 'deny';
-										Liferay.Util.postForm(document.<portlet:namespace />fm);
+										Liferay.Util.postForm(document.<portlet:namespace/>fm);
 									});
 								}
 							</script>
