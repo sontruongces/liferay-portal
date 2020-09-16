@@ -3963,6 +3963,8 @@ go</echo>
 				app.server.tomcat.zip.name=${app.server.tomcat.zip.name}
 				app.server.tomcat.zip.url=${app.server.tomcat.zip.url}
 			</echo>
+
+			<print-file file.name="app.server.${user.name}.properties" />
 		</sequential>
 	</macrodef>
 

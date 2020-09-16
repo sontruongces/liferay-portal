@@ -6291,6 +6291,8 @@ information. Make sure to commit in all build REST results.
 
 								<delete dir="${liferay.home}" />
 
+								<set-tomcat-version-number liferay.portal.bundle="${test.portal.bundle.version}" />
+
 								<prepare-release-test-environment
 									test.license.xml.url="${test.license.xml.url}"
 									test.portal.bundle.zip.url="${test.portal.bundle.zip.url}"
