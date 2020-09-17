@@ -54,7 +54,7 @@ public class ProductSearchDisplayContext {
 
 		List<Product> products = _productWebService.getProducts(
 			keywords, StringPool.BLANK, searchContainer.getCur(),
-			searchContainer.getEnd() - searchContainer.getStart(), "name:asc");
+			searchContainer.getEnd() - searchContainer.getStart(), "name");
 
 		searchContainer.setResults(
 			TransformUtil.transform(
