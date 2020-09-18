@@ -56,10 +56,22 @@ if (Validator.isNotNull(className) && (classPK > 0)) {
 <span <%= AUIUtil.buildData(data) %> class="hide portlet-item"></span>
 
 <c:if test="<%= (assetRenderer != null) && PortletPermissionUtil.contains(permissionChecker, layout, portletId, ActionKeys.ADD_TO_PAGE) %>">
-	<aui:script use="aui-base">
-		Liferay.fire('AddContent:addPortlet', {
-			node: A.one('.portlet-item')
-		});
+	<aui:script use="aui-base,liferay-product-navigation-control-menu-add-base">
+		var ControlMenu = Liferay.ControlMenu;
+
+		var addContentCollapse = A.one('#<portlet:namespace />addContentCollapse');
+		var searchContent = A.one('#<portlet:namespace />searchContent');
+
+		if (!addContentCollapse || !searchContent) {
+			var addBase = new ControlMenu.AddBase();
+
+			addBase.addPortlet(A.one('.portlet-item'));
+		}
+		else {
+			Liferay.fire('AddContent:addPortlet', {
+				node: A.one('.portlet-item')
+			});
+		}
 
 		Liferay.once('updatedLayout', function() {
 			Liferay.Util.navigate(

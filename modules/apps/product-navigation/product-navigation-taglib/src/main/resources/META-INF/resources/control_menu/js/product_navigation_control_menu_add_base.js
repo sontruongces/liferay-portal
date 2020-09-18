@@ -80,6 +80,10 @@ AUI.add(
 				_bindUIDABase() {
 					var instance = this;
 
+					if (!instance._panelBody) {
+						return;
+					}
+
 					var panelBody = $(Util.getDOM(instance._panelBody));
 
 					var listGroupPanel = panelBody.find('.list-group-panel');
