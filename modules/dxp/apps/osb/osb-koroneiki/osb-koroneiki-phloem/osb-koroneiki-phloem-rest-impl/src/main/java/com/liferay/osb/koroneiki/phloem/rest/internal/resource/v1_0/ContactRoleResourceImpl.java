@@ -137,14 +137,13 @@ public class ContactRoleResourceImpl
 				String accountKey, String contactUuid, Pagination pagination)
 		throws Exception {
 
-		String[] contactRoleTypes = {
-			ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
-			ContactRole.Type.ACCOUNT_WORKER.toString()
-		};
-
 		return _getAccountContactRolesPage(
 			_contactLocalService.getContactByUuid(contactUuid), accountKey,
-			contactRoleTypes, pagination);
+			new String[] {
+				ContactRole.Type.ACCOUNT_CUSTOMER.toString(),
+				ContactRole.Type.ACCOUNT_WORKER.toString()
+			},
+			pagination);
 	}
 
 	@Override

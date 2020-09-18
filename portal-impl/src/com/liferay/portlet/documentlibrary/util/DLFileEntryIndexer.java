@@ -673,13 +673,12 @@ public class DLFileEntryIndexer
 		actionableDynamicQuery.setCompanyId(companyId);
 		actionableDynamicQuery.setPerformActionMethod(
 			(DLFolder dlFolder) -> {
-				String[] newIds = {
-					String.valueOf(companyId),
-					String.valueOf(dlFolder.getGroupId()),
-					String.valueOf(dlFolder.getFolderId())
-				};
-
-				reindex(newIds);
+				reindex(
+					new String[] {
+						String.valueOf(companyId),
+						String.valueOf(dlFolder.getGroupId()),
+						String.valueOf(dlFolder.getFolderId())
+					});
 			});
 
 		actionableDynamicQuery.performActions();
@@ -696,12 +695,11 @@ public class DLFileEntryIndexer
 
 				long folderId = groupId;
 
-				String[] newIds = {
-					String.valueOf(companyId), String.valueOf(groupId),
-					String.valueOf(folderId)
-				};
-
-				reindex(newIds);
+				reindex(
+					new String[] {
+						String.valueOf(companyId), String.valueOf(groupId),
+						String.valueOf(folderId)
+					});
 			});
 
 		actionableDynamicQuery.performActions();

@@ -110,12 +110,11 @@ public class PluginManagerImpl implements PluginManager {
 	public void remove(String name) throws Exception {
 		Settings settings = _environment.settings();
 
-		String[] args = {
-			"remove", name, "-Epath.home=" + settings.get("path.home"),
-			"--silent"
-		};
-
-		main(args);
+		main(
+			new String[] {
+				"remove", name, "-Epath.home=" + settings.get("path.home"),
+				"--silent"
+			});
 	}
 
 	protected void main(String... args) throws Exception {

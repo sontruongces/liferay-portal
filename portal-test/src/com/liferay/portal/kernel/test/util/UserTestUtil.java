@@ -78,10 +78,9 @@ public class UserTestUtil {
 		Role role = RoleLocalServiceUtil.getRole(
 			group.getCompanyId(), roleName);
 
-		long[] userIds = {groupUser.getUserId()};
-
 		UserGroupRoleLocalServiceUtil.addUserGroupRoles(
-			userIds, group.getGroupId(), role.getRoleId());
+			new long[] {groupUser.getUserId()}, group.getGroupId(),
+			role.getRoleId());
 
 		return groupUser;
 	}

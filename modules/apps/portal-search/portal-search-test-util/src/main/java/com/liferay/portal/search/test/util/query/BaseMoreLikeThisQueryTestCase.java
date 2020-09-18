@@ -105,10 +105,8 @@ public abstract class BaseMoreLikeThisQueryTestCase
 				_FIELD_DESCRIPTION, value),
 			Arrays.asList("bravo charlie"));
 
-		String[] fields = {_FIELD_TITLE};
-
 		MoreLikeThisQuery moreLikeThisQuery = queries.moreLikeThis(
-			fields, "alpha", "bravo");
+			new String[] {_FIELD_TITLE}, "alpha", "bravo");
 
 		moreLikeThisQuery.addField(_FIELD_DESCRIPTION);
 
