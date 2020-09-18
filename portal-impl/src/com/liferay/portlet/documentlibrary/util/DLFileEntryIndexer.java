@@ -672,14 +672,12 @@ public class DLFileEntryIndexer
 
 		actionableDynamicQuery.setCompanyId(companyId);
 		actionableDynamicQuery.setPerformActionMethod(
-			(DLFolder dlFolder) -> {
-				reindex(
-					new String[] {
-						String.valueOf(companyId),
-						String.valueOf(dlFolder.getGroupId()),
-						String.valueOf(dlFolder.getFolderId())
-					});
-			});
+			(DLFolder dlFolder) -> reindex(
+				new String[] {
+					String.valueOf(companyId),
+					String.valueOf(dlFolder.getGroupId()),
+					String.valueOf(dlFolder.getFolderId())
+				}));
 
 		actionableDynamicQuery.performActions();
 	}
