@@ -45,16 +45,17 @@ import org.osgi.service.component.annotations.Reference;
 public class LicenseKeyMigration {
 
 	public void migrate(long userId) throws Exception {
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("select corpProjectId, OSB_ProductEntry.name, ");
-		sb.append("licenseKeyId, startDate, expirationDate from ");
-		sb.append("OSB_LicenseKey inner join OSB_AccountEntry on ");
-		sb.append("OSB_LicenseKey.accountEntryId = ");
+		sb.append("licenseKeyId, startDate, expirationDate, ");
+		sb.append("OSB_AccountEntry.accountEntryId from OSB_LicenseKey inner ");
+		sb.append("join OSB_AccountEntry on OSB_LicenseKey.accountEntryId = ");
 		sb.append("OSB_AccountEntry.accountEntryId inner join ");
 		sb.append("OSB_ProductEntry on OSB_LicenseKey.productEntryId = ");
 		sb.append("OSB_ProductEntry.productEntryId where productId = ");
-		sb.append("'Portal' and complimentary = 0 and active_ = 1");
+		sb.append("'Portal' and complimentary = 0 and active_ = 1 and ");
+		sb.append("OSB_AccountEntry.status != 500");
 
 		try (Connection connection = DataAccess.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
@@ -69,8 +70,8 @@ public class LicenseKeyMigration {
 
 				if (account == null) {
 					_log.error(
-						"Unable to find account with accountId " +
-							corpProjectId);
+						"Unable to find account for account entry " +
+							resultSet.getLong("accountEntryId"));
 
 					continue;
 				}

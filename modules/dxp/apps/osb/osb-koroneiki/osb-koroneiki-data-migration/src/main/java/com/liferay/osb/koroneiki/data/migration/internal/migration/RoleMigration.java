@@ -63,6 +63,7 @@ public class RoleMigration {
 			userId, "Partner Watcher");
 
 		_portalRoleMap.put(112936656L, partnerWatcherContactRoleId);
+		_partnerWorkerRoleMap.put(0, partnerWatcherContactRoleId);
 		_partnerWorkerRoleMap.put(3, partnerWatcherContactRoleId);
 
 		_portalRoleMap.put(12324522L, _addCustomerContactRole(userId, "Admin"));
@@ -91,6 +92,14 @@ public class RoleMigration {
 
 		_accountCustomerRoleMap.put(3, supportWatcherContactRoleId);
 		_accountCustomerRoleMap.put(4, supportWatcherContactRoleId);
+
+		ContactRole workerMemberContactRole =
+			_contactRoleLocalService.getMemberContactRole(
+				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
+					ACCOUNT_WORKER.toString());
+
+		_accountWorkerRoleMap.put(
+			0, workerMemberContactRole.getContactRoleId());
 
 		_accountWorkerRoleMap.put(
 			2, _addWorkerContactRole(userId, "Liferay Sales"));

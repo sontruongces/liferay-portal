@@ -65,13 +65,13 @@ public class CorpProjectMigration {
 		sb.append("OSB_AccountEntry.dossieraAccountKey, ");
 		sb.append("OSB_AccountEntry.code_, OSB_AccountEntry.type_, ");
 		sb.append("OSB_AccountEntry.tier, OSB_AccountEntry.notes, ");
-		sb.append("OSB_AccountEntry.status, ");
 		sb.append("OSB_AccountEntries_SupportRegions.supportRegionId from ");
 		sb.append("OSB_CorpProject left join OSB_AccountEntry on ");
 		sb.append("OSB_AccountEntry.corpProjectUuid = OSB_CorpProject.uuid_ ");
-		sb.append("inner join OSB_AccountEntries_SupportRegions on ");
+		sb.append("left join OSB_AccountEntries_SupportRegions on ");
 		sb.append("OSB_AccountEntries_SupportRegions.accountEntryId = ");
-		sb.append("OSB_AccountEntry.accountEntryId");
+		sb.append("OSB_AccountEntry.accountEntryId where ");
+		sb.append("OSB_AccountEntry.status != 500");
 
 		try (Connection connection = DataAccess.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
@@ -88,12 +88,6 @@ public class CorpProjectMigration {
 				}
 
 				corpProjectIds.add(corpProjectId);
-
-				int status = resultSet.getInt("status");
-
-				if (status == 500) {
-					continue;
-				}
 
 				Account account = _accountLocalService.createAccount(
 					corpProjectId);
@@ -335,11 +329,8 @@ public class CorpProjectMigration {
 		else if (supportRegionId == 42356507) {
 			return "Spain";
 		}
-		else if (supportRegionId == 42356488) {
-			return "United States";
-		}
 
-		return StringPool.BLANK;
+		return "United States";
 	}
 
 	private String _getTier(int tier) {

@@ -20,11 +20,9 @@ import com.liferay.osb.koroneiki.root.model.ExternalLink;
 import com.liferay.osb.koroneiki.root.service.ExternalLinkLocalService;
 import com.liferay.osb.koroneiki.taproot.model.Account;
 import com.liferay.osb.koroneiki.taproot.model.Contact;
-import com.liferay.osb.koroneiki.taproot.model.ContactRole;
 import com.liferay.osb.koroneiki.taproot.service.AccountLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactAccountRoleLocalService;
 import com.liferay.osb.koroneiki.taproot.service.ContactLocalService;
-import com.liferay.osb.koroneiki.taproot.service.ContactRoleLocalService;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -39,7 +37,6 @@ import java.sql.ResultSet;
 
 import java.util.List;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -48,18 +45,6 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(immediate = true, service = UserMigration.class)
 public class UserMigration {
-
-	@Activate
-	public void activate() {
-		_customerMemberContactRole =
-			_contactRoleLocalService.getMemberContactRole(
-				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
-					ACCOUNT_CUSTOMER.toString());
-		_workerMemberContactRole =
-			_contactRoleLocalService.getMemberContactRole(
-				com.liferay.osb.koroneiki.phloem.rest.dto.v1_0.ContactRole.Type.
-					ACCOUNT_WORKER.toString());
-	}
 
 	public void migrate(long userId) throws Exception {
 		try (Connection connection = DataAccess.getConnection()) {
@@ -110,32 +95,13 @@ public class UserMigration {
 		sb.append("= OSB_AccountCustomer.accountEntryId inner join ");
 		sb.append("CUSTOMER_User on CUSTOMER_User.userId = ");
 		sb.append("OSB_AccountCustomer.userId where OSB_AccountEntry.status ");
-		sb.append("!= 500");
+		sb.append("!= 500 and OSB_AccountEntry.corpProjectUuid is not null");
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			while (resultSet.next()) {
-				String contactUuid = resultSet.getString(1);
-
-				Contact contact = _contactLocalService.fetchContactByUuid(
-					contactUuid);
-
-				if (contact == null) {
-					String contactFirstName = resultSet.getString(2);
-					String contactMiddleName = resultSet.getString(3);
-					String contactLastName = resultSet.getString(4);
-					String contactEmailAddress = resultSet.getString(5);
-					String contactLanguageId = resultSet.getString(6);
-					boolean emailAddressVerified = resultSet.getBoolean(7);
-
-					contact = _contactLocalService.addContact(
-						contactUuid, userId, contactFirstName,
-						contactMiddleName, contactLastName, contactEmailAddress,
-						contactLanguageId, emailAddressVerified);
-				}
-
 				String corpProjectUuid = resultSet.getString(8);
 
 				Account account = _getAccount(corpProjectUuid);
@@ -156,41 +122,9 @@ public class UserMigration {
 				if (contactRoleId == null) {
 					_log.error("Unable to find contact role from role " + role);
 
-					_contactAccountRoleLocalService.addContactAccountRole(
-						contact.getContactId(), account.getAccountId(),
-						_customerMemberContactRole.getContactRoleId());
-
 					continue;
 				}
 
-				_contactAccountRoleLocalService.addContactAccountRole(
-					contact.getContactId(), account.getAccountId(),
-					contactRoleId);
-			}
-		}
-	}
-
-	private void _migrateAccountWorkers(Connection connection, long userId)
-		throws Exception {
-
-		StringBundler sb = new StringBundler(10);
-
-		sb.append("select CUSTOMER_User.uuid_, CUSTOMER_User.firstName, ");
-		sb.append("CUSTOMER_User.middleName, CUSTOMER_User.lastName, ");
-		sb.append("CUSTOMER_User.emailAddress, CUSTOMER_User.languageId, ");
-		sb.append("CUSTOMER_User.emailAddressVerified, ");
-		sb.append("OSB_AccountEntry.corpProjectUuid, OSB_AccountWorker.role ");
-		sb.append("from OSB_AccountWorker inner join OSB_AccountEntry on ");
-		sb.append("OSB_AccountEntry.accountEntryId = ");
-		sb.append("OSB_AccountWorker.accountEntryId inner join CUSTOMER_User ");
-		sb.append("on CUSTOMER_User.userId = OSB_AccountWorker.userId where ");
-		sb.append("OSB_AccountEntry.status != 500");
-
-		try (PreparedStatement preparedStatement = connection.prepareStatement(
-				sb.toString());
-			ResultSet resultSet = preparedStatement.executeQuery()) {
-
-			while (resultSet.next()) {
 				String contactUuid = resultSet.getString(1);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
@@ -210,6 +144,35 @@ public class UserMigration {
 						contactLanguageId, emailAddressVerified);
 				}
 
+				_contactAccountRoleLocalService.addContactAccountRole(
+					contact.getContactId(), account.getAccountId(),
+					contactRoleId);
+			}
+		}
+	}
+
+	private void _migrateAccountWorkers(Connection connection, long userId)
+		throws Exception {
+
+		StringBundler sb = new StringBundler(11);
+
+		sb.append("select CUSTOMER_User.uuid_, CUSTOMER_User.firstName, ");
+		sb.append("CUSTOMER_User.middleName, CUSTOMER_User.lastName, ");
+		sb.append("CUSTOMER_User.emailAddress, CUSTOMER_User.languageId, ");
+		sb.append("CUSTOMER_User.emailAddressVerified, ");
+		sb.append("OSB_AccountEntry.corpProjectUuid, OSB_AccountWorker.role ");
+		sb.append("from OSB_AccountWorker inner join OSB_AccountEntry on ");
+		sb.append("OSB_AccountEntry.accountEntryId = ");
+		sb.append("OSB_AccountWorker.accountEntryId inner join CUSTOMER_User ");
+		sb.append("on CUSTOMER_User.userId = OSB_AccountWorker.userId where ");
+		sb.append("OSB_AccountEntry.status != 500 and ");
+		sb.append("OSB_AccountEntry.corpProjectUuid is not null");
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				sb.toString());
+			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
 				String corpProjectUuid = resultSet.getString(8);
 
 				Account account = _getAccount(corpProjectUuid);
@@ -230,11 +193,26 @@ public class UserMigration {
 				if (contactRoleId == null) {
 					_log.error("Unable to find contact role from role " + role);
 
-					_contactAccountRoleLocalService.addContactAccountRole(
-						contact.getContactId(), account.getAccountId(),
-						_workerMemberContactRole.getContactRoleId());
-
 					continue;
+				}
+
+				String contactUuid = resultSet.getString(1);
+
+				Contact contact = _contactLocalService.fetchContactByUuid(
+					contactUuid);
+
+				if (contact == null) {
+					String contactFirstName = resultSet.getString(2);
+					String contactMiddleName = resultSet.getString(3);
+					String contactLastName = resultSet.getString(4);
+					String contactEmailAddress = resultSet.getString(5);
+					String contactLanguageId = resultSet.getString(6);
+					boolean emailAddressVerified = resultSet.getBoolean(7);
+
+					contact = _contactLocalService.addContact(
+						contactUuid, userId, contactFirstName,
+						contactMiddleName, contactLastName, contactEmailAddress,
+						contactLanguageId, emailAddressVerified);
 				}
 
 				_contactAccountRoleLocalService.addContactAccountRole(
@@ -276,17 +254,8 @@ public class UserMigration {
 					continue;
 				}
 
-				ContactRole contactRole =
-					_contactRoleLocalService.fetchContactRole(contactRoleId);
-
-				if (contactRole == null) {
-					_log.error("Unable to find contact role " + roleId);
-
-					continue;
-				}
-
 				_contactAccountRoleLocalService.addContactAccountRole(
-					contactId, accountId, contactRole.getContactRoleId());
+					contactId, accountId, contactRoleId);
 
 				assignedContactRole = true;
 			}
@@ -295,7 +264,7 @@ public class UserMigration {
 		if (!assignedContactRole) {
 			_contactAccountRoleLocalService.addContactAccountRole(
 				contactId, accountId,
-				_customerMemberContactRole.getContactRoleId());
+				_roleMigration.getAccountCustomerContactRoleId(0));
 		}
 	}
 
@@ -369,8 +338,19 @@ public class UserMigration {
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			while (resultSet.next()) {
-				String contactUuid = resultSet.getString(3);
 				String corpProjectUuid = resultSet.getString(10);
+
+				Account account = _getAccount(corpProjectUuid);
+
+				if (account == null) {
+					_log.error(
+						"Unable to find account with corpProjectUuid " +
+							corpProjectUuid);
+
+					continue;
+				}
+
+				String contactUuid = resultSet.getString(3);
 
 				Contact contact = _contactLocalService.fetchContactByUuid(
 					contactUuid);
@@ -387,16 +367,6 @@ public class UserMigration {
 						contactUuid, userId, contactFirstName,
 						contactMiddleName, contactLastName, contactEmailAddress,
 						contactLanguageId, emailAddressVerified);
-				}
-
-				Account account = _getAccount(corpProjectUuid);
-
-				if (account == null) {
-					_log.error(
-						"Unable to find account with corpProjectUuid " +
-							corpProjectUuid);
-
-					continue;
 				}
 
 				long webUserId = resultSet.getLong(1);
@@ -424,11 +394,6 @@ public class UserMigration {
 	private ContactLocalService _contactLocalService;
 
 	@Reference
-	private ContactRoleLocalService _contactRoleLocalService;
-
-	private ContactRole _customerMemberContactRole;
-
-	@Reference
 	private ExternalLinkLocalService _externalLinkLocalService;
 
 	@Reference
@@ -436,7 +401,5 @@ public class UserMigration {
 
 	@Reference
 	private UserLocalService _userLocalService;
-
-	private ContactRole _workerMemberContactRole;
 
 }

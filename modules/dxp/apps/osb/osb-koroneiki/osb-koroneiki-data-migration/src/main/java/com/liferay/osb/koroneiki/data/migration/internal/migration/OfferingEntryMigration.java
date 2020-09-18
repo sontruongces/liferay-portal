@@ -69,7 +69,7 @@ public class OfferingEntryMigration {
 
 		_platinumProductEntryId = productEntry.getProductEntryId();
 
-		StringBundler sb = new StringBundler(10);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("select corpProjectId, OSB_ProductEntry.name, ");
 		sb.append("supportResponseId, startDate, supportEndDate, quantity, ");
@@ -80,7 +80,8 @@ public class OfferingEntryMigration {
 		sb.append("OSB_ProductEntry on OSB_OfferingEntry.productEntryId = ");
 		sb.append("OSB_ProductEntry.productEntryId inner join OSB_OrderEntry ");
 		sb.append("on OSB_OfferingEntry.orderEntryId = ");
-		sb.append("OSB_OrderEntry.orderEntryId");
+		sb.append("OSB_OrderEntry.orderEntryId where OSB_AccountEntry.status ");
+		sb.append("!= 500");
 
 		try (Connection connection = DataAccess.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(

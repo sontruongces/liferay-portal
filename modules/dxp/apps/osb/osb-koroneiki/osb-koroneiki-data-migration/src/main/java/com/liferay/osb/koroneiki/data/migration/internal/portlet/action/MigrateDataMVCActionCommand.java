@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.search.index.IndexStatusManager;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -63,15 +64,18 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 			PublishingTasksThreadLocal.setImportInProcess(true);
 
+			_indexStatusManager.setIndexReadOnly(true);
+
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			_productEntryMigration.migrate(themeDisplay.getUserId());
 
 			_roleMigration.migrate(themeDisplay.getUserId());
 
 			_corpEntryMigration.migrate(themeDisplay.getUserId());
 			_corpProjectMigration.migrate(themeDisplay.getUserId());
 			_partnerMigration.migrate(themeDisplay.getUserId());
-			_productEntryMigration.migrate(themeDisplay.getUserId());
 			_userMigration.migrate(themeDisplay.getUserId());
 
 			_licenseKeyMigration.migrate(themeDisplay.getUserId());
@@ -91,6 +95,8 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 		}
 		finally {
 			PublishingTasksThreadLocal.setImportInProcess(false);
+
+			_indexStatusManager.setIndexReadOnly(false);
 		}
 	}
 
@@ -102,6 +108,9 @@ public class MigrateDataMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CorpProjectMigration _corpProjectMigration;
+
+	@Reference
+	private IndexStatusManager _indexStatusManager;
 
 	@Reference
 	private LicenseKeyMigration _licenseKeyMigration;

@@ -45,6 +45,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -95,11 +96,14 @@ public class PartnerMigration {
 			Connection connection, long partnerEntryId, long teamId)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler sb = new StringBundler(6);
 
-		sb.append("select corpProjectId, partnerManagedSupport from ");
-		sb.append("OSB_AccountEntry where partnerEntryId = ");
+		sb.append("select OSB_CorpProject.corpProjectId, ");
+		sb.append("partnerManagedSupport from OSB_AccountEntry inner join ");
+		sb.append("OSB_CorpProject on OSB_CorpProject.uuid_ = ");
+		sb.append("OSB_AccountEntry.corpProjectUuid where partnerEntryId = ");
 		sb.append(partnerEntryId);
+		sb.append(" and OSB_AccountEntry.status != 500");
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
@@ -151,6 +155,28 @@ public class PartnerMigration {
 		return _accountLocalService.getAccount(externalLink.getClassPK());
 	}
 
+	private String _getDossieraAccountKey(
+			Connection connection, long partnerEntryId)
+		throws Exception {
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("select dossieraAccountKey from OSB_PartnerEntry where ");
+		sb.append("partnerEntryId = ");
+		sb.append(partnerEntryId);
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				sb.toString());
+			ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			if (resultSet.next()) {
+				return resultSet.getString(1);
+			}
+		}
+
+		return StringPool.BLANK;
+	}
+
 	private void _migratePartnerEntries(Connection connection, long userId)
 		throws Exception {
 
@@ -173,10 +199,11 @@ public class PartnerMigration {
 				userId, "Service Partnership", productFields);
 		}
 
-		StringBundler sb = new StringBundler(2);
+		StringBundler sb = new StringBundler(3);
 
-		sb.append("select dossieraAccountKey, code_, notes, partnerEntryId ");
-		sb.append("from OSB_PartnerEntry");
+		sb.append("select dossieraAccountKey, code_, notes, partnerEntryId, ");
+		sb.append("parentPartnerEntryId from OSB_PartnerEntry where status = ");
+		sb.append("0");
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
@@ -189,12 +216,19 @@ public class PartnerMigration {
 			while (resultSet.next()) {
 				String dossieraAccountKey = resultSet.getString(1);
 
+				if (Validator.isNull(dossieraAccountKey)) {
+					dossieraAccountKey = _getDossieraAccountKey(
+						connection, resultSet.getLong(5));
+				}
+
 				Account account = _getAccount(dossieraAccountKey);
 
 				if (account == null) {
 					_log.error(
-						"Unable to find account with dossiera account key " +
-							dossieraAccountKey);
+						StringBundler.concat(
+							"Unable to find account with dossiera account key ",
+							dossieraAccountKey, " for ",
+							resultSet.getString(2)));
 
 					continue;
 				}
@@ -238,7 +272,7 @@ public class PartnerMigration {
 		sb.append("OSB_PartnerWorker.userId inner join OSB_PartnerEntry on ");
 		sb.append("OSB_PartnerEntry.partnerEntryId = ");
 		sb.append("OSB_PartnerWorker.partnerEntryId where dossieraAccountKey ");
-		sb.append("!= ''");
+		sb.append("!= '' and OSB_PartnerEntry.status = 0");
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				sb.toString());
