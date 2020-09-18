@@ -1167,10 +1167,8 @@ public class UIItemsBuilder {
 				LiferayPortletResponse liferayPortletResponse =
 					_getLiferayPortletResponse();
 
-				PortletURL portletURL =
-					liferayPortletResponse.createRenderURL();
-
-				redirect = portletURL.toString();
+				redirect = String.valueOf(
+					liferayPortletResponse.createRenderURL());
 			}
 
 			return _getActionURL(mvcActionCommandName, cmd, redirect);
