@@ -33,3 +33,15 @@ app.artifacts-2.0.2=\
 app.change.log-2.0.2=LPS-100667 LPS-101653 LPS-102391 LPS-102453 LPS-102853 LPS-103252 LPS-103302 LPS-104435 LPS-104693 LPS-104938 LPS-105380 LPS-107697 LPS-108052 LPS-77699 LPS-84119 LPS-98877 LRQA-51488
 
 app.git.id-2.0.2=298e5157cdf9ec1436ce0d36f8d394f9e9a7c6c1
+
+#
+# Liferay App Version 2.1.0
+#
+
+app.artifacts-2.1.0=\
+	com.liferay.portal.search.solr7.api-2.0.12.jar,\
+	com.liferay.portal.search.solr7.impl-2.0.38.jar
+
+app.change.log-2.1.0=LPS-110210 LPS-112407 LPS-77699 LRQA-58048 LPS-105380
+
+app.git.id-2.1.0=296077e9d986e387718d8aa0d31f771fe8d68285
