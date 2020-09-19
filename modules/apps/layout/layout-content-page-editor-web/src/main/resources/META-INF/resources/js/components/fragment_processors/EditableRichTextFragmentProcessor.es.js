@@ -22,7 +22,8 @@ import {
 } from '../../utils/constants';
 
 const KEY_ENTER = 13;
-const KEY_SHIFT_ENTER = CKEDITOR.SHIFT + KEY_ENTER;
+const KEY_SHIFT_ENTER =
+	(window.CKEDITOR ? window.CKEDITOR.SHIFT : 0) + KEY_ENTER;
 
 let _destroyedCallback = null;
 let _editableElement = null;
