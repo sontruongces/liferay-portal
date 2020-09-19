@@ -22,6 +22,7 @@ import {
 } from '../../utils/constants';
 
 const KEY_ENTER = 13;
+const KEY_SHIFT_ENTER = CKEDITOR.SHIFT + KEY_ENTER;
 
 let _destroyedCallback = null;
 let _editableElement = null;
@@ -280,7 +281,8 @@ function _selectRange(event, nativeEditor) {
  */
 function _handleNativeEditorKey(event) {
 	if (
-		event.data.keyCode === KEY_ENTER &&
+		(event.data.keyCode === KEY_ENTER ||
+			event.data.keyCode === KEY_SHIFT_ENTER) &&
 		_editableElement &&
 		_editableElement.getAttribute('type') === 'text'
 	) {
