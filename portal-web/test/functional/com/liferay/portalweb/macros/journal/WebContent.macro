@@ -415,9 +415,12 @@ definition {
 
 		if ("${allowMultipleCategories}" == "false") {
 			Button.clickPublish();
-		}
 
-		PortletEntry.publish();
+			Alert.viewErrorMessage(errorMessage = "You cannot select more than one category for Vocabulary Name.");
+		}
+		else {
+			PortletEntry.publish();
+		}
 	}
 
 	macro addWithPriorityCP {
