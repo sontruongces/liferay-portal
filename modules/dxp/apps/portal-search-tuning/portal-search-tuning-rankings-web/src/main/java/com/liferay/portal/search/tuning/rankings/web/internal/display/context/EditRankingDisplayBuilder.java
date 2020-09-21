@@ -145,7 +145,7 @@ public class EditRankingDisplayBuilder {
 		String redirect = ParamUtil.getString(_httpServletRequest, "redirect");
 
 		if (Validator.isNull(redirect)) {
-			redirect = String.valueOf(renderResponse.createRenderURL());
+			redirect = String.valueOf(_renderResponse.createRenderURL());
 		}
 
 		return redirect;
