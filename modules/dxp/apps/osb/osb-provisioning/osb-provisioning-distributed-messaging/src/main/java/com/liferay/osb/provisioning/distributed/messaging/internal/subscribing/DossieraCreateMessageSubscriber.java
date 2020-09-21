@@ -317,6 +317,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 
 		PostalAddress postalAddress = parseAddress(jsonObject);
 
+		_checkUsers(jsonObject, contacts, postalAddress, analyticsCloud);
+
 		Account account = null;
 
 		String accountKey = getAccountKey(jsonObject);
@@ -350,16 +352,6 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			createZendeskTicket(
 				account, postalAddress, salesforceOpportunityTypeName,
 				salesforceOpportunityKey);
-		}
-
-		for (Contact contact : contacts) {
-			Contact koroneikiContact =
-				_contactWebService.getContactByEmailAddress(
-					contact.getEmailAddress());
-
-			if (koroneikiContact == null) {
-				sendUserCreationEmail(contact, account, analyticsCloud);
-			}
 		}
 	}
 
@@ -847,7 +839,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 	}
 
 	protected void sendUserCreationEmail(
-		Contact contact, Account account, boolean analyticsCloud) {
+		Contact contact, String accountName, String accountRegion,
+		boolean analyticsCloud) {
 
 		StringBundler sb = new StringBundler(2);
 
@@ -862,7 +855,7 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 			ProvisioningDistributedMessagingConfigurationUtil.get(
 				ProvisioningDistributedMessagingConfigurationValues.
 					PROVISIONING_EMAIL_ADDRESS,
-				new Filter(account.getRegionAsString()));
+				new Filter(accountRegion));
 
 		if (Validator.isNull(provisioningEmailAddress)) {
 			provisioningEmailAddress =
@@ -886,8 +879,8 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		subscriptionSender.setBody(body);
 		subscriptionSender.setCompanyId(_portal.getDefaultCompanyId());
 		subscriptionSender.setContextAttributes(
-			"[$ACCOUNT_ENTRY_NAME$]", account.getName(),
-			"[$SUBSCRIPTION_SERVICES$]", sb.toString());
+			"[$ACCOUNT_ENTRY_NAME$]", accountName, "[$SUBSCRIPTION_SERVICES$]",
+			sb.toString());
 		subscriptionSender.setFrom(
 			provisioningEmailAddress, "Liferay Provisioning");
 		subscriptionSender.setHtmlFormat(true);
@@ -973,6 +966,32 @@ public class DossieraCreateMessageSubscriber extends BaseMessageSubscriber {
 		return ContentUtil.get(
 			DossieraCreateMessageSubscriber.class.getClassLoader(),
 			templateDirName + defaultTemplateName);
+	}
+
+	private void _checkUsers(
+			JSONObject jsonObject, List<Contact> contacts,
+			PostalAddress postalAddress, boolean analyticsCloud)
+		throws Exception {
+
+		JSONObject accountJSONObject = jsonObject.getJSONObject("_account");
+
+		String accountName = accountJSONObject.getString("_name");
+
+		String soldBy = jsonObject.getString("_salesforceOpportunitySoldBy");
+
+		Account.Region region = getSupportRegion(
+			soldBy, postalAddress.getAddressCountry());
+
+		for (Contact contact : contacts) {
+			Contact koroneikiContact =
+				_contactWebService.fetchContactByEmailAddress(
+					contact.getEmailAddress());
+
+			if (koroneikiContact == null) {
+				sendUserCreationEmail(
+					contact, accountName, region.toString(), analyticsCloud);
+			}
+		}
 	}
 
 	private String _getCode(String parentAccountName, String accountName)
