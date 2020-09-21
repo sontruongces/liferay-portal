@@ -174,8 +174,8 @@ public class LayoutPageTemplateStructureLocalServiceImpl
 			return layoutPageTemplateStructure;
 		}
 
-		return rebuildLayoutPageTemplateStructure(
-			groupId, classNameId, classPK);
+		return layoutPageTemplateStructureLocalService.
+			rebuildLayoutPageTemplateStructure(groupId, classNameId, classPK);
 	}
 
 	@Override
