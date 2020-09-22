@@ -302,7 +302,7 @@ public class AssetCategoriesSelectorTag extends ComponentRendererTag {
 
 			portletURL.setParameter("eventName", getEventName());
 			portletURL.setParameter(
-				"selectedCategoryIds", "{selectedCategoryIds}");
+				"selectedCategories", "{selectedCategories}");
 			portletURL.setParameter("singleSelect", "{singleSelect}");
 			portletURL.setParameter("vocabularyIds", "{vocabularyIds}");
 
