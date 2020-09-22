@@ -269,14 +269,8 @@ public class CompanyIndexFactory
 	protected void loadIndexSettingsContributors(
 		final Settings.Builder builder) {
 
-		IndexSettingsHelper indexSettingsHelper = new IndexSettingsHelper() {
-
-			@Override
-			public void put(String setting, String value) {
-				builder.put(setting, value);
-			}
-
-		};
+		IndexSettingsHelper indexSettingsHelper =
+			(setting, value) -> builder.put(setting, value);
 
 		for (IndexSettingsContributor indexSettingsContributor :
 				_indexSettingsContributors) {
