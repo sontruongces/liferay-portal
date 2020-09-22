@@ -178,7 +178,9 @@ class DatePicker extends Component {
 
 	rendered() {
 		if (this._refreshFocus) {
-			const elementDayActive = this.elementValue_.find('.day.active');
+			const elementDayActive = this.elementValue_.querySelector(
+				'.day.active'
+			);
 
 			elementDayActive.focus();
 		}
@@ -312,7 +314,7 @@ class DatePicker extends Component {
 
 	_handleDayKeyDown(event) {
 		if (event.key === 'ArrowUp') {
-			this.elementValue_.find("select[name='month']").focus();
+			this.elementValue_.querySelector("select[name='month']").focus();
 
 			this._refreshFocus = false;
 		}
