@@ -1496,6 +1496,46 @@ definition {
 		MessageboardsThread.viewLockedPG(threadSubject = "Message Boards Subject 2");
 	}
 
+	macro viewLDAPConfiguration {
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Authentication",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "enabled");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Import",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "importEnabled");
+
+		FormFields.viewCheckboxChecked(fieldName = "importOnStartup");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Export",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "exportEnabled");
+	}
+
 	macro viewMSBUpgrade {
 		task ("Assert the fragments survived") {
 			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
