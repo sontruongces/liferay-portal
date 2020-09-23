@@ -1490,12 +1490,6 @@ definition {
 			value1 = "(UTC +03:00) Eastern European Time");
 	}
 
-	macro viewMessageBoards {
-		Navigator.gotoPage(pageName = "Message Boards");
-
-		MessageboardsThread.viewLockedPG(threadSubject = "Message Boards Subject 2");
-	}
-
 	macro viewLDAPConfiguration {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1534,6 +1528,12 @@ definition {
 			configurationScope = "Virtual Instance Scope");
 
 		FormFields.viewCheckboxChecked(fieldName = "exportEnabled");
+	}
+
+	macro viewMessageBoards {
+		Navigator.gotoPage(pageName = "Message Boards");
+
+		MessageboardsThread.viewLockedPG(threadSubject = "Message Boards Subject 2");
 	}
 
 	macro viewMSBUpgrade {
