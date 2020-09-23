@@ -511,13 +511,13 @@ definition {
 	}
 
 	macro gotoCommentViaFragment {
+		PageEditor.gotoTab(tabName = "Comments");
+
 		Click(
 			key_content = "${content}",
 			key_fragmentClass = "${fragmentClass}",
 			key_position = "${position}",
 			locator1 = "Fragment#FRAGMENT");
-
-		Click(locator1 = "Fragment#FRAGMENT_COMMENT_ICON");
 	}
 
 	macro gotoConfiguration {
