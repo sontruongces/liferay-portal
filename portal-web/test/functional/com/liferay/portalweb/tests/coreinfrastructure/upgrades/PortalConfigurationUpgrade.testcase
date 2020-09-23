@@ -65,7 +65,9 @@ definition {
 
 		Upgrade.viewInstanceSettings();
 
-		Upgrade.viewSystemSettings();
+		Upgrade.viewSystemSettings(
+			extensionsFive = "5",
+			extensionsSix = "6");
 	}
 
 	@ignore = "true"
@@ -98,7 +100,9 @@ definition {
 
 		Upgrade.viewInstanceSettings();
 
-		Upgrade.viewSystemSettings();
+		Upgrade.viewSystemSettings(
+			extensionsFive = "5",
+			extensionsSix = "6");
 	}
 
 	@ignore = "true"
