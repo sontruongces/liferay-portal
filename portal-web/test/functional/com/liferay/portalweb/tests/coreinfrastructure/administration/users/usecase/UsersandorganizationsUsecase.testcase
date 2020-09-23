@@ -216,6 +216,40 @@ definition {
 	}
 
 	@priority = "4"
+	test AssignUserGroupToUser {
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.addCP(userGroupName = "UG UserGroup Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UserNavigator.gotoUser(userScreenName = "usersn");
+
+		User.assignUserGroupCP(userGroupName = "UG UserGroup Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UserNavigator.gotoUser(userScreenName = "usersn");
+
+		User.viewUserInfomationUserGroupsCP(userGroupName = "UG UserGroup Name");
+	}
+
+	@priority = "4"
 	test CannotViewSiteSettingsInUserPersonalSite {
 		Navigator.gotoPersonalSite();
 
