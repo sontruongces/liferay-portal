@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<DLAdminPortletDataHandler self-path="/group/20126/portlet/com_liferay_document_library_web_portlet_DLAdminPortlet/20126/portlet-data.xml" group-id="20126">
+	<DLFolder>
+		<staged-model group-id="20126" uuid="814e847b-6fc9-3384-722f-8354c0b54bdc" defaultFileEntryTypeUuid="" path="/group/20126/com.liferay.document.library.kernel.model.DLFolder/36879.xml" asset-entry-priority="0.0" user-uuid="75b6b24f-4f37-c94e-1700-7fec8bd49e37"/>
+		<staged-model group-id="20126" uuid="54e0c9a8-cf58-c591-94ca-7f74e8558861" defaultFileEntryTypeUuid="" path="/group/20126/com.liferay.document.library.kernel.model.DLFolder/36882.xml" asset-entry-priority="0.0" user-uuid="75b6b24f-4f37-c94e-1700-7fec8bd49e37">
+			<references>
+				<reference class-name="com.liferay.document.library.kernel.model.DLFolder" class-pk="36879" group-id="20126" group-key="Guest" live-group-id="20126" type="parent" uuid="814e847b-6fc9-3384-722f-8354c0b54bdc" company-id="20099" missing="false"/>
+			</references>
+		</staged-model>
+		<staged-model group-id="20126" uuid="b3305dec-033a-fae8-d4ca-7cf57229c074" defaultFileEntryTypeUuid="" path="/group/20126/com.liferay.document.library.kernel.model.DLFolder/36885.xml" asset-entry-priority="0.0" user-uuid="75b6b24f-4f37-c94e-1700-7fec8bd49e37">
+			<references>
+				<reference class-name="com.liferay.document.library.kernel.model.DLFolder" class-pk="36882" group-id="20126" group-key="Guest" live-group-id="20126" type="parent" uuid="54e0c9a8-cf58-c591-94ca-7f74e8558861" company-id="20099" missing="false"/>
+			</references>
+		</staged-model>
+		<staged-model group-id="20126" uuid="e93d7953-16b9-4dbf-f341-c1ba08d7995e" defaultFileEntryTypeUuid="" path="/group/20126/com.liferay.document.library.kernel.model.DLFolder/36888.xml" asset-entry-priority="0.0" user-uuid="75b6b24f-4f37-c94e-1700-7fec8bd49e37">
+			<references>
+				<reference class-name="com.liferay.document.library.kernel.model.DLFolder" class-pk="36882" group-id="20126" group-key="Guest" live-group-id="20126" type="parent" uuid="54e0c9a8-cf58-c591-94ca-7f74e8558861" company-id="20099" missing="false"/>
+			</references>
+		</staged-model>
+	</DLFolder>
+</DLAdminPortletDataHandler>
