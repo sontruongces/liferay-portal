@@ -1420,11 +1420,11 @@ definition {
 			configurationScope = "Virtual Instance Scope");
 
 		FormFields.viewTextMultilineValue(
-			fieldName = "reserved-screen-names",
+			fieldName = "admin.reserved.screen.names",
 			fieldValue = "usersn");
 
 		FormFields.viewTextMultilineValue(
-			fieldName = "reserved-email-addresses",
+			fieldName = "admin.reserved.email.addresses",
 			fieldValue = "userea@liferay.com");
 
 		PortalSettings.gotoConfiguration(
@@ -1444,11 +1444,11 @@ definition {
 			configurationScope = "Virtual Instance Scope");
 
 		FormFields.viewTextMultilineValue(
-			fieldName = "default-group-names",
+			fieldName = "admin.default.group.names",
 			fieldValue = "Liferay");
 
 		FormFields.viewTextMultilineValue(
-			fieldName = "default-role-names",
+			fieldName = "admin.default.role.names",
 			fieldValue = "Administrator");
 
 		PortalSettings.gotoConfiguration(
@@ -1478,7 +1478,7 @@ definition {
 
 		AssertTextEquals(
 			locator1 = "LanguageConfiguration#LANGUAGES_CURRENT",
-			value1 = "Spanish (Spain)   English (United States)");
+			value1 = "Spanish (Spain)  English (United States)");
 
 		PortalSettings.gotoConfiguration(
 			configurationCategory = "Localization",
@@ -2046,15 +2046,31 @@ definition {
 			configurationName = "Dynamic Data Mapping Service",
 			configurationScope = "Site Scope");
 
-		SystemSettings.viewTextareaValue(
-			fieldName = "smallImageExtensions",
-			fieldValue = ".svg",
-			repeatableFieldNumber = "4");
+		if (isSet(extensionsFive)) {
+			SystemSettings.viewTextareaValue(
+				fieldName = "smallImageExtensions",
+				fieldValue = ".svg",
+				repeatableFieldNumber = "5");
+		}
+		else {
+			SystemSettings.viewTextareaValue(
+				fieldName = "smallImageExtensions",
+				fieldValue = ".svg",
+				repeatableFieldNumber = "4");
+		}
 
-		SystemSettings.viewTextareaValue(
-			fieldName = "smallImageExtensions",
-			fieldValue = "*",
-			repeatableFieldNumber = "5");
+		if (isSet(extensionsSix)) {
+			SystemSettings.viewTextareaValue(
+				fieldName = "smallImageExtensions",
+				fieldValue = "*",
+				repeatableFieldNumber = "6");
+		}
+		else {
+			SystemSettings.viewTextareaValue(
+				fieldName = "smallImageExtensions",
+				fieldValue = "*",
+				repeatableFieldNumber = "5");
+		}
 
 		FormFields.viewTextValue(
 			fieldName = "smallImageMaxSize",
