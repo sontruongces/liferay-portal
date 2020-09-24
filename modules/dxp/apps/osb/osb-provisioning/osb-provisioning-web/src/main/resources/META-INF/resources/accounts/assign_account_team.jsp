@@ -63,7 +63,7 @@ SearchContainer searchContainer = assignAccountTeamDisplayContext.getSearchConta
 			<liferay-ui:search-container-column-text
 				name="team-name"
 			>
-				<%= teamDisplay.getName() %>
+				<%= HtmlUtil.escape(teamDisplay.getName()) %>
 			</liferay-ui:search-container-column-text>
 
 			<%
@@ -73,13 +73,13 @@ SearchContainer searchContainer = assignAccountTeamDisplayContext.getSearchConta
 			<liferay-ui:search-container-column-text
 				name="account-name"
 			>
-				<%= teamAccount.getName() %>
+				<%= HtmlUtil.escape(teamAccount.getName()) %>
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
 				name="account-code"
 			>
-				<%= teamAccount.getCode() %>
+				<%= HtmlUtil.escape(teamAccount.getCode()) %>
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 

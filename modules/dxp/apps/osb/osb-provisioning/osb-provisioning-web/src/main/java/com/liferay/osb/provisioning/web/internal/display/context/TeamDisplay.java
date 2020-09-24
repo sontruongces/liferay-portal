@@ -21,8 +21,6 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.text.Format;
 
@@ -60,7 +58,7 @@ public class TeamDisplay {
 		return _team.getAccount();
 	}
 
-	public String getContactNames() {
+	public List<String> getContactNames() {
 		List<String> contactNames = new ArrayList<>();
 
 		Contact[] contacts = _team.getContacts();
@@ -74,7 +72,7 @@ public class TeamDisplay {
 			}
 		}
 
-		return StringUtil.merge(contactNames, StringPool.COMMA_AND_SPACE);
+		return contactNames;
 	}
 
 	public String getDateCreated() {

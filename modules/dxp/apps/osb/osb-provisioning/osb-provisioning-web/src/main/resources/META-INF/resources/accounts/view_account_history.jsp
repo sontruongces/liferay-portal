@@ -44,10 +44,10 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 					</span>
 				</c:if>
 
-				<%= auditEntryDisplay.getAgentName() %> > <%= auditEntryDisplay.getSummary() %>
+				<%= HtmlUtil.escape(auditEntryDisplay.getAgentName()) %> > <%= HtmlUtil.escape(auditEntryDisplay.getSummary()) %>
 
 				<c:if test="<%= Validator.isNotNull(auditEntryDisplay.getDescription()) %>">
-					> <%= auditEntryDisplay.getDescription() %>
+					> <%= HtmlUtil.escape(auditEntryDisplay.getDescription()) %>
 				</c:if>
 			</aui:col>
 
@@ -77,11 +77,11 @@ for (AuditEntryDisplay auditEntryDisplay : auditEntryDisplays) {
 		</aui:col>
 
 		<aui:col width="<%= 40 %>">
-			<%= auditEntryDisplay.getOldValue() %>
+			<%= HtmlUtil.escape(auditEntryDisplay.getOldValue()) %>
 		</aui:col>
 
 		<aui:col width="<%= 40 %>">
-			<%= auditEntryDisplay.getNewValue() %>
+			<%= HtmlUtil.escape(auditEntryDisplay.getNewValue()) %>
 		</aui:col>
 	</aui:row>
 

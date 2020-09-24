@@ -36,10 +36,10 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 			<liferay-ui:search-container-column-text
 				name="account-name-code"
 			>
-				<%= accountDisplay.getName() %>
+				<%= HtmlUtil.escape(accountDisplay.getName()) %>
 
 				<div class="secondary-information">
-					<%= accountDisplay.getCode() %>
+					<%= HtmlUtil.escape(accountDisplay.getCode()) %>
 				</div>
 			</liferay-ui:search-container-column-text>
 
@@ -58,7 +58,20 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 			<liferay-ui:search-container-column-text
 				name="teams"
 			>
-				<%= StringUtil.merge(viewContactDisplayContext.getContactAccountTeamNames(accountDisplay.getKey()), "<br />") %>
+
+				<%
+				List<String> teamNames = viewContactDisplayContext.getContactAccountTeamNames(accountDisplay.getKey());
+
+				for (int i = 0; i < teamNames.size(); i++) {
+					String teamName = teamNames.get(i);
+				%>
+
+					<%= HtmlUtil.escape(teamName) %><%= ((i + 1) < teamNames.size()) ? "<br />" : "" %>
+
+				<%
+				}
+				%>
+
 			</liferay-ui:search-container-column-text>
 
 			<liferay-ui:search-container-column-text
@@ -90,10 +103,10 @@ ViewContactDisplayContext viewContactDisplayContext = ProvisioningWebComponentPr
 			<liferay-ui:search-container-column-text
 				name="account-name-code"
 			>
-				<%= accountDisplay.getName() %>
+				<%= HtmlUtil.escape(accountDisplay.getName()) %>
 
 				<div class="secondary-information">
-					<%= accountDisplay.getCode() %>
+					<%= HtmlUtil.escape(accountDisplay.getCode()) %>
 				</div>
 			</liferay-ui:search-container-column-text>
 

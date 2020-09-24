@@ -60,10 +60,10 @@ PortletURL portletURL = viewAccountRelatedAccountsDisplayContext.getPortletURL()
 				href="<%= rowURL %>"
 				name="name-code"
 			>
-				<%= curAccountDisplay.getName() %>
+				<%= HtmlUtil.escape(curAccountDisplay.getName()) %>
 
 				<div class="secondary-information">
-					<%= curAccountDisplay.getCode() %>
+					<%= HtmlUtil.escape(curAccountDisplay.getCode()) %>
 				</div>
 			</liferay-ui:search-container-column-text>
 

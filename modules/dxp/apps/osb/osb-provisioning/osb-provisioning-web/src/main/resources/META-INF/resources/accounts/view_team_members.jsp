@@ -82,7 +82,7 @@ TeamDisplay teamDisplay = viewTeamDisplayContext.getTeamDisplay();
 		<liferay-ui:search-container-column-text
 			name="name-email"
 		>
-			<%= contactDisplay.getFullName() %>
+			<%= HtmlUtil.escape(contactDisplay.getFullName()) %>
 
 			<div class="secondary-information">
 				<%= contactDisplay.getEmailAddress() %>

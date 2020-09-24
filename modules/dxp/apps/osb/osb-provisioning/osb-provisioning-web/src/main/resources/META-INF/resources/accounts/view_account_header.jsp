@@ -151,10 +151,10 @@ AccountDisplay accountDisplay = viewAccountDisplayContext.getAccountDisplay();
 		</tr>
 		<tr>
 			<td>
-				<%= accountDisplay.getName() %>
+				<%= HtmlUtil.escape(accountDisplay.getName()) %>
 			</td>
 			<td>
-				<%= accountDisplay.getCode() %>
+				<%= HtmlUtil.escape(accountDisplay.getCode()) %>
 			</td>
 		</tr>
 	</table>

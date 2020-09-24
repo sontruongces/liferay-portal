@@ -62,10 +62,10 @@ SearchContainer accountSearchContainer = accountSearchDisplayContext.getSearchCo
 			<liferay-ui:search-container-column-text
 				name="name-code"
 			>
-				<%= accountDisplay.getName() %>
+				<%= HtmlUtil.escape(accountDisplay.getName()) %>
 
 				<div class="secondary-information">
-					<%= accountDisplay.getCode() %>
+					<%= HtmlUtil.escape(accountDisplay.getCode()) %>
 				</div>
 			</liferay-ui:search-container-column-text>
 

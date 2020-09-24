@@ -51,10 +51,23 @@ ViewAccountTeamsDisplayContext viewAccountTeamsDisplayContext = ProvisioningWebC
 				href="<%= rowURL %>"
 				name="name-users"
 			>
-				<%= teamDisplay.getName() %>
+				<%= HtmlUtil.escape(teamDisplay.getName()) %>
 
 				<div class="secondary-information">
-					<%= teamDisplay.getContactNames() %>
+
+					<%
+					List<String> contactNames = teamDisplay.getContactNames();
+
+					for (int i = 0; i < contactNames.size(); i++) {
+						String contactName = contactNames.get(i);
+					%>
+
+						<%= HtmlUtil.escape(contactName) %><%= ((i + 1) < contactNames.size()) ? ", " : "" %>
+
+					<%
+					}
+					%>
+
 				</div>
 			</liferay-ui:search-container-column-text>
 

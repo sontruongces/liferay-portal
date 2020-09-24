@@ -277,7 +277,7 @@ if (productPurchase != null) {
 							</c:if>
 
 							<td class="table-cell-expand">
-								<%= editProductPurchaseDisplayContext.getAccountName() %>
+								<%= HtmlUtil.escape(editProductPurchaseDisplayContext.getAccountName()) %>
 							</td>
 						</tr>
 					</tbody>

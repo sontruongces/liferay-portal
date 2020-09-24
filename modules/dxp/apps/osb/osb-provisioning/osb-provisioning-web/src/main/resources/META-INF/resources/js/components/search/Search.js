@@ -32,12 +32,7 @@ const AutocompleteItem = React.forwardRef(
 			<ClayDropDown.Item {...otherProps} innerRef={innerRef} ref={ref}>
 				<>
 					{match && fuzzyMatch ? (
-						<div
-							className="main-item"
-							dangerouslySetInnerHTML={{
-								__html: fuzzyMatch.rendered
-							}}
-						/>
+						<div className="main-item">{fuzzyMatch.rendered}</div>
 					) : (
 						<div className="main-item">{value}</div>
 					)}
