@@ -14,6 +14,7 @@
 
 package com.liferay.osb.commerce.provisioning.internal;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -27,11 +28,12 @@ import com.liferay.osb.commerce.provisioning.OSBCommercePortalInstanceStatus;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommerceNotificationConstants;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommercePortalInstanceConstants;
 import com.liferay.osb.commerce.provisioning.constants.OSBCommerceProvisioningConstants;
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudClientClientFactory;
+import com.liferay.osb.commerce.provisioning.internal.cloud.client.DXPCloudProvisioningClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserAccountClient;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.UserAccountClientFactory;
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.PortalInstance;
+import com.liferay.petra.string.CharPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -93,22 +95,28 @@ public class OSBCommerceProvisioning {
 			String.valueOf(
 				OSBCommercePortalInstanceStatus.IN_PROGRESS.getStatus()));
 
-		PortalInstance portalInstance = _dxpCloudClient.postPortalInstance(
-			"osb-commerce-portal-instance-initializer");
+		CommerceAccount commerceAccount = commerceOrder.getCommerceAccount();
+
+		String email = commerceAccount.getEmail();
+
+		PortalInstance portalInstance =
+			_dxpCloudProvisioningClient.postPortalInstance(
+				email.substring(email.indexOf(CharPool.AT)),
+				"osb-commerce-portal-instance-initializer");
 
 		User user = _userLocalService.getUser(commerceOrder.getUserId());
 
 		_userAccountClient.postUserAccount(
-			_toUserAccount(user), portalInstance.getVirtualHostname());
+			_toUserAccount(user), portalInstance.getVirtualHost());
 
 		_updateSubscriptionTypeSettingsProperties(
 			commerceSubscriptionEntry,
 			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_STATUS,
 			String.valueOf(OSBCommercePortalInstanceStatus.ACTIVE.getStatus()),
 			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_VIRTUAL_HOSTNAME,
-			portalInstance.getVirtualHostname(),
+			portalInstance.getVirtualHost(),
 			OSBCommercePortalInstanceConstants.PORTAL_INSTANCE_WEB_ID,
-			portalInstance.getWebId());
+			portalInstance.getPortalInstanceId());
 
 		_commerceNotificationHelper.sendNotifications(
 			_getCommerceChannelGroupId(
@@ -120,13 +128,14 @@ public class OSBCommerceProvisioning {
 
 	@Activate
 	protected void activate() {
-		_dxpCloudClient = _dxpCloudClientClientFactory.getDXPCloudClient();
+		_dxpCloudProvisioningClient =
+			_dxpCloudClientClientFactory.getDXPCloudClient();
 		_userAccountClient = _userAccountClientFactory.getUserAccountClient();
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		_dxpCloudClient.destroy();
+		_dxpCloudProvisioningClient.destroy();
 		_userAccountClient.destroy();
 	}
 
@@ -195,10 +204,10 @@ public class OSBCommerceProvisioning {
 	private CommerceSubscriptionEntryLocalService
 		_commerceSubscriptionEntryLocalService;
 
-	private DXPCloudClient _dxpCloudClient;
-
 	@Reference
 	private DXPCloudClientClientFactory _dxpCloudClientClientFactory;
+
+	private DXPCloudProvisioningClient _dxpCloudProvisioningClient;
 
 	@Reference
 	private GroupLocalService _groupLocalService;

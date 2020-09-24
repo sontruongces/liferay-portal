@@ -14,28 +14,65 @@
 
 package com.liferay.osb.commerce.provisioning.internal.cloud.client.dto;
 
+import com.liferay.petra.string.StringBundler;
+
 /**
  * @author Ivica Cardic
  */
 public class PortalInstance {
 
-	public String getVirtualHostname() {
-		return _virtualHostname;
+	public long getCompanyId() {
+		return _companyId;
 	}
 
-	public String getWebId() {
-		return _webId;
+	public String getDomain() {
+		return _domain;
 	}
 
-	public void setVirtualHostname(String virtualHostname) {
-		_virtualHostname = virtualHostname;
+	public String getPortalInstanceId() {
+		return _portalInstanceId;
 	}
 
-	public void setWebId(String webId) {
-		_webId = webId;
+	public String getVirtualHost() {
+		return _virtualHost;
 	}
 
-	private String _virtualHostname;
-	private String _webId;
+	public boolean isActive() {
+		return _active;
+	}
+
+	public void setActive(boolean active) {
+		_active = active;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public void setDomain(String domain) {
+		_domain = domain;
+	}
+
+	public void setPortalInstanceId(String portalInstanceId) {
+		_portalInstanceId = portalInstanceId;
+	}
+
+	public void setVirtualHost(String virtualHost) {
+		_virtualHost = virtualHost;
+	}
+
+	@Override
+	public String toString() {
+		return StringBundler.concat(
+			"{\"active\":\"", _active, "\", \"companyId\":\"", _companyId,
+			"\",\"domain\":\"", _domain, "\",\"portalInstanceId\":\"",
+			_portalInstanceId, "\", \"virtualHost\":\"", _virtualHost, "\"}");
+	}
+
+	private boolean _active;
+	private long _companyId;
+	private String _domain;
+	private String _portalInstanceId;
+	private String _virtualHost;
 
 }

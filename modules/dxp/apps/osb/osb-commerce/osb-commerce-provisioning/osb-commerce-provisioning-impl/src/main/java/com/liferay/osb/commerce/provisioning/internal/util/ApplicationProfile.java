@@ -12,17 +12,13 @@
  *
  */
 
-package com.liferay.osb.commerce.provisioning.internal.cloud.client;
-
-import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.PortalInstance;
+package com.liferay.osb.commerce.provisioning.internal.util;
 
 /**
  * @author Ivica Cardic
  */
-public interface DXPCloudClient {
+public enum ApplicationProfile {
 
-	public void destroy();
-
-	public PortalInstance postPortalInstance(String portalInitializerKey);
+	DEVELOPMENT, PRODUCTION, QUALITY_ASSURANCE, USER_ACCEPTANCE_TESTING
 
 }

@@ -159,6 +159,8 @@ public abstract class BaseClientImpl implements Client {
 		}
 	}
 
+	protected final String dxpCloudAPIURL;
+
 	private CloseableHttpClient _createCloseableHttpClient() {
 		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
 
@@ -194,7 +196,5 @@ public abstract class BaseClientImpl implements Client {
 	private final CloseableHttpClient _closeableHttpClient;
 	private final String _password;
 	private final String _username;
-
-	protected final String dxpCloudAPIURL;
 
 }
