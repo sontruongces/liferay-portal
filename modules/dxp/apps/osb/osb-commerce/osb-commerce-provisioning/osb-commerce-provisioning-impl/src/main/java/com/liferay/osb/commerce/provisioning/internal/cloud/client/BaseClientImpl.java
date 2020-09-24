@@ -87,7 +87,7 @@ public abstract class BaseClientImpl implements Client {
 	}
 
 	protected String execute(HttpUriRequest httpUriRequest) {
-		_setAuthHeader(httpUriRequest);
+		_setAuthorizationHeader(httpUriRequest);
 
 		try (CloseableHttpResponse closeableHttpResponse =
 				_closeableHttpClient.execute(httpUriRequest)) {
@@ -167,24 +167,24 @@ public abstract class BaseClientImpl implements Client {
 		PoolingHttpClientConnectionManager poolingHttpClientConnectionManager =
 			new PoolingHttpClientConnectionManager();
 
-		poolingHttpClientConnectionManager.setMaxTotal(100);
-
 		httpClientBuilder.setConnectionManager(
 			poolingHttpClientConnectionManager);
+
+		poolingHttpClientConnectionManager.setMaxTotal(100);
 
 		httpClientBuilder.useSystemProperties();
 
 		return httpClientBuilder.build();
 	}
 
-	private void _setAuthHeader(HttpUriRequest httpUriRequest) {
+	private void _setAuthorizationHeader(HttpUriRequest httpUriRequest) {
 		String authorization = _username + ":" + _password;
 
+		String encodedAuthorization = Base64.encode(
+			authorization.getBytes(StandardCharsets.ISO_8859_1));
+
 		httpUriRequest.setHeader(
-			HttpHeaders.AUTHORIZATION,
-			"Basic " +
-				Base64.encode(
-					authorization.getBytes(StandardCharsets.ISO_8859_1)));
+			HttpHeaders.AUTHORIZATION, "Basic " + encodedAuthorization);
 	}
 
 	private static final ObjectMapper _objectMapper = new ObjectMapper() {
