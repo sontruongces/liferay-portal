@@ -18,9 +18,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.liferay.osb.commerce.provisioning.internal.cloud.client.dto.PortalInstance;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import java.util.List;
+
+import org.apache.http.client.utils.URIBuilder;
 
 /**
  * @author Ivica Cardic
@@ -58,11 +64,24 @@ public class DXPCloudProvisioningClientImpl
 	public PortalInstance postPortalInstance(
 		String domain, String portalInitializerKey) {
 
-		return executePost(
-			HashMapBuilder.put(
-				"domain", domain
-			).build(),
-			PortalInstance.class, _getProvisioningPortalInstancesURI());
+		try {
+			URIBuilder uriBuilder = new URIBuilder(
+				_getProvisioningPortalInstancesURI());
+
+			uriBuilder.setParameter(
+				"portalInitializerKey", portalInitializerKey);
+
+			URI uri = uriBuilder.build();
+
+			return executePost(
+				HashMapBuilder.put(
+					"domain", domain
+				).build(),
+				PortalInstance.class, uri.toString());
+		}
+		catch (URISyntaxException uriSyntaxException) {
+			throw new SystemException(uriSyntaxException);
+		}
 	}
 
 	@Override
