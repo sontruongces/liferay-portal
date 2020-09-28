@@ -20,7 +20,7 @@
 SelectLayoutPageTemplateEntryDisplayContext selectLayoutPageTemplateEntryDisplayContext = new SelectLayoutPageTemplateEntryDisplayContext(request);
 %>
 
-<div class="lfr-search-container-wrapper" id="<portlet:namespace/>layoutTypes">
+<div class="lfr-search-container-wrapper" id="<portlet:namespace />layoutTypes">
 	<c:if test="<%= selectLayoutPageTemplateEntryDisplayContext.getPrimaryTypesCount() > 0 %>">
 		<h6 class="sheet-subtitle">
 			<liferay-ui:message key="main-types" />

@@ -97,7 +97,7 @@
 
 	<aui:script>
 		var button = document.getElementById(
-			'<portlet:namespace/>manageCollaboratorsButton'
+			'<portlet:namespace />manageCollaboratorsButton'
 		);
 
 		button.addEventListener('click', function() {
