@@ -128,6 +128,8 @@ class FragmentEditableField extends PortletBase {
 			? this._mappedFieldValue || this.editableValues.defaultValue
 			: translatedValue || this.editableValues.defaultValue;
 
+		this._originValue = value;
+
 		const processor =
 			FragmentProcessors[this.type] || FragmentProcessors.fallback;
 
@@ -398,7 +400,8 @@ class FragmentEditableField extends PortletBase {
 				this._handleEditableChanged,
 				this._handleProcessorDestroyed,
 				event,
-				type
+				type,
+				this._originValue
 			);
 		}
 	}
@@ -607,6 +610,16 @@ FragmentEditableField.STATE = {
 	_mappedItemHovered: Config.internal()
 		.bool()
 		.value(false),
+
+	/**
+	 * Origin value before render
+	 * @instance
+	 * @memberOf FragmentEditableField
+	 * @private
+	 * @review
+	 * @type {string}
+	 */
+	_originValue: Config.internal().string(),
 
 	/**
 	 * @instance
