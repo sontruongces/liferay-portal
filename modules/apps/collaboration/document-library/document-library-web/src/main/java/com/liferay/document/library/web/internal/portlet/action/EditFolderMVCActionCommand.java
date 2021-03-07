@@ -277,7 +277,7 @@ public class EditFolderMVCActionCommand extends BaseMVCActionCommand {
 		long repositoryId = ParamUtil.getLong(actionRequest, "repositoryId");
 		long parentFolderId = ParamUtil.getLong(
 			actionRequest, "parentFolderId");
-		String name = HtmlUtil.escape(ParamUtil.getString(actionRequest, "name"));
+		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
