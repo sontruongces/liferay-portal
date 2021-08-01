@@ -146,9 +146,11 @@ AUI.add(
 							instance._getLoadingCountNode()
 						);
 
-						instance._imageListContent
-							.get('parentNode')
-							.append(loadingIndicator);
+						if(instance._imageListContent) {
+							instance._imageListContent
+								.get('parentNode')
+								.append(loadingIndicator);
+						}
 
 						instance._loadingIndicator = loadingIndicator;
 					}
@@ -531,24 +533,26 @@ AUI.add(
 
 					var imageListContent = instance._imageListContent;
 
-					imageListContent.delegate(
-						'mouseenter',
-						instance._onImageListMouseEnter,
-						'a',
-						instance
-					);
-					imageListContent.delegate(
-						STR_CLICK,
-						instance._onImageListClick,
-						'a',
-						instance
-					);
+					if(imageListContent) {
+						imageListContent.delegate(
+							'mouseenter',
+							instance._onImageListMouseEnter,
+							'a',
+							instance
+						);
+						imageListContent.delegate(
+							STR_CLICK,
+							instance._onImageListClick,
+							'a',
+							instance
+						);
 
-					imageListContent.on(
-						'scroll',
-						instance._onImageListScroll,
-						instance
-					);
+						imageListContent.on(
+							'scroll',
+							instance._onImageListScroll,
+							instance
+						);
+					}
 				},
 
 				initializer() {
@@ -577,7 +581,9 @@ AUI.add(
 					instance._renderToolbar();
 					instance._renderImages();
 
-					instance._actionContent.show();
+					if(instance._actionContent) {
+						instance._actionContent.show();
+					}
 				},
 			},
 		});
