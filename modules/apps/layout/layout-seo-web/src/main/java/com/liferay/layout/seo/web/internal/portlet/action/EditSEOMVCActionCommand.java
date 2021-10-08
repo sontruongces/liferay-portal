@@ -14,6 +14,7 @@
 
 package com.liferay.layout.seo.web.internal.portlet.action;
 
+import com.liferay.asset.kernel.service.AssetTagLocalService;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
 import com.liferay.layout.seo.service.LayoutSEOEntryService;
 import com.liferay.layout.seo.web.internal.util.LayoutTypeSettingsUtil;
@@ -97,6 +98,11 @@ public class EditSEOMVCActionCommand extends BaseMVCActionCommand {
 				"layout.instanceable.allowed", Boolean.TRUE);
 		}
 
+		String[] assetTagNames = _assetTagLocalService.getTagNames(
+			Layout.class.getName(), layout.getPlid());
+
+		serviceContext.setAssetTagNames(assetTagNames);
+
 		layout = _layoutService.updateLayout(
 			groupId, privateLayout, layoutId, layout.getParentLayoutId(),
 			layout.getNameMap(), titleMap, descriptionMap, keywordsMap,
@@ -166,6 +172,9 @@ public class EditSEOMVCActionCommand extends BaseMVCActionCommand {
 
 		actionRequest.setAttribute(WebKeys.REDIRECT, redirect);
 	}
+
+	@Reference
+	private AssetTagLocalService _assetTagLocalService;
 
 	@Reference
 	private LayoutLocalService _layoutLocalService;
