@@ -14,6 +14,7 @@
 
 package com.liferay.layout.seo.web.internal.portlet.action;
 
+import com.liferay.asset.kernel.service.AssetCategoryLocalServiceUtil;
 import com.liferay.asset.kernel.service.AssetTagLocalService;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
 import com.liferay.layout.seo.service.LayoutSEOEntryService;
@@ -100,6 +101,11 @@ public class EditSEOMVCActionCommand extends BaseMVCActionCommand {
 
 		String[] assetTagNames = _assetTagLocalService.getTagNames(
 			Layout.class.getName(), layout.getPlid());
+
+		long[] assetCategoryIds = AssetCategoryLocalServiceUtil.getCategoryIds(
+			Layout.class.getName(), layout.getPlid());
+
+		serviceContext.setAssetCategoryIds(assetCategoryIds);
 
 		serviceContext.setAssetTagNames(assetTagNames);
 
