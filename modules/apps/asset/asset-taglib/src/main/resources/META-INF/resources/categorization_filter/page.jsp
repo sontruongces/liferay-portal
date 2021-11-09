@@ -29,7 +29,17 @@ long assetCategoryId = ParamUtil.getLong(request, "categoryId");
 
 String assetTagName = ParamUtil.getString(request, "tag");
 
-if (Validator.isNotNull(assetTagName) && !AssetTagLocalServiceUtil.hasTag(layout.getGroupId(), assetTagName)) {
+long[] selectedGroupIds = (long[])renderRequest.getAttribute("selectedGroupIds");
+
+boolean hasTag = false;
+
+for (long groupId : selectedGroupIds) {
+	if (AssetTagLocalServiceUtil.hasTag(groupId, assetTagName)) {
+		hasTag = true;
+	}
+}
+
+if (Validator.isNotNull(assetTagName) && !hasTag) {
 	assetTagName = null;
 }
 

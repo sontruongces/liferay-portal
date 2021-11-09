@@ -22,6 +22,8 @@ assetPublisherDisplayContext.setPageKeywords();
 if (assetPublisherDisplayContext.isEnableTagBasedNavigation() && !assetPublisherDisplayContext.isSelectionStyleAssetList() && assetPublisherDisplayContext.isSelectionStyleManual() && (ArrayUtil.isNotEmpty(assetPublisherDisplayContext.getAllAssetCategoryIds()) || ArrayUtil.isNotEmpty(assetPublisherDisplayContext.getAllAssetTagNames()))) {
 	assetPublisherDisplayContext.setSelectionStyle(AssetPublisherSelectionStyleConstants.TYPE_DYNAMIC);
 }
+
+renderRequest.setAttribute("selectedGroupIds", assetPublisherDisplayContext.getGroupIds());
 %>
 
 <liferay-ui:success key='<%= AssetPublisherPortletKeys.ASSET_PUBLISHER + "requestProcessed" %>' message="your-request-completed-successfully" />
