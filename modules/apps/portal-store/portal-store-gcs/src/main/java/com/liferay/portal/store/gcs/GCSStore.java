@@ -37,6 +37,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -139,6 +140,10 @@ public class GCSStore implements Store {
 				_gcsStoreConfiguration.bucketName(),
 				_getHeadVersionLabel(
 					companyId, repositoryId, fileName, versionLabel)));
+
+		if (blob == null) {
+			return _EMPTY_INPUT_STREAM;
+		}
 
 		return Channels.newInputStream(_getReadChannel(blob));
 	}
@@ -421,6 +426,9 @@ public class GCSStore implements Store {
 
 		_gcsStore = storageOptions.getService();
 	}
+
+	private static final InputStream _EMPTY_INPUT_STREAM =
+		new UnsyncByteArrayInputStream(new byte[0]);
 
 	private static final Log _log = LogFactoryUtil.getLog(GCSStore.class);
 
