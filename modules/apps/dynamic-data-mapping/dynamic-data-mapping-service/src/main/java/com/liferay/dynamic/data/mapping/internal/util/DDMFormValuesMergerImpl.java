@@ -20,11 +20,8 @@ import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.util.DDMFormValuesMerger;
-import com.liferay.dynamic.data.mapping.util.NumericDDMFormFieldUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-
-import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -148,14 +145,7 @@ public class DDMFormValuesMergerImpl implements DDMFormValuesMerger {
 			if (StringUtil.equals(ddmFormField.getDataType(), "double") &&
 				!GetterUtil.getBoolean(ddmFormField.getProperty("inputMask"))) {
 
-				DecimalFormat decimalFormat =
-					NumericDDMFormFieldUtil.getDecimalFormat(locale);
-
-				newValue.addString(
-					locale,
-					decimalFormat.format(
-						GetterUtil.getDouble(
-							value, newValue.getDefaultLocale())));
+				newValue.addString(locale, value);
 			}
 
 			if (value == null) {
