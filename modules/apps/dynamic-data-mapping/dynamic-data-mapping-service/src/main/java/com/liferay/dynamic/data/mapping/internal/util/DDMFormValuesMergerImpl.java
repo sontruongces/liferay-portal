@@ -23,7 +23,6 @@ import com.liferay.dynamic.data.mapping.util.DDMFormValuesMerger;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
