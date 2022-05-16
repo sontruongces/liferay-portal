@@ -40,7 +40,7 @@ ObjectField objectField = (ObjectField)request.getAttribute(ObjectWebKeys.OBJECT
 		).put(
 			"objectName", objectDefinition.getShortName()
 		).put(
-			"readOnly", !objectDefinitionsFieldsDisplayContext.hasUpdateObjectDefinitionPermission()
+			"readOnly", objectDefinition.isSystem() || !objectDefinitionsFieldsDisplayContext.hasUpdateObjectDefinitionPermission()
 		).build()
 	%>'
 />
