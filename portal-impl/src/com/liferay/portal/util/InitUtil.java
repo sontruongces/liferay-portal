@@ -105,11 +105,22 @@ public class InitUtil {
 		// Set the default locale used by Liferay. This locale is no longer set
 		// at the VM level. See LEP-2584.
 
-		String userLanguage = SystemProperties.get("user.language");
-		String userCountry = SystemProperties.get("user.country");
 		String userVariant = SystemProperties.get("user.variant");
 
-		LocaleUtil.setDefault(userLanguage, userCountry, userVariant);
+		if (PropsValues.COMPANY_DEFAULT_LOCALE == null) {
+			String userLanguage = SystemProperties.get("user.language");
+			String userCountry = SystemProperties.get("user.country");
+
+			LocaleUtil.setDefault(userLanguage, userCountry, userVariant);
+		}
+		else {
+			String[] companyDefaultLocaleProps =
+				PropsValues.COMPANY_DEFAULT_LOCALE.split("_");
+
+			LocaleUtil.setDefault(
+				companyDefaultLocaleProps[0], companyDefaultLocaleProps[1],
+				userVariant);
+		}
 
 		// Set the default time zone used by Liferay. This time zone is no
 		// longer set at the VM level. See LEP-2584.
