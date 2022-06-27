@@ -2478,10 +2478,13 @@ public class LayoutStagedModelDataHandler
 		if (importThemeSettings) {
 			importedLayout.setThemeId(layout.getThemeId());
 			importedLayout.setColorSchemeId(layout.getColorSchemeId());
-			importedLayout.setCss(
+
+			String css =
 				_dlReferencesExportImportContentProcessor.
 					replaceImportContentReferences(
-						portletDataContext, layout, layout.getCss()));
+						portletDataContext, layout, layout.getCss());
+
+			importedLayout.setCss(css);
 
 			UnicodeProperties typeSettingsUnicodeProperties =
 				layout.getTypeSettingsProperties();
@@ -2510,7 +2513,7 @@ public class LayoutStagedModelDataHandler
 			_layoutLocalService.updateLookAndFeel(
 				importedLayout.getGroupId(), importedLayout.isPrivateLayout(),
 				importedLayout.getLayoutId(), layout.getThemeId(),
-				layout.getColorSchemeId(), importedLayout.getCss());
+				layout.getColorSchemeId(), css);
 		}
 	}
 
