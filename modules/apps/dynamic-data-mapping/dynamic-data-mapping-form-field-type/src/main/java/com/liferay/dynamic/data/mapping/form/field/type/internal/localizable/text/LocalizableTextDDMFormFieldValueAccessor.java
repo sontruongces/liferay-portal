@@ -21,8 +21,10 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Locale;
 import java.util.function.IntFunction;
@@ -82,7 +84,10 @@ public class LocalizableTextDDMFormFieldValueAccessor
 	public boolean isEmpty(DDMFormFieldValue ddmFormFieldValue, Locale locale) {
 		JSONObject jsonObject = getValue(ddmFormFieldValue, locale);
 
-		if (jsonObject.length() == 0) {
+		if ((jsonObject.length() == 0) ||
+			Validator.isNull(
+				jsonObject.get(LanguageUtil.getLanguageId(locale)))) {
+
 			return true;
 		}
 
