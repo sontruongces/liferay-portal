@@ -56,6 +56,10 @@ public class FDSTableSchemaField {
 		return _sortable;
 	}
 
+	public boolean isLocalizeLabel() {
+		return _localizeLabel;
+	}
+
 	public FDSTableSchemaField setActionId(String actionId) {
 		_actionId = actionId;
 
@@ -106,6 +110,12 @@ public class FDSTableSchemaField {
 		return this;
 	}
 
+	public FDSTableSchemaField setLocalizeLabel(boolean localizeLabel) {
+		_localizeLabel = localizeLabel;
+		
+		return this;
+	}
+
 	public JSONObject toJSONObject() {
 		return JSONUtil.put(
 			"actionId", getActionId()
@@ -140,6 +150,8 @@ public class FDSTableSchemaField {
 
 				return null;
 			}
+		).put(
+			"localizeLabel", isLocalizeLabel()
 		);
 	}
 
@@ -157,5 +169,6 @@ public class FDSTableSchemaField {
 	private String _label;
 	private boolean _sortable;
 	private SortingOrder _sortingOrder;
+	private boolean _localizeLabel;
 
 }
