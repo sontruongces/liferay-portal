@@ -444,9 +444,14 @@ renderResponse.setTitle(headerTitle);
 										com.liferay.dynamic.data.mapping.storage.DDMFormValues ddmFormValues = null;
 
 										try {
-											DLFileEntryMetadata fileEntryMetadata = DLFileEntryMetadataLocalServiceUtil.getFileEntryMetadata(ddmStructure.getStructureId(), fileVersionId);
+											if (dlEditFileEntryDisplayContext.isDDMFormValuesEdited(ddmStructure)) {
+												ddmFormValues = dlEditFileEntryDisplayContext.getDDMFormValues(ddmStructure);
+											}
+											else {
+												DLFileEntryMetadata fileEntryMetadata = DLFileEntryMetadataLocalServiceUtil.getFileEntryMetadata(ddmStructure.getStructureId(), fileVersionId);
 
-											ddmFormValues = dlEditFileEntryDisplayContext.getDDMFormValues(fileEntryMetadata.getDDMStorageId());
+												ddmFormValues = dlEditFileEntryDisplayContext.getDDMFormValues(fileEntryMetadata.getDDMStorageId());
+											}
 										}
 										catch (Exception e) {
 										}
