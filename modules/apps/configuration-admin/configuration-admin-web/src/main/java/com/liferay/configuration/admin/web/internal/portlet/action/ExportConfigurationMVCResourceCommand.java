@@ -180,6 +180,8 @@ public class ExportConfigurationMVCResourceCommand
 
 		String languageId = themeDisplay.getLanguageId();
 
+		String portletName = themeDisplay.getPpid();
+
 		ZipWriter zipWriter = _zipWriterFactory.getZipWriter();
 
 		ConfigurationScopeDisplayContext configurationScopeDisplayContext =
@@ -233,7 +235,16 @@ public class ExportConfigurationMVCResourceCommand
 			}
 		}
 
-		String fileName = "liferay-system-settings.zip";
+		String fileName;
+
+		if (portletName.equals(
+				ConfigurationAdminPortletKeys.INSTANCE_SETTINGS)) {
+
+			fileName = "liferay-instance-settings.zip";
+		}
+		else {
+			fileName = "liferay-system-settings.zip";
+		}
 
 		PortletResponseUtil.sendFile(
 			resourceRequest, resourceResponse, fileName,
