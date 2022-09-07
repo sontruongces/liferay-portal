@@ -18,7 +18,6 @@ import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.Objects;
@@ -91,8 +90,7 @@ public class ObjectDefinitionImpl extends ObjectDefinitionBaseImpl {
 			throw new UnsupportedOperationException();
 		}
 
-		return "/c/" +
-			TextFormatter.formatPlural(StringUtil.toLowerCase(getShortName()));
+		return "/c/" + StringUtil.toLowerCase(getPluralLabelCurrentValue());
 	}
 
 	@Override
