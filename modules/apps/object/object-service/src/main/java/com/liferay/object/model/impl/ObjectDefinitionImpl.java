@@ -15,10 +15,11 @@
 package com.liferay.object.model.impl;
 
 import com.liferay.object.constants.ObjectDefinitionConstants;
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.Objects;
@@ -91,8 +92,7 @@ public class ObjectDefinitionImpl extends ObjectDefinitionBaseImpl {
 			throw new UnsupportedOperationException();
 		}
 
-		return "/c/" +
-			TextFormatter.formatPlural(StringUtil.toLowerCase(getShortName()));
+		return "/c/" + _normalizePath(getPluralLabelCurrentValue());
 	}
 
 	@Override
@@ -119,6 +119,11 @@ public class ObjectDefinitionImpl extends ObjectDefinitionBaseImpl {
 		}
 
 		return false;
+	}
+
+	private String _normalizePath(String path) {
+		return FriendlyURLNormalizerUtil.normalizeWithPeriodsAndSlashes(
+			StringUtil.removeChar(path, CharPool.SPACE));
 	}
 
 }
