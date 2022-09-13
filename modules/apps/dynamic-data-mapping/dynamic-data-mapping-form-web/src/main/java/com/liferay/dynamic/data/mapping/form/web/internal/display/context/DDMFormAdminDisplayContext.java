@@ -1234,11 +1234,20 @@ public class DDMFormAdminDisplayContext {
 			return true;
 		}
 
-		ObjectDefinition objectDefinition =
-			_objectDefinitionLocalService.getObjectDefinition(
-				ddmFormInstance.getObjectDefinitionId());
+		try {
+			ObjectDefinition objectDefinition =
+				_objectDefinitionLocalService.getObjectDefinition(
+					ddmFormInstance.getObjectDefinitionId());
 
-		return objectDefinition.isActive();
+			return objectDefinition.isActive();
+		}
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception);
+			}
+		}
+
+		return false;
 	}
 
 	public boolean hasValidStorageType(DDMFormInstance ddmFormInstance) {
@@ -1283,6 +1292,20 @@ public class DDMFormAdminDisplayContext {
 			ddmFormInstance.getSettingsModel();
 
 		return ddmFormInstanceSettings.published();
+	}
+
+	public boolean isNotDeletedObject(DDMFormInstance ddmFormInstance)
+		throws PortalException {
+
+		ObjectDefinition objectDefinition =
+			_objectDefinitionLocalService.fetchObjectDefinition(
+				ddmFormInstance.getObjectDefinitionId());
+
+		if (objectDefinition != null) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isShowPartialResultsToRespondents(

@@ -86,6 +86,7 @@ FormInstancePermissionCheckerHelper formInstancePermissionCheckerHelper = ddmFor
 								boolean hasValidDDMFormFields = ddmFormAdminDisplayContext.hasValidDDMFormFields(formInstance);
 								boolean hasValidMappedObject = ddmFormAdminDisplayContext.hasValidMappedObject(formInstance);
 								boolean hasValidStorageType = ddmFormAdminDisplayContext.hasValidStorageType(formInstance);
+								boolean isNotDeletedObject = ddmFormAdminDisplayContext.isNotDeletedObject(formInstance);
 								%>
 
 								<c:choose>
@@ -108,6 +109,9 @@ FormInstancePermissionCheckerHelper formInstancePermissionCheckerHelper = ddmFor
 
 											if (!hasValidDDMFormFields) {
 												errorMessage = LanguageUtil.format(request, "this-form-was-created-using-a-custom-field-type-x-that-is-not-available-for-this-liferay-dxp-installation.-instal-x-to-make-it-available-for-editing", ddmFormAdminDisplayContext.getInvalidDDMFormFieldType(formInstance));
+											}
+											else if (!isNotDeletedObject) {
+												errorMessage = "this-form-was-created-using-a-deleted-object-as-storage-type";
 											}
 											else if (!hasValidMappedObject) {
 												errorMessage = LanguageUtil.format(request, "this-form-was-created-using-an-inactive-object-as-storage-type.-activate-x-object-to-make-it-available-for-editing", ddmFormAdminDisplayContext.getObjectDefinitionLabel(formInstance, locale));
