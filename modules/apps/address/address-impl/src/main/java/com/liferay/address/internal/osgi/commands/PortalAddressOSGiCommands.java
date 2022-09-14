@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
@@ -30,7 +31,13 @@ import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.CountryLocalService;
 import com.liferay.portal.kernel.service.RegionLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -102,6 +109,13 @@ public class PortalAddressOSGiCommands {
 					countryJSONObject.getString("number"), 0, true, false,
 					countryJSONObject.getBoolean("zipRequired"),
 					serviceContext);
+
+				Map<Locale, String> titleMap = HashMapBuilder.put(
+					LocaleUtil.getDefault(),
+					country.getTitle(LocaleUtil.getDefault())
+				).build();
+
+				_updateCountryLocalizations(country, titleMap);
 
 				_processCountryRegions(country);
 			}
@@ -182,6 +196,19 @@ public class PortalAddressOSGiCommands {
 		}
 	}
 
+	private void _updateCountryLocalizations(
+			Country country, Map<Locale, String> localizationMap)
+		throws Exception {
+
+		Map<String, String> map = new HashMap<>();
+
+		for (Map.Entry<Locale, String> entry : localizationMap.entrySet()) {
+			map.put(_language.getLanguageId(entry.getKey()), entry.getValue());
+		}
+
+		_countryLocalService.updateCountryLocalizations(country, map);
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalAddressOSGiCommands.class);
 
@@ -193,6 +220,9 @@ public class PortalAddressOSGiCommands {
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private Language _language;
 
 	@Reference
 	private RegionLocalService _regionLocalService;
