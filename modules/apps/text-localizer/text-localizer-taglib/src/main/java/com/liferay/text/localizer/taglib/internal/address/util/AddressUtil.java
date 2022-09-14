@@ -15,8 +15,8 @@
 package com.liferay.text.localizer.taglib.internal.address.util;
 
 import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.Region;
-import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Optional;
@@ -41,13 +41,7 @@ public class AddressUtil {
 				return false;
 			}
 		).map(
-			country -> Optional.ofNullable(
-				ServiceContextThreadLocal.getServiceContext()
-			).map(
-				serviceContext -> country.getName(serviceContext.getLocale())
-			).orElseGet(
-				country::getName
-			)
+			Country::getNameCurrentValue
 		).filter(
 			Validator::isNotNull
 		);
