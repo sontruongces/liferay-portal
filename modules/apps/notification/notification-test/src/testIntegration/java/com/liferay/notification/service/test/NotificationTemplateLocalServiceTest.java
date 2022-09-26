@@ -263,7 +263,7 @@ public class NotificationTemplateLocalServiceTest {
 				TestPropsValues.getUserId(), 0, "",
 				Collections.singletonMap(LocaleUtil.US, ""), "", "",
 				"test@liferay.com", Collections.singletonMap(LocaleUtil.US, ""),
-				"New Template", Collections.singletonMap(LocaleUtil.US, ""),
+				RandomTestUtil.randomString(), Collections.singletonMap(LocaleUtil.US, ""),
 				Collections.singletonMap(LocaleUtil.US, to),
 				Collections.emptyList());
 
