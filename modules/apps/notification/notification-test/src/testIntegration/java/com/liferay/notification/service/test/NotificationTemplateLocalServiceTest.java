@@ -285,9 +285,11 @@ public class NotificationTemplateLocalServiceTest {
 			Collectors.toSet()
 		);
 
-		Set<String> emails = _formatEmails(to);
-
-		Assert.assertTrue(tos.containsAll(emails));
+		Assert.assertEquals(tos.size(), 3);
+		Assert.assertTrue(tos.contains("ava@gmail.com"));
+		Assert.assertTrue(tos.contains("bryn@gmail.com"));
+		Assert.assertTrue(tos.contains("caleb@gmail.com"));
+		Assert.assertTrue(tos.contains("david@gmail.com"));
 	}
 
 	private NotificationTemplate _addNotificationTemplate(
@@ -309,23 +311,7 @@ public class NotificationTemplateLocalServiceTest {
 			Collections.emptyList());
 	}
 
-	private Set<String> _formatEmails(String to) {
-		Set<String> emails = new HashSet<>();
-
-		Matcher matcher = _emailAddressPattern.matcher(to);
-
-		while (matcher.find()) {
-			emails.add(matcher.group());
-		}
-
-		return emails;
-	}
-
 	private static final String _NOTIFICATION_TYPE_KEY = "notificationTypeKey";
-
-	private static final Pattern _emailAddressPattern = Pattern.compile(
-		"[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@" +
-			"(?:\\w(?:[\\w-]*\\w)?\\.)+(\\w(?:[\\w-]*\\w))");
 
 	@Inject
 	private NotificationQueueEntryLocalService
