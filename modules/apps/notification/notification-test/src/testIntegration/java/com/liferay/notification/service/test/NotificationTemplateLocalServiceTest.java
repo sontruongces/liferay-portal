@@ -252,7 +252,7 @@ public class NotificationTemplateLocalServiceTest {
 	}
 
 	@Test
-	public void testSendNotificationTemplateForMultipleEmailsWithSpecificFormats()
+	public void testSendNotificationTemplateToMultipleEmailAddresses()
 		throws Exception {
 
 		String to =
