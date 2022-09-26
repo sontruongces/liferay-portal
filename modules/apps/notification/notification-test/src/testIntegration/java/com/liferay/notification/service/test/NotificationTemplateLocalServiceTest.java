@@ -289,7 +289,7 @@ public class NotificationTemplateLocalServiceTest {
 		Assert.assertTrue(tos.contains("able@test.com"));
 		Assert.assertTrue(tos.contains("baker@test.com"));
 		Assert.assertTrue(tos.contains("charlie@test.com"));
-		Assert.assertTrue(tos.contains("dog@test.com"));
+		Assert.assertTrue(tos.contains("dog@able.test.com"));
 	}
 
 	private NotificationTemplate _addNotificationTemplate(
