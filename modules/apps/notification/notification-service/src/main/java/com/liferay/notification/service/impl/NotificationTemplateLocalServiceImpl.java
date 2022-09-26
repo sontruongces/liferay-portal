@@ -491,7 +491,7 @@ public class NotificationTemplateLocalServiceImpl
 		}
 
 		return _formatContent(
-			StringUtil.merge(emailAddresses, ","), locale,
+			StringUtil.merge(emailAddresses), locale,
 			NotificationTermContributorConstants.RECIPIENT, notificationType,
 			object);
 	}
