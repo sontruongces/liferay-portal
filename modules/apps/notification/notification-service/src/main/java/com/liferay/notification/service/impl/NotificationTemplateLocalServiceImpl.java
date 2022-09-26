@@ -482,16 +482,16 @@ public class NotificationTemplateLocalServiceImpl
 			return StringPool.BLANK;
 		}
 
-		Set<String> emails = new HashSet<>();
+		Set<String> emailAddresses = new HashSet<>();
 
 		Matcher matcher = _emailAddressPattern.matcher(to);
 
 		while (matcher.find()) {
-			emails.add(matcher.group());
+			emailAddresses.add(matcher.group());
 		}
 
 		return _formatContent(
-			StringUtil.merge(emails, ","), locale,
+			StringUtil.merge(emailAddresses, ","), locale,
 			NotificationTermContributorConstants.RECIPIENT, notificationType,
 			object);
 	}
