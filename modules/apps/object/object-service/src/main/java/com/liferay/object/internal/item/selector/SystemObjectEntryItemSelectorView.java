@@ -285,20 +285,32 @@ public class SystemObjectEntryItemSelectorView
 					"no-entries-were-found");
 
 			try {
+				String objectRelationshipType = ParamUtil.getString(
+					_portletRequest, "objectRelationshipType");
+				long objectEntryId = ParamUtil.getLong(
+					_portletRequest, "objectEntryId");
+				long objectRelationshipId = ParamUtil.getLong(
+					_portletRequest, "objectRelationshipId");
+
+				if (StringPool.BLANK.equals(objectRelationshipType) ||
+					(objectEntryId == 0L) || (objectRelationshipId == 0L)) {
+
+					searchContainer.setResultsAndTotal(ArrayList::new, 0);
+
+					return searchContainer;
+				}
+
 				ObjectRelatedModelsProvider objectRelatedModelsProvider =
 					_objectRelatedModelsProviderRegistry.
 						getObjectRelatedModelsProvider(
 							_objectDefinition.getClassName(),
-							ParamUtil.getString(
-								_portletRequest, "objectRelationshipType"));
+							objectRelationshipType);
 
 				List<BaseModel<?>> baseModels =
 					objectRelatedModelsProvider.getUnrelatedModels(
 						_themeDisplay.getCompanyId(),
 						_themeDisplay.getScopeGroupId(), _objectDefinition,
-						ParamUtil.getLong(_portletRequest, "objectEntryId"),
-						ParamUtil.getLong(
-							_portletRequest, "objectRelationshipId"));
+						objectEntryId, objectRelationshipId);
 
 				searchContainer.setResultsAndTotal(
 					() -> baseModels, baseModels.size());
