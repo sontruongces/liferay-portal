@@ -59,7 +59,15 @@ public class LocalizedItemSelectorRendering {
 
 		String title = itemSelectorView.getTitle(_locale);
 
-		_itemSelectorViewRenderers.put(title, itemSelectorViewRenderer);
+		if (_itemSelectorViewRenderers.put(title, itemSelectorViewRenderer) !=
+				null) {
+
+			_navigationItems.removeIf(
+				navigationItem -> title.equals(
+					navigationItem.get(
+						"label"
+					).toString()));
+		}
 
 		_navigationItems.add(
 			navigationItem -> {
