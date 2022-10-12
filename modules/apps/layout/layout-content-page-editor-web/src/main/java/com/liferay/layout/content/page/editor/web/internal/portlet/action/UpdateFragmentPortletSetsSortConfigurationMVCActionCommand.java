@@ -48,6 +48,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -79,6 +81,26 @@ public class UpdateFragmentPortletSetsSortConfigurationMVCActionCommand
 		JSONPortletResponseUtil.writeJSON(
 			actionRequest, actionResponse,
 			_updateFragmentPortletSetsSortConfiguration(actionRequest));
+	}
+
+	private List<String> _getFragmentCollectionKeysList(
+		long groupId, HttpServletRequest httpServletRequest,
+		boolean includeEmpty, boolean includeSystem,
+		DropZoneLayoutStructureItem masterDropZoneLayoutStructureItem,
+		ThemeDisplay themeDisplay) {
+
+		List<Map<String, Object>> fragmentCollectionMapsList =
+			_fragmentCollectionManager.getFragmentCollectionMapsList(
+				groupId, httpServletRequest, includeEmpty, includeSystem,
+				masterDropZoneLayoutStructureItem, themeDisplay);
+
+		Stream<String> streamFragmentCollectionMaps =
+			fragmentCollectionMapsList.stream(
+			).map(
+				m -> (String)m.get("fragmentCollectionId")
+			);
+
+		return streamFragmentCollectionMaps.collect(Collectors.toList());
 	}
 
 	private DropZoneLayoutStructureItem _getMasterDropZoneLayoutStructureItem(
@@ -179,6 +201,34 @@ public class UpdateFragmentPortletSetsSortConfigurationMVCActionCommand
 		return fragmentCollectionKeys.toArray(new String[0]);
 	}
 
+	private List<String> _mergeFullFragmentCollectionKeys(
+		List<String> newFragmentCollectionKeys,
+		List<String> allFragmentCollectionKeys) {
+
+		if (newFragmentCollectionKeys.size() ==
+				allFragmentCollectionKeys.size()) {
+
+			return newFragmentCollectionKeys;
+		}
+
+		for (int i = 0; i < allFragmentCollectionKeys.size(); i++) {
+			String fragmentCollectionKey = allFragmentCollectionKeys.get(i);
+
+			if (!newFragmentCollectionKeys.contains(
+					allFragmentCollectionKeys.get(i))) {
+
+				if (newFragmentCollectionKeys.size() > (i + 1)) {
+					newFragmentCollectionKeys.add(i + 1, fragmentCollectionKey);
+				}
+				else {
+					newFragmentCollectionKeys.add(fragmentCollectionKey);
+				}
+			}
+		}
+
+		return newFragmentCollectionKeys;
+	}
+
 	private Object _updateFragmentPortletSetsSortConfiguration(
 			ActionRequest actionRequest)
 		throws Exception {
@@ -232,6 +282,10 @@ public class UpdateFragmentPortletSetsSortConfigurationMVCActionCommand
 		PortalPreferences portalPreferences =
 			_portletPreferencesFactory.getPortalPreferences(httpServletRequest);
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
 		if (fragmentCollectionKeysJSONArray != null) {
 			List<String> sortedFragmentCollectionKeys = JSONUtil.toStringList(
 				fragmentCollectionKeysJSONArray);
@@ -239,6 +293,14 @@ public class UpdateFragmentPortletSetsSortConfigurationMVCActionCommand
 			List<String> oldSortedFragmentCollectionKeys =
 				_fragmentCollectionManager.getSortedFragmentCollectionKeys(
 					portalPreferences);
+
+			List<String> allFragmentCollectionKeys =
+				_getFragmentCollectionKeysList(
+					themeDisplay.getScopeGroupId(), httpServletRequest, false,
+					true, null, themeDisplay);
+
+			sortedFragmentCollectionKeys = _mergeFullFragmentCollectionKeys(
+				sortedFragmentCollectionKeys, allFragmentCollectionKeys);
 
 			_fragmentCollectionManager.updateSortedFragmentCollectionKeys(
 				portalPreferences,
@@ -255,10 +317,6 @@ public class UpdateFragmentPortletSetsSortConfigurationMVCActionCommand
 				portalPreferences,
 				sortedPortletCategoryKeys.toArray(new String[0]));
 		}
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
 
 		return JSONUtil.put(
 			"fragmentCollections",
