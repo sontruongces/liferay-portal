@@ -81,8 +81,8 @@ public class FriendlyURLNormalizerImpl implements FriendlyURLNormalizer {
 			else if (((CharPool.LOWER_CASE_A <= c) &&
 					  (c <= CharPool.LOWER_CASE_Z)) ||
 					 ((CharPool.NUMBER_0 <= c) && (c <= CharPool.NUMBER_9)) ||
-					 (c == CharPool.PERIOD) || (c == CharPool.SLASH) ||
-					 (c == CharPool.STAR) || (c == CharPool.UNDERLINE)) {
+					 (c == CharPool.SLASH) || (c == CharPool.STAR) ||
+					 (c == CharPool.UNDERLINE)) {
 
 				sb.append(c);
 			}
@@ -229,7 +229,7 @@ public class FriendlyURLNormalizerImpl implements FriendlyURLNormalizer {
 	static {
 		char[] replaceChars = {
 			'-', ' ', ',', '\\', '\'', '\"', '(', ')', '[', ']', '{', '}', '?',
-			'#', '@', '+', '~', ';', '$', '!', '=', ':', '&', '\u00a3',
+			'#', '@', '+', '~', ';', '$', '!', '=', ':', '&', '.', '\u00a3',
 			'\u2013', '\u2014', '\u2018', '\u2019', '\u201c', '\u201d'
 		};
 
