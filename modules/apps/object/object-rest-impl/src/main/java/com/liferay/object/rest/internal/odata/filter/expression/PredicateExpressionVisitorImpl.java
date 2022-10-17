@@ -21,6 +21,7 @@ import com.liferay.petra.sql.dsl.spi.expression.DefaultPredicate;
 import com.liferay.petra.sql.dsl.spi.expression.Operand;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -40,7 +41,16 @@ import com.liferay.portal.odata.filter.expression.MethodExpression;
 import com.liferay.portal.odata.filter.expression.PrimitivePropertyExpression;
 import com.liferay.portal.odata.filter.expression.UnaryExpression;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -257,6 +267,39 @@ public class PredicateExpressionVisitorImpl
 			StringPool.PERCENT + fieldValue + StringPool.PERCENT);
 	}
 
+	private String _convertDateFormat(String string) {
+		try {
+			DateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss");
+
+			Date date = dateFormat.parse(string);
+
+			dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS");
+
+			return dateFormat.format(date);
+		}
+		catch (ParseException parseException) {
+			throw new RuntimeException(parseException);
+		}
+	}
+
+	private String _getDriverName() {
+		try {
+			Connection connection = DataAccess.getConnection();
+
+			DatabaseMetaData metaData = connection.getMetaData();
+
+			String driverName = metaData.getDriverName();
+
+			connection.close();
+
+			return driverName;
+		}
+		catch (SQLException sqlException) {
+			throw new RuntimeException(sqlException);
+		}
+	}
+
 	private Optional<Predicate> _getPredicateOptional(
 		BinaryExpression.Operation operation, Object left, Object right) {
 
@@ -278,6 +321,12 @@ public class PredicateExpressionVisitorImpl
 
 		EntityField entityField = entityFieldsMap.get(
 			GetterUtil.getString(left));
+
+		if (_getDriverName().contains("HSQL")) {
+			String dateTimeString = right.toString();
+
+			right = _convertDateFormat(dateTimeString);
+		}
 
 		Column<?, Object> column =
 			(Column<?, Object>)_objectFieldLocalService.getColumn(
