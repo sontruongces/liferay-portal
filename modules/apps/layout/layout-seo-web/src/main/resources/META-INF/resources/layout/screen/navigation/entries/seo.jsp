@@ -38,7 +38,6 @@ UnicodeProperties layoutTypeSettings = selLayout.getTypeSettingsProperties();
 
 <portlet:actionURL copyCurrentRenderParameters="<%= true %>" name="/layout/edit_seo" var="editSEOURL">
 	<portlet:param name="mvcRenderCommandName" value="/layout/edit_seo" />
-	<portlet:param name="redirect" value="<%= currentURL %>" />
 	<portlet:param name="portletResource" value='<%= ParamUtil.getString(request, "portletResource") %>' />
 	<portlet:param name="groupId" value="<%= String.valueOf(layoutsSEODisplayContext.getGroupId()) %>" />
 	<portlet:param name="privateLayout" value="<%= String.valueOf(layoutsSEODisplayContext.isPrivateLayout()) %>" />
@@ -46,6 +45,8 @@ UnicodeProperties layoutTypeSettings = selLayout.getTypeSettingsProperties();
 </portlet:actionURL>
 
 <aui:form action="<%= editSEOURL %>" method="post" name="fm">
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+
 	<clay:sheet>
 		<clay:sheet-header>
 			<h2 class="sheet-title"><liferay-ui:message key="seo" /></h2>
