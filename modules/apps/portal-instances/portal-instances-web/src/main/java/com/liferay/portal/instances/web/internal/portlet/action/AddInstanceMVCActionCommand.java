@@ -31,7 +31,9 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.CompanyService;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -85,6 +87,11 @@ public class AddInstanceMVCActionCommand extends BaseMVCActionCommand {
 			jsonObject.put(
 				"error",
 				_language.get(actionRequest.getLocale(), errorMessage));
+
+			SessionMessages.add(
+				actionRequest,
+				_portal.getPortletId(actionRequest) +
+					SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_SUCCESS_MESSAGE);
 		}
 
 		JSONPortletResponseUtil.writeJSON(
@@ -130,6 +137,9 @@ public class AddInstanceMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private Language _language;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private PortalInstancesLocalService _portalInstancesLocalService;
