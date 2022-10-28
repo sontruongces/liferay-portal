@@ -50,6 +50,7 @@ PortletURL portletURL = editRoleAssignmentsManagementToolbarDisplayContext.getPo
 <clay:management-toolbar
 	clearResultsURL="<%= editRoleAssignmentsManagementToolbarDisplayContext.getClearResultsURL() %>"
 	creationMenu="<%= editRoleAssignmentsManagementToolbarDisplayContext.getCreationMenu() %>"
+	disabled="<%= editRoleAssignmentsManagementToolbarDisplayContext.isDisabled(searchContainer.getTotal()) %>"
 	filterDropdownItems="<%= editRoleAssignmentsManagementToolbarDisplayContext.getFilterDropdownItems() %>"
 	itemsTotal="<%= searchContainer.getTotal() %>"
 	propsTransformer="js/SelectAssigneesManagementToolbarPropsTransformer"

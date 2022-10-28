@@ -528,6 +528,17 @@ public class EditRoleAssignmentsManagementToolbarDisplayContext {
 		};
 	}
 
+	public Boolean isDisabled(int total) {
+		if ((total == 0) &&
+			Validator.isNull(
+				ParamUtil.getString(_httpServletRequest, "keywords"))) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	private final String _displayStyle;
 	private final HttpServletRequest _httpServletRequest;
 	private String _keywords;
