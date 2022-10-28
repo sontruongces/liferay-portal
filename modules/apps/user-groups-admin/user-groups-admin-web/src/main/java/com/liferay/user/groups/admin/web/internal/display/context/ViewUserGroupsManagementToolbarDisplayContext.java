@@ -255,6 +255,17 @@ public class ViewUserGroupsManagementToolbarDisplayContext {
 		};
 	}
 
+	public Boolean isDisabled() {
+		if ((_userGroupSearch.getTotal() == 0) &&
+			Validator.isNull(
+				ParamUtil.getString(_httpServletRequest, "keywords"))) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	public boolean showCreationMenu() throws PortalException {
 		return _hasAddUserGroupPermission();
 	}
