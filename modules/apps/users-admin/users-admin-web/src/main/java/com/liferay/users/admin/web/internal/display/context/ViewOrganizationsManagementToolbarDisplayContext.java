@@ -274,6 +274,17 @@ public class ViewOrganizationsManagementToolbarDisplayContext {
 		};
 	}
 
+	public Boolean isDisabled() {
+		if ((_organizationSearch.getTotal() == 0) &&
+			Validator.isNull(
+				ParamUtil.getString(_httpServletRequest, "keywords"))) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	public boolean showCreationMenu() throws PortalException {
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)_httpServletRequest.getAttribute(

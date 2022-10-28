@@ -71,6 +71,7 @@ if (filterManageableOrganizations) {
 			actionDropdownItems="<%= viewOrganizationsManagementToolbarDisplayContext.getActionDropdownItems() %>"
 			clearResultsURL="<%= viewOrganizationsManagementToolbarDisplayContext.getClearResultsURL() %>"
 			creationMenu="<%= viewOrganizationsManagementToolbarDisplayContext.getCreationMenu() %>"
+			disabled="<%= viewOrganizationsManagementToolbarDisplayContext.isDisabled() %>"
 			filterDropdownItems="<%= viewOrganizationsManagementToolbarDisplayContext.getFilterDropdownItems() %>"
 			itemsTotal="<%= searchContainer.getTotal() %>"
 			searchActionURL="<%= viewOrganizationsManagementToolbarDisplayContext.getSearchActionURL() %>"
