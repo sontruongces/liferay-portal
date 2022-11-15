@@ -360,6 +360,22 @@ public class AccountAddressResourceImpl
 					CommerceAddressConstants.ADDRESS_TYPE_BILLING_AND_SHIPPING),
 				_serviceContextHelper.getServiceContext());
 
+		if (Boolean.TRUE.equals(accountAddress.getDefaultBilling())) {
+			_commerceAccountService.updateDefaultBillingAddress(
+				commerceAccount.getCommerceAccountId(),
+				commerceAddress.getCommerceAddressId());
+
+			commerceAddress.setDefaultBilling(true);
+		}
+
+		if (Boolean.TRUE.equals(accountAddress.getDefaultShipping())) {
+			_commerceAccountService.updateDefaultShippingAddress(
+				commerceAccount.getCommerceAccountId(),
+				commerceAddress.getCommerceAddressId());
+
+			commerceAddress.setDefaultShipping(true);
+		}
+
 		return _accountAddressDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
 				commerceAddress.getCommerceAddressId(),
