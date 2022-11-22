@@ -16,7 +16,7 @@ package com.liferay.knowledge.base.web.internal.util;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemListBuilder;
-import com.liferay.knowledge.base.configuration.KBGroupServiceConfiguration;
+import com.liferay.knowledge.base.configuration.KBGroupServiceOverriddenConfiguration;
 import com.liferay.knowledge.base.constants.KBActionKeys;
 import com.liferay.knowledge.base.constants.KBArticleConstants;
 import com.liferay.knowledge.base.constants.KBCommentConstants;
@@ -68,11 +68,13 @@ import javax.portlet.PortletRequest;
 public class KBDropdownItemsProvider {
 
 	public KBDropdownItemsProvider(
-		KBGroupServiceConfiguration kbGroupServiceConfiguration,
+		KBGroupServiceOverriddenConfiguration
+			kbGroupServiceOverriddenConfiguration,
 		LiferayPortletRequest liferayPortletRequest,
 		LiferayPortletResponse liferayPortletResponse) {
 
-		_kbGroupServiceConfiguration = kbGroupServiceConfiguration;
+		_kbGroupServiceOverriddenConfiguration =
+			kbGroupServiceOverriddenConfiguration;
 		_liferayPortletRequest = liferayPortletRequest;
 		_liferayPortletResponse = liferayPortletResponse;
 
@@ -833,9 +835,10 @@ public class KBDropdownItemsProvider {
 					).setResourceID(
 						"kbArticleRSS"
 					).buildString(),
-					_kbGroupServiceConfiguration.rssDelta(),
-					_kbGroupServiceConfiguration.rssDisplayStyle(),
-					_kbGroupServiceConfiguration.rssFeedType(), null));
+					_kbGroupServiceOverriddenConfiguration.rssDelta(),
+					_kbGroupServiceOverriddenConfiguration.rssDisplayStyle(),
+					_kbGroupServiceOverriddenConfiguration.rssFeedType(),
+					null));
 			dropdownItem.setIcon("shortcut");
 			dropdownItem.setLabel("RSS");
 			dropdownItem.setTarget("_blank");
@@ -1105,8 +1108,8 @@ public class KBDropdownItemsProvider {
 	private Boolean _hasRSSPermission(KBArticle kbArticle) {
 		PortletDisplay portletDisplay = _themeDisplay.getPortletDisplay();
 
-		if ((_kbGroupServiceConfiguration != null) &&
-			_kbGroupServiceConfiguration.enableRSS() &&
+		if ((_kbGroupServiceOverriddenConfiguration != null) &&
+			_kbGroupServiceOverriddenConfiguration.enableRSS() &&
 			(kbArticle.isApproved() || !kbArticle.isFirstVersion()) &&
 			!Objects.equals(
 				portletDisplay.getRootPortletId(),
@@ -1287,7 +1290,8 @@ public class KBDropdownItemsProvider {
 	}
 
 	private final String _currentURL;
-	private final KBGroupServiceConfiguration _kbGroupServiceConfiguration;
+	private final KBGroupServiceOverriddenConfiguration
+		_kbGroupServiceOverriddenConfiguration;
 	private final LiferayPortletRequest _liferayPortletRequest;
 	private final LiferayPortletResponse _liferayPortletResponse;
 	private final ThemeDisplay _themeDisplay;

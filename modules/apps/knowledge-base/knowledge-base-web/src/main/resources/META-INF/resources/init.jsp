@@ -54,7 +54,7 @@ page import="com.liferay.document.library.kernel.exception.NoSuchFileException" 
 page import="com.liferay.document.library.kernel.util.DLValidatorUtil" %><%@
 page import="com.liferay.frontend.taglib.servlet.taglib.util.EmptyResultMessageKeys" %><%@
 page import="com.liferay.journal.model.JournalArticle" %><%@
-page import="com.liferay.knowledge.base.configuration.KBGroupServiceConfiguration" %><%@
+page import="com.liferay.knowledge.base.configuration.KBGroupServiceOverriddenConfiguration" %><%@
 page import="com.liferay.knowledge.base.constants.KBActionKeys" %><%@
 page import="com.liferay.knowledge.base.constants.KBArticleConstants" %><%@
 page import="com.liferay.knowledge.base.constants.KBCommentConstants" %><%@
@@ -192,7 +192,7 @@ String redirect = PortalUtil.escapeRedirect(ParamUtil.getString(request, "redire
 
 String rootPortletId = portletDisplay.getRootPortletId();
 
-KBGroupServiceConfiguration kbGroupServiceConfiguration = ConfigurationProviderUtil.getConfiguration(KBGroupServiceConfiguration.class, new GroupServiceSettingsLocator(themeDisplay.getScopeGroupId(), KBConstants.SERVICE_NAME));
+KBGroupServiceOverriddenConfiguration kbGroupServiceOverriddenConfiguration = ConfigurationProviderUtil.getConfiguration(KBGroupServiceOverriddenConfiguration.class, new GroupServiceSettingsLocator(themeDisplay.getScopeGroupId(), KBConstants.SERVICE_NAME));
 
 KBSectionPortletInstanceConfiguration kbSectionPortletInstanceConfiguration = portletDisplay.getPortletInstanceConfiguration(KBSectionPortletInstanceConfiguration.class);
 

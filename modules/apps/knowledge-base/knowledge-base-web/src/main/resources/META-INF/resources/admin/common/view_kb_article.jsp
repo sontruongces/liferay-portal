@@ -104,7 +104,7 @@ if (portletTitleBasedNavigation) {
 					<div class="autofit-col">
 
 						<%
-						KBDropdownItemsProvider kbDropdownItemsProvider = new KBDropdownItemsProvider(kbGroupServiceConfiguration, liferayPortletRequest, liferayPortletResponse);
+						KBDropdownItemsProvider kbDropdownItemsProvider = new KBDropdownItemsProvider(kbGroupServiceOverriddenConfiguration, liferayPortletRequest, liferayPortletResponse);
 						%>
 
 						<clay:dropdown-actions

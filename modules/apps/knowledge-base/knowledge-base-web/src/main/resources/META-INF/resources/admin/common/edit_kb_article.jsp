@@ -17,7 +17,7 @@
 <%@ include file="/admin/common/init.jsp" %>
 
 <%
-EditKBArticleDisplayContext editKBArticleDisplayContext = new EditKBArticleDisplayContext(kbGroupServiceConfiguration, liferayPortletRequest, liferayPortletResponse, portletConfig);
+EditKBArticleDisplayContext editKBArticleDisplayContext = new EditKBArticleDisplayContext(kbGroupServiceOverriddenConfiguration, liferayPortletRequest, liferayPortletResponse, portletConfig);
 
 if (editKBArticleDisplayContext.isPortletTitleBasedNavigation()) {
 	portletDisplay.setShowBackIcon(true);
@@ -304,7 +304,7 @@ if (editKBArticleDisplayContext.isPortletTitleBasedNavigation()) {
 						<div class="kb-entity-body">
 							<liferay-editor:editor
 								contents="<%= editKBArticleDisplayContext.getContent() %>"
-								editorName="<%= kbGroupServiceConfiguration.getEditorName() %>"
+								editorName="<%= kbGroupServiceOverriddenConfiguration.getEditorName() %>"
 								fileBrowserParams='<%=
 									HashMapBuilder.put(
 										"resourcePrimKey", String.valueOf(editKBArticleDisplayContext.getResourcePrimKey())

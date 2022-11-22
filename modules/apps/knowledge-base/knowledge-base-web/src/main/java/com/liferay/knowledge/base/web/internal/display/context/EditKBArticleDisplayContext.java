@@ -14,7 +14,7 @@
 
 package com.liferay.knowledge.base.web.internal.display.context;
 
-import com.liferay.knowledge.base.configuration.KBGroupServiceConfiguration;
+import com.liferay.knowledge.base.configuration.KBGroupServiceOverriddenConfiguration;
 import com.liferay.knowledge.base.constants.KBArticleConstants;
 import com.liferay.knowledge.base.constants.KBFolderConstants;
 import com.liferay.knowledge.base.constants.KBPortletKeys;
@@ -63,12 +63,14 @@ import javax.servlet.http.HttpServletRequest;
 public class EditKBArticleDisplayContext {
 
 	public EditKBArticleDisplayContext(
-		KBGroupServiceConfiguration kbGroupServiceConfiguration,
+		KBGroupServiceOverriddenConfiguration
+			kbGroupServiceOverriddenConfiguration,
 		LiferayPortletRequest liferayPortletRequest,
 		LiferayPortletResponse liferayPortletResponse,
 		PortletConfig portletConfig) {
 
-		_kbGroupServiceConfiguration = kbGroupServiceConfiguration;
+		_kbGroupServiceOverriddenConfiguration =
+			kbGroupServiceOverriddenConfiguration;
 		_liferayPortletRequest = liferayPortletRequest;
 		_liferayPortletResponse = liferayPortletResponse;
 		_portletConfig = portletConfig;
@@ -434,7 +436,7 @@ public class EditKBArticleDisplayContext {
 	}
 
 	public boolean isSourceURLEnabled() {
-		return _kbGroupServiceConfiguration.sourceURLEnabled();
+		return _kbGroupServiceOverriddenConfiguration.sourceURLEnabled();
 	}
 
 	public boolean isURLTitleDisabled() {
@@ -504,7 +506,8 @@ public class EditKBArticleDisplayContext {
 
 	private final HttpServletRequest _httpServletRequest;
 	private KBArticle _kbArticle;
-	private final KBGroupServiceConfiguration _kbGroupServiceConfiguration;
+	private final KBGroupServiceOverriddenConfiguration
+		_kbGroupServiceOverriddenConfiguration;
 	private KBSectionPortletInstanceConfiguration
 		_kbSectionPortletInstanceConfiguration;
 	private KBTemplate _kbTemplate;

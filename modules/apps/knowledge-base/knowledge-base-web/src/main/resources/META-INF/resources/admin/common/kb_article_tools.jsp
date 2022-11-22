@@ -21,12 +21,12 @@ KBArticle kbArticle = (KBArticle)request.getAttribute(KBWebKeys.KNOWLEDGE_BASE_K
 %>
 
 <div class="kb-article-tools">
-	<c:if test="<%= kbGroupServiceConfiguration.sourceURLEnabled() && Validator.isUrl(kbArticle.getSourceURL()) %>">
+	<c:if test="<%= kbGroupServiceOverriddenConfiguration.sourceURLEnabled() && Validator.isUrl(kbArticle.getSourceURL()) %>">
 		<a href="<%= HtmlUtil.escapeAttribute(kbArticle.getSourceURL()) %>" target="_blank">
 			<clay:label
 				cssClass="kb-article-source-url"
 				displayType="success"
-				label="<%= HtmlUtil.escape(kbGroupServiceConfiguration.sourceURLEditMessageKey()) %>"
+				label="<%= HtmlUtil.escape(kbGroupServiceOverriddenConfiguration.sourceURLEditMessageKey()) %>"
 			/>
 		</a>
 	</c:if>

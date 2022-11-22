@@ -23,7 +23,7 @@ if (PortalUtil.isRSSFeedsEnabled()) {
 	tabsNames += ",rss";
 }
 
-kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceConfiguration.class, kbGroupServiceConfiguration, request.getParameterMap(), "preferences--", "--");
+kbGroupServiceOverriddenConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceOverriddenConfiguration.class, kbGroupServiceOverriddenConfiguration, request.getParameterMap(), "preferences--", "--");
 %>
 
 <liferay-portlet:actionURL portletConfiguration="<%= true %>" var="configurationActionURL">
@@ -53,9 +53,9 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			<liferay-ui:section>
 				<liferay-frontend:fieldset-group>
 					<liferay-frontend:fieldset>
-						<aui:input label="name" name="preferences--emailFromName--" value="<%= kbGroupServiceConfiguration.emailFromName() %>" wrapperCssClass="lfr-input-text-container" />
+						<aui:input label="name" name="preferences--emailFromName--" value="<%= kbGroupServiceOverriddenConfiguration.emailFromName() %>" wrapperCssClass="lfr-input-text-container" />
 
-						<aui:input label="address" name="preferences--emailFromAddress--" value="<%= kbGroupServiceConfiguration.emailFromAddress() %>" wrapperCssClass="lfr-input-text-container" />
+						<aui:input label="address" name="preferences--emailFromAddress--" value="<%= kbGroupServiceOverriddenConfiguration.emailFromAddress() %>" wrapperCssClass="lfr-input-text-container" />
 					</liferay-frontend:fieldset>
 
 					<liferay-frontend:fieldset
@@ -139,9 +139,9 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			).put(
 				"[$COMPANY_NAME$]", LanguageUtil.get(resourceBundle, "the-company-name-associated-with-the-article")
 			).put(
-				"[$FROM_ADDRESS$]", HtmlUtil.escape(kbGroupServiceConfiguration.emailFromAddress())
+				"[$FROM_ADDRESS$]", HtmlUtil.escape(kbGroupServiceOverriddenConfiguration.emailFromAddress())
 			).put(
-				"[$FROM_NAME$]", HtmlUtil.escape(kbGroupServiceConfiguration.emailFromName())
+				"[$FROM_NAME$]", HtmlUtil.escape(kbGroupServiceOverriddenConfiguration.emailFromName())
 			).put(
 				"[$PORTAL_URL$]", PortalUtil.getPortalURL(themeDisplay)
 			).put(
@@ -156,11 +156,11 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			<liferay-ui:section>
 				<liferay-frontend:fieldset-group>
 					<liferay-frontend:email-notification-settings
-						emailBody="<%= kbGroupServiceConfiguration.emailKBArticleAddedBody() %>"
+						emailBody="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleAddedBody() %>"
 						emailDefinitionTerms="<%= emailDefinitionTerms %>"
-						emailEnabled="<%= kbGroupServiceConfiguration.emailKBArticleAddedEnabled() %>"
+						emailEnabled="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleAddedEnabled() %>"
 						emailParam="emailKBArticleAdded"
-						emailSubject="<%= kbGroupServiceConfiguration.emailKBArticleAddedSubject() %>"
+						emailSubject="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleAddedSubject() %>"
 					/>
 				</liferay-frontend:fieldset-group>
 			</liferay-ui:section>
@@ -168,11 +168,11 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			<liferay-ui:section>
 				<liferay-frontend:fieldset-group>
 					<liferay-frontend:email-notification-settings
-						emailBody="<%= kbGroupServiceConfiguration.emailKBArticleUpdatedBody() %>"
+						emailBody="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleUpdatedBody() %>"
 						emailDefinitionTerms="<%= emailDefinitionTerms %>"
-						emailEnabled="<%= kbGroupServiceConfiguration.emailKBArticleUpdatedEnabled() %>"
+						emailEnabled="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleUpdatedEnabled() %>"
 						emailParam="emailKBArticleUpdated"
-						emailSubject="<%= kbGroupServiceConfiguration.emailKBArticleUpdatedSubject() %>"
+						emailSubject="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleUpdatedSubject() %>"
 					/>
 				</liferay-frontend:fieldset-group>
 			</liferay-ui:section>
@@ -198,11 +198,11 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			<liferay-ui:section>
 				<liferay-frontend:fieldset-group>
 					<liferay-frontend:email-notification-settings
-						emailBody="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionReceivedBody() %>"
+						emailBody="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionReceivedBody() %>"
 						emailDefinitionTerms="<%= emailDefinitionTerms %>"
-						emailEnabled="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionReceivedEnabled() %>"
+						emailEnabled="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionReceivedEnabled() %>"
 						emailParam="emailKBArticleSuggestionReceived"
-						emailSubject="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionReceivedSubject() %>"
+						emailSubject="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionReceivedSubject() %>"
 					/>
 				</liferay-frontend:fieldset-group>
 			</liferay-ui:section>
@@ -210,11 +210,11 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			<liferay-ui:section>
 				<liferay-frontend:fieldset-group>
 					<liferay-frontend:email-notification-settings
-						emailBody="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionInProgressBody() %>"
+						emailBody="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionInProgressBody() %>"
 						emailDefinitionTerms="<%= emailDefinitionTerms %>"
-						emailEnabled="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionInProgressEnabled() %>"
+						emailEnabled="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionInProgressEnabled() %>"
 						emailParam="emailKBArticleSuggestionInProgress"
-						emailSubject="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionInProgressSubject() %>"
+						emailSubject="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionInProgressSubject() %>"
 					/>
 				</liferay-frontend:fieldset-group>
 			</liferay-ui:section>
@@ -222,11 +222,11 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 			<liferay-ui:section>
 				<liferay-frontend:fieldset-group>
 					<liferay-frontend:email-notification-settings
-						emailBody="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionResolvedBody() %>"
+						emailBody="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionResolvedBody() %>"
 						emailDefinitionTerms="<%= emailDefinitionTerms %>"
-						emailEnabled="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionResolvedEnabled() %>"
+						emailEnabled="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionResolvedEnabled() %>"
 						emailParam="emailKBArticleSuggestionResolved"
-						emailSubject="<%= kbGroupServiceConfiguration.emailKBArticleSuggestionResolvedSubject() %>"
+						emailSubject="<%= kbGroupServiceOverriddenConfiguration.emailKBArticleSuggestionResolvedSubject() %>"
 					/>
 				</liferay-frontend:fieldset-group>
 			</liferay-ui:section>
@@ -236,10 +236,10 @@ kbGroupServiceConfiguration = ParameterMapUtil.setParameterMap(KBGroupServiceCon
 					<liferay-frontend:fieldset-group>
 						<liferay-frontend:fieldset>
 							<liferay-rss:rss-settings
-								delta="<%= kbGroupServiceConfiguration.rssDelta() %>"
-								displayStyle="<%= kbGroupServiceConfiguration.rssDisplayStyle() %>"
-								enabled="<%= kbGroupServiceConfiguration.enableRSS() %>"
-								feedType="<%= kbGroupServiceConfiguration.rssFeedType() %>"
+								delta="<%= kbGroupServiceOverriddenConfiguration.rssDelta() %>"
+								displayStyle="<%= kbGroupServiceOverriddenConfiguration.rssDisplayStyle() %>"
+								enabled="<%= kbGroupServiceOverriddenConfiguration.enableRSS() %>"
+								feedType="<%= kbGroupServiceOverriddenConfiguration.rssFeedType() %>"
 							/>
 						</liferay-frontend:fieldset>
 					</liferay-frontend:fieldset-group>
