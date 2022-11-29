@@ -599,7 +599,8 @@ export default function ActionBuilder({
 								if (value === 'add-object-entry') {
 									fetchObjectDefinitions();
 								}
-								setValues({
+
+								return values.objectActionExecutorKey === value ? '' : setValues({
 									objectActionExecutorKey: value,
 									parameters: {},
 								});
