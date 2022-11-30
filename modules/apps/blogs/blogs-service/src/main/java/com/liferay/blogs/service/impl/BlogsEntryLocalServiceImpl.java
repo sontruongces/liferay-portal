@@ -34,11 +34,13 @@ import com.liferay.blogs.settings.BlogsGroupServiceSettings;
 import com.liferay.blogs.social.BlogsActivityKeys;
 import com.liferay.blogs.util.comparator.EntryDisplayDateComparator;
 import com.liferay.blogs.util.comparator.EntryIdComparator;
+import com.liferay.depot.group.provider.SiteConnectedGroupGroupProvider;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.expando.kernel.service.ExpandoRowLocalService;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.friendly.url.exception.DuplicateFriendlyURLEntryException;
 import com.liferay.friendly.url.model.FriendlyURLEntry;
+import com.liferay.friendly.url.model.FriendlyURLEntryLocalization;
 import com.liferay.friendly.url.service.FriendlyURLEntryLocalService;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
@@ -46,6 +48,9 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.comment.CommentManager;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.Property;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -53,6 +58,7 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
 import com.liferay.portal.kernel.model.Repository;
 import com.liferay.portal.kernel.model.ResourceConstants;
@@ -94,6 +100,7 @@ import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HtmlParser;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Http;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Localization;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -1714,6 +1721,25 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 				BlogsGroupServiceConfiguration.class.getName()));
 	}
 
+	private Set<Long> _getCurrentAndAncestorSiteAndDepotGroupIds(long groupId) {
+		Set<Long> groupIds;
+
+		try {
+			groupIds = SetUtil.fromArray(
+				_siteConnectedGroupGroupProvider.
+					getCurrentAndAncestorSiteAndDepotGroupIds(groupId));
+		}
+		catch (PortalException portalException) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(portalException);
+			}
+
+			groupIds = SetUtil.fromArray(groupId);
+		}
+
+		return groupIds;
+	}
+
 	private String _getEntryURL(BlogsEntry entry, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -1763,6 +1789,24 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		).buildString();
 	}
 
+	private long _getGlobalGroudId() {
+		DynamicQuery groupDynamicQuery = _groupLocalService.dynamicQuery();
+		Property companyIdProperty = PropertyFactoryUtil.forName("companyId");
+		Property classPKProperty = PropertyFactoryUtil.forName("classPK");
+
+		groupDynamicQuery.add(companyIdProperty.eqProperty(classPKProperty));
+
+		List<Group> groups = _groupLocalService.dynamicQuery(groupDynamicQuery);
+
+		if (groups.isEmpty()) {
+			return 0;
+		}
+
+		Group globalGroup = groups.get(0);
+
+		return globalGroup.getGroupId();
+	}
+
 	private String _getGroupDescriptiveName(Group group, Locale locale) {
 		try {
 			return group.getDescriptiveName(locale);
@@ -1794,6 +1838,19 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 			themeDisplay);
 	}
 
+	private Set<Long> _getSiteGroupIds(long companyId) {
+		List<Group> groups = _groupLocalService.getGroups(
+			companyId, GroupConstants.DEFAULT_PARENT_GROUP_ID, true);
+
+		Set<Long> groupIds = new HashSet<>();
+
+		for (Group group : groups) {
+			groupIds.add(group.getGroupId());
+		}
+
+		return groupIds;
+	}
+
 	private String _getUniqueFileName(
 			long groupId, String fileName, long folderId)
 		throws PortalException {
@@ -1809,6 +1866,8 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	private String _getUniqueUrlTitle(BlogsEntry entry, String newTitle) {
 		long entryId = entry.getEntryId();
+
+		_getGlobalGroudId();
 
 		String urlTitle = null;
 
@@ -1833,10 +1892,84 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 				BlogsEntry.class.getName(), "urlTitle", urlTitle);
 		}
 
-		return _friendlyURLEntryLocalService.getUniqueUrlTitle(
-			entry.getGroupId(),
-			_classNameLocalService.getClassNameId(BlogsEntry.class),
+		Set<Long> groupIds = new HashSet<>();
+
+		long globalGroupId = _getGlobalGroudId();
+
+		if (globalGroupId == entry.getGroupId()) {
+			groupIds.addAll(_getSiteGroupIds(entry.getCompanyId()));
+		}
+		else if (globalGroupId != 0) {
+			groupIds = _getCurrentAndAncestorSiteAndDepotGroupIds(
+				entry.getGroupId());
+
+			groupIds.add(globalGroupId);
+		}
+
+		return _getUniqueUrlTitle(
+			groupIds, _classNameLocalService.getClassNameId(BlogsEntry.class),
 			entry.getEntryId(), urlTitle, null);
+	}
+
+	private String _getUniqueUrlTitle(
+		Set<Long> groupIds, long classNameId, long classPK, String urlTitle,
+		String languageId) {
+
+		if (urlTitle.startsWith(StringPool.SLASH)) {
+			urlTitle = urlTitle.replaceAll("^/+", StringPool.SLASH);
+		}
+
+		String normalizedUrlTitle =
+			_friendlyURLNormalizer.normalizeWithEncoding(urlTitle);
+
+		int maxLength = ModelHintsUtil.getMaxLength(
+			FriendlyURLEntryLocalization.class.getName(), "urlTitle");
+
+		String curUrlTitle = _getURLEncodedSubstring(
+			urlTitle, normalizedUrlTitle, maxLength);
+
+		String prefix = curUrlTitle;
+
+		if (Validator.isNull(languageId)) {
+			languageId = LocaleUtil.toLanguageId(LocaleUtil.getSiteDefault());
+		}
+
+		for (int i = 1;
+			 _hasFriendlyURLEntryWithUrlTitle(
+				 groupIds, classNameId, classPK, curUrlTitle, languageId);
+			 i++) {
+
+			String suffix = StringPool.DASH + i;
+
+			prefix = _getURLEncodedSubstring(
+				urlTitle, prefix, maxLength - suffix.length());
+
+			curUrlTitle = _friendlyURLNormalizer.normalizeWithEncoding(
+				prefix + suffix);
+		}
+
+		return curUrlTitle;
+	}
+
+	private String _getURLEncodedSubstring(
+		String decodedString, String encodedString, int maxLength) {
+
+		int endPos = decodedString.length();
+
+		while (encodedString.length() > maxLength) {
+			endPos--;
+
+			if ((endPos > 0) &&
+				Character.isHighSurrogate(decodedString.charAt(endPos - 1))) {
+
+				endPos--;
+			}
+
+			encodedString = _friendlyURLNormalizer.normalizeWithEncoding(
+				decodedString.substring(0, endPos));
+		}
+
+		return encodedString;
 	}
 
 	private String _getURLTitle(long entryId) {
@@ -1860,6 +1993,36 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 		}
 
 		return true;
+	}
+
+	private boolean _hasFriendlyURLEntryWithUrlTitle(
+		Set<Long> groupIds, long classNameId, long notClassPK, String urlTitle,
+		String languageId) {
+
+		for (long groupId : groupIds) {
+			FriendlyURLEntryLocalization friendlyURLEntryLocalization =
+				_friendlyURLEntryLocalService.fetchFriendlyURLEntryLocalization(
+					groupId, classNameId, languageId, urlTitle);
+
+			if ((friendlyURLEntryLocalization != null) &&
+				(friendlyURLEntryLocalization.getClassPK() != notClassPK)) {
+
+				return true;
+			}
+
+			friendlyURLEntryLocalization =
+				_friendlyURLEntryLocalService.
+					fetchFriendlyURLEntryLocalizationNotLanguage(
+						groupId, classNameId, languageId, urlTitle, null);
+
+			if ((friendlyURLEntryLocalization != null) &&
+				(friendlyURLEntryLocalization.getClassPK() != notClassPK)) {
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private boolean _isValidImageMimeType(FileEntry fileEntry) {
@@ -2442,6 +2605,9 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 	@Reference
 	private ResourceLocalService _resourceLocalService;
+
+	@Reference
+	private SiteConnectedGroupGroupProvider _siteConnectedGroupGroupProvider;
 
 	@Reference
 	private SubscriptionLocalService _subscriptionLocalService;
