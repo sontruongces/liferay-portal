@@ -336,6 +336,17 @@ public class FriendlyURLEntryLocalServiceUtil {
 			friendlyURLEntryId, languageId);
 	}
 
+	public static com.liferay.friendly.url.model.FriendlyURLEntryLocalization
+		fetchFriendlyURLEntryLocalizationNotLanguage(
+			long groupId, long classNameId, String languageId, String urlTitle,
+			OrderByComparator
+				<com.liferay.friendly.url.model.FriendlyURLEntryLocalization>
+					orderByComparator) {
+
+		return getService().fetchFriendlyURLEntryLocalizationNotLanguage(
+			groupId, classNameId, languageId, urlTitle, orderByComparator);
+	}
+
 	public static FriendlyURLEntry fetchMainFriendlyURLEntry(
 		long classNameId, long classPK) {
 

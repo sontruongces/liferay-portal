@@ -345,6 +345,16 @@ public class FriendlyURLEntryLocalServiceImpl
 	}
 
 	@Override
+	public FriendlyURLEntryLocalization
+		fetchFriendlyURLEntryLocalizationNotLanguage(
+			long groupId, long classNameId, String languageId, String urlTitle,
+			OrderByComparator<FriendlyURLEntryLocalization> orderByComparator) {
+
+		return friendlyURLEntryLocalizationPersistence.fetchByG_C_NotL_U_First(
+			groupId, classNameId, languageId, urlTitle, orderByComparator);
+	}
+
+	@Override
 	public FriendlyURLEntry fetchMainFriendlyURLEntry(
 		long classNameId, long classPK) {
 

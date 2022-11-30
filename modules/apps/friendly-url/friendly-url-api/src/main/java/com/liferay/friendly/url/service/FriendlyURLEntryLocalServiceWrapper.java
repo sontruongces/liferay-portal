@@ -374,6 +374,19 @@ public class FriendlyURLEntryLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.friendly.url.model.FriendlyURLEntryLocalization
+		fetchFriendlyURLEntryLocalizationNotLanguage(
+			long groupId, long classNameId, String languageId, String urlTitle,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.friendly.url.model.FriendlyURLEntryLocalization>
+					orderByComparator) {
+
+		return _friendlyURLEntryLocalService.
+			fetchFriendlyURLEntryLocalizationNotLanguage(
+				groupId, classNameId, languageId, urlTitle, orderByComparator);
+	}
+
+	@Override
 	public FriendlyURLEntry fetchMainFriendlyURLEntry(
 		long classNameId, long classPK) {
 

@@ -279,6 +279,12 @@ public interface FriendlyURLEntryLocalService
 		long friendlyURLEntryId, String languageId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public FriendlyURLEntryLocalization
+		fetchFriendlyURLEntryLocalizationNotLanguage(
+			long groupId, long classNameId, String languageId, String urlTitle,
+			OrderByComparator<FriendlyURLEntryLocalization> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FriendlyURLEntry fetchMainFriendlyURLEntry(
 		long classNameId, long classPK);
 
