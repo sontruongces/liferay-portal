@@ -16,6 +16,7 @@ package com.liferay.blogs.web.internal.layout.display.page;
 
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.blogs.service.BlogsEntryLocalService;
+import com.liferay.depot.group.provider.SiteConnectedGroupGroupProvider;
 import com.liferay.info.item.InfoItemReference;
 import com.liferay.layout.display.page.LayoutDisplayPageObjectProvider;
 import com.liferay.layout.display.page.LayoutDisplayPageProvider;
@@ -64,8 +65,7 @@ public class BlogsLayoutDisplayPageProvider
 		getLayoutDisplayPageObjectProvider(long groupId, String urlTitle) {
 
 		try {
-			BlogsEntry blogsEntry = _blogsEntryLocalService.getEntry(
-				groupId, urlTitle);
+			BlogsEntry blogsEntry = _getBlogsEntry(groupId, urlTitle);
 
 			if (blogsEntry.isInTrash()) {
 				return null;
@@ -83,7 +83,28 @@ public class BlogsLayoutDisplayPageProvider
 		return FriendlyURLResolverConstants.URL_SEPARATOR_BLOGS_ENTRY;
 	}
 
+	private BlogsEntry _getBlogsEntry(long groupId, String urlTitle)
+		throws PortalException {
+
+		for (long connectedGroupId :
+				_siteConnectedGroupGroupProvider.
+					getCurrentAndAncestorSiteAndDepotGroupIds(groupId)) {
+
+			BlogsEntry blogsEntry = _blogsEntryLocalService.fetchEntry(
+				connectedGroupId, urlTitle);
+
+			if (blogsEntry != null) {
+				return blogsEntry;
+			}
+		}
+
+		return null;
+	}
+
 	@Reference
 	private BlogsEntryLocalService _blogsEntryLocalService;
+
+	@Reference
+	private SiteConnectedGroupGroupProvider _siteConnectedGroupGroupProvider;
 
 }
