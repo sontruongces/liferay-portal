@@ -46,10 +46,19 @@ request.setAttribute(KBWebKeys.KNOWLEDGE_BASE_KB_NAVIGATION_DISPLAY_CONTEXT, kbN
 
 		<%
 		renderRequest.setAttribute(KBWebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
+
+		String messageText = null;
+
+		if (KBFolderConstants.DEFAULT_PARENT_FOLDER_ID != kbDisplayPortletInstanceConfiguration.resourcePrimKey()) {
+			messageText = "the-selected-knowledge-base-is-empty";
+		}
+		else {
+			messageText = "please-configure-this-portlet-to-make-it-visible-to-all-users";
+		}
 		%>
 
 		<div class="alert alert-info portlet-configuration">
-			<aui:a href="<%= portletDisplay.getURLConfiguration() %>" label="please-configure-this-portlet-to-make-it-visible-to-all-users" onClick="<%= portletDisplay.getURLConfigurationJS() %>" />
+			<aui:a href="<%= portletDisplay.getURLConfiguration() %>" label="<%= messageText %>" onClick="<%= portletDisplay.getURLConfigurationJS() %>" />
 		</div>
 	</c:otherwise>
 </c:choose>
