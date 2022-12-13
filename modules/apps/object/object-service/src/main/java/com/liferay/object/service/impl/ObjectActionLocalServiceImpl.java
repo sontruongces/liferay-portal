@@ -90,6 +90,8 @@ public class ObjectActionLocalServiceImpl
 			UnicodeProperties parametersUnicodeProperties)
 		throws PortalException {
 
+		User user = _userLocalService.getUser(userId);
+
 		_validateErrorMessage(errorMessageMap, objectActionTriggerKey);
 		_validateLabel(labelMap);
 		_validateName(0, objectDefinitionId, name);
@@ -98,15 +100,14 @@ public class ObjectActionLocalServiceImpl
 			conditionExpression, objectActionTriggerKey);
 		_validateParametersUnicodeProperties(
 			conditionExpression, objectActionExecutorKey,
-			objectActionTriggerKey, parametersUnicodeProperties);
+			objectActionTriggerKey, parametersUnicodeProperties,
+			user.getCompanyId());
 
 		ObjectDefinition objectDefinition =
 			_objectDefinitionPersistence.findByPrimaryKey(objectDefinitionId);
 
 		ObjectAction objectAction = objectActionPersistence.create(
 			counterLocalService.increment());
-
-		User user = _userLocalService.getUser(userId);
 
 		objectAction.setCompanyId(user.getCompanyId());
 		objectAction.setUserId(user.getUserId());
@@ -197,7 +198,7 @@ public class ObjectActionLocalServiceImpl
 		_validateObjectActionExecutorKey(objectActionExecutorKey);
 		_validateParametersUnicodeProperties(
 			conditionExpression, objectActionExecutorKey,
-			objectActionTriggerKey, parametersUnicodeProperties);
+			objectActionTriggerKey, parametersUnicodeProperties, 0);
 
 		ObjectAction objectAction = objectActionPersistence.findByPrimaryKey(
 			objectActionId);
@@ -361,7 +362,7 @@ public class ObjectActionLocalServiceImpl
 	private void _validateParametersUnicodeProperties(
 			String conditionExpression, String objectActionExecutorKey,
 			String objectActionTriggerKey,
-			UnicodeProperties parametersUnicodeProperties)
+			UnicodeProperties parametersUnicodeProperties, long companyId)
 		throws PortalException {
 
 		Map<String, Object> errorMessageKeys = new HashMap<>();
@@ -407,9 +408,21 @@ public class ObjectActionLocalServiceImpl
 			long objectDefinitionId = GetterUtil.getLong(
 				parametersUnicodeProperties.get("objectDefinitionId"));
 
-			ObjectDefinition objectDefinition =
-				_objectDefinitionPersistence.fetchByPrimaryKey(
-					objectDefinitionId);
+			ObjectDefinition objectDefinition = null;
+
+			if ((objectDefinitionId == 0) && (companyId != 0)) {
+				objectDefinition = _objectDefinitionPersistence.fetchByERC_C(
+					parametersUnicodeProperties.get(
+						"objectDefinitionExternalReferenceCode"),
+					companyId);
+
+				objectDefinitionId = objectDefinition.getObjectDefinitionId();
+			}
+			else {
+				objectDefinition =
+					_objectDefinitionPersistence.fetchByPrimaryKey(
+						objectDefinitionId);
+			}
 
 			if ((objectDefinition == null) || !objectDefinition.isActive() ||
 				!objectDefinition.isApproved() || objectDefinition.isSystem()) {
