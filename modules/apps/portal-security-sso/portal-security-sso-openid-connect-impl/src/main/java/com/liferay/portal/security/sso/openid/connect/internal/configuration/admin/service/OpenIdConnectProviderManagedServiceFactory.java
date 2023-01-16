@@ -154,7 +154,12 @@ public class OpenIdConnectProviderManagedServiceFactory
 			return;
 		}
 
-		_updateOAuthClientEntry(companyId, oldProviderName, properties);
+		if (oldProperties != null) {
+			_updateOAuthClientEntry(companyId, oldProviderName, oldProperties);
+		}
+		else {
+			_updateOAuthClientEntry(companyId, oldProviderName, properties);
+		}
 	}
 
 	private String _deleteOAuthClientASLocalMetadata(
@@ -459,7 +464,7 @@ public class OpenIdConnectProviderManagedServiceFactory
 
 	private void _updateOAuthClientEntry(
 		long companyId, String oldProviderName,
-		Dictionary<String, ?> properties) {
+		Dictionary<String, ?> oldProperties) {
 
 		long defaultUserId = 0;
 
@@ -475,13 +480,17 @@ public class OpenIdConnectProviderManagedServiceFactory
 		}
 
 		try {
+			Dictionary<String, ?> properties = _properties.get(
+				GetterUtil.getString(oldProperties.get(Constants.SERVICE_PID)));
+
 			String authServerWellKnownURI = _updateOAuthClientASLocalMetadata(
 				defaultUserId, properties);
 
 			OAuthClientEntry oAuthClientEntry =
 				_oAuthClientEntryLocalService.fetchOAuthClientEntry(
 					companyId, authServerWellKnownURI,
-					_getPropertyAsString("openIdConnectClientId", properties));
+					_getPropertyAsString(
+						"openIdConnectClientId", oldProperties));
 
 			if (oAuthClientEntry == null) {
 				oAuthClientEntry =
